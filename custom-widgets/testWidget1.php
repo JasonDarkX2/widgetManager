@@ -8,3 +8,33 @@ version: 0.1
 Author URI:http://www.jasondarkx2.com/ 
 */ 
 ?>
+
+<?php
+
+class Archive_widget extends WP_Widget {
+
+function __construct() {
+parent::__construct(
+// Base ID of your widget
+  'WM-testwidget1',
+        // Widget name will appear in UI
+__('Test Widget #1', 'WM_widget_domain'),
+        // Widget description
+array( 'description' => __( 'Test Widget for Widget manager', 'WM_widget_domain' ), ) 
+);
+}
+// Creating widget front-end
+public function widget( $args, $instance ) {
+
+    
+}
+// Widget Backend 
+public function form( $instance ) {
+    
+}
+// updating widget instances
+public function update( $new_instance, $old_instance ) {
+    
+}
+}
+?>
