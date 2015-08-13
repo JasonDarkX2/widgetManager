@@ -13,7 +13,7 @@ register_activation_hook(__FILE__,'WP-widgetManager');
 // Hook for adding admin menus
 if( is_admin() ){
   include( plugin_dir_path( __FILE__ ) . "options.php");
-    $my_settings_page = new easyVote();
+    $my_settings_page = new WMOptions();
 }
 class Widget_manager {
 	static $add_script;
