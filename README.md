@@ -6,13 +6,14 @@ Well this plugin is aim to bridge the gap between custom widgets and wordpress w
 * Allow user to easily install and remove widgets.  
 * The ability to disable and/or enable any available widgets via checklist in admin settings.
 * The ability to download new widgets via wordpress.
+
 ## Usage
 * download plugin.
 * install plugin by putting it in your wordpress plugin directory.
-* if custom widget is present and enable you should be able to see it in the widget section of wordpress.  
+* if custom widget is present and enable you should be able to see it in the widget section of Wordpress.  
 
 ## Author Information
-plugin is currently being developed JasondarkX2
+plugin is currently being developed JasonDarkX2
 
 ## Change Log
 v0.00- the beginning  
