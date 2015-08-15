@@ -35,7 +35,7 @@ class WMOptions
             'Settings Admin', 
             'Widget manager', 
             'manage_options', 
-            'my-setting-admin', 
+            'widget-Manager', 
             array( $this, 'create_admin_page' )
         );
     }
@@ -50,12 +50,12 @@ class WMOptions
         ?>
         <div class="wrap">
             <?php screen_icon(); ?>
-            <h2>My Settings</h2>           
+            <h2>Widget Manager</h2>           
             <form method="post" action="options.php">
             <?php
                 // This prints out all hidden setting fields
                 settings_fields( 'my_option_group' );   
-                do_settings_sections( 'my-setting-admin' );
+                do_settings_sections( 'widget-Manager' );
                 submit_button(); 
             ?>
             </form>
@@ -75,27 +75,20 @@ class WMOptions
         );
 
         add_settings_section(
-            'setting_section_id', // ID
-            'My Custom Settings', // Title
-            array( $this, 'print_section_info' ), // Callback
-            'my-setting-admin' // Page
-        );  
+            'Active_widgets', // ID
+            'Active widgets', // Title
+            array( $this, 'acive_widget_callback' ), // Callback
+            'widget-Manager' // Page
+        );
+        
+        add_settings_section(
+            'Available', // ID
+            'Available widgets', // Title
+            array( $this, 'available_Widgets_callback' ), // Callback
+            'widget-Manager' // Page
+        );
+          
 
-        add_settings_field(
-            'acive_widgets', // ID
-            'Active Widgets', // Title 
-            array( $this, 'widget_callback' ), // Callback
-            'my-setting-admin', // Page
-            'setting_section_id' // Section           
-        );      
-
-        add_settings_field(
-            'available_widgets', 
-            'available Widgets', 
-            array( $this, 'widget_callback' ), 
-            'my-setting-admin', 
-            'setting_section_id'
-        );      
     }
 
     /**
@@ -106,11 +99,11 @@ class WMOptions
     public function sanitize( $input )
     {
         $new_input = array();
-        if( isset( $input['Poll_Title'] ) )
-            $new_input['Poll_Title'] = sanitize_text_field( $input['Poll_Title'] );
+        if( isset( $input['acive_widgets'] ) )
+            $new_input['acive_widgets'] = sanitize_text_field( $input['acive_widgets'] );
 
-        if( isset( $input['Poll_Items'] ) )
-            $new_input['Poll_Items'] = sanitize_text_field( $input['Poll_Items'] );
+        if( isset( $input['available Widgets'] ) )
+            $new_input['available Widgets'] = sanitize_text_field( $input['available Widgets'] );
 
         return $new_input;
     }
@@ -126,24 +119,31 @@ class WMOptions
     /** 
      * Get the settings option array and print one of its values
      */
-    public function Poll_Title_callback()
+    public function acive_widget_callback()
     {
-        printf(
-            '<input type="text" id="Poll_Title" name="my_option_name[Poll_Title]" value="%s" />',
-            isset( $this->options['Poll_Title'] ) ? esc_attr( $this->options['Poll_Title']) : ''
-        );
+
     }
 
     /** 
      * Get the settings option array and print one of its values
      */
-    public function Poll_Items_callback()
+    public function available_Widgets_callback()
     {
-        printf(
-            '<input type="text" id="Poll_Items" name="my_option_name[Poll_Items]" value="%s" />',
-            isset( $this->options['Poll_Items'] ) ? esc_attr( $this->options['Poll_Items']) : ''
-        );
-    }
+    $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );
+    $wvalue=esc_html( var_export( $widgets, TRUE) );?> 
+    <table border="1px">
+        <tr><th><input type="checkbox" name="select all" onclick="selectall()"></th><th> Widgets</th><th> Enabled</th><th>Disabled</th></tr>
+    <?php foreach($widgets as $widget):?>
+
+        <tr>
+            <td><input type="checkbox" name="<?php echo $widget; ?>" value="<?php echo $widget; ?>"></td>
+            <td><?php echo $widget; ?></td>
+            <td><input type="radio" name="<?php echo $widget; ?>" value="enable"></td>
+            <td><input type="radio" name="<?php echo $widget;?>" value="disable"></td>
+        </tr>
+    <?php endforeach;?>
+    <?php echo "</table>";
+   }
 }
 
 ?>
