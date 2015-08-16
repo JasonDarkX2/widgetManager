@@ -129,15 +129,24 @@ class WMOptions
      */
     public function available_Widgets_callback()
     {
+        $defaultWidgets=array();
+        $customWidgets=Array();
     $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );
     $wvalue=esc_html( var_export( $widgets, TRUE) );?> 
     <table border="1px">
         <tr><th><input type="checkbox" name="select all" onclick="selectall()"></th><th> Widgets</th><th> Enabled</th><th>Disabled</th></tr>
     <?php foreach($widgets as $widget):?>
-
+<?php if(preg_match("/WP_(Widget|Nav)/", $widget)){
+    $type="<strong>(default)</strong>";
+    array_push($defaultWidgets, $widget);
+}else{
+    $type="<strong>(custom)</strong>";
+    array_push($customWidgets, $widget);
+} 
+?>
         <tr>
-            <td><input type="checkbox" name="<?php echo $widget; ?>" value="<?php echo $widget; ?>"></td>
-            <td><?php echo $widget; ?></td>
+            <td><input type="checkbox" name="<?php echo $widget ?>" value="<?php echo $widget; ?>"></td>
+            <td><?php echo $widget . $type; ?></td>
             <td><input type="radio" name="<?php echo $widget; ?>" value="enable"></td>
             <td><input type="radio" name="<?php echo $widget;?>" value="disable"></td>
         </tr>
