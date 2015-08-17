@@ -12,9 +12,82 @@ Author URI:http://www.jasondarkx2.com/
 register_activation_hook(__FILE__,'WP-widgetManager'); 
 // Hook for adding admin menus
 if( is_admin() ){
-  include( plugin_dir_path( __FILE__ ) . "options.php");
-    $my_settings_page = new WMOptions();
+  // create custom plugin settings menu
+add_action('admin_menu', 'my_cool_plugin_create_menu');
+
+
 }
+function my_cool_plugin_create_menu() {
+
+	//create new top-level menu
+	add_menu_page('My Cool Plugin Settings', 'Cool Settings', 'administrator', __FILE__, 'my_cool_plugin_settings_page' , plugins_url('/images/icon.png', __FILE__) );
+
+	//call register settings function
+	add_action( 'admin_init', 'add_plugin_page' );
+}
+function add_plugin_page()
+    {
+        // This page will be under "Settings"
+        add_options_page(
+            'Settings Admin', 
+            'Widget manager', 
+            'manage_options', 
+            'widget-Manager', 
+            array( $this, 'create_admin_page' )
+        );
+    }
+    
+    function page_init()
+    {        
+        register_setting(
+            'my_option_group', // Option group
+            'my_option_name', // Option name
+            array( $this, 'sanitize' ) // Sanitize
+        );
+
+        add_settings_section(
+            'Active_widgets', // ID
+            'Active widgets', // Title
+            array( $this, 'acive_widget_callback' ), // Callback
+            'widget-Manager' // Page
+        );
+        
+        add_settings_section(
+            'Available', // ID
+            'Available widgets', // Title
+            array( $this, 'available_Widgets_callback' ), // Callback
+            'widget-Manager' // Page
+        );
+          
+
+    }
+    function available_Widgets_callback()
+    {
+        $defaultWidgets=array();
+        $customWidgets=Array();
+    $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );
+    $wvalue=esc_html( var_export( $widgets, TRUE) );?> 
+    <table border="1px">
+        <tr><th><input type="checkbox" name="select all" onclick="selectall()"></th><th> Widgets</th><th>id</th><th> Enabled</th><th>Disabled</th></tr>
+    <?php foreach($widgets as $widget):?>
+<?php if(preg_match("/WP_(Widget|Nav)/", $widget)){
+    $type="<strong>(default)</strong>";
+    array_push($defaultWidgets, $widget);
+}else{
+    $type="<strong>(custom)</strong>";
+    array_push($customWidgets, $widget);
+} 
+?>
+        <tr>
+            <td><input type="checkbox" name="<?php echo $widget ?>" value="<?php echo $widget; ?>"></td>
+            <td><?php echo $widget . $type; ?></td>
+            <td><?php   ?></td>
+            <td><input type="radio" name="<?php echo $widget; ?>" checked="true" value="enable"></td>
+            <td><input type="radio" name="<?php echo $widget;?>" value="disable"></td>
+        </tr>
+    <?php endforeach;?>
+    <?php echo "</table>";
+   }
 class Widget_manager {
 	static $add_script;
         static function init(){
