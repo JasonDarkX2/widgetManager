@@ -99,11 +99,11 @@ class WMOptions
     public function sanitize( $input )
     {
         $new_input = array();
-        if( isset( $input['acive_widgets'] ) )
-            $new_input['acive_widgets'] = sanitize_text_field( $input['acive_widgets'] );
+        if( isset( $input['enabled_widgets'] ) )
+            $new_input['enabled_widgets'] = sanitize_text_field( $input['enabled_widgets'] );
 
-        if( isset( $input['available Widgets'] ) )
-            $new_input['available Widgets'] = sanitize_text_field( $input['available Widgets'] );
+        if( isset( $input['disabled_Widgets'] ) )
+            $new_input['disabled_Widgets'] = sanitize_text_field( $input['disabled_Widgets'] );
 
         return $new_input;
     }
@@ -134,7 +134,7 @@ class WMOptions
     $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );
     $wvalue=esc_html( var_export( $widgets, TRUE) );?> 
     <table border="1px">
-        <tr><th><input type="checkbox" name="select all" onclick="selectall()"></th><th> Widgets</th><th> Enabled</th><th>Disabled</th></tr>
+        <tr><th><input type="checkbox" name="select all" onclick="selectall()"></th><th> Widgets</th><th>id</th><th> Enabled</th><th>Disabled</th></tr>
     <?php foreach($widgets as $widget):?>
 <?php if(preg_match("/WP_(Widget|Nav)/", $widget)){
     $type="<strong>(default)</strong>";
@@ -147,7 +147,8 @@ class WMOptions
         <tr>
             <td><input type="checkbox" name="<?php echo $widget ?>" value="<?php echo $widget; ?>"></td>
             <td><?php echo $widget . $type; ?></td>
-            <td><input type="radio" name="<?php echo $widget; ?>" value="enable"></td>
+            <td><?php   ?></td>
+            <td><input type="radio" name="<?php echo $widget; ?>" checked="true" value="enable"></td>
             <td><input type="radio" name="<?php echo $widget;?>" value="disable"></td>
         </tr>
     <?php endforeach;?>
