@@ -69,9 +69,13 @@ function add_plugin_page()
         $customWidgets=Array();
     $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );
     $wvalue=esc_html( var_export( $widgets, TRUE) );?> 
+    <h1> Widget Manager</h1>
+    <form  method="POST" action="<?php echo plugins_url('options.php', __FILE__); ?>">
     <table border="1px">
-        <tr><th><input type="checkbox" name="select all" onclick="selectall()"></th><th> Widgets</th><th>id</th><th> Enabled</th><th>Disabled</th></tr>
+        <tr><th><input type="checkbox" name="select all" onclick="selectall()"></th><th> Widgets</th><th> Enabled</th><th>Disabled</th></tr>
     <?php foreach($widgets as $widget):?>
+        <input type='hidden' name='count' value='$num' id='count'>
+        
 <?php if(preg_match("/WP_(Widget|Nav)/", $widget)){
     $type="<strong>(default)</strong>";
     array_push($defaultWidgets, $widget);
@@ -82,15 +86,15 @@ function add_plugin_page()
 ?>
         <tr>
             <td><input type="checkbox" name="<?php echo $widget ?>" value="<?php echo $widget; ?>"></td>
-            <td><?php echo $widget . $type; ?></td>
-            <td><?php   ?></td>
+            <td><input type='hidden' name='widgetId[]' value='<?php echo  $widget ?>' id='widgetId'> 
+                <?php echo $widget . $type; ?></td>
             <td><input type="radio" name="<?php echo $widget; ?>" checked="true" value="enable"></td>
             <td><input type="radio" name="<?php echo $widget;?>" value="disable"></td>
         </tr>
     <?php endforeach;?>
     <?php echo "</table>";
     submit_button(); 
-
+echo "</form>";
    }
 class Widget_manager {
 	static $add_script;
