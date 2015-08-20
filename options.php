@@ -9,15 +9,26 @@ Author URI:http://www.jasondarkx2.com/
 */ 
 ?>
 <?php
+$enablecon=0;
+ $disabledcon=0;
  $data = $_POST;
    $que_array = $data['widgetId'];
    foreach($que_array as $key => $value){
         $widgetId = $value;
     $option = 0;
-    if(isset($data['option_' . $widgetId])){
-        $option = $data['option_' . $widgetId];
+    if(isset($data[ $widgetId])){
+        $option = $data[$widgetId];
+        if($option=='enable'){
+             //register_widget($widgetId);
+            $enablecon++;
+        }
+        else{
+            //unregister_widget($widgetId);
+            $disabledcon++;
+        }
     }
 
         echo $widgetId . "--" . $option. "<br>";
    } 
+    echo "$enablecon enabled widgets and $disabledcon disabled widgets";
 ?>
