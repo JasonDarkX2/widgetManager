@@ -9,10 +9,11 @@ Author URI:http://www.jasondarkx2.com/
 */ 
 ?>
 <?php
+
 $enablecon=0;
  $disabledcon=0;
  $data = $_POST;
-   $que_array = $data['widgetId'];
+   $que_array = $data['widgetid'];
    foreach($que_array as $key => $value){
         $widgetId = $value;
     $option = 0;
