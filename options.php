@@ -19,12 +19,7 @@ if(isset($_POST['widgetid'])){
 }
 $enabled= get_option('enabled_widgets');
 $disabled= get_option('disabled_widgets');
-if($enabled==""){
-    $enabled=array();
-}
-if($disabled==""){
-    $disabled=array();
-}
+
 $enablecon=0;
  $disabledcon=0;
  $data = $_POST;
@@ -32,18 +27,39 @@ $enablecon=0;
    foreach($que_array as $key => $value){
         $widgetId = $value;
     $option = 0;
-    if(isset($data[ $widgetId])){
+  if(isset($data[ $widgetId])){
         $option = $data[$widgetId];
         if($option=='enable'){
              //register_widget($widgetId);
             $enablecon++;
-            array_push($enabled, $widgetId);
+             if(empty($enabled)){
+    $enabled=array($widgetId => 1);
+}
+            else if(array_key_exists($widgetId,$enabled)){
+                $enabled[$widgetId]=1;
+                if(array_key_exists($widgetId,$disabled)){
+                $disabled[$widgetId]=0;
+                }
+                echo "YUP";
+            }else{
+            array_push($enabled, $enabled[$widgetId] = 1);
+            array_pop($enabled);
+            echo "nope";
+            }
         }
         else{
             //unregister_widget($widgetId);
             $disabledcon++;
-            array_push($disabled, $widgetId);
-        }
+            if(count($disabled)==0){
+                $disabled=array($widgetId => 1);
+            }else if(array_key_exists($widgetId,$disabled)){
+                $disabled[$widgetId]=1;
+                if(array_key_exists($widgetId,$enabled)){
+                $enabled[$widgetId]=0;
+                }
+        }else{
+            array_push($disabled, $disabled[$widgetId] = 1);
+            array_pop($disabled);
     }
 
         echo $widgetId . "--" . $option. "<br>";
@@ -51,4 +67,6 @@ $enablecon=0;
     echo "$enablecon enabled widgets and $disabledcon disabled widgets";
     update_option('enabled_widgets', $enabled);
     update_option('disabled_widgets', $disabled);
+  }
+   }
 ?>
