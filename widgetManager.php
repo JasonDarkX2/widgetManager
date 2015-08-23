@@ -9,6 +9,7 @@ Author URI:http://www.jasondarkx2.com/
 */ 
 ?>
 <?php
+
 add_action('admin_menu', 'widget_manager_create_menu');
 
 function widget_manager_create_menu() {
@@ -26,8 +27,8 @@ function widget_manager_create_menu() {
 function register_widget_manager_settings() {
 	//register our settings
 	register_setting( 'WM-setting', 'widgetid' );
-	register_setting( 'WM-setting', 'some_other_option' );
-	register_setting( 'WM-setting', 'option_etc' );
+	register_setting( 'WM-setting', 'enabled_widgets' );
+	register_setting( 'WM-setting', 'disabled_widgets' );
 }
 
 function my_cool_plugin_settings_page() {?>
@@ -57,7 +58,7 @@ function my_cool_plugin_settings_page() {?>
 ?>
         <tr>
             <td><input type="checkbox" name="<?php echo $widget ?>" value="<?php echo $widget; ?>"></td>
-            <td><input type='hidden' name='widgetid[]' value='<?php echo  $widget ?>' id='widgetId'> 
+            <td><input type='hidden' name='widgetid[<?php echo $widget; ?>]' value='<?php echo  $widget ?>' id='widgetId'> 
                 <?php echo $widget . $type; ?></td>
             <td><input type="radio" name="<?php echo $widget; ?>" <?php checked( isset( $option[$widgetid] ) ); ?> value="enable"><?php echo get_option($widget);?></td>
             <td><input type="radio" name="<?php echo $widget;?>" <?php checked( isset( $option[$widgetid] ) ); ?> value="disable"></td>
@@ -69,8 +70,14 @@ function my_cool_plugin_settings_page() {?>
 
     </form>
     <?php echo "<b>DEBUG Section:</b>";
-echo get_option('widgetid');
-
+$s=get_option('widgetid');
+var_dump($s);
+$e=get_option('enabled_widgets');
+echo"<h1> Enabled widgets</h1>";
+var_dump($e);
+$d=get_option('disabled_widgets');
+echo"<h1> Disabled widgets</h1>";
+var_dump($d);
    ?>
 
     
