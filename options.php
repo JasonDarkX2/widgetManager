@@ -9,7 +9,22 @@ Author URI:http://www.jasondarkx2.com/
 */ 
 ?>
 <?php
-
+ 
+$parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
+ require_once( $parse_uri[0] . 'wp-load.php' );
+if(isset($_POST['widgetid'])){
+    $array=$_POST['widgetid'];
+    update_option('widgetid', $array );
+    
+}
+$enabled= get_option('enabled_widgets');
+$disabled= get_option('disabled_widgets');
+if($enabled==""){
+    $enabled=array();
+}
+if($disabled==""){
+    $disabled=array();
+}
 $enablecon=0;
  $disabledcon=0;
  $data = $_POST;
@@ -22,14 +37,18 @@ $enablecon=0;
         if($option=='enable'){
              //register_widget($widgetId);
             $enablecon++;
+            array_push($enabled, $widgetId);
         }
         else{
             //unregister_widget($widgetId);
             $disabledcon++;
+            array_push($disabled, $widgetId);
         }
     }
 
         echo $widgetId . "--" . $option. "<br>";
    } 
     echo "$enablecon enabled widgets and $disabledcon disabled widgets";
+    update_option('enabled_widgets', $enabled);
+    update_option('disabled_widgets', $disabled);
 ?>
