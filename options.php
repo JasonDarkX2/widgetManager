@@ -19,12 +19,7 @@ if(isset($_POST['widgetid'])){
 }
 $enabled= get_option('enabled_widgets');
 $disabled= get_option('disabled_widgets');
-if(empty($disabled)){
-    $disabled=array();
-}
-if(empty($enabled)){
-    $enabled=array();
-}
+
 $enablecon=0;
  $disabledcon=0;
  $data = $_POST;
@@ -38,40 +33,40 @@ $enablecon=0;
              //register_widget($widgetId);
             $enablecon++;
              if(empty($enabled)){
-    $enabled=array($widgetId => TRUE);
+    $enabled=array($widgetId => 1);
 }
             else if(array_key_exists($widgetId,$enabled)){
-                $enabled[$widgetId]=TRUE;
+                $enabled[$widgetId]=1;
                 if(array_key_exists($widgetId,$disabled)){
-                $disabled[$widgetId]=FALSE;
+                $disabled[$widgetId]=0;
                 }
+                echo "YUP";
             }else{
-            array_push($enabled, $enabled[$widgetId] = TRUE);
+            array_push($enabled, $enabled[$widgetId] = 1);
             array_pop($enabled);
+            echo "nope";
             }
         }
         else{
             //unregister_widget($widgetId);
             $disabledcon++;
             if(count($disabled)==0){
-                $disabled=array($widgetId => TRUE);
+                $disabled=array($widgetId => 1);
             }else if(array_key_exists($widgetId,$disabled)){
-                $disabled[$widgetId]=TRUE;
+                $disabled[$widgetId]=1;
                 if(array_key_exists($widgetId,$enabled)){
-                $enabled[$widgetId]=FALSE;
+                $enabled[$widgetId]=0;
                 }
         }else{
-            array_push($disabled, $disabled[$widgetId] = TRUE);
+            array_push($disabled, $disabled[$widgetId] = 1);
             array_pop($disabled);
     }
 
         echo $widgetId . "--" . $option. "<br>";
    } 
-
-    
-  }
-   }
-   echo "$enablecon enabled widgets and $disabledcon disabled widgets";
+    echo "$enablecon enabled widgets and $disabledcon disabled widgets";
     update_option('enabled_widgets', $enabled);
     update_option('disabled_widgets', $disabled);
+  }
+   }
 ?>
