@@ -55,13 +55,15 @@ function my_cool_plugin_settings_page() {?>
     $type="<strong>(custom)</strong>";
     array_push($customWidgets, $widget);
 } 
+$e=get_option('enabled_widgets');
+$d=get_option('disabled_widgets');
 ?>
         <tr>
             <td><input type="checkbox" name="<?php echo $widget ?>" value="<?php echo $widget; ?>"></td>
             <td><input type='hidden' name='widgetid[]' value='<?php echo  $widget ?>' id='widgetId'> 
                 <?php echo $widget . $type; ?></td>
-            <td><input type="radio" name="<?php echo $widget; ?>" <?php checked( isset( $option[$widgetid] ) ); ?> value="enable"><?php echo get_option($widget);?></td>
-            <td><input type="radio" name="<?php echo $widget;?>" <?php checked( isset( $option[$widgetid] ) ); ?> value="disable"></td>
+            <td><input type="radio" name="<?php echo $widget; ?>" value="enable" <?php checked(1,$e[$widget]); ?> ><?php echo get_option($widget);?></td>
+            <td><input type="radio" name="<?php echo $widget;?>" <?php checked(1,$d[$widget] ); ?> value="disable"></td>
         </tr>
     <?php endforeach;?>
         <tr>

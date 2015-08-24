@@ -19,7 +19,12 @@ if(isset($_POST['widgetid'])){
 }
 $enabled= get_option('enabled_widgets');
 $disabled= get_option('disabled_widgets');
-
+if(empty($disabled)){
+    $disabled=array();
+}
+if(empty($enabled)){
+    $enabled=array();
+}
 $enablecon=0;
  $disabledcon=0;
  $data = $_POST;
@@ -33,40 +38,40 @@ $enablecon=0;
              //register_widget($widgetId);
             $enablecon++;
              if(empty($enabled)){
-    $enabled=array($widgetId => 1);
+    $enabled=array($widgetId => TRUE);
 }
             else if(array_key_exists($widgetId,$enabled)){
-                $enabled[$widgetId]=1;
+                $enabled[$widgetId]=TRUE;
                 if(array_key_exists($widgetId,$disabled)){
-                $disabled[$widgetId]=0;
+                $disabled[$widgetId]=FALSE;
                 }
-                echo "YUP";
             }else{
-            array_push($enabled, $enabled[$widgetId] = 1);
+            array_push($enabled, $enabled[$widgetId] = TRUE);
             array_pop($enabled);
-            echo "nope";
             }
         }
         else{
             //unregister_widget($widgetId);
             $disabledcon++;
             if(count($disabled)==0){
-                $disabled=array($widgetId => 1);
+                $disabled=array($widgetId => TRUE);
             }else if(array_key_exists($widgetId,$disabled)){
-                $disabled[$widgetId]=1;
+                $disabled[$widgetId]=TRUE;
                 if(array_key_exists($widgetId,$enabled)){
-                $enabled[$widgetId]=0;
+                $enabled[$widgetId]=FALSE;
                 }
         }else{
-            array_push($disabled, $disabled[$widgetId] = 1);
+            array_push($disabled, $disabled[$widgetId] = TRUE);
             array_pop($disabled);
     }
 
         echo $widgetId . "--" . $option. "<br>";
    } 
-    echo "$enablecon enabled widgets and $disabledcon disabled widgets";
-    update_option('enabled_widgets', $enabled);
-    update_option('disabled_widgets', $disabled);
+
+    
   }
    }
+   echo "$enablecon enabled widgets and $disabledcon disabled widgets";
+    update_option('enabled_widgets', $enabled);
+    update_option('disabled_widgets', $disabled);
 ?>
