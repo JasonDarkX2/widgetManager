@@ -35,7 +35,6 @@ $enablecon=0;
   if(isset($data[ $widgetId])){
         $option = $data[$widgetId];
         if($option=='enable'){
-             //register_widget($widgetId);
             $enablecon++;
              if(empty($enabled)){
     $enabled=array($widgetId => TRUE);
@@ -51,7 +50,6 @@ $enablecon=0;
             }
         }
         else{
-            //unregister_widget($widgetId);
             $disabledcon++;
             if(count($disabled)==0){
                 $disabled=array($widgetId => TRUE);
@@ -74,4 +72,5 @@ $enablecon=0;
    echo "$enablecon enabled widgets and $disabledcon disabled widgets";
     update_option('enabled_widgets', $enabled);
     update_option('disabled_widgets', $disabled);
+    
 ?>
