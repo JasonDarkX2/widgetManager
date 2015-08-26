@@ -9,6 +9,16 @@ Author URI:http://www.jasondarkx2.com/
 */ 
 ?>
 <?php
+function remove_calendar_widget() {
+	$d=get_option('widgetid');
+        $dis=get_option('disabled_widgets');
+        foreach($d as $widget){
+            if(isset($dis[$widget])){
+            unregister_widget($widget);
+            }
+        }
+}
+add_action( 'widgets_init', 'remove_calendar_widget' );
 
 add_action('admin_menu', 'widget_manager_create_menu');
 
@@ -39,7 +49,7 @@ function my_cool_plugin_settings_page() {?>
     <?php settings_fields( 'WM-setting' ); ?>
     <?php do_settings_sections( 'WM-setting' ); ?>
     <table border='1px' >
-       <tr><th><input type="checkbox" name="select all" onclick="selectall()"></th><th> Widgets</th><th> Enabled</th><th>Disabled</th></tr>
+        <tr><th><input type="checkbox" name="select all" onclick="selectall()"></th><th> Widgets</th><th> Enabled</th><th>Disabled</th></tr>
     <?php  
     
         $defaultWidgets=array();
