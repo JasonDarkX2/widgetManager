@@ -9,7 +9,8 @@ Author URI:http://www.jasondarkx2.com/
 */ 
 ?>
 <?php
-function remove_calendar_widget() {
+
+function remove_disable_widget() {
 	$d=get_option('widgetid');
         $dis=get_option('disabled_widgets');
         foreach($d as $widget){
@@ -18,9 +19,12 @@ function remove_calendar_widget() {
             }
         }
 }
-add_action( 'widgets_init', 'remove_calendar_widget' );
+//add_action('init' ,init());
+//add_action( 'widgets_init', 'remove_disable_widget' );
 
 add_action('admin_menu', 'widget_manager_create_menu');
+
+
 
 function widget_manager_create_menu() {
 
@@ -54,8 +58,15 @@ function my_cool_plugin_settings_page() {?>
     
         $defaultWidgets=array();
         $customWidgets=Array();
-    $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );
-    $options = get_option( 'widgetId' ); foreach($widgets as $widget):?>
+    $w=get_option('widgetid');
+    if(empty($w)){
+        
+        $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );
+        update_option('widgetid', $widgets);
+    }else{
+  $widgets=$w;
+    }
+    foreach($widgets as $widget):?>
         <input type='hidden' name='count' value='$num' id='count'>
         
 <?php if(preg_match("/WP_(Widget|Nav)/", $widget)){
@@ -72,8 +83,8 @@ $d=get_option('disabled_widgets');
             <td><input type="checkbox" name="<?php echo $widget ?>" value="<?php echo $widget; ?>"></td>
             <td><input type='hidden' name='widgetid[]' value='<?php echo  $widget ?>' id='widgetId'> 
                 <?php echo $widget . $type; ?></td>
-            <td><input type="radio" name="<?php echo $widget; ?>" value="enable" <?php checked(1,$e[$widget]); ?> ><?php echo get_option($widget);?></td>
-            <td><input type="radio" name="<?php echo $widget;?>" <?php checked(1,$d[$widget] ); ?> value="disable"></td>
+            <td><input type="radio" name="<?php echo $widget; ?>" value="enable" <?php if( !empty($e) ){ checked( 1,$e[$widget] ); } ?> ><?php echo get_option($widget);?></td>
+            <td><input type="radio" name="<?php echo $widget;?>" <?php if(!empty($d)){checked(1,$d[$widget] );} ?> value="disable"></td>
         </tr>
     <?php endforeach;?>
         <tr>
@@ -92,6 +103,7 @@ echo"<h1> Disabled widgets</h1>";
 var_dump($d);
 //update_option('enabled_widgets', "");
 //update_option('disabled_widgets', "");
+//update_option('widgetid', "");
    ?>
 
     
