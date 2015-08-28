@@ -13,14 +13,18 @@ Author URI:http://www.jasondarkx2.com/
 function remove_disable_widget() {
 	$d=get_option('widgetid');
         $dis=get_option('disabled_widgets');
+        $e=get_option('enabled_widgets');
         foreach($d as $widget){
-            if(isset($dis[$widget])){
+            if($dis[$widget]==TRUE){
             unregister_widget($widget);
+            }else{ 
+            register_widget($widget);
+            }
             }
         }
-}
 //add_action('init' ,init());
-//add_action( 'widgets_init', 'remove_disable_widget' );
+add_action( 'widgets_init', 'remove_disable_widget' );
+
 
 add_action('admin_menu', 'widget_manager_create_menu');
 
