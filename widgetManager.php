@@ -92,10 +92,21 @@ $d=get_option('disabled_widgets');
         </tr>
     <?php endforeach;?>
         <tr>
+        <tr>
+            <td><strong>Quick Options</strong></td>
+            <td colspan="3"><b>Disable Defaults Only:</b><input type="radio" name="quickOp" value="disDefault">
+                <b>|Disable all custom widgets:</b><input type="radio" name="quickOp" value="disCust">
+                <b>|enable all Widgets:</b> <input type="radio" name="quickOp" value="disCust">
+            </td>
+        </tr>
     </table>
-    <?php submit_button(); ?>
-
+     <?php submit_button(); ?>
     </form>
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+    Upload a custom Widget
+    <input type="file" name="widgetToUpload" id="widgetToUpload">
+    <input type="submit" value="Upload" name="submit">
+</form>
     <?php echo "<b>DEBUG Section:</b>";
 $s=get_option('widgetid');
 var_dump($s);
