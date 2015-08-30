@@ -29,6 +29,22 @@ $enablecon=0;
  $disabledcon=0;
  $data = $_POST;
    $que_array = $data['widgetid'];
+   If(isset($_POST['quickOp'])){
+       if($_POST['quickOp']=='enbwid'){
+            foreach($que_array as $key => $value){
+        $widgetId = $value;
+        if(array_key_exists($widgetId,$enabled)){
+                $enabled[$widgetId]=TRUE;
+                if(array_key_exists($widgetId,$disabled)){
+                $disabled[$widgetId]=FALSE;
+                }
+                }else{
+            array_push($enabled, $enabled[$widgetId] = TRUE);
+            array_pop($enabled);
+            }
+       }
+   }
+   }else{
    foreach($que_array as $key => $value){
         $widgetId = $value;
     $option = 0;
@@ -68,6 +84,7 @@ $enablecon=0;
 
     
   }
+   }
    }
    echo "$enablecon enabled widgets and $disabledcon disabled widgets";
     update_option('enabled_widgets', $enabled);
