@@ -30,7 +30,8 @@ $enablecon=0;
  $data = $_POST;
    $que_array = $data['widgetid'];
    If(isset($_POST['quickOp'])){
-       if($_POST['quickOp']=='enbwid'){
+       switch($_POST['quickOp']){
+              case 'enbwid':
             foreach($que_array as $key => $value){
         $widgetId = $value;
         if(array_key_exists($widgetId,$enabled)){
@@ -43,6 +44,21 @@ $enablecon=0;
             array_pop($enabled);
             }
        }
+       break;
+        case 'diswid':
+            foreach($que_array as $key => $value){
+        $widgetId = $value;
+        if(array_key_exists($widgetId,$enabled)){
+                $enabled[$widgetId]=FALSE;
+                if(array_key_exists($widgetId,$disabled)){
+                $disabled[$widgetId]=TRUE;
+                }
+                }else{
+            array_push($disabled, $disabled[$widgetId] = FALSE);
+            array_pop($disabled);
+            }
+       }
+       break;
    }
    }else{
    foreach($que_array as $key => $value){
