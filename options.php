@@ -32,18 +32,7 @@ $enablecon=0;
    If(isset($_POST['quickOp'])){
        switch($_POST['quickOp']){
               case 'enbwid':
-            foreach($que_array as $key => $value){
-        $widgetId = $value;
-        if(array_key_exists($widgetId,$enabled)){
-                $enabled[$widgetId]=TRUE;
-                if(array_key_exists($widgetId,$disabled)){
-                $disabled[$widgetId]=FALSE;
-                }
-                }else{
-            array_push($enabled, $enabled[$widgetId] = TRUE);
-            array_pop($enabled);
-            }
-       }
+                  enable_all($que_array, $enabled, $disabled);
        break;
         case 'diswid':
             foreach($que_array as $key => $value){
@@ -105,5 +94,20 @@ $enablecon=0;
    echo "$enablecon enabled widgets and $disabledcon disabled widgets";
     update_option('enabled_widgets', $enabled);
     update_option('disabled_widgets', $disabled);
+    
+    function enable_all($que_array, &$enabled, &$disabled){
+        foreach($que_array as $key => $value){
+        $widgetId = $value;
+        if(array_key_exists($widgetId,$enabled)){
+                $enabled[$widgetId]=TRUE;
+                if(array_key_exists($widgetId,$disabled)){
+                $disabled[$widgetId]=FALSE;
+                }
+                }else{
+            array_push($enabled, $enabled[$widgetId] = TRUE);
+            array_pop($enabled);
+            }
+       }
+    }
     
 ?>
