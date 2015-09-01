@@ -47,6 +47,7 @@ function register_widget_manager_settings() {
 	register_setting( 'WM-setting', 'widgetid' );
 	register_setting( 'WM-setting', 'enabled_widgets' );
 	register_setting( 'WM-setting', 'disabled_widgets' );
+        register_setting( 'WM-setting', 'defaults' );
 }
 
 function my_cool_plugin_settings_page() {?>
@@ -79,7 +80,8 @@ function my_cool_plugin_settings_page() {?>
 }else{
     $type="<strong>(custom)</strong>";
     array_push($customWidgets, $widget);
-} 
+}
+update_option('defaults', $defaultWidgets);
 $e=get_option('enabled_widgets');
 $d=get_option('disabled_widgets');
 ?>
