@@ -35,18 +35,7 @@ $enablecon=0;
                   enable_all($que_array, $enabled, $disabled);
        break;
         case 'diswid':
-            foreach($que_array as $key => $value){
-        $widgetId = $value;
-        if(array_key_exists($widgetId,$enabled)){
-                $enabled[$widgetId]=FALSE;
-                if(array_key_exists($widgetId,$disabled)){
-                $disabled[$widgetId]=TRUE;
-                }
-                }else{
-            array_push($disabled, $disabled[$widgetId] = FALSE);
-            array_pop($disabled);
-            }
-       }
+            disable_all($que_array, $enabled, $disabled);
        break;
    }
    }else{
@@ -109,5 +98,19 @@ $enablecon=0;
             }
        }
     }
+     function disable_all($que_array, &$enabled, &$disabled){
+         foreach($que_array as $key => $value){
+        $widgetId = $value;
+        if(array_key_exists($widgetId,$enabled)){
+                $enabled[$widgetId]=FALSE;
+                if(array_key_exists($widgetId,$disabled)){
+                $disabled[$widgetId]=TRUE;
+                }
+                }else{
+            array_push($disabled, $disabled[$widgetId] = FALSE);
+            array_pop($disabled);
+            }
+       }
+     }
     
 ?>
