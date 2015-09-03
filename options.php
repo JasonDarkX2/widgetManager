@@ -31,12 +31,17 @@ $enablecon=0;
    $que_array = $data['widgetid'];
    If(isset($_POST['quickOp'])){
        switch($_POST['quickOp']){
-              case 'enbwid':
+        case 'enbwid':
                   enable_all($que_array, $enabled, $disabled);
-       break;
+            break;
         case 'diswid':
             disable_all($que_array, $enabled, $disabled);
-       break;
+            break;
+        case 'disDefault':
+            $defaultwid= get_option('defaults');
+            enable_all($que_array, $enabled, $disabled);
+            disable_all($defaultwid, $enabled, $disabled);
+            break;
    }
    }else{
    foreach($que_array as $key => $value){
