@@ -14,9 +14,10 @@ Well if they are going to be unused why leave them cluttering in wordpress widge
 
 ## Author Information
 plugin is currently being developed by JasonDarkX2
+
 [website](http://www.jasondarkx2.com/)
 
 ## Change Log
-V0.50- the base functionality of Widget Manager reached  Sept 2, 2015
-v0.00- the beginning  
+*V0.50- the base functionality of Widget Manager reached  Sept 2, 2015
+*v0.00- the beginning  
 
