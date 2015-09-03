@@ -13,7 +13,7 @@ Well if they are going to be unused why leave them cluttering in wordpress widge
 * if custom widget is present and enable you should be able to see it in the widget section of Wordpress.  
 
 ## Author Information
-plugin is currently being developed JasonDarkX2
+plugin is currently being developed by JasonDarkX2
 [website](http://www.jasondarkx2.com/)
 
 ## Change Log
