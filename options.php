@@ -42,6 +42,11 @@ $enablecon=0;
             enable_all($que_array, $enabled, $disabled);
             disable_all($defaultwid, $enabled, $disabled);
             break;
+        case 'enbDefault':
+            $defaultwid= get_option('defaults');
+            disable_all($que_array, $enabled, $disabled);
+            enable_all($defaultwid, $enabled, $disabled);
+            break;
    }
    }else{
    foreach($que_array as $key => $value){
