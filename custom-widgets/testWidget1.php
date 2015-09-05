@@ -11,12 +11,12 @@ Author URI:http://www.jasondarkx2.com/
 
 <?php
 
-class Test_widget extends WP_Widget {
+class Archive_widget extends WP_Widget {
 
 function __construct() {
 parent::__construct(
 // Base ID of your widget
-  'TDM-testwidget1',
+  'WM-testwidget1',
         // Widget name will appear in UI
 __('Test Widget #1', 'WM_widget_domain'),
         // Widget description
@@ -36,10 +36,5 @@ public function form( $instance ) {
 public function update( $new_instance, $old_instance ) {
     
 }
-
 }
-function test_widget() {
-	register_widget( 'Test_widget' );
-}
-add_action( 'widgets_init', 'Test_widget' );
 ?>
