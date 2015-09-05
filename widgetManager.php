@@ -96,9 +96,7 @@ $d=get_option('disabled_widgets');
         <tr>
         <tr>
             <td><strong>Quick Options</strong></td>
-            <td colspan="3">
-                <b>Enable Defaults Only:</b><input type="radio" name="quickOp" value="enbDefault">
-                <b>|Disable Defaults Only:</b><input type="radio" name="quickOp" value="disDefault">
+            <td colspan="3"><b>Disable Defaults Only:</b><input type="radio" name="quickOp" value="disDefault">
                 <b>|Disable all custom widgets:</b><input type="radio" name="quickOp" value="disCust">
                 <b>|Enable all Widgets:</b> <input type="radio" name="quickOp" value="enbwid">
                  <b>|Disable all Widgets:</b> <input type="radio" name="quickOp" value="diswid">
