@@ -22,8 +22,8 @@ function remove_disable_widget() {
             }
             }
         }
-//add_action('init' ,init());
-add_action( 'widgets_init', 'remove_disable_widget' );
+
+//add_action( 'widgets_init', 'remove_disable_widget' );
 
 
 add_action('admin_menu', 'widget_manager_create_menu');
@@ -66,8 +66,11 @@ function my_cool_plugin_settings_page() {?>
     $w=get_option('widgetid');
     if(empty($w)){
         
-        $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );
+        $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
+        //$w=($GLOBALS['wp_widget_factory']->widgets);
+    //echo $w[Archive_widget]->name;
         update_option('widgetid', $widgets);
+        
     }else{
   $widgets=$w;
     }
@@ -96,7 +99,9 @@ $d=get_option('disabled_widgets');
         <tr>
         <tr>
             <td><strong>Quick Options</strong></td>
-            <td colspan="3"><b>Disable Defaults Only:</b><input type="radio" name="quickOp" value="disDefault">
+            <td colspan="3">
+                <b>|Enable Defaults Widgets Only:</b><input type="radio" name="quickOp" value="enbDefault">
+                <b>|Disable Defaults Widgets Only:</b><input type="radio" name="quickOp" value="disDefault">
                 <b>|Disable all custom widgets:</b><input type="radio" name="quickOp" value="disCust">
                 <b>|Enable all Widgets:</b> <input type="radio" name="quickOp" value="enbwid">
                  <b>|Disable all Widgets:</b> <input type="radio" name="quickOp" value="diswid">
