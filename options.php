@@ -47,6 +47,11 @@ $enablecon=0;
             disable_all($que_array, $enabled, $disabled);
             enable_all($defaultwid, $enabled, $disabled);
             break;
+        case 'disCust':
+            $defaultwid= get_option('defaults');
+            disable_all($que_array, $enabled, $disabled);
+            enable_all($defaultwid, $enabled, $disabled);
+            break;
    }
    }else{
    foreach($que_array as $key => $value){
