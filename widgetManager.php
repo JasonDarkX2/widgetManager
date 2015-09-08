@@ -68,7 +68,6 @@ function my_cool_plugin_settings_page() {?>
         
         $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
         //$w=($GLOBALS['wp_widget_factory']->widgets);
-    //echo $w[Archive_widget]->name;
         update_option('widgetid', $widgets);
         
     }else{
@@ -116,6 +115,7 @@ $d=get_option('disabled_widgets');
     <input type="submit" value="Upload" name="submit">
 </form>
     <?php echo "<b>DEBUG Section:</b>";
+    //update_option('widgetid', "");
 $s=get_option('widgetid');
 var_dump($s);
 $e=get_option('enabled_widgets');
@@ -126,7 +126,7 @@ echo"<h1> Disabled widgets</h1>";
 var_dump($d);
 //update_option('enabled_widgets', "");
 //update_option('disabled_widgets', "");
-//update_option('widgetid', "");
+
    ?>
 
     
