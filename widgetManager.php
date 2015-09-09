@@ -65,13 +65,21 @@ function my_cool_plugin_settings_page() {?>
         $customWidgets=Array();
     $w=get_option('widgetid');
     if(empty($w)){
-        
         $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
-        //$w=($GLOBALS['wp_widget_factory']->widgets);
         update_option('widgetid', $widgets);
         
     }else{
   $widgets=$w;
+$w=($GLOBALS['wp_widget_factory']->widgets);
+  foreach($widgets as $keys){
+        $n=$w[$keys]->name;
+          if(empty($name)){
+         $name=array($keys => $n);
+          }else{
+        array_push($name,$name[$keys]=$n);
+          }
+  }
+        array_pop($name);
     }
     foreach($widgets as $widget):?>
         <input type='hidden' name='count' value='$num' id='count'>
@@ -90,7 +98,7 @@ $d=get_option('disabled_widgets');
         <tr>
             <td><input type="checkbox" name="<?php echo $widget ?>" value="<?php echo $widget; ?>"></td>
             <td><input type='hidden' name='widgetid[]' value='<?php echo  $widget ?>' id='widgetId'> 
-                <?php echo $widget . $type; ?></td>
+                <?php echo $name[$widget] . "&nbsp;" . $type; ?></td>
             <td><input type="radio" name="<?php echo $widget; ?>" value="enable" <?php if( !empty($e) ){ checked( 1,$e[$widget] ); } ?> ><?php echo get_option($widget);?></td>
             <td><input type="radio" name="<?php echo $widget;?>" <?php if(!empty($d)){checked(1,$d[$widget] );} ?> value="disable"></td>
         </tr>
@@ -115,7 +123,7 @@ $d=get_option('disabled_widgets');
     <input type="submit" value="Upload" name="submit">
 </form>
     <?php echo "<b>DEBUG Section:</b>";
-    //update_option('widgetid', "");
+    
 $s=get_option('widgetid');
 var_dump($s);
 $e=get_option('enabled_widgets');
@@ -124,6 +132,9 @@ var_dump($e);
 $d=get_option('disabled_widgets');
 echo"<h1> Disabled widgets</h1>";
 var_dump($d);
+echo $s;
+var_dump($name);
+//update_option('widgetid', "");
 //update_option('enabled_widgets', "");
 //update_option('disabled_widgets', "");
 
