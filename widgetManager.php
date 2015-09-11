@@ -15,15 +15,15 @@ function remove_disable_widget() {
         $dis=get_option('disabled_widgets');
         $e=get_option('enabled_widgets');
         foreach($d as $widget){
-            if($dis[$widget]==TRUE){
-            unregister_widget($widget);
+            if($dis[$widget['key']]==TRUE){
+            unregister_widget($widget['key']);
             }else{ 
-            register_widget($widget);
+            register_widget($widget['key']);
             }
             }
         }
 
-//add_action( 'widgets_init', 'remove_disable_widget' );
+add_action( 'widgets_init', 'remove_disable_widget' );
 
 
 add_action('admin_menu', 'widget_manager_create_menu');
@@ -81,6 +81,7 @@ function my_cool_plugin_settings_page() {?>
  }
   }
         update_option('widgetid', $widgetsId);
+        $widgets=$widgetsId;
         
     }else{
   $widgets=$w; 
@@ -88,7 +89,7 @@ function my_cool_plugin_settings_page() {?>
     foreach($widgets as $widget):?>
         <input type='hidden' name='count' value='$num' id='count'>
         
-<?php if(preg_match("/WP_(Widget|Nav)/", $widget[0]['key'])){
+<?php if(preg_match("/WP_(Widget|Nav)/", $widget['key'])){
     $type="<strong>(default)</strong>";
     array_push($defaultWidgets, $widget);
 }else{
@@ -101,10 +102,10 @@ $d=get_option('disabled_widgets');
 ?>
         <tr>
             <td><input type="checkbox" name="<?php echo $widget['name'] ?>" value="<?php echo $widget['key']; ?>"></td>
-            <td><input type='hidden' name='widgetid[]' value='<?php echo  $widget ?>' id='widgetId'> 
+            <td><input type='hidden' name='widgetid[]' value='<?php echo  $widget['key'] ?>' id='widgetId'> 
                 <?php echo $widget['name'] . "&nbsp;" . $type; ?></td>
-            <td><input type="radio" name="<?php echo $widget['name']; ?>" value="enable" <?php if( !empty($e) ){ checked( 1,$e[$widget['key']] ); } ?> ><?php //echo get_option($widget['key']);?></td>
-            <td><input type="radio" name="<?php echo $widget['nane'];?>" <?php if(!empty($d)){checked(1,$d[$widget['key']] );} ?> value="disable"></td>
+            <td><input type="radio" name="<?php echo $widget['key']; ?>" value="enable" <?php if( !empty($e) ){ checked( 1,$e[$widget['key']] ); } ?> ><?php //echo get_option($widget['key']);?></td>
+            <td><input type="radio" name="<?php echo $widget['key'];?>" <?php if(!empty($d)){checked(1,$d[$widget['key']] );} ?> value="disable"></td>
         </tr>
     <?php endforeach;?>
         <tr>

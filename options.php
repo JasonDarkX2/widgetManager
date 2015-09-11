@@ -12,11 +12,6 @@ Author URI:http://www.jasondarkx2.com/
  
 $parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
  require_once( $parse_uri[0] . 'wp-load.php' );
-if(isset($_POST['widgetid'])){
-    $array=$_POST['widgetid'];
-    update_option('widgetid', $array );
-    
-}
 $enabled= get_option('enabled_widgets');
 $disabled= get_option('disabled_widgets');
 if(empty($disabled)){
@@ -27,8 +22,7 @@ if(empty($enabled)){
 }
 $enablecon=0;
  $disabledcon=0;
- $data = $_POST;
-   $que_array = $data['widgetid'];
+   $que_array = $_POST['widgetid'];
    If(isset($_POST['quickOp'])){
        switch($_POST['quickOp']){
         case 'enbwid':
