@@ -75,9 +75,11 @@ function my_cool_plugin_settings_page() {?>
         array_push($name,$name[$keys]=$n);
           }
           if(empty($widgetsId)){
-  $widgetsId=array($keys => array('key'=>$keys,'name'=>$n));
+              $type=get_type($keys);
+  $widgetsId=array($keys => array('key'=>$keys,'name'=>$n,'type'=> $type));
   }  else {
-      array_push($widgetsId, $widgetsId[$keys]=array('key'=>$keys,'name'=>$n));
+      $type=get_type($keys);
+      array_push($widgetsId, $widgetsId[$keys]=array('key'=>$keys,'name'=>$n, 'type'=>$type));
       array_pop($widgetsId);
  }
   }
@@ -93,10 +95,11 @@ if(array_key_exists($keys,$w)==FALSE){
     echo"*recently added widgets*<ul>";
      echo "<li>". $wid[$keys]->name ."</li>";
      echo"</ul>";
-}
-        array_push($w,$w[$keys]=array('key'=>$keys,'name'=>$wid[$keys]->name));
+$type=get_type($keys);
+        array_push($w,$w[$keys]=array('key'=>$keys,'name'=>$wid[$keys]->name, 'type'=>$type));
         array_pop($w);
         update_option('widgetid', $w);
+}
       }
   $widgets=$w; 
     }
@@ -143,24 +146,29 @@ $d=get_option('disabled_widgets');
 </form>
     <?php echo "<b>DEBUG Section:</b>";
     
-$s=get_option('widgetid');
+/*$s=get_option('widgetid');
 var_dump($s);
 $e=get_option('enabled_widgets');
 echo"<h1> Enabled widgets</h1>";
 var_dump($e);
 $d=get_option('disabled_widgets');
 echo"<h1> Disabled widgets</h1>";
-var_dump($d);
-echo $s;
-var_dump($name);
-var_dump($meow);
-echo $meow[0]['key'];
-echo $meow[0]['name'];
-update_option('widgetid', "");
+var_dump($d);*/
+//update_option('widgetid', "");
 //update_option('enabled_widgets', "");
 //update_option('disabled_widgets', "");
 
    ?>
 
     
-<?php } ?>
+<?php } 
+function get_type($keys){
+    if(preg_match("/WP_(Widget|Nav)/", $keys)){
+    $type="default";
+}else{
+    $type="custom";
+
+}
+return $type;
+}
+?>
