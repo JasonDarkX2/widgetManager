@@ -1,15 +1,9 @@
 <?php
 /*
-Plugin Name: Wordpress Widget Manager
-Plugin URI: https://github.com/JasonDarkX2/Wordpress-WidgetManager
-Description:Simply a Wordpress Plugin dedicated to help easily manage custom and default Wordpress widgets
+admin options file for Widget Manager
 Author:Jason Dark X2
-version: 0.1
 Author URI:http://www.jasondarkx2.com/ 
-*/ 
-?>
-<?php
- 
+*/  
 $parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
  require_once( $parse_uri[0] . 'wp-load.php' );
 $enabled= get_option('enabled_widgets');
