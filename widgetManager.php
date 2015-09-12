@@ -23,7 +23,7 @@ function remove_disable_widget() {
             }
         }
 
-add_action( 'widgets_init', 'remove_disable_widget' );
+//add_action( 'widgets_init', 'remove_disable_widget' );
 
 
 add_action('admin_menu', 'widget_manager_create_menu');
@@ -75,15 +75,29 @@ function my_cool_plugin_settings_page() {?>
         array_push($name,$name[$keys]=$n);
           }
           if(empty($widgetsId)){
-  $widgetsId=array(array('key'=>$keys,'name'=>$n));
+  $widgetsId=array($keys => array('key'=>$keys,'name'=>$n));
   }  else {
-      array_push($widgetsId,array('key'=>$keys,'name'=>$n));
+      array_push($widgetsId, $widgetsId[$keys]=array('key'=>$keys,'name'=>$n));
+      array_pop($widgetsId);
  }
   }
         update_option('widgetid', $widgetsId);
         $widgets=$widgetsId;
         
     }else{
+        $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
+        $wid=($GLOBALS['wp_widget_factory']->widgets);
+  foreach($widgets as $keys){
+if(array_key_exists($keys,$w)==FALSE){
+    echo"<h2>Notfication:</h2>";
+    echo"*recently added widgets*<ul>";
+     echo "<li>". $wid[$keys]->name ."</li>";
+     echo"</ul>";
+}
+        array_push($w,$w[$keys]=array('key'=>$keys,'name'=>$wid[$keys]->name));
+        array_pop($w);
+        update_option('widgetid', $w);
+      }
   $widgets=$w; 
     }
     foreach($widgets as $widget):?>
@@ -142,7 +156,7 @@ var_dump($name);
 var_dump($meow);
 echo $meow[0]['key'];
 echo $meow[0]['name'];
-//update_option('widgetid', "");
+update_option('widgetid', "");
 //update_option('enabled_widgets', "");
 //update_option('disabled_widgets', "");
 
