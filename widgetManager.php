@@ -69,11 +69,7 @@ function my_cool_plugin_settings_page() {?>
         $w=($GLOBALS['wp_widget_factory']->widgets);
   foreach($widgets as $keys){
         $n=$w[$keys]->name;
-          if(empty($name)){
-         $name=array($keys => $n);
-          }else{
-        array_push($name,$name[$keys]=$n);
-          }
+
           if(empty($widgetsId)){
               $type=get_type($keys);
   $widgetsId=array($keys => array('key'=>$keys,'name'=>$n,'type'=> $type));
@@ -146,14 +142,14 @@ $d=get_option('disabled_widgets');
 </form>
     <?php echo "<b>DEBUG Section:</b>";
     
-/*$s=get_option('widgetid');
+$s=get_option('widgetid');
 var_dump($s);
 $e=get_option('enabled_widgets');
 echo"<h1> Enabled widgets</h1>";
 var_dump($e);
 $d=get_option('disabled_widgets');
 echo"<h1> Disabled widgets</h1>";
-var_dump($d);*/
+var_dump($d);
 //update_option('widgetid', "");
 //update_option('enabled_widgets', "");
 //update_option('disabled_widgets', "");
@@ -170,5 +166,8 @@ function get_type($keys){
 
 }
 return $type;
+}
+function get_name($key){
+    
 }
 ?>
