@@ -58,7 +58,7 @@ function my_cool_plugin_settings_page() {?>
     <?php settings_fields( 'WM-setting' ); ?>
     <?php do_settings_sections( 'WM-setting' ); ?>
     <table border='1px' >
-        <tr><th><input type="checkbox" name="select all" onclick="selectall()"></th><th> Widgets</th><th> Enabled</th><th>Disabled</th></tr>
+        <tr><th> Widgets</th><th>Type</th><th> Enabled</th><th>Disabled</th></tr>
     <?php  
     
         $defaultWidgets=array();
@@ -114,9 +114,9 @@ $e=get_option('enabled_widgets');
 $d=get_option('disabled_widgets');
 ?>
         <tr>
-            <td><input type="checkbox" name="<?php echo $widget['name'] ?>" value="<?php echo $widget['key']; ?>"></td>
             <td><input type='hidden' name='widgetid[]' value='<?php echo  $widget['key'] ?>' id='widgetId'> 
-                <?php echo $widget['name'] . "&nbsp;" . $type; ?></td>
+                <?php echo $widget['name']; ?></td>
+            <td><?php echo $widget['type']; ?></td>
             <td><input type="radio" name="<?php echo $widget['key']; ?>" value="enable" <?php if( !empty($e) ){ checked( 1,$e[$widget['key']] ); } ?> ><?php //echo get_option($widget['key']);?></td>
             <td><input type="radio" name="<?php echo $widget['key'];?>" <?php if(!empty($d)){checked(1,$d[$widget['key']] );} ?> value="disable"></td>
         </tr>
