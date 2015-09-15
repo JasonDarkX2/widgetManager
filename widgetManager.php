@@ -47,7 +47,6 @@ function register_widget_manager_settings() {
 	register_setting( 'WM-setting', 'widgetid' );
 	register_setting( 'WM-setting', 'enabled_widgets' );
 	register_setting( 'WM-setting', 'disabled_widgets' );
-        register_setting( 'WM-setting', 'defaults' );
 }
 
 function my_cool_plugin_settings_page() {?>
@@ -101,15 +100,7 @@ $type=get_type($keys);
     }
     foreach($widgets as $widget):?>
         <input type='hidden' name='count' value='$num' id='count'>
-        
-<?php if(preg_match("/WP_(Widget|Nav)/", $widget['key'])){
-    $type="<strong>(default)</strong>";
-    array_push($defaultWidgets, $widget);
-}else{
-    $type="<strong>(custom)</strong>";
-    array_push($customWidgets, $widget);
-}
-update_option('defaults', $defaultWidgets);
+ <?php       
 $e=get_option('enabled_widgets');
 $d=get_option('disabled_widgets');
 ?>
@@ -165,6 +156,7 @@ function get_type($keys){
     $type="custom";
 
 }
+update_option('defaults', $defaultWidgets);
 return $type;
 }
 function get_name($key){
