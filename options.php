@@ -122,7 +122,6 @@ $enablecon=0;
          $d=array();
          array_pop($d);
          $w=get_option("widgetid");
-         var_dump($w);
          Foreach($w as $widgets){
              if($widgets['type']=='default'){
                  array_push($d, $widgets['key']);

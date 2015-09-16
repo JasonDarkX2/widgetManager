@@ -68,13 +68,14 @@ function my_cool_plugin_settings_page() {?>
         $w=($GLOBALS['wp_widget_factory']->widgets);
   foreach($widgets as $keys){
         $n=$w[$keys]->name;
+        $des=$w[$keys]->description;
 
           if(empty($widgetsId)){
               $type=get_type($keys);
-  $widgetsId=array($keys => array('key'=>$keys,'name'=>$n,'type'=> $type));
+  $widgetsId=array($keys => array('key'=>$keys,'name'=>$n,'Description'=>$des,'type'=> $type));
   }  else {
       $type=get_type($keys);
-      array_push($widgetsId, $widgetsId[$keys]=array('key'=>$keys,'name'=>$n, 'type'=>$type));
+      array_push($widgetsId, $widgetsId[$keys]=array('key'=>$keys,'name'=>$n,'Description'=>$des, 'type'=>$type));
       array_pop($widgetsId);
  }
   }
@@ -91,7 +92,8 @@ if(array_key_exists($keys,$w)==FALSE){
      echo "<li>". $wid[$keys]->name ."</li>";
      echo"</ul>";
 $type=get_type($keys);
-        array_push($w,$w[$keys]=array('key'=>$keys,'name'=>$wid[$keys]->name, 'type'=>$type));
+$des=get_option($key);
+        array_push($w,$w[$keys]=array('key'=>$keys,'name'=>$wid[$keys]->name,'Description'=>$des, 'type'=>$type));
         array_pop($w);
         update_option('widgetid', $w);
 }
@@ -141,10 +143,9 @@ var_dump($e);
 $d=get_option('disabled_widgets');
 echo"<h1> Disabled widgets</h1>";
 var_dump($d);
-//update_option('widgetid', "");
+update_option('widgetid', "");
 //update_option('enabled_widgets', "");
 //update_option('disabled_widgets', "");
-
    ?>
 
     
