@@ -28,20 +28,21 @@ $enablecon=0;
             disable_all($que_array, $enabled, $disabled);
             break;
         case 'disDefault':
-            $defaultwid= get_option('defaults');
             $que_array=  get_option('widgetid');
+            $defaultwid= get_defaults($que_array);
             enable_all($que_array, $enabled, $disabled);
             disable_all($defaultwid, $enabled, $disabled);
             break;
         case 'enbDefault':
-            $defaultwid= get_option('defaults');
             $que_array=  get_option('widgetid');
+            $defaultwid= get_defaults($que_array);
             disable_all($que_array, $enabled, $disabled);
             enable_all($defaultwid, $enabled, $disabled);
             break;
         case 'disCust':
-            $defaultwid= get_option('defaults');
+            
             $que_array=  get_option('widgetid');
+            $defaultwid= get_defaults($que_array);
             disable_all($que_array, $enabled, $disabled);
             enable_all($defaultwid, $enabled, $disabled);
             break;
@@ -106,6 +107,7 @@ $enablecon=0;
        }
     }
      function disable_all($que_array, &$enabled, &$disabled){
+         var_dump($que_array);
          foreach($que_array as $widgetId){
         if(array_key_exists($widgetId['key'],$enabled)){
                 $enabled[$widgetId['key']]=FALSE;
@@ -118,10 +120,9 @@ $enablecon=0;
             }
        }
      }
-     function get_defaults(){
+     function get_defaults($w){
          $d=array();
          array_pop($d);
-         $w=get_option("widgetid");
          Foreach($w as $widgets){
              if($widgets['type']=='default'){
                  array_push($d, $widgets['key']);

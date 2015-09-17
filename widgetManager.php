@@ -140,7 +140,7 @@ var_dump($e);
 $d=get_option('disabled_widgets');
 echo"<h1> Disabled widgets</h1>";
 var_dump($d);
-update_option('widgetid', "");
+//update_option('widgetid', "");
 //update_option('enabled_widgets', "");
 //update_option('disabled_widgets', "");
 
