@@ -67,15 +67,12 @@ function my_cool_plugin_settings_page() {?>
         $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
         $w=($GLOBALS['wp_widget_factory']->widgets);
   foreach($widgets as $keys){
-        $n=$w[$keys]->name;
-        $des=$w[$keys]->description;
-
           if(empty($widgetsId)){
               $type=get_type($keys);
-  $widgetsId=array($keys => array('key'=>$keys,'name'=>$n,'Description'=>$des,'type'=> $type));
+  $widgetsId=array($keys => array('key'=>$keys,'name'=>get_name($keys),'Description'=>get_description($keys),'type'=> $type));
   }  else {
       $type=get_type($keys);
-      array_push($widgetsId, $widgetsId[$keys]=array('key'=>$keys,'name'=>$n,'Description'=>$des, 'type'=>$type));
+      array_push($widgetsId, $widgetsId[$keys]=array('key'=>$keys,'name'=>get_name($keys),'Description'=>get_description($keys), 'type'=>$type));
       array_pop($widgetsId);
  }
   }
@@ -89,11 +86,11 @@ function my_cool_plugin_settings_page() {?>
 if(array_key_exists($keys,$w)==FALSE){
     echo"<h2>Notfication:</h2>";
     echo"*recently added widgets*<ul>";
-     echo "<li>". $wid[$keys]->name ."</li>";
+     echo "<li>". get_name($keys) ."</li>";
      echo"</ul>";
 $type=get_type($keys);
 $des=get_option($key);
-        array_push($w,$w[$keys]=array('key'=>$keys,'name'=>$wid[$keys]->name,'Description'=>$des, 'type'=>$type));
+        array_push($w,$w[$keys]=array('key'=>$keys,'name'=> get_name($keys),'Description'=>get_description($keys), 'type'=>$type));
         array_pop($w);
         update_option('widgetid', $w);
 }
@@ -146,6 +143,7 @@ var_dump($d);
 update_option('widgetid', "");
 //update_option('enabled_widgets', "");
 //update_option('disabled_widgets', "");
+
    ?>
 
     
@@ -155,12 +153,17 @@ function get_type($keys){
     $type="default";
 }else{
     $type="custom";
-
 }
 update_option('defaults', $defaultWidgets);
 return $type;
 }
 function get_name($key){
-    
+    $wid=($GLOBALS['wp_widget_factory']->widgets);
+     $name=$wid[$key]->name;
+     return  $name;
+}
+function get_description($key){
+    $wid=($GLOBALS['wp_widget_factory']->widgets);
+ return $wid[$key]->widget_options['description'];
 }
 ?>
