@@ -48,9 +48,10 @@ $enablecon=0;
             break;
    }
    }else{
-       var_dump($que_array);
+       //var_dump($que_array);
    foreach($que_array as $widgetId){
     $option = 0;
+    $data=$_POST;
   if(isset($data[ $widgetId])){
         $option = $data[$widgetId];
         if($option=='enable'){
@@ -81,8 +82,6 @@ $enablecon=0;
             array_push($disabled, $disabled[$widgetId] = TRUE);
             array_pop($disabled);
     }
-
-        echo $widgetId . "--" . $option. "<br>";
    } 
 
     
