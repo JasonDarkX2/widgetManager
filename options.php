@@ -50,6 +50,7 @@ $enablecon=0;
    }
    }else{
        //var_dump($que_array);
+       $wid=get_option('widgetid');
    foreach($que_array as $widgetId){
     $option = 0;
     $data=$_POST;
@@ -57,48 +58,25 @@ $enablecon=0;
         $option = $data[$widgetId];
         if($option=='enable'){
             $enablecon++;
-             if(empty($enabled)){
-    $enabled=array($widgetId => TRUE);
-}
-            else if(array_key_exists($widgetId,$enabled)){
-                $enabled[$widgetId]=TRUE;
-                if(array_key_exists($widgetId,$disabled)){
-                $disabled[$widgetId]=FALSE;
-                }
-            }else{
-            array_push($enabled, $enabled[$widgetId] = TRUE);
-            array_pop($enabled);
-            }
+            $wid[$widgetId]['status']=TRUE;
         }
         else{
             $disabledcon++;
-            /*if(count($disabled)==0){
-                $disabled=array($widgetId => TRUE);
-            }else if(array_key_exists($widgetId,$disabled)){
-                $disabled[$widgetId]=TRUE;
-                if(array_key_exists($widgetId,$enabled)){
-                $enabled[$widgetId]=FALSE;
-                }
-        }else{
-            array_push($disabled, $disabled[$widgetId] = TRUE);
-            array_pop($disabled);
-    }*/
+             $wid[$widgetId]['status']=FALSE;
+            
+    }
    } 
 
     
   }
-   }
+   update_option('widgetid', $wid);
    }
    echo "$enablecon enabled widgets and $disabledcon disabled widgets";
-    update_option('enabled_widgets', $enabled);
-    update_option('disabled_widgets', $disabled);
-    
     function enable_all($que_array, &$enabled, &$disabled){
                  foreach($que_array as $widgetId){
                 $que_array[$widgetId['key']]['status']=TRUE;
         update_option('widgetid', $que_array);
        }
-       var_dump($que_array);
     }
      function disable_all($que_array, &$enabled, &$disabled){;
          foreach($que_array as $widgetId){
@@ -114,7 +92,8 @@ $enablecon=0;
           array_push($d, $wid);
          }
         }
-         return $d;
+       echo "HRTER UI"; var_dump($d);
+         //return $d;
      }
     
 ?>
