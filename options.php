@@ -24,17 +24,17 @@ $enablecon=0;
                   enable_all($que_array, $enabled, $disabled);
             break;
         case 'diswid':
-            $que_array=  get_option('widgetid');
+            $que_array=get_option('widgetid');
             disable_all($que_array, $enabled, $disabled);
             break;
         case 'disDefault':
-            $que_array=  get_option('widgetid');
+            $que_array=get_option('widgetid');
             $defaultwid= get_defaults($que_array);
             enable_all($que_array, $enabled, $disabled);
             disable_all($defaultwid, $enabled, $disabled);
             break;
         case 'enbDefault':
-            $que_array=  get_option('widgetid');
+            $que_array=get_option('widgetid');
             $defaultwid= get_defaults($que_array);
             disable_all($que_array, $enabled, $disabled);
             enable_all($defaultwid, $enabled, $disabled);
@@ -43,6 +43,7 @@ $enablecon=0;
             
             $que_array=  get_option('widgetid');
             $defaultwid= get_defaults($que_array);
+           
             disable_all($que_array, $enabled, $disabled);
             enable_all($defaultwid, $enabled, $disabled);
             break;
@@ -71,7 +72,7 @@ $enablecon=0;
         }
         else{
             $disabledcon++;
-            if(count($disabled)==0){
+            /*if(count($disabled)==0){
                 $disabled=array($widgetId => TRUE);
             }else if(array_key_exists($widgetId,$disabled)){
                 $disabled[$widgetId]=TRUE;
@@ -81,7 +82,7 @@ $enablecon=0;
         }else{
             array_push($disabled, $disabled[$widgetId] = TRUE);
             array_pop($disabled);
-    }
+    }*/
    } 
 
     
@@ -93,40 +94,26 @@ $enablecon=0;
     update_option('disabled_widgets', $disabled);
     
     function enable_all($que_array, &$enabled, &$disabled){
-        foreach($que_array as $widgetId){
-        if(array_key_exists($widgetId['key'],$enabled)){
-                $enabled[$widgetId['key']]=TRUE;
-                if(array_key_exists($widgetId['key'],$disabled)){
-                $disabled[$widgetId['key']]=FALSE;
-                }
-                }else{
-            array_push($enabled, $enabled[$widgetId['key']] = TRUE);
-            array_pop($enabled);
-            }
+                 foreach($que_array as $widgetId){
+                $que_array[$widgetId['key']]['status']=TRUE;
+        update_option('widgetid', $que_array);
        }
+       var_dump($que_array);
     }
-     function disable_all($que_array, &$enabled, &$disabled){
-         var_dump($que_array);
+     function disable_all($que_array, &$enabled, &$disabled){;
          foreach($que_array as $widgetId){
-        if(array_key_exists($widgetId['key'],$enabled)){
-                $enabled[$widgetId['key']]=FALSE;
-                if(array_key_exists($widgetId['key'],$disabled)){
-                $disabled[$widgetId['key']]=TRUE;
-                }
-                }else{
-            array_push($disabled, $disabled[$widgetId['key']] = FALSE);
-            array_pop($disabled);
-            }
+                $que_array[$widgetId['key']]['status']=false;
+        update_option('widgetid', $que_array);
        }
      }
      function get_defaults($w){
-         $d=array();
+        $d=array();
          array_pop($d);
-         Foreach($w as $widgets){
-             if($widgets['type']=='default'){
-                 array_push($d, $widgets['key']);
-             }
+        foreach($w as $wid){
+         if($wid['type']==="default"){
+          array_push($d, $wid);
          }
+        }
          return $d;
      }
     
