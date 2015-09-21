@@ -20,32 +20,27 @@ $enablecon=0;
    If(isset($_POST['quickOp'])){
        switch($_POST['quickOp']){
         case 'enbwid':
-            $que_array=  get_option('widgetid');
-                  enable_all($que_array, $enabled, $disabled);
+            $que_array=get_option('widgetid');
+                  enable_all($que_array);
             break;
         case 'diswid':
             $que_array=get_option('widgetid');
-            disable_all($que_array, $enabled, $disabled);
+            disable_all($que_array);
             break;
         case 'disDefault':
             $que_array=get_option('widgetid');
-            $defaultwid= get_defaults($que_array);
-            enable_all($que_array, $enabled, $disabled);
-            disable_all($defaultwid, $enabled, $disabled);
+            enable_all($que_array);
+            disable_types($que_array,"default");
             break;
         case 'enbDefault':
             $que_array=get_option('widgetid');
-            $defaultwid= get_defaults($que_array);
-            disable_all($que_array, $enabled, $disabled);
-            enable_all($defaultwid, $enabled, $disabled);
+            enable_all($que_array);
+            disable_types($que_array,"custom");
             break;
         case 'disCust':
-            
             $que_array=  get_option('widgetid');
-            $defaultwid= get_defaults($que_array);
-           
-            disable_all($que_array, $enabled, $disabled);
-            enable_all($defaultwid, $enabled, $disabled);
+            enable_all($que_array);
+            disable_types($que_array,"custom");
             break;
    }
    }else{
@@ -72,17 +67,25 @@ $enablecon=0;
    update_option('widgetid', $wid);
    }
    echo "$enablecon enabled widgets and $disabledcon disabled widgets";
-    function enable_all($que_array, &$enabled, &$disabled){
+    function enable_all($que_array){
                  foreach($que_array as $widgetId){
                 $que_array[$widgetId['key']]['status']=TRUE;
         update_option('widgetid', $que_array);
        }
     }
-     function disable_all($que_array, &$enabled, &$disabled){;
+     function disable_all($que_array){
          foreach($que_array as $widgetId){
                 $que_array[$widgetId['key']]['status']=false;
         update_option('widgetid', $que_array);
        }
+     }
+     function disable_types($w,$type){
+         foreach($w as $wid){
+         if($wid['type']===$type){
+             $w[$wid['key']]['status']=FALSE;
+         }
+     }
+     update_option('widgetid',$w);
      }
      function get_defaults($w){
         $d=array();
@@ -92,8 +95,7 @@ $enablecon=0;
           array_push($d, $wid);
          }
         }
-       echo "HRTER UI"; var_dump($d);
-         //return $d;
+         return $d;
      }
     
 ?>
