@@ -99,9 +99,7 @@ $des=get_option($key);
     }
     foreach($widgets as $widget):?>
         <input type='hidden' name='count' value='$num' id='count'>
- <?php       
-$e=get_option('enabled_widgets');
-$d=get_option('disabled_widgets');
+ <?php
 ?>
         <tr>
             <td><input type='hidden' name='widgetid[]' value='<?php echo  $widget['key'] ?>' id='widgetId'> 
@@ -134,16 +132,7 @@ $d=get_option('disabled_widgets');
     
 $s=get_option('widgetid');
 var_dump($s);
-$e=get_option('enabled_widgets');
-echo"<h1> Enabled widgets</h1>";
-var_dump($e);
-$d=get_option('disabled_widgets');
-echo"<h1> Disabled widgets</h1>";
-var_dump($d);
 //update_option('widgetid', "");
-//update_option('enabled_widgets', "");
-//update_option('disabled_widgets', "");
-
    ?>
 
     
