@@ -105,7 +105,7 @@ $des=get_option($key);
             <td><input type='hidden' name='widgetid[]' value='<?php echo  $widget['key'] ?>' id='widgetId'> 
                 <?php echo $widget['name']; ?></td>
             <td><?php echo $widget['type']; ?></td>
-            <td><input type="radio" name="<?php echo $widget['key']; ?>" value="enable" <?php if( !empty($e) ){ checked( 1,$widget['status'] ); } ?> ><?php //echo get_option($widget['key']);?></td>
+            <td><input type="radio" name="<?php echo $widget['key']; ?>" value="enable" <?php  checked(1,$widget['status']); ?> ><?php //echo get_option($widget['key']);?></td>
             <td><input type="radio" name="<?php echo $widget['key'];?>" <?php checked('',$widget['status'] ); ?> value="disable"></td>
         </tr>
     <?php endforeach;?>

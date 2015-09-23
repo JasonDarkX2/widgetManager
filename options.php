@@ -81,8 +81,10 @@ $enablecon=0;
      }
      function disable_types($w,$type){
          foreach($w as $wid){
-         if($wid['type']===$type){
+         if($wid['type']==$type){
              $w[$wid['key']]['status']=FALSE;
+         }else{
+             $w[$wid['key']]['status']=TRUE;
          }
      }
      update_option('widgetid',$w);
