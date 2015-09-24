@@ -10,24 +10,16 @@ Author URI:http://www.jasondarkx2.com/
 ?>
 <?php
 
-function remove_disable_widget() {
-	$d=get_option('widgetid');
-        $dis=get_option('disabled_widgets');
-        $e=get_option('enabled_widgets');
-        foreach($d as $widget){
-            if($dis[$widget['key']]==TRUE){
-            unregister_widget($widget['key']);
-            }else{ 
-            register_widget($widget['key']);
-            }
-            }
-        }
-
-//add_action( 'widgets_init', 'remove_disable_widget' );
 
 
+
+
+
+function init(){
+    add_action('init' ,array(__CLASS__,'register_scripts'));
+add_action("wp_footer",array(__CLASS__,"add_scripts"));
 add_action('admin_menu', 'widget_manager_create_menu');
-
+}
 
 
 function widget_manager_create_menu() {
@@ -155,4 +147,26 @@ function get_description($key){
     $wid=($GLOBALS['wp_widget_factory']->widgets);
  return $wid[$key]->widget_options['description'];
 }
+function remove_disable_widget() {
+	$d=get_option('widgetid');
+        $dis=get_option('disabled_widgets');
+        $e=get_option('enabled_widgets');
+        foreach($d as $widget){
+            if($dis[$widget['key']]['status']==FALSE){
+            unregister_widget($widget['key']);
+            }else{ 
+            register_widget($widget['key']);
+            }
+            }
+        }
+function register_scripts(){ 
+wp_register_script( 'wm-script', plugins_url('poll-script.min.js',__FILE__));
+}
+function add_scripts(){
+    	wp_enqueue_script( 'wm-script' );
+          $translation_array = array( 'pluginUrl' => plugins_url('option.php',__FILE__ ) );
+wp_localize_script( 'wm-script', 'pd', $translation_array ); 
+}
+ add_action('init','init');
+ add_action( 'widgets_init', 'remove_disable_widget' );
 ?>
