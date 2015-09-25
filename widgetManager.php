@@ -9,39 +9,33 @@ Author URI:http://www.jasondarkx2.com/
 */ 
 ?>
 <?php
-
-
-
-
-
-
-function init(){
- add_action('init','register_scripts');
-add_action("wp_footer","add_scripts");
-add_action('admin_menu', 'widget_manager_create_menu');
+class widget_manager{
+    static $add_script;
+static function init(){
+add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
+add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
 }
-
-
-function widget_manager_create_menu() {
+static function add_scripts(){
+ 
+    wp_enqueue_script( 'wm-script', plugins_url('wm-script.js',__FILE__), array('jquery') );
+          $translation_array = array( 'pluginUrl' => plugins_url('option.php',__FILE__ ) );
+wp_localize_script( 'wm-script', 'pd', $translation_array ); 
+}
+static function widget_manager_create_menu() {
 
 	//create new top-level menu
 	add_menu_page('Widget Manager Settings', 'Widget Manager', 'administrator', __FILE__, 
-                'my_cool_plugin_settings_page' 
+                array(__CLASS__,'Widget_manager_settings_page')
                 , plugins_url('/img/WMIconHolder.png', __FILE__) );
 
 	//call register settings function
-	add_action( 'admin_init', 'register_widget_manager_settings' );
+	add_action( 'admin_init',array(__CLASS__,'register_widget_manager_settings'));
 }
-
-
-function register_widget_manager_settings() {
+ static function register_widget_manager_settings() {
 	//register our settings
 	register_setting( 'WM-setting', 'widgetid' );
-	register_setting( 'WM-setting', 'enabled_widgets' );
-	register_setting( 'WM-setting', 'disabled_widgets' );
 }
-
-function my_cool_plugin_settings_page() {?>
+static function Widget_manager_settings_page() {?>
 
 
     <h1> Widget Manager</h1>
@@ -149,27 +143,20 @@ function get_description($key){
 }
 function remove_disable_widget() {
 	$d=get_option('widgetid');
-        $dis=get_option('disabled_widgets');
-        $e=get_option('enabled_widgets');
         foreach($d as $widget){
-            if($dis[$widget['key']]['status']==FALSE){
+            if($d[$widget['key']]['status']==FALSE){
             unregister_widget($widget['key']);
             }else{ 
             register_widget($widget['key']);
             }
             }
         }
-function register_scripts(){ 
+}
 
-}
-function add_scripts(){
- 
-    wp_enqueue_script( 'wm-script', plugins_url('wm-script.js',__FILE__), array('jquery') );
-          $translation_array = array( 'pluginUrl' => plugins_url('option.php',__FILE__ ) );
-wp_localize_script( 'wm-script', 'pd', $translation_array ); 
-}
- add_action('init','init');
- add_action( 'widgets_init', 'remove_disable_widget' );
- add_action('admin_enqueue_scripts', 'add_scripts' );
+
+
+widget_manager::init();
+ //add_action('init','init');
+ //add_action('admin_enqueue_scripts', 'add_scripts' );
  
 ?>
