@@ -16,3 +16,9 @@ function setOptions(int,t,id,poll_id) {
   xmlhttp.open("POST",pd.pluginUrl +"?"+query,true);
 xmlhttp.send();
 }
+jQuery( document ).ready(function() {
+    console.log( "ready!" );
+});
+jQuery(document).ready(function($) {
+			alert('YUP');
+	});

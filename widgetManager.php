@@ -16,8 +16,8 @@ Author URI:http://www.jasondarkx2.com/
 
 
 function init(){
-    add_action('init' ,array(__CLASS__,'register_scripts'));
-add_action("wp_footer",array(__CLASS__,"add_scripts"));
+ add_action('init','register_scripts');
+add_action("wp_footer","add_scripts");
 add_action('admin_menu', 'widget_manager_create_menu');
 }
 
@@ -160,13 +160,16 @@ function remove_disable_widget() {
             }
         }
 function register_scripts(){ 
-wp_register_script( 'wm-script', plugins_url('poll-script.min.js',__FILE__));
+
 }
 function add_scripts(){
-    	wp_enqueue_script( 'wm-script' );
+ 
+    wp_enqueue_script( 'wm-script', plugins_url('wm-script.js',__FILE__), array('jquery') );
           $translation_array = array( 'pluginUrl' => plugins_url('option.php',__FILE__ ) );
 wp_localize_script( 'wm-script', 'pd', $translation_array ); 
 }
  add_action('init','init');
  add_action( 'widgets_init', 'remove_disable_widget' );
+ add_action('admin_enqueue_scripts', 'add_scripts' );
+ 
 ?>
