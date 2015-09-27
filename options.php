@@ -6,14 +6,6 @@ Author URI:http://www.jasondarkx2.com/
 */  
 $parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
  require_once( $parse_uri[0] . 'wp-load.php' );
-$enabled= get_option('enabled_widgets');
-$disabled= get_option('disabled_widgets');
-if(empty($disabled)){
-    $disabled=array();
-}
-if(empty($enabled)){
-    $enabled=array();
-}
 $enablecon=0;
  $disabledcon=0;
    $que_array = $_POST['widgetid'];
@@ -66,7 +58,7 @@ $enablecon=0;
   }
    update_option('widgetid', $wid);
    }
-   echo "$enablecon enabled widgets and $disabledcon disabled widgets";
+   //echo "<div>$enablecon enabled widgets and $disabledcon disabled widgets</div>";
     function enable_all($que_array){
                  foreach($que_array as $widgetId){
                 $que_array[$widgetId['key']]['status']=TRUE;

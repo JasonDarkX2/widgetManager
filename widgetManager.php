@@ -14,17 +14,20 @@ class widget_manager{
 static function init(){
 add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
 add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
+add_action('admin_enqueue_scripts',array(__CLASS__,'add_scripts') );
 }
-static function add_scripts(){
- 
+static function add_scripts($hook){
+ if ( basename($_GET['page']) != "widgetManager.php" ) {
+        return;
+    }
     wp_enqueue_script( 'wm-script', plugins_url('wm-script.js',__FILE__), array('jquery') );
           $translation_array = array( 'pluginUrl' => plugins_url('option.php',__FILE__ ) );
 wp_localize_script( 'wm-script', 'pd', $translation_array ); 
 }
 static function widget_manager_create_menu() {
-
+self::$add_script = true;
 	//create new top-level menu
-	add_menu_page('Widget Manager Settings', 'Widget Manager', 'administrator', __FILE__, 
+	add_menu_page('Widget Manager Settings', 'Widget Manager', 'administrator',__FILE__, 
                 array(__CLASS__,'Widget_manager_settings_page')
                 , plugins_url('/img/WMIconHolder.png', __FILE__) );
 
@@ -35,11 +38,9 @@ static function widget_manager_create_menu() {
 	//register our settings
 	register_setting( 'WM-setting', 'widgetid' );
 }
-static function Widget_manager_settings_page() {?>
-
-
+static function Widget_manager_settings_page() { ?>
     <h1> Widget Manager</h1>
- <form method="post" action="<?php echo plugins_url('options.php', __FILE__); ?>">
+ <form id="widmanager" method="post" action="<?php echo plugins_url('options.php', __FILE__); ?>">
     <?php settings_fields( 'WM-setting' ); ?>
     <?php do_settings_sections( 'WM-setting' ); ?>
     <table border='1px' >
@@ -152,11 +153,5 @@ function remove_disable_widget() {
             }
         }
 }
-
-
-
 widget_manager::init();
- //add_action('init','init');
- //add_action('admin_enqueue_scripts', 'add_scripts' );
- 
 ?>

@@ -4,21 +4,36 @@
  * and open the template in the editor.
  */
 
-function setOptions(int,t,id,poll_id) {
-     xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  
-  xmlhttp.onreadystatechange=function() {
-    if (xmlhttp.readyState===4 && xmlhttp.status===200) {
-      document.getElementById(id).innerHTML=xmlhttp.responseText;
-    }
-  };
-  query="vote="+int+"&topic="+t;
-  xmlhttp.open("POST",pd.pluginUrl +"?"+query,true);
-xmlhttp.send();
+jQuery('document').ready(function($){
+   var wmform=$('#widmanager');
+   wmform.submit(function(){
+      var formdata=wmform.serialize(); 
+      var formurl=wmform.attr('action');
+//Post Form with data
+alert(formurl);
+alert(formdata);
+$.ajax({
+type: 'post',
+url: formurl,
+data: formdata,
+success: function(XMLHttpRequest,data, textStatus){
+    alert(textStatus);
+},
+error: function(XMLHttpRequest, textStatus, errorThrown)
+{
+      alert(textStatus); 
+  alert(errorThrown);  
 }
-jQuery( document ).ready(function() {
+   });
+});
+});
+
+ //*jQuery.post(pd.pluginUrl,$("#widmanager").serialize(),function(response){});
+//*xmlhttp.send();
+
+/*jQuery( document ).ready(function() {
     console.log( "ready!" );
 });
 jQuery(document).ready(function($) {
 			alert('YUP');
-	});
+	});*/
