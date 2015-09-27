@@ -58,7 +58,7 @@ $enablecon=0;
   }
    update_option('widgetid', $wid);
    }
-   //echo "<div>$enablecon enabled widgets and $disabledcon disabled widgets</div>";
+   echo "$enablecon enabled widgets and $disabledcon disabled widgets";
     function enable_all($que_array){
                  foreach($que_array as $widgetId){
                 $que_array[$widgetId['key']]['status']=TRUE;

@@ -4,27 +4,31 @@
  * and open the template in the editor.
  */
 
-jQuery('document').ready(function($){
-   var wmform=$('#widmanager');
-   wmform.submit(function(){
+jQuery('document').ready(function(e){
+    
+   var wmform=e('#widmanager');
+   wmform.submit(function(ex){
       var formdata=wmform.serialize(); 
       var formurl=wmform.attr('action');
 //Post Form with data
-alert(formurl);
-alert(formdata);
-$.ajax({
+e.ajax({
 type: 'post',
 url: formurl,
 data: formdata,
 success: function(XMLHttpRequest,data, textStatus){
-    alert(textStatus);
+
+    alert("YEESS!");
+    alert(XMLHttpRequest);
+    alert(data);
 },
 error: function(XMLHttpRequest, textStatus, errorThrown)
 {
-      alert(textStatus); 
+      alert("NOOO!"); 
   alert(errorThrown);  
 }
    });
+ex.preventDefault();
+
 });
 });
 
