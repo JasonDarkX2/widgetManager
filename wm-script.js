@@ -16,14 +16,11 @@ type: 'post',
 url: formurl,
 data: formdata,
 success: function(XMLHttpRequest,data, textStatus){
-
-    alert("YEESS!");
     alert(XMLHttpRequest);
-    alert(data);
+   location.reload();
 },
 error: function(XMLHttpRequest, textStatus, errorThrown)
 {
-      alert("NOOO!"); 
   alert(errorThrown);  
 }
    });
@@ -31,13 +28,3 @@ ex.preventDefault();
 
 });
 });
-
- //*jQuery.post(pd.pluginUrl,$("#widmanager").serialize(),function(response){});
-//*xmlhttp.send();
-
-/*jQuery( document ).ready(function() {
-    console.log( "ready!" );
-});
-jQuery(document).ready(function($) {
-			alert('YUP');
-	});*/

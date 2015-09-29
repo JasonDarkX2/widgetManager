@@ -13,30 +13,29 @@ $enablecon=0;
        switch($_POST['quickOp']){
         case 'enbwid':
             $que_array=get_option('widgetid');
-                  enable_all($que_array);
+                  enable_all($que_array,$enablecon, $disabledcon);
             break;
         case 'diswid':
             $que_array=get_option('widgetid');
-            disable_all($que_array);
+            disable_all($que_array,$disabledcon);
             break;
         case 'disDefault':
             $que_array=get_option('widgetid');
-            enable_all($que_array);
-            disable_types($que_array,"default");
+            enable_all($que_array,$enablecon);
+            disable_types($que_array,"default",$enablecon,$disabledcon);
             break;
         case 'enbDefault':
             $que_array=get_option('widgetid');
-            enable_all($que_array);
-            disable_types($que_array,"custom");
+            enable_all($que_array,$enablecon);
+            disable_types($que_array,"custom",$enablecon,$disabledcon);
             break;
         case 'disCust':
             $que_array=  get_option('widgetid');
-            enable_all($que_array);
-            disable_types($que_array,"custom");
+            enable_all($que_array,$enablecon);
+            disable_types($que_array,"custom",$enablecon,$disabledcon);
             break;
    }
    }else{
-       //var_dump($que_array);
        $wid=get_option('widgetid');
    foreach($que_array as $widgetId){
     $option = 0;
@@ -59,22 +58,26 @@ $enablecon=0;
    update_option('widgetid', $wid);
    }
    echo "$enablecon enabled widgets and $disabledcon disabled widgets";
-    function enable_all($que_array){
+    function enable_all($que_array, &$enablecon){
                  foreach($que_array as $widgetId){
                 $que_array[$widgetId['key']]['status']=TRUE;
+                $enablecon++;
         update_option('widgetid', $que_array);
        }
     }
-     function disable_all($que_array){
+     function disable_all($que_array,&$disabledcon){
          foreach($que_array as $widgetId){
                 $que_array[$widgetId['key']]['status']=false;
+                $disabledcon++;
         update_option('widgetid', $que_array);
        }
      }
-     function disable_types($w,$type){
+     function disable_types($w,$type,&$enablecon,&$disabledcon){
          foreach($w as $wid){
          if($wid['type']==$type){
              $w[$wid['key']]['status']=FALSE;
+             $disabledcon++;
+             $enablecon--;
          }else{
              $w[$wid['key']]['status']=TRUE;
          }
