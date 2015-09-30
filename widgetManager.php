@@ -110,6 +110,8 @@ $des=get_option($key);
     </table>
      <?php submit_button(); ?>
     </form>
+    <label>Notifications:</label>
+    <p id="msg"></p>
     <form action="upload.php" method="post" enctype="multipart/form-data">
     Upload a custom Widget
     <input type="file" name="widgetToUpload" id="widgetToUpload">
@@ -126,6 +128,7 @@ var_dump($s);
 <?php }
 function remove_disable_widget() {
 	$d=get_option('widgetid');
+        if($d!=NULL){
         foreach($d as $widget){
             if($d[$widget['key']]['status']==FALSE){
             unregister_widget($widget['key']);
@@ -133,6 +136,7 @@ function remove_disable_widget() {
             register_widget($widget['key']);
             }
             }
+        }
         }
         function get_type($keys){
     if(preg_match("/WP_(Widget|Nav)/", $keys)){
