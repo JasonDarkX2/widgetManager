@@ -131,14 +131,17 @@ function remove_disable_widget() {
         if($d!=NULL){
         foreach($d as $widget){
             if($d[$widget['key']]['status']==FALSE){
+                if(class_exists($widget['key'])){
             unregister_widget($widget['key']);
-            }else{ 
-            register_widget($widget['key']);
+                }else{
+                    unset($widget['key']);
+                }
             }
             }
         }
         }
-        function get_type($keys){
+}
+function get_type($keys){
     if(preg_match("/WP_(Widget|Nav)/", $keys)){
     $type="default";
 }else{
@@ -155,7 +158,6 @@ function get_name($key){
 function get_description($key){
     $wid=($GLOBALS['wp_widget_factory']->widgets);
  return $wid[$key]->widget_options['description'];
-}
 }
 
 
