@@ -69,6 +69,8 @@ static function Widget_manager_settings_page() { ?>
     }else{
         $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
         $wid=($GLOBALS['wp_widget_factory']->widgets);
+      echo'<label><h1>Notifications:</h1></label>';
+    echo '<p id="msg"></p>';
   foreach($widgets as $keys){
 if(array_key_exists($keys,$w)==FALSE){
     echo"<h2>Notfication:</h2>";
@@ -110,17 +112,18 @@ $des=get_option($key);
     </table>
      <?php submit_button(); ?>
     </form>
-    <label>Notifications:</label>
-    <p id="msg"></p>
     <form action="upload.php" method="post" enctype="multipart/form-data">
     Upload a custom Widget
     <input type="file" name="widgetToUpload" id="widgetToUpload">
     <input type="submit" value="Upload" name="submit">
 </form>
-    <?php echo "<b>DEBUG Section:</b>";
+    <?php 
     
 $s=get_option('widgetid');
+echo '<div id="debug" hidden="true">';
+echo "<b>DEBUG Section:</b>";
 var_dump($s);
+echo '</div>';
 //update_option('widgetid', "");
    ?>
 

@@ -5,7 +5,7 @@
  */
 
 jQuery('document').ready(function(e){
-    
+    var notification="nope";
    var wmform=e('#widmanager');
    wmform.submit(function(ex){
       var formdata=wmform.serialize(); 
@@ -16,8 +16,9 @@ type: 'post',
 url: formurl,
 data: formdata,
 success: function(XMLHttpRequest,data, textStatus){
-    alert(XMLHttpRequest);
+   notification=XMLHttpRequest;
    location.reload();
+    localStorage['notification']='<strong>'+ notification + '</strong>';
 },
 error: function(XMLHttpRequest, textStatus, errorThrown)
 {
@@ -27,4 +28,5 @@ error: function(XMLHttpRequest, textStatus, errorThrown)
 ex.preventDefault();
 
 });
+jQuery('#msg').html(localStorage['notification']);
 });
