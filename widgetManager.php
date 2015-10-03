@@ -73,17 +73,23 @@ static function Widget_manager_settings_page() { ?>
     echo '<p id="msg"></p>';
   foreach($widgets as $keys){
 if(array_key_exists($keys,$w)==FALSE){
-    echo"<h2>Notfication:</h2>";
-    echo"*recently added widgets*<ul>";
-     echo "<li>". get_name($keys) ."</li>";
-     echo"</ul>";
+    echo '<br/><strong>*recently added widgets*-></strong>'. get_name($keys);
 $type=get_type($keys);
-$des=get_option($key);
         array_push($w,$w[$keys]=array('key'=>$keys,'name'=> get_name($keys),'Description'=>get_description($keys), 'type'=>$type,'status'=>TRUE));
         array_pop($w);
+        
         update_option('widgetid', $w);
 }
+
       }
+      //clean sweep
+      $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
+foreach($w as $keys){
+    if(array_key_exists($keys['key'],$widgets)==FALSE && get_type($keys['key'])!='default'){
+        unset($w[$keys['key']]);
+        update_option('widgetid', $w);
+    }
+}
   $widgets=$w; 
     }
     foreach($widgets as $widget):?>
@@ -120,9 +126,11 @@ $des=get_option($key);
     <?php 
     
 $s=get_option('widgetid');
-echo '<div id="debug" hidden="true">';
+echo '<div id="debug">';
 echo "<b>DEBUG Section:</b>";
 var_dump($s);
+echo "<h1>widgets</h1>";
+var_dump( $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets ));
 echo '</div>';
 //update_option('widgetid', "");
    ?>
