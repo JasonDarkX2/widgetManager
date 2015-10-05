@@ -14,6 +14,7 @@ class widget_manager{
 static function init(){
 add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'clean_sweep') );
+//add_action( 'widgets_init',array(__CLASS__, 'remove_cust_widget') );
 add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
 add_action('admin_enqueue_scripts',array(__CLASS__,'add_scripts') );
 }
@@ -121,7 +122,7 @@ $type=get_type($keys);
     <?php 
     
 $s=get_option('widgetid');
-echo '<div id="debug">';
+echo '<div id="debug" hidden="true">';
 echo "<b>DEBUG Section:</b>";
 var_dump($s);
 echo "<h1>widgets</h1>";
@@ -147,6 +148,17 @@ function remove_disable_widget() {
             }
         }
         }
+        function remove_cust_widget() {
+	$d=get_option('widgetid');
+
+        if(class_exists($d['Jetpack_Contact_Info_Widget']['key'])){
+        echo"<h1>hello MOMO</h1>";
+        unregister_widget('Jetpack_Contact_Info_Widget');
+        }else{
+            echo "<h1>nope</h1>";
+        }
+            //unregister_widget('Jetpack_Contact_Info_Widget');
+                }
 function clean_sweep(){
     $d=get_option('widgetid');
      foreach($d as $widget){
@@ -160,9 +172,9 @@ function clean_sweep(){
 
 function get_type($keys){
     if(preg_match("/WP_(Widget|Nav)/", $keys)){
-    $type="default";
+    $type="Default";
 }else{
-    $type="custom";
+    $type="Plugin";
 }
 update_option('defaults', $defaultWidgets);
 return $type;

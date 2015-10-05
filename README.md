@@ -18,6 +18,7 @@ plugin is currently being developed by JasonDarkX2
 [website](http://www.jasondarkx2.com/)
 
 ## Change Log
-*V0.50- the base functionality of Widget Manager reached  Sept 2, 2015
-*v0.00- the beginning  
+* V0.60- the basic functionality of Widget Manager complete. ready for next phase  Oct 4, 2015
+* V0.50- the base functionality of Widget Manager reached  Sept 2, 2015
+* V0.00- the beginning Aug 12,2015  
 
