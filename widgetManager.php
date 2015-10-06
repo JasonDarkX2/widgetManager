@@ -14,7 +14,7 @@ class widget_manager{
 static function init(){
 add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'clean_sweep') );
-//add_action( 'widgets_init',array(__CLASS__, 'remove_cust_widget') );
+add_action( 'widgets_init',array(__CLASS__, 'import_cust_widget') );
 add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
 add_action('admin_enqueue_scripts',array(__CLASS__,'add_scripts') );
 }
@@ -152,13 +152,16 @@ function remove_disable_widget() {
 	$d=get_option('widgetid');
 
         if(class_exists($d['Jetpack_Contact_Info_Widget']['key'])){
-        echo"<h1>hello MOMO</h1>";
         unregister_widget('Jetpack_Contact_Info_Widget');
         }else{
-            echo "<h1>nope</h1>";
         }
             //unregister_widget('Jetpack_Contact_Info_Widget');
                 }
+                function import_cust_widget() {
+	include('custom-widgets/testWidget1.php');
+                register_widget('test_widget');
+
+        }
 function clean_sweep(){
     $d=get_option('widgetid');
      foreach($d as $widget){
