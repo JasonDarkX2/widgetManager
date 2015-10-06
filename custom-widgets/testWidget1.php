@@ -25,8 +25,11 @@ array( 'description' => __( 'Test Widget for Widget manager', 'WM_widget_domain'
 }
 // Creating widget front-end
 public function widget( $args, $instance ) {
-
-    
+$title="This is the Test Widget";
+    echo $args['before_widget'];
+    echo $args['before_title'] . $title . $args['after_title'];
+    echo "<h1>HELLO Widget Manager!!</h1>";
+    echo $args['after_widget'];
 }
 // Widget Backend 
 public function form( $instance ) {
