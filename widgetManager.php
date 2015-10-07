@@ -158,8 +158,29 @@ function remove_disable_widget() {
             //unregister_widget('Jetpack_Contact_Info_Widget');
                 }
                 function import_cust_widget() {
-	include('custom-widgets/testWidget1.php');
-                register_widget('test_widget');
+                    $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
+                   $customwidgets=scandir($dir);
+                   rsort($customwidgets);
+                   array_pop($customwidgets);
+                   array_pop($customwidgets);
+                   array_pop($customwidgets);
+                   header('Content-Type: text/plain');
+                   $file=file_get_contents($dir. '/'.$customwidgets[0]);
+                   $t=token_get_all($file);
+                   $class_token = false;
+foreach ($t as $token) {
+  if (is_array($token)) {
+    if ($token[0] == T_CLASS) {
+       $class_token = true;
+    } else if ($class_token && $token[0] == T_STRING) {
+        $widget_class=$token[1];
+       $class_token = false;
+    }
+  }       
+}
+                   //var_dump($token);
+	include($dir. '/'.$customwidgets[0]);
+                register_widget($widget_class);
 
         }
 function clean_sweep(){
