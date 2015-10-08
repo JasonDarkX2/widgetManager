@@ -120,7 +120,15 @@ $type=get_type($keys);
     <input type="submit" value="Upload" name="submit">
 </form>
     <?php 
-    
+    $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
+    $custwid=getCustomWidgets($dir);
+    echo "<table><tr><th>Custom Widgets</th></tr>";
+    foreach($custwid as $c){
+    echo'<tr>';
+    echo"<td>$c</td>";
+    echo"</tr>";
+    }
+    echo "</table>";
 $s=get_option('widgetid');
 echo '<div id="debug" hidden="true">';
 echo "<b>DEBUG Section:</b>";
@@ -159,11 +167,7 @@ function remove_disable_widget() {
                 }
                 function import_cust_widget() {
                     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
-                   $customwidgets=scandir($dir);
-                   rsort($customwidgets);
-                   array_pop($customwidgets);
-                   array_pop($customwidgets);
-                   array_pop($customwidgets);
+                    $customwidgets=getCustomWidgets($dir);
                    header('Content-Type: text/plain');
                    $file=file_get_contents($dir. '/'.$customwidgets[0]);
                    $t=token_get_all($file);
@@ -193,7 +197,14 @@ function clean_sweep(){
      }
 }
 }
-
+function getCustomWidgets($dir){
+ $customwidgets=scandir($dir);
+                   rsort($customwidgets);
+                   array_pop($customwidgets);
+                   array_pop($customwidgets);
+                   array_pop($customwidgets);
+                   return $customwidgets;
+}
 function get_type($keys){
     if(preg_match("/WP_(Widget|Nav)/", $keys)){
     $type="Default";
@@ -212,7 +223,6 @@ function get_description($key){
     $wid=($GLOBALS['wp_widget_factory']->widgets);
  return $wid[$key]->widget_options['description'];
 }
-
 
 
 
