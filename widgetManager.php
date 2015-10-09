@@ -114,21 +114,27 @@ $type=get_type($keys);
     </table>
      <?php submit_button(); ?>
     </form>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
+    <!---<form action="upload.php" method="post" enctype="multipart/form-data">
     Upload a custom Widget
     <input type="file" name="widgetToUpload" id="widgetToUpload">
     <input type="submit" value="Upload" name="submit">
-</form>
+</form>!--->
     <?php 
     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
-    $custwid=getCustomWidgets($dir);
-    echo "<table><tr><th>Custom Widgets</th></tr>";
-    foreach($custwid as $c){
-    echo'<tr>';
-    echo"<td>$c</td>";
-    echo"</tr>";
-    }
+    $custwid=getCustomWidgets($dir);?>
+    <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th></tr>
+        <form method="POST" action="#">
+    <?php 
+    foreach($custwid as $c):?>
+    <tr>
+        <td><?php echo getWidgetClass($c);?></td><td><?php echo $c; ?></td>
+        <td><input type="radio" name="<?php echo $c?>" <?php checked('',$custwidget['status'] ); ?> value="unregister"></td>
+        <td><input type="radio" name="<?php echo $c?>" <?php checked('',$custwidget['status'] ); ?> value="unregister"></td>
+    </tr>
+    <?php endforeach;
     echo "</table>";
+    submit_button('save custom widget');
+    echo "</form>";
 $s=get_option('widgetid');
 echo '<div id="debug" hidden="true">';
 echo "<b>DEBUG Section:</b>";
@@ -180,8 +186,10 @@ foreach ($t as $token) {
         $widget_class=$token[1];
        $class_token = false;
     }
-  }       
+  }
+  
 }
+
                    //var_dump($token);
 	include($dir. '/'.$customwidgets[0]);
                 register_widget($widget_class);
@@ -204,6 +212,24 @@ function getCustomWidgets($dir){
                    array_pop($customwidgets);
                    array_pop($customwidgets);
                    return $customwidgets;
+}
+function getWidgetClass($file){
+     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
+     $file=file_get_contents($dir. '/'.$file);
+     $t=token_get_all($file);
+     $class_token = false;
+foreach ($t as $token) {
+  if (is_array($token)) {
+    if ($token[0] == T_CLASS) {
+       $class_token = true;
+    } else if ($class_token && $token[0] == T_STRING) {
+        $widget_class=$token[1];
+       $class_token = false;
+    }
+  }
+  
+}
+                   return $widget_class ;
 }
 function get_type($keys){
     if(preg_match("/WP_(Widget|Nav)/", $keys)){
