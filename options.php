@@ -74,7 +74,7 @@ $enablecon=0;
      }
      function disable_types($w,$type,&$enablecon,&$disabledcon){
          foreach($w as $wid){
-         if($wid['type']==$type){
+         if(strtolower($wid['type'])==strtolower($type)){
              $w[$wid['key']]['status']=FALSE;
              $disabledcon++;
              $enablecon--;

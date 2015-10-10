@@ -12,9 +12,9 @@ Author URI:http://www.jasondarkx2.com/
 class widget_manager{
     static $add_script;
 static function init(){
+add_action( 'widgets_init',array(__CLASS__, 'import_cust_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'clean_sweep') );
-add_action( 'widgets_init',array(__CLASS__, 'import_cust_widget') );
 add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
 add_action('admin_enqueue_scripts',array(__CLASS__,'add_scripts') );
 }
@@ -193,7 +193,11 @@ foreach ($t as $token) {
                    //var_dump($token);
 	include($dir. '/'.$customwidgets[0]);
                 register_widget($widget_class);
-
+                $w=get_option('widgetid');
+                if(array_key_exists($widget_class,$w)==TRUE){
+                 $w[$widget_class]['type']='Custom';
+                update_option('widgetid', $w);
+                }
         }
 function clean_sweep(){
     $d=get_option('widgetid');
@@ -237,7 +241,6 @@ function get_type($keys){
 }else{
     $type="Plugin";
 }
-update_option('defaults', $defaultWidgets);
 return $type;
 }
 function get_name($key){
