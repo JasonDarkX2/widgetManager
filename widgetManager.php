@@ -49,8 +49,6 @@ static function Widget_manager_settings_page() { ?>
         <tr><th> Widgets</th><th>Type</th><th> Enabled</th><th>Disabled</th></tr>
     <?php  
     
-        $defaultWidgets=array();
-        $customWidgets=Array();
     $w=get_option('widgetid');
     if(empty($w)){
         $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
@@ -173,26 +171,11 @@ function remove_disable_widget() {
                 }
                 function import_cust_widget() {
                     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
-                    $customwidgets=getCustomWidgets($dir);
-                   header('Content-Type: text/plain');
-                   $file=file_get_contents($dir. '/'.$customwidgets[0]);
-                   $t=token_get_all($file);
-                   $class_token = false;
-foreach ($t as $token) {
-  if (is_array($token)) {
-    if ($token[0] == T_CLASS) {
-       $class_token = true;
-    } else if ($class_token && $token[0] == T_STRING) {
-        $widget_class=$token[1];
-       $class_token = false;
-    }
-  }
-  
-}
-
-                   //var_dump($token);
-	include($dir. '/'.$customwidgets[0]);
-                register_widget($widget_class);
+                   $custwid=getCustomWidgets($dir);
+                   foreach($custwid as $wid){
+                       include($dir. '/'.$wid);
+                       register_widget(getWidgetClass($wid));
+                   }
                 $w=get_option('widgetid');
                 if(array_key_exists($widget_class,$w)==TRUE){
                  $w[$widget_class]['type']='Custom';
