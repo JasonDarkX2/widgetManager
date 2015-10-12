@@ -39,6 +39,7 @@ self::$add_script = true;
  static function register_widget_manager_settings() {
 	//register our settings
 	register_setting( 'WM-setting', 'widgetid' );
+        register_setting( 'WM-setting', 'custom-widget' );
 }
 static function Widget_manager_settings_page() { ?>
     <h1> Widget Manager</h1>
@@ -119,15 +120,15 @@ $type=get_type($keys);
 </form>!--->
     <?php 
     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
-    $custwid=getCustomWidgets($dir);?>
+    $custwid= get_option('custom-widget')?>
     <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th></tr>
         <form method="POST" action="#">
     <?php 
     foreach($custwid as $c):?>
     <tr>
-        <td><?php echo getWidgetClass($c);?></td><td><?php echo $c; ?></td>
-        <td><input type="radio" name="<?php echo $c?>" <?php checked('',$custwidget['status'] ); ?> value="unregister"></td>
-        <td><input type="radio" name="<?php echo $c?>" <?php checked('',$custwidget['status'] ); ?> value="unregister"></td>
+        <td><?php echo get_name($c['class']);?></td><td><?php echo $c['file']; ?></td>
+        <td><input type="radio" name="<?php echo$c['class'];?>" <?php checked('',$cust['status'] ); ?> value="unregister"></td>
+        <td><input type="radio" name="<?php echo $c['class'];?>" <?php checked('',$c['status'] ); ?> value="unregister"></td>
     </tr>
     <?php endforeach;
     echo "</table>";
@@ -176,11 +177,15 @@ function remove_disable_widget() {
                        include($dir. '/'.$wid);
                        register_widget(getWidgetClass($wid));
                    }
-                $w=get_option('widgetid');
-                if(array_key_exists($widget_class,$w)==TRUE){
-                 $w[$widget_class]['type']='Custom';
+                   $w=get_option('widgetid');
+                   $cus=array();
+                   foreach($custwid as $wid){
+                 $w[getWidgetClass($wid)]['type']='Custom';
+                array_push($cust, $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'file'=> $wid,'status' => TRUE));
+      array_pop($cust);
+                update_option('custom-widget',$cust);
                 update_option('widgetid', $w);
-                }
+                   }
         }
 function clean_sweep(){
     $d=get_option('widgetid');
