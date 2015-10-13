@@ -121,21 +121,24 @@ $type=get_type($keys);
     <?php 
     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
     $custwid= get_option('custom-widget')?>
+    <h2><strong>Custom Widgets Option</strong></h2>
     <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th></tr>
-        <form method="POST" action="#">
+        <form method="POST" action="<?php echo plugins_url('customWidgetOptions.php', __FILE__); ?>">
     <?php 
     foreach($custwid as $c):?>
     <tr>
         <td><?php echo get_name($c['class']);?></td><td><?php echo $c['file']; ?></td>
-        <td><input type="radio" name="<?php echo$c['class'];?>" <?php checked('',$cust['status'] ); ?> value="unregister"></td>
-        <td><input type="radio" name="<?php echo $c['class'];?>" <?php checked('',$c['status'] ); ?> value="unregister"></td>
+        <td>
+            <input type='hidden' name='customWidget[]' value='<?php echo  $c['key'] ?>' id='customWidget'> 
+            <input type="radio" name="<?php echo$c['class'];?>" <?php checked(1,$c['status'] ); ?> value="true"></td>
+        <td><input type="radio" name="<?php echo $c['class'];?>" <?php checked(0,$c['status'] ); ?> value="false"></td>
     </tr>
     <?php endforeach;
     echo "</table>";
     submit_button('save custom widget');
     echo "</form>";
-$s=get_option('widgetid');
-echo '<div id="debug" hidden="true">';
+$s=get_option('custom-widget');
+echo '<div id="debug" false>';
 echo "<b>DEBUG Section:</b>";
 var_dump($s);
 echo "<h1>widgets</h1>";
