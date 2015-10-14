@@ -131,7 +131,7 @@ $type=get_type($keys);
         <td>
             <input type='hidden' name='customWidget[]' value='<?php echo  $c['key'] ?>' id='customWidget'> 
             <input type="radio" name="<?php echo$c['class'];?>" <?php checked(1,$c['status'] ); ?> value="true"></td>
-        <td><input type="radio" name="<?php echo $c['class'];?>" <?php checked(0,$c['status'] ); ?> value="false"></td>
+        <td><input type="radio" name="<?php echo $c['class'];?>" <?php checked('',$c['status'] ); ?> value="false"></td>
     </tr>
     <?php endforeach;
     echo "</table>";
@@ -181,11 +181,14 @@ function remove_disable_widget() {
                        register_widget(getWidgetClass($wid));
                    }
                    $w=get_option('widgetid');
+                   $cust=get_option('custom-widget');
                    $cus=array();
                    foreach($custwid as $wid){
                  $w[getWidgetClass($wid)]['type']='Custom';
+                 if(empty($cust)){
                 array_push($cust, $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'file'=> $wid,'status' => TRUE));
       array_pop($cust);
+                 }
                 update_option('custom-widget',$cust);
                 update_option('widgetid', $w);
                    }
