@@ -75,7 +75,9 @@ static function Widget_manager_settings_page() { ?>
     echo '<p id="msg"></p>';
   foreach($widgets as $keys){
 if(array_key_exists($keys,$w)==FALSE){
+    if(get_type($keys)!='Default' ){
     echo '<br/><strong>*recently added widgets*-></strong>'. get_name($keys);
+    }
 $type=get_type($keys);
         array_push($w,$w[$keys]=array('key'=>$keys,'name'=> get_name($keys),'Description'=>get_description($keys), 'type'=>$type,'status'=>TRUE));
         array_pop($w);
@@ -144,7 +146,7 @@ var_dump($s);
 echo "<h1>widgets</h1>";
 var_dump( $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets ));
 echo '</div>';
-//update_option('widgetid', "");
+update_option('widgetid', "");
    ?>
 
     
@@ -184,7 +186,9 @@ function remove_disable_widget() {
                    $cust=get_option('custom-widget');
                    $cus=array();
                    foreach($custwid as $wid){
+                       $w[getWidgetClass($wid)]['name']=get_name(getWidgetClass($wid));
                  $w[getWidgetClass($wid)]['type']='Custom';
+                 $w[getWidgetClass($wid)]['status']=TRUE;
                  if(empty($cust)){
                 array_push($cust, $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'file'=> $wid,'status' => TRUE));
       array_pop($cust);
