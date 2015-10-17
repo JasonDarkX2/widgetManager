@@ -129,7 +129,7 @@ $type=get_type($keys);
     <?php 
     foreach($custwid as $c):?>
     <tr>
-        <td><?php echo get_name($c['class']);?></td><td><?php echo $c['file']; ?></td>
+        <td><?php echo $c['name'];?></td><td><?php echo $c['file']; ?></td>
         <td>
             <input type='hidden' name='customWidget[]' value='<?php echo  $c['key'] ?>' id='customWidget'> 
             <input type="radio" name="<?php echo$c['class'];?>" <?php checked(1,$c['status'] ); ?> value="true"></td>
@@ -147,7 +147,7 @@ echo "<h1>widgets</h1>";
 var_dump( $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets ));
 echo '</div>';
 //update_option('widgetid', "");
-update_option('custom-widget', "");
+//update_option('custom-widget', "");
    ?>
 
     
@@ -180,27 +180,34 @@ function remove_disable_widget() {
                     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
                    $custwid=getCustomWidgets($dir);
                    foreach($custwid as $wid){
+                       if($cust[getWidgetClass($wid)]['status']==true){
                        include($dir. '/'.$wid);
                        register_widget(getWidgetClass($wid));
+                       }else{
+                           unregister_widget(getWidgetClass($wid));
+                       }
                    }
                    $w=get_option('widgetid');
                    $cust=get_option('custom-widget');
                    $cus=array();
                    foreach($custwid as $wid){
-                       $w[getWidgetClass($wid)]['name']=get_name(getWidgetClass($wid));
+                       if($cust[getWidgetClass($wid)]['status']==true){
+                       $w[getWidgetClass($wid)]['name']=$cust[getWidgetClass($wid)]['name'];
                  $w[getWidgetClass($wid)]['type']='Custom';
                  $w[getWidgetClass($wid)]['status']=TRUE;
-                 if(empty($cust)){
-                      $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => TRUE);
-                       update_option('custom-widget',$cust);
+                       }else{
+                           unset($w[getWidgetClass($wid)]);
+                       }
+                 if(empty($cust)==TRUE){
+                      $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true);
                  }else{
                      if(array_key_exists(getWidgetClass($wid),$cust)==FALSE){
-                array_push($cust, $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => TRUE));
+                array_push($cust, $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true));
                  array_pop($cust);
-                 update_option('custom-widget',$cust);
+
                      }
                  }
-                
+                update_option('custom-widget',$cust);
                 update_option('widgetid', $w);
                    }
         }
