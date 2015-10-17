@@ -125,7 +125,7 @@ $type=get_type($keys);
     $custwid= get_option('custom-widget')?>
     <h2><strong>Custom Widgets Option</strong></h2>
     <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th></tr>
-        <form method="POST" action="<?php echo plugins_url('customWidgetOptions.php', __FILE__); ?>">
+        <form id="customswid" method="POST" action="<?php echo plugins_url('customWidgetOptions.php', __FILE__); ?>">
     <?php 
     foreach($custwid as $c):?>
     <tr>

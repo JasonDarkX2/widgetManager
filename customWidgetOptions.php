@@ -15,14 +15,13 @@ $parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
     $data=$_POST;
   if(isset($data[ $widgetId])){
         $option = $data[$widgetId];
-        echo $widgetId.'->'.$option;
         if($option=='true'){
             $custwid[$widgetId]['status']=TRUE;
-            echo  $custwid[$widgetId]['status'];
+            echo  $custwid[$widgetId]['name'] . ' registered and enabled<br/>';
         }else{
              $custwid[$widgetId]['status']=FALSE;
+              echo  $custwid[$widgetId]['name'] . ' unregistered<br/>';
         }
   }
  }
-           var_dump($custwid);
         update_option('custom-widget', $custwid);
