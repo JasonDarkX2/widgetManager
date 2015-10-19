@@ -178,17 +178,17 @@ function remove_disable_widget() {
                 }
                 function import_cust_widget() {
                     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
+                    $w=get_option('widgetid');
+                    $cust=get_option('custom-widget');
                    $custwid=getCustomWidgets($dir);
                    foreach($custwid as $wid){
-                       if($cust[getWidgetClass($wid)]['status']==true){
+                       if($cust[getWidgetClass($wid)]['status']==true||empty($cust)){
                        include($dir. '/'.$wid);
                        register_widget(getWidgetClass($wid));
                        }else{
                            unregister_widget(getWidgetClass($wid));
                        }
                    }
-                   $w=get_option('widgetid');
-                   $cust=get_option('custom-widget');
                    $cus=array();
                    foreach($custwid as $wid){
                        if($cust[getWidgetClass($wid)]['status']==true){
@@ -196,7 +196,9 @@ function remove_disable_widget() {
                  $w[getWidgetClass($wid)]['type']='Custom';
                  $w[getWidgetClass($wid)]['status']=TRUE;
                        }else{
+                           if(class_exists($widget['key'])==TRUE){
                            unset($w[getWidgetClass($wid)]);
+                           }
                        }
                  if(empty($cust)==TRUE){
                       $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true);
