@@ -32,7 +32,7 @@ $enablecon=0;
         case 'disCust':
             $que_array=  get_option('widgetid');
             enable_all($que_array,$enablecon);
-            disable_types($que_array,"custom",$enablecon,$disabledcon);
+            disable_types($que_array,"Custom",$enablecon,$disabledcon);
             break;
    }
    }else{

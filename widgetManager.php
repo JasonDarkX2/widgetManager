@@ -132,19 +132,19 @@ $type=get_type($keys);
         <td><?php echo $c['name'];?></td><td><?php echo $c['file']; ?></td>
         <td>
             <input type='hidden' name='customWidget[]' value='<?php echo  $c['key'] ?>' id='customWidget'> 
-            <input type="radio" name="<?php echo$c['class'];?>" <?php checked(1,$c['status'] ); ?> value="true"></td>
-        <td><input type="radio" name="<?php echo $c['class'];?>" <?php checked('',$c['status'] ); ?> value="false"></td>
+            <input type="radio" name="<?php echo$c['key'];?>" <?php checked(1,$c['status'] ); ?> value="true"></td>
+        <td><input type="radio" name="<?php echo $c['key'];?>" <?php checked('',$c['status'] ); ?> value="false"></td>
     </tr>
     <?php endforeach;
     echo "</table>";
     submit_button('save custom widget');
     echo "</form>";
-$s=get_option('custom-widget');
+$s=get_option('widgetid');
 echo '<div id="debug" false>';
 echo "<b>DEBUG Section:</b>";
 var_dump($s);
 echo "<h1>widgets</h1>";
-var_dump( $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets ));
+//var_dump( $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets ));
 echo '</div>';
 //update_option('widgetid', "");
 //update_option('custom-widget', "");
@@ -192,11 +192,14 @@ function remove_disable_widget() {
                    $cus=array();
                    foreach($custwid as $wid){
                        if($cust[getWidgetClass($wid)]['status']==true){
-                       $w[getWidgetClass($wid)]['name']=$cust[getWidgetClass($wid)]['name'];
-                 $w[getWidgetClass($wid)]['type']='Custom';
-                 $w[getWidgetClass($wid)]['status']=TRUE;
+                           if(array_key_exists(getWidgetClass($wid),$w)==FALSE){
+              $newcust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'type'=> 'Custom','status' => true);
+              $w[getWidgetClass($wid)]['type']='Custom';
+               array_push($w, $newcust);
+               
+                           }
                        }else{
-                           if(class_exists($widget['key'])==TRUE){
+                           if(empty($w)==FALSE){
                            unset($w[getWidgetClass($wid)]);
                            }
                        }
