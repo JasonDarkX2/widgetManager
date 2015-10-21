@@ -191,18 +191,6 @@ function remove_disable_widget() {
                    }
                    $cus=array();
                    foreach($custwid as $wid){
-                       if($cust[getWidgetClass($wid)]['status']==true){
-                           if(array_key_exists(getWidgetClass($wid),$w)==FALSE){
-              $newcust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'type'=> 'Custom','status' => true);
-              $w[getWidgetClass($wid)]['type']='Custom';
-               array_push($w, $newcust);
-               
-                           }
-                       }else{
-                           if(empty($w)==FALSE){
-                           unset($w[getWidgetClass($wid)]);
-                           }
-                       }
                  if(empty($cust)==TRUE){
                       $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true);
                  }else{
@@ -212,12 +200,25 @@ function remove_disable_widget() {
 
                      }
                  }
+                   }
+                   foreach($cust as $c){
+                        if($cust['status']==true){
+                           if(array_key_exists($c['class'],$w)==FALSE){
+              $newcust[$c['class']]=array('key'=>$c['class'],'class'=>$c['class'],'name'=> $c['name'],'type'=> 'Custom','status' => true);
+               array_push($w, $newcust);
+                           }
+                       }else{
+                           if(empty($w)==FALSE){
+                           unset($c['key']);
+                           }
+                       }
+                   }
                 update_option('custom-widget',$cust);
                 update_option('widgetid', $w);
-                   }
+                   
         }
 function clean_sweep(){
-    $d=get_option('widgetid');
+   $d=get_option('widgetid');;
      foreach($d as $widget){
           if(class_exists($widget['key'])==FALSE){
                unset($d[$widget['key']]);
@@ -253,10 +254,13 @@ foreach ($t as $token) {
                    return $widget_class ;
 }
 function get_type($keys){
+    $c=get_option('custom-widget');
     if(preg_match("/WP_(Widget|Nav)/", $keys)){
     $type="Default";
-}else{
+}else if(array_key_exists($keys,$c)==FALSE){
     $type="Plugin";
+}else{
+    $type="Custom";
 }
 return $type;
 }
