@@ -124,7 +124,7 @@ $type=get_type($keys);
     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
     $custwid= get_option('custom-widget')?>
     <h2><strong>Custom Widgets Option</strong></h2>
-    <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th></tr>
+    <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th><th>Extra options</th></tr>
         <form id="customswid" method="POST" action="<?php echo plugins_url('customWidgetOptions.php', __FILE__); ?>">
     <?php 
     foreach($custwid as $c):?>
@@ -134,9 +134,12 @@ $type=get_type($keys);
             <input type='hidden' name='customWidget[]' value='<?php echo  $c['key'] ?>' id='customWidget'> 
             <input type="radio" name="<?php echo$c['key'];?>" <?php checked(1,$c['status'] ); ?> value="true"></td>
         <td><input type="radio" name="<?php echo $c['key'];?>" <?php checked('',$c['status'] ); ?> value="false"></td>
+        <td><a href="<?php echo plugins_url('cwdelete.php',__FILE__); ?>?w=<?php echo$c['key']; ?>" title="delete <?php echo$c['name']; ?>">Delete Widget</a></td>
     </tr>
-    <?php endforeach;
-    echo "</table>";
+    <?php endforeach;?>
+    <tr><td colspan="5"><a href="#"> Get more Custom Widgets</a>|<a href="#"> Add/import new Custom Widgets</a></td></tr>
+    </table>
+    <?php
     submit_button('save custom widget');
     echo "</form>";
 $s=get_option('widgetid');
@@ -218,7 +221,7 @@ function remove_disable_widget() {
                    
         }
 function clean_sweep(){
-   $d=get_option('widgetid');;
+   $d=get_option('widgetid');
      foreach($d as $widget){
           if(class_exists($widget['key'])==FALSE){
                unset($d[$widget['key']]);
