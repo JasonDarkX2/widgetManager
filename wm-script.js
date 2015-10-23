@@ -51,4 +51,19 @@ ex.preventDefault();
 
 });
 jQuery('#msg').html(localStorage['notification']);
+jQuery('.deleteWid').click(function(e){
+    e.preventDefault();
+ if (confirm("Are you Sure you want to delete?") == true) {
+jQuery.ajax({ type: "GET",   
+         url: jQuery(this).attr("href"),   
+         async: false,
+         success : function(text)
+         {
+             response = text;
+         }
+});
+   location.reload();
+   localStorage['notification']='<strong>'+ response + '</strong>';
+ }
+});
 });

@@ -6,3 +6,6 @@
  * and open the template in the editor.
  */
 
+$widgetid=$_GET['w'];
+
+echo "deleted $widgetid";
