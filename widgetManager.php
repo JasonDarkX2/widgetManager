@@ -142,7 +142,7 @@ $type=get_type($keys);
     <?php
     submit_button('save custom widget');
     echo "</form>";
-$s=get_option('widgetid');
+$s=get_option('custom-widget');
 echo '<div id="debug" false>';
 echo "<b>DEBUG Section:</b>";
 var_dump($s);
