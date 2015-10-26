@@ -1,0 +1,22 @@
+/*
+Plugin Name: Wordpress Widget Manager
+Plugin URI: https://github.com/JasonDarkX2/Wordpress-WidgetManager
+Description:Simply a Wordpress Plugin dedicated to help easily manage custom and default Wordpress widgets
+Author:Jason Dark X2
+version: 0.70
+Author URI:http://www.jasondarkx2.com/ 
+*/ 
+.ui-dialog {
+    background-color:white;
+    -moz-border-radius: 0 0 8px 8px;
+    -webkit-border-radius: 0 0 8px 8px;
+    border-radius: 0 0 8px 8px; border-width: 0 8px 8px 8px;
+}
+
+.ui-dialog-title {
+    width:100%;
+    background: red;
+    -moz-border-radius: 0 0 8px 8px;
+    -webkit-border-radius: 0 0 8px 8px;
+    border-radius: 0 0 8px 8px; border-width: 0 8px 8px 8px;
+}

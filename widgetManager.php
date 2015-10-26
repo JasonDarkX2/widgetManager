@@ -4,7 +4,7 @@ Plugin Name: Wordpress Widget Manager
 Plugin URI: https://github.com/JasonDarkX2/Wordpress-WidgetManager
 Description:Simply a Wordpress Plugin dedicated to help easily manage custom and default Wordpress widgets
 Author:Jason Dark X2
-version: 0.1
+version: 0.70
 Author URI:http://www.jasondarkx2.com/ 
 */ 
 ?>
@@ -22,6 +22,8 @@ static function add_scripts($hook){
  if ( basename($_GET['page']) != "widgetManager.php" ) {
         return;
     }
+    wp_enqueue_style( 'wm-style', plugins_url('style.css',__FILE__));
+     wp_enqueue_script( 'ui-script','//code.jquery.com/ui/1.11.4/jquery-ui.js', array('jquery') );
     wp_enqueue_script( 'wm-script', plugins_url('wm-script.js',__FILE__), array('jquery') );
           $translation_array = array( 'pluginUrl' => plugins_url('option.php',__FILE__ ) );
 wp_localize_script( 'wm-script', 'pd', $translation_array ); 
@@ -42,6 +44,9 @@ self::$add_script = true;
         register_setting( 'WM-setting', 'custom-widget' );
 }
 static function Widget_manager_settings_page() { ?>
+       <div id="dialog">
+  <p>Add or Import your Custom widgets below.... </p>
+</div>
     <h1> Widget Manager</h1>
  <form id="widmanager" method="post" action="<?php echo plugins_url('options.php', __FILE__); ?>">
     <?php settings_fields( 'WM-setting' ); ?>
@@ -139,9 +144,9 @@ $type=get_type($keys);
     <?php endforeach;?>
     <tr><td colspan="5"><a href="#"> Get more Custom Widgets</a>|<a href="#"> Add/import new Custom Widgets</a></td></tr>
     </table>
+    <?php submit_button('save custom widget');?>
+    </form> 
     <?php
-    submit_button('save custom widget');
-    echo "</form>";
 $s=get_option('custom-widget');
 echo '<div id="debug" false>';
 echo "<b>DEBUG Section:</b>";
