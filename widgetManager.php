@@ -175,22 +175,14 @@ function remove_disable_widget() {
             }
         }
         }
-        function remove_cust_widget() {
-	$d=get_option('widgetid');
 
-        if(class_exists($d['Jetpack_Contact_Info_Widget']['key'])){
-        unregister_widget('Jetpack_Contact_Info_Widget');
-        }else{
-        }
-            //unregister_widget('Jetpack_Contact_Info_Widget');
-                }
                 function import_cust_widget() {
                     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
                     $w=get_option('widgetid');
                     $cust=get_option('custom-widget');
                    $custwid=getCustomWidgets($dir);
                    foreach($custwid as $wid){
-                       if($cust[getWidgetClass($wid)]['status']==true||empty($cust)){
+                       if($cust[getWidgetClass($wid)]['status']==true||empty($cust)|| array_key_exists($wid, $cust)==FALSE){
                        include($dir. '/'.$wid);
                        register_widget(getWidgetClass($wid));
                        }else{
@@ -238,7 +230,6 @@ function clean_sweep(){
 function getCustomWidgets($dir){
  $customwidgets=scandir($dir);
                    rsort($customwidgets);
-                   array_pop($customwidgets);
                    array_pop($customwidgets);
                    array_pop($customwidgets);
                    return $customwidgets;
