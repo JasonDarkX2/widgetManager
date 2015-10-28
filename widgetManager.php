@@ -23,6 +23,7 @@ static function add_scripts($hook){
         return;
     }
     wp_enqueue_style( 'wm-style', plugins_url('style.css',__FILE__));
+    wp_enqueue_style( 'ui-style','http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
      wp_enqueue_script( 'ui-script','//code.jquery.com/ui/1.11.4/jquery-ui.js', array('jquery') );
     wp_enqueue_script( 'wm-script', plugins_url('wm-script.js',__FILE__), array('jquery') );
           $translation_array = array( 'pluginUrl' => plugins_url('option.php',__FILE__ ) );
@@ -44,9 +45,11 @@ self::$add_script = true;
         register_setting( 'WM-setting', 'custom-widget' );
 }
 static function Widget_manager_settings_page() { ?>
-       <div id="dialog">
+<form>
+<div id="dialog">
   <p>Add or Import your Custom widgets below.... </p>
 </div>
+</form>
     <h1> Widget Manager</h1>
  <form id="widmanager" method="post" action="<?php echo plugins_url('options.php', __FILE__); ?>">
     <?php settings_fields( 'WM-setting' ); ?>
