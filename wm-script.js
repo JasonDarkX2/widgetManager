@@ -6,27 +6,6 @@ Author:Jason Dark X2
 version: 0.70
 Author URI:http://www.jasondarkx2.com/ 
 */ 
-jQuery(function() {
-    jQuery( "#dialog" ).dialog({
-        title: "Add/Import new Custom Widgets",
-        modal: true,
-    draggable: true,
-    resizable: false,
-    width: 800,
-    height: 240,
-    show: 'blind',
-    hide: 'blind',
-    dialogClass: 'ui-dialog',
-    buttons: {
-        "Upload ": function() {
-          jQuery( this ).dialog( "close" );
-        },
-        Cancel: function() {
-          jQuery( this ).dialog( "close" );
-        },
-    }
-});
-  });
 jQuery('document').ready(function(e){
    
     var notification="nope";
@@ -89,5 +68,26 @@ jQuery.ajax({ type: "GET",
    location.reload();
    localStorage['notification']='<strong>'+ response + '</strong>';
  }
+});
+jQuery('#addWidget').click(function(e){
+  jQuery( "#dialog" ).dialog({
+        title: "Add/Import new Custom Widgets",
+        modal: true,
+    draggable: true,
+    resizable: false,
+    width: 800,
+    height: 240,
+    show: 'blind',
+    hide: 'blind',
+    dialogClass: 'ui-dialog',
+    buttons: {
+        "Upload ": function() {
+          jQuery( this ).dialog( "close" );
+        },
+        Cancel: function() {
+          jQuery( this ).dialog( "close" );
+        },
+    }
+});
 });
 });

@@ -71,7 +71,10 @@ Author URI:http://www.jasondarkx2.com/
     opacity: 0.9;
     z-index: 1040;    
 }
-.ui-dialog .ui-dialog-titlebar-close {
+button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui-dialog-titlebar-close {
     position: absolute;
-    right: 0;
+    margin-left: 97%;
+}
+.ui-widget .ui-widget-content{
+    overflow:hidden;
 }

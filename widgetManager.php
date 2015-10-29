@@ -145,7 +145,7 @@ $type=get_type($keys);
         <td><a class="deleteWid" href="<?php echo plugins_url('cwdelete.php',__FILE__); ?>?w=<?php echo$c['key']; ?>" title="delete <?php echo$c['name']; ?>">Delete Widget</a></td>
     </tr>
     <?php endforeach;?>
-    <tr><td colspan="5"><a href="#"> Get more Custom Widgets</a>|<a href="#"> Add/import new Custom Widgets</a></td></tr>
+    <tr><td colspan="5"><a href="#"> Get more Custom Widgets</a>|<a href="#" id="addWidget"> Add/import new Custom Widgets</a></td></tr>
     </table>
     <?php submit_button('save custom widget');?>
     </form> 
