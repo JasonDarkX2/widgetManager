@@ -46,8 +46,12 @@ self::$add_script = true;
 }
 static function Widget_manager_settings_page() { ?>
 <form>
-<div id="dialog">
+<div id="dialog" hidden="true">
   <p>Add or Import your Custom widgets below.... </p>
+  <form action="adwidget.php">
+  <input type="file" name="widget" accept=".php,.zip">
+
+</form>
 </div>
 </form>
     <h1> Widget Manager</h1>
@@ -185,9 +189,11 @@ function remove_disable_widget() {
                     $cust=get_option('custom-widget');
                    $custwid=getCustomWidgets($dir);
                    foreach($custwid as $wid){
-                       if($cust[getWidgetClass($wid)]['status']==true||empty($cust)|| array_key_exists($wid, $cust)==FALSE){
+                       if($cust[getWidgetClass($wid)]['status']==true){
+                       if(empty($cust)|| array_key_exists($wid, $cust)==FALSE){
                        include($dir. '/'.$wid);
                        register_widget(getWidgetClass($wid));
+                       }
                        }else{
                            unregister_widget(getWidgetClass($wid));
                        }
