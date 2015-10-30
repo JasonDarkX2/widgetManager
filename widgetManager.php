@@ -48,7 +48,7 @@ static function Widget_manager_settings_page() { ?>
 <form>
 <div id="dialog" hidden="true">
   <p>Add or Import your Custom widgets below.... </p>
-  <form action="adwidget.php">
+  <form id="addWidget" method="POST" action="addwidget.php">
   <input type="file" name="widget" accept=".php,.zip">
 
 </form>
