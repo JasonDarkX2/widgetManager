@@ -26,6 +26,8 @@ static function add_scripts($hook){
     wp_enqueue_style( 'ui-style','http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
      wp_enqueue_script( 'ui-script','//code.jquery.com/ui/1.11.4/jquery-ui.js', array('jquery') );
     wp_enqueue_script( 'wm-script', plugins_url('wm-script.js',__FILE__), array('jquery') );
+     $translation_array = array( 'addWidgetUrl' => plugins_url('addwidget.php',__FILE__ ) );
+wp_localize_script( 'wm-script', 'url', $translation_array ); 
           $translation_array = array( 'pluginUrl' => plugins_url('option.php',__FILE__ ) );
 wp_localize_script( 'wm-script', 'pd', $translation_array ); 
 }
