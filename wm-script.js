@@ -7,8 +7,6 @@ version: 0.70
 Author URI:http://www.jasondarkx2.com/ 
 */ 
 jQuery('document').ready(function(e){
-   
-    var notification="nope";
    var wmform=e('#widmanager');
    wmform.submit(function(ex){
       var formdata=wmform.serialize(); 
@@ -82,6 +80,9 @@ jQuery('#addWidget').click(function(e){
     dialogClass: 'ui-dialog',
     buttons: {
         "Upload ": function() {
+           jQuery.post(url.addWidgetUrl,jQuery('#addwidget').serialize(),function(response){
+                alert(response);
+           });       
           jQuery( this ).dialog( "close" );
         },
         Cancel: function() {
