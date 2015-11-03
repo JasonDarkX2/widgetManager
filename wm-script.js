@@ -80,9 +80,23 @@ jQuery('#addWidget').click(function(e){
     dialogClass: 'ui-dialog',
     buttons: {
         "Upload ": function() {
-           jQuery.post(url.addWidgetUrl,jQuery('#addwidget').serialize(),function(response){
-                alert(response);
-           });       
+           //jQuery.post(url.addWidgetUrl,jQuery('#addwidget').serialize(),function(response){
+                //alert(response);
+                var file_data = jQuery('#widgetToUpload').prop('files')[0];   
+    var form_data = new FormData();                  
+    form_data.append('file', file_data);
+                jQuery.ajax({
+                   url: url.addWidgetUrl,
+                   dataType: 'text',  // what to expect back from the PHP script, if anything
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,     
+                   type:'POST',
+                   success: function(php_script_response){
+                    alert(php_script_response); // display response from the PHP script, if any
+                }
+                   });       
           jQuery( this ).dialog( "close" );
         },
         Cancel: function() {
