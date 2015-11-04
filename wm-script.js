@@ -84,7 +84,7 @@ jQuery('#addWidget').click(function(e){
                 //alert(response);
                 var file_data = jQuery('#widgetToUpload').prop('files')[0];   
     var form_data = new FormData();                  
-    form_data.append('file', file_data);
+    form_data.append('widgetToUpload', file_data);
                 jQuery.ajax({
                    url: url.addWidgetUrl,
                    dataType: 'text',  // what to expect back from the PHP script, if anything
@@ -95,6 +95,7 @@ jQuery('#addWidget').click(function(e){
                    type:'POST',
                    success: function(php_script_response){
                     alert(php_script_response); // display response from the PHP script, if any
+                    //jQuery('#debug').html(php_script_response);
                 }
                    });       
           jQuery( this ).dialog( "close" );
