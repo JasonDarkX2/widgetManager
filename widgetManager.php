@@ -157,9 +157,9 @@ $type=get_type($keys);
     </form> 
     <?php
 $s=get_option('custom-widget');
-echo '<div id="debug" false>';
+echo '<div id="debug">';
 echo "<b>DEBUG Section:</b>";
-var_dump($s);
+//var_dump($s);
 echo "<h1>widgets</h1>";
 //var_dump( $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets ));
 echo '</div>';
