@@ -94,11 +94,12 @@ jQuery('#addWidget').click(function(e){
                 data: form_data,     
                    type:'POST',
                    success: function(php_script_response){
-                    alert(php_script_response); // display response from the PHP script, if any
+                    //alert(php_script_response); // display response from the PHP script, if any
                     //jQuery('#debug').html(php_script_response);
                 }
                    });       
           jQuery( this ).dialog( "close" );
+          location.reload();
         },
         Cancel: function() {
           jQuery( this ).dialog( "close" );
