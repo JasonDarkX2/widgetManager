@@ -13,6 +13,7 @@ class widget_manager{
     static $add_script;
 static function init(){
 add_action( 'widgets_init',array(__CLASS__, 'import_cust_widget') );
+//add_action( 'init',array(__CLASS__, 'empty_names') );
 add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'clean_sweep') );
 add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
@@ -129,13 +130,9 @@ $type=get_type($keys);
     </table>
      <?php submit_button(); ?>
     </form>
-    <!---<form action="upload.php" method="post" enctype="multipart/form-data">
-    Upload a custom Widget
-    <input type="file" name="widgetToUpload" id="widgetToUpload">
-    <input type="submit" value="Upload" name="submit">
-</form>!--->
     <?php 
     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
+    self::empty_names();
     $custwid= get_option('custom-widget')?>
     <h2><strong>Custom Widgets Option</strong></h2>
     <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th><th>Extra options</th></tr>
@@ -159,7 +156,7 @@ $type=get_type($keys);
 $s=get_option('custom-widget');
 echo '<div id="debug">';
 echo "<b>DEBUG Section:</b>";
-//var_dump($s);
+var_dump($s);
 echo "<h1>widgets</h1>";
 //var_dump( $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets ));
 echo '</div>';
@@ -227,6 +224,13 @@ function remove_disable_widget() {
                 update_option('custom-widget',$cust);
                 update_option('widgetid', $w);
                    
+        }
+        function empty_names(){
+              $cust=get_option('custom-widget');
+              foreach($cust as $wid){
+                 $cust[$wid['key']]['name']=get_name($wid['class']);
+              }
+              update_option('custom-widget', $cust);
         }
 function clean_sweep(){
    $d=get_option('widgetid');
