@@ -25,11 +25,9 @@ if ($upload == 0) {
     if (move_uploaded_file($_FILES["widgetToUpload"]["tmp_name"], $target_file)) {
         echo "The file ". basename( $_FILES["widgetToUpload"]["name"]). " has been uploaded.";
         $cust=get_option('custom-widget');
-        $wid=$_FILES["widgetToUpload"]["name"];
+        //$wid=$_FILES["widgetToUpload"]["name"];
          register_widget(getWidgetClass($wid));
-         array_push($cust, $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true));
-                 array_pop($cust);
-                 echo  get_name(getWidgetClass($wid));
+
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
