@@ -13,9 +13,9 @@ class widget_manager{
     static $add_script;
 static function init(){
 add_action( 'widgets_init',array(__CLASS__, 'import_cust_widget') );
-//add_action( 'init',array(__CLASS__, 'empty_names') );
 add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'clean_sweep') );
+//add_action( 'admin_menu',array(__CLASS__, 'empty_names') );
 add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
 add_action('admin_enqueue_scripts',array(__CLASS__,'add_scripts') );
 }
@@ -132,7 +132,7 @@ $type=get_type($keys);
     </form>
     <?php 
     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
-    self::empty_names();
+    empty_names();
     $custwid= get_option('custom-widget')?>
     <h2><strong>Custom Widgets Option</strong></h2>
     <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th><th>Extra options</th></tr>
@@ -197,7 +197,6 @@ function remove_disable_widget() {
                            unregister_widget(getWidgetClass($wid));
                        }
                    }
-                   $cus=array();
                    foreach($custwid as $wid){
                  if(empty($cust)==TRUE){
                       $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true);
@@ -205,7 +204,6 @@ function remove_disable_widget() {
                      if(array_key_exists(getWidgetClass($wid),$cust)==FALSE){
                 array_push($cust, $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true));
                  array_pop($cust);
-
                      }
                  }
                    }
@@ -224,13 +222,6 @@ function remove_disable_widget() {
                 update_option('custom-widget',$cust);
                 update_option('widgetid', $w);
                    
-        }
-        function empty_names(){
-              $cust=get_option('custom-widget');
-              foreach($cust as $wid){
-                 $cust[$wid['key']]['name']=get_name($wid['class']);
-              }
-              update_option('custom-widget', $cust);
         }
 function clean_sweep(){
    $d=get_option('widgetid');
@@ -287,8 +278,12 @@ function get_description($key){
     $wid=($GLOBALS['wp_widget_factory']->widgets);
  return $wid[$key]->widget_options['description'];
 }
-
-
-
+        function empty_names(){
+              $cust=get_option('custom-widget');
+              foreach($cust as $wid){
+                 $cust[$wid['key']]['name']=get_name($wid['class']);
+              }
+              update_option('custom-widget', $cust);
+        }
 widget_manager::init();
 ?>
