@@ -26,8 +26,18 @@ if ($upload == 0) {
         echo "The file ". basename( $_FILES["widgetToUpload"]["name"]). " has been uploaded.";
         $cust=get_option('custom-widget');
         //$wid=$_FILES["widgetToUpload"]["name"];
-         register_widget(getWidgetClass($wid));
-
+        include($target_file); 
+        $wid=getWidgetClass($_FILES["widgetToUpload"]["name"]);
+        register_widget($wid);
+if(empty($cust)==TRUE){
+                      //$cust[getWidgetClass($wid)]=array('key'=>$wid,'class'=> $wid,'name'=> get_name($wid),'file'=>$_FILES["widgetToUpload"]["name"],'status' => true);
+                 }else{
+                     if(array_key_exists($wid,$cust)==FALSE){
+                array_push($cust, $cust[$wid]=array('key'=>$wid,'class'=>$wid,'name'=> get_name($wid),'file'=>$_FILES["widgetToUpload"]["name"],'status' => true));
+                 array_pop($cust);
+                     }
+                 }
+                  update_option('custom-widget',$cust);
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
