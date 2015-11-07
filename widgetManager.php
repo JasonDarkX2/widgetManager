@@ -15,7 +15,7 @@ static function init(){
 add_action( 'widgets_init',array(__CLASS__, 'import_cust_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'clean_sweep') );
-//add_action( 'admin_menu',array(__CLASS__, 'empty_names') );
+add_action( 'admin_menu','empty_names' );
 add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
 add_action('admin_enqueue_scripts',array(__CLASS__,'add_scripts') );
 }
@@ -241,7 +241,7 @@ function getCustomWidgets($dir){
                    return $customwidgets;
 }
 function getWidgetClass($file){
-     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
+     $dir=plugin_dir_path( __FILE__ ).'custom-widgets';
      $file=file_get_contents($dir. '/'.$file);
      $t=token_get_all($file);
      $class_token = false;
