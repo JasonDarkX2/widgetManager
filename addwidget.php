@@ -11,9 +11,14 @@ $target_dir =plugin_dir_path( __FILE__ ).'custom-widgets/';
 //echo $target_dir;
 echo $_FILES['widgetToUpload']['name'];
 if(!empty($_FILES)){
-    var_dump($_FILES);
+    
     $target_file = $target_dir . basename($_FILES["widgetToUpload"]['name']);
+    $info = new SplFileInfo('foo.zip');
 $upload = 1;
+if($info->getExtension()==='zip'){
+    $upload=0;
+    echo 'its a zip';
+}
 if (file_exists($target_file)) {
     echo "Sorry, file already exists.";
     $upload = 0;
@@ -25,12 +30,11 @@ if ($upload == 0) {
     if (move_uploaded_file($_FILES["widgetToUpload"]["tmp_name"], $target_file)) {
         echo "The file ". basename( $_FILES["widgetToUpload"]["name"]). " has been uploaded.";
         $cust=get_option('custom-widget');
-        //$wid=$_FILES["widgetToUpload"]["name"];
         include($target_file); 
         $wid=getWidgetClass($_FILES["widgetToUpload"]["name"]);
         register_widget($wid);
 if(empty($cust)==TRUE){
-                      //$cust[getWidgetClass($wid)]=array('key'=>$wid,'class'=> $wid,'name'=> get_name($wid),'file'=>$_FILES["widgetToUpload"]["name"],'status' => true);
+                      $cust[$wid]=array('key'=>$wid,'class'=>$wid,'name'=> get_name($wid),'file'=>$_FILES["widgetToUpload"]["name"],'status' => true);
                  }else{
                      if(array_key_exists($wid,$cust)==FALSE){
                 array_push($cust, $cust[$wid]=array('key'=>$wid,'class'=>$wid,'name'=> get_name($wid),'file'=>$_FILES["widgetToUpload"]["name"],'status' => true));
