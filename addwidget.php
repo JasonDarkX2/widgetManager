@@ -13,11 +13,17 @@ echo $_FILES['widgetToUpload']['name'];
 if(!empty($_FILES)){
     
     $target_file = $target_dir . basename($_FILES["widgetToUpload"]['name']);
-    $info = new SplFileInfo('foo.zip');
+    $info = new SplFileInfo($_FILES["widgetToUpload"]["name"]);
 $upload = 1;
 if($info->getExtension()==='zip'){
     $upload=0;
     echo 'its a zip';
+    $zip = new ZipArchive;
+$res = $zip->open($_FILES["widgetToUpload"]["tmp_name"]);
+if ($res === TRUE) {
+     $zip->extractTo($target_dir);
+      $zip->close();
+}
 }
 if (file_exists($target_file)) {
     echo "Sorry, file already exists.";
