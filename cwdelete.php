@@ -14,7 +14,9 @@ $parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
 $widgetid=$_GET['w'];
 $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
 chmod($dir,777);
+if(file_exists(plugin_dir_path(__FILE__) .'custom-widgets/'.$custwid[$widgetid]['file'])===TRUE){
 unlink(plugin_dir_path(__FILE__) .'custom-widgets/'.$custwid[$widgetid]['file']);
+}
 chmod($dir,755);
 unset($custwid[$widgetid]);
 unset($widgets[$widgetid]);

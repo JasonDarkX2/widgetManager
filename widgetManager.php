@@ -214,7 +214,7 @@ function remove_disable_widget() {
                array_push($w, $newcust);
                            }
                        }else{
-                           if(empty($w)==FALSE){
+                           if(empty($w)==FALSE&& class_exists($c['key'])){
                            unset($c['key']);
                            }
                        }
