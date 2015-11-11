@@ -7,6 +7,7 @@ version: 0.70
 Author URI:http://www.jasondarkx2.com/ 
 */ 
 jQuery('document').ready(function(e){
+    localStorage['notification']='';
    var wmform=e('#widmanager');
    wmform.submit(function(ex){
       var formdata=wmform.serialize(); 
@@ -19,6 +20,7 @@ data: formdata,
 success: function(XMLHttpRequest,data, textStatus){
    notification=XMLHttpRequest;
    location.reload();
+   localStorage['notification']='';
     localStorage['notification']='<strong>'+ notification + '</strong>';
 },
 error: function(XMLHttpRequest, textStatus, errorThrown)
@@ -96,7 +98,7 @@ jQuery('#addWidget').click(function(e){
                    success: function(php_script_response){
                        window.location.reload();
                     //alert(php_script_response); // display response from the PHP script, if any
-                    //jQuery('#debug').html(php_script_response);
+                    jQuery('#debug').html(php_script_response);
                 }
                    });       
           jQuery( this ).dialog( "close" );
