@@ -27,14 +27,15 @@ if ($res === TRUE) {
     if($zip->numFiles>=1){
     for( $i = 0; $i < $zip->numFiles; $i++ ){ 
     $stat = $zip->statIndex( $i ); 
-    $target_file= $target_dir. basename( $stat['name'] ); 
+    print_r($stat['name']);
+    $target_file= $target_dir.  $stat['name']; 
 }
-print_r($target_file);
+//print_r($target_file);
     }
      $zip->extractTo($target_dir);
       $zip->close();
-      $wid=getWidgetClass(basename($target_file));
-      add_new($target_file,$wid,basename($target_file));
+      $wid=getWidgetClass($stat['name']);
+      add_new($target_file,$wid,$stat['name']);
 } else {
         echo "Sorry, there was an error uploading your file.";
     }
