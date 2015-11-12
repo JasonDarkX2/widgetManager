@@ -246,7 +246,6 @@ function getCustomWidgets($dir){
      }
      if(is_dir(plugin_dir_path( __FILE__ ) . 'custom-widgets'. '/'.$d)==TRUE){
          $dirFile=scandir(plugin_dir_path( __FILE__ ) . 'custom-widgets'. '/'.$d);
-         var_dump($dirFile);
          $file=$d . '/' . $dirFile[2];
          array_push($customwidgets, $file);
      }
@@ -256,10 +255,6 @@ function getCustomWidgets($dir){
          }
      }
  }
- var_dump($customwidgets);
-                   /*rsort($customwidgets);
-                   array_pop($customwidgets);
-                   array_pop($customwidgets);*/
                    return $customwidgets;
 }
 function getWidgetClass($file){
