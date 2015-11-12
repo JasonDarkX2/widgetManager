@@ -237,15 +237,34 @@ function clean_sweep(){
 }
 }
 function getCustomWidgets($dir){
- $customwidgets=scandir($dir);
-                   rsort($customwidgets);
+    $customwidgets=array();
+ $cdir=scandir($dir);
+
+ foreach($cdir as $d){
+     if($d == "." || $d == ".."  || $d == ".svn"){
+			continue;
+     }
+     if(is_dir(plugin_dir_path( __FILE__ ) . 'custom-widgets'. '/'.$d)==TRUE){
+         $dirFile=scandir(plugin_dir_path( __FILE__ ) . 'custom-widgets'. '/'.$d);
+         var_dump($dirFile);
+         $file=$d . '/' . $dirFile[2];
+         array_push($customwidgets, $file);
+     }
+     else{
+         if(is_dir($d)==FALSE){
+         array_push($customwidgets, $d);
+         }
+     }
+ }
+ var_dump($customwidgets);
+                   /*rsort($customwidgets);
                    array_pop($customwidgets);
-                   array_pop($customwidgets);
+                   array_pop($customwidgets);*/
                    return $customwidgets;
 }
 function getWidgetClass($file){
      $dir=plugin_dir_path( __FILE__ ).'custom-widgets';
-     $file=file_get_contents($dir. '/'.$file);
+     $file=file_get_contents($dir. '/'.$file );
      $t=token_get_all($file);
      $class_token = false;
 foreach ($t as $token) {
