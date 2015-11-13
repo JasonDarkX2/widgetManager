@@ -20,7 +20,7 @@ plugin is currently being developed by JasonDarkX2
 [website](http://www.jasondarkx2.com/)
 
 ## Change Log
-*V0.85(Nov 12,2015)- Big milestone reached 85% essential functionality of Widget Manager implemented, now awaits in-depth testing and adjustments.       
+* V0.85(Nov 12,2015)- Big milestone reached 85% essential functionality of Widget Manager implemented, now awaits in-depth testing and adjustments.       
 * V0.70(Oct 24, 2015)- 70% functionality of Widget Manager completed and tested. ready for next phase.  
 * V0.60(Oct 4, 2015)- The basic functionality of Widget Manager completed. ready for next phase.  
 * V0.50(Sept 2, 2015)- The base functionality of Widget Manager reached.  
