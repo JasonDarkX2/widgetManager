@@ -7,7 +7,8 @@ Well if they are going to be unused why leave them cluttering in wordpress widge
 * Allow user to easily manage,install/add, and remove custom wordpress widgets.
 * The ability to download new widgets via wordpress.
 
-
+##Documentations 
+*Coming Soon....
 ## Usage
 * download plugin.
 * install plugin by putting it in your wordpress plugin directory.
@@ -19,8 +20,9 @@ plugin is currently being developed by JasonDarkX2
 [website](http://www.jasondarkx2.com/)
 
 ## Change Log
-* V0.70-  70% functionality of Widget Manager completed and tested. ready for next phase  Oct 24, 2015
-* V0.60- the basic functionality of Widget Manager completed. ready for next phase  Oct 4, 2015
-* V0.50- the base functionality of Widget Manager reached  Sept 2, 2015
-* V0.00- the beginning Aug 12,2015  
+*V0.85(Nov 12,2015)- Big milestone reached 85% essential functionality of Widget Manager implemented, now awaits in-depth testing and adjustments.       
+* V0.70(Oct 24, 2015)- 70% functionality of Widget Manager completed and tested. ready for next phase.  
+* V0.60(Oct 4, 2015)- The basic functionality of Widget Manager completed. ready for next phase.  
+* V0.50(Sept 2, 2015)- The base functionality of Widget Manager reached.  
+* V0.00(Aug 12,2015)- The beginning. 
 
