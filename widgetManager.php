@@ -246,7 +246,13 @@ function getCustomWidgets($dir){
      }
      if(is_dir(plugin_dir_path( __FILE__ ) . 'custom-widgets'. '/'.$d)==TRUE){
          $dirFile=scandir(plugin_dir_path( __FILE__ ) . 'custom-widgets'. '/'.$d);
-         $file=$d . '/' . $dirFile[2];
+         foreach($dirFile as $dir){
+             $info = new SplFileInfo($dir);
+             if(is_dir($dir)==FALSE && $info->getExtension()=='php'){
+                 $file=$d . '/' . $dir;
+             }
+         }
+         
          array_push($customwidgets, $file);
      }
      else{
