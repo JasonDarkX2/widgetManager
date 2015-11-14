@@ -7,8 +7,9 @@ Well if they are going to be unused why leave them cluttering in wordpress widge
 * Allow user to easily manage,install/add, and remove custom wordpress widgets.
 * The ability to download new widgets via wordpress.
 
-##Documentations 
+## Documentations 
 * Coming Soon....
+
 ## Usage
 * download plugin.
 * install plugin by putting it in your wordpress plugin directory.
