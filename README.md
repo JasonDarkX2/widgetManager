@@ -8,7 +8,7 @@ Well if they are going to be unused why leave them cluttering in wordpress widge
 * The ability to download new widgets via wordpress.
 
 ##Documentations 
-*Coming Soon....
+* Coming Soon....
 ## Usage
 * download plugin.
 * install plugin by putting it in your wordpress plugin directory.
