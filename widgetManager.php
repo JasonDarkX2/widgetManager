@@ -138,14 +138,17 @@ $type=get_type($keys);
     <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th><th>Extra options</th></tr>
         <form id="customswid" method="POST" action="<?php echo plugins_url('customWidgetOptions.php', __FILE__); ?>">
     <?php 
+    if(empty($custwid)==FALSE)
     foreach($custwid as $c):?>
     <tr>
+        <?php if(getWidgetClass($c['file'])!=''):?>
         <td><?php echo $c['name'];?></td><td><?php echo $c['file']; ?></td>
         <td>
             <input type='hidden' name='customWidget[]' value='<?php echo  $c['key'] ?>' id='customWidget'> 
             <input type="radio" name="<?php echo$c['key'];?>" <?php checked(1,$c['status'] ); ?> value="true"></td>
         <td><input type="radio" name="<?php echo $c['key'];?>" <?php checked('',$c['status'] ); ?> value="false"></td>
         <td><a class="deleteWid" href="<?php echo plugins_url('cwdelete.php',__FILE__); ?>?w=<?php echo$c['key']; ?>" title="delete <?php echo$c['name']; ?>">Delete Widget</a></td>
+      <?php endif;?>
     </tr>
     <?php endforeach;?>
     <tr><td colspan="5"><a href="#"> Get more Custom Widgets</a>|<a href="#" id="addWidget"> Add/import new Custom Widgets</a></td></tr>
@@ -185,9 +188,9 @@ function remove_disable_widget() {
                 function import_cust_widget() {
                     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
                     $w=get_option('widgetid');
-                    
                     $cust=get_option('custom-widget');
                    $custwid=getCustomWidgets($dir);
+                   if($custwid!=null){
                    foreach($custwid as $wid){
                        if($cust[getWidgetClass($wid)]['status']==true){
                        if(empty($cust)|| array_key_exists($wid, $cust)==FALSE){
@@ -198,18 +201,20 @@ function remove_disable_widget() {
                            unregister_widget(getWidgetClass($wid));
                        }
                    }
+                }
                     if(empty($cust)==TRUE){
                    foreach($custwid as $wid){
-                 if(empty($cust)==TRUE){
+                 if(empty($cust)==TRUE && getWidgetClass($wid)!=''){
                       $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true);
                  }else{
-                     if(array_key_exists(getWidgetClass($wid),$cust)==FALSE){
+                     if(array_key_exists(getWidgetClass($wid),$cust)==FALSE && getWidgetClass($wid)!=''){
                 array_push($cust, $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true));
                  array_pop($cust);
                      }
                  }
                    }
                     }
+                    if($cust!=''){
                    foreach($cust as $c){
                         if($cust['status']==true){
                            if(array_key_exists($c['class'],$w)==FALSE){
@@ -224,7 +229,7 @@ function remove_disable_widget() {
                    }
                 update_option('custom-widget',$cust);
                 update_option('widgetid', $w);
-                   
+                    }
         }
 function clean_sweep(){
    $d=get_option('widgetid');
@@ -252,7 +257,7 @@ function getCustomWidgets($dir){
                  $file=$d . '/' . $dir;
              }
          }
-         
+         array_pop($customwidgets);
          array_push($customwidgets, $file);
      }
      else{
@@ -265,6 +270,7 @@ function getCustomWidgets($dir){
 }
 function getWidgetClass($file){
      $dir=plugin_dir_path( __FILE__ ).'custom-widgets';
+     if($file !=""){
      $file=file_get_contents($dir. '/'.$file );
      $t=token_get_all($file);
      $class_token = false;
@@ -278,6 +284,7 @@ foreach ($t as $token) {
     }
   }
   
+}
 }
                    return $widget_class ;
 }
