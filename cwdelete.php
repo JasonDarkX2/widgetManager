@@ -15,7 +15,19 @@ $widgetid=$_GET['w'];
 $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
 chmod($dir,777);
 if(file_exists(plugin_dir_path(__FILE__) .'custom-widgets/'.$custwid[$widgetid]['file'])===TRUE){
-unlink(plugin_dir_path(__FILE__) .'custom-widgets/'.$custwid[$widgetid]['file']);
+     $toDel=explode("/",$custwid[$widgetid]['file']);
+     $dir=plugin_dir_path(__FILE__) . 'custom-widgets/'. $toDel[0];
+if(is_dir($dir)===TRUE){
+ $objects = scandir($dir);
+     foreach ($objects as $object) {
+       if ($object != "." && $object != "..") {
+         if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object);
+       }
+     }
+     rmdir($dir);
+}else{
+//unlink(plugin_dir_path(__FILE__) .'custom-widgets/'.$custwid[$widgetid]['file']);
+}
 }
 chmod($dir,755);
 unset($custwid[$widgetid]);
