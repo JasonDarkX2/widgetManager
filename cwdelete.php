@@ -21,7 +21,7 @@ if(is_dir($dir)===TRUE){
  $objects = scandir($dir);
      foreach ($objects as $object) {
        if ($object != "." && $object != "..") {
-         if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object);
+         if (filetype($dir."/".$object) == "dir") recursiveRemove($dir."/".$object); else unlink($dir."/".$object);
        }
      }
      rmdir($dir);
@@ -35,3 +35,16 @@ unset($widgets[$widgetid]);
 update_option('custom-widget', $custwid);
 update_option('widgetid', $widgets);
 echo "deleted $widgetid";
+
+function recursiveRemove($dir)
+{
+    foreach(glob("{$dir}/*") as $file)
+    {
+        if(is_dir($file)) { 
+            recursiveRemove($file);
+        } else {
+            unlink($file);
+        }
+    }
+    rmdir($dir);
+}
