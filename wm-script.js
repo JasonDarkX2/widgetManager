@@ -80,6 +80,7 @@ jQuery('#addWidget').click(function(e){
     show: 'blind',
     hide: 'blind',
     dialogClass: 'ui-dialog',
+    position: { my: 'center', at: 'center' }, 
     buttons: {
         "Upload ": function() {
            //jQuery.post(url.addWidgetUrl,jQuery('#addwidget').serialize(),function(response){
