@@ -26,10 +26,9 @@ if(is_dir($dir)===TRUE){
      }
      rmdir($dir);
 }else{
-//unlink(plugin_dir_path(__FILE__) .'custom-widgets/'.$custwid[$widgetid]['file']);
+unlink(plugin_dir_path(__FILE__) .'custom-widgets/'.$custwid[$widgetid]['file']);
 }
 }
-chmod($dir,755);
 unset($custwid[$widgetid]);
 unset($widgets[$widgetid]);
 update_option('custom-widget', $custwid);

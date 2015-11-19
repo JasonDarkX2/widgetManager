@@ -15,7 +15,7 @@ static function init(){
 add_action( 'widgets_init',array(__CLASS__, 'import_cust_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'clean_sweep') );
-add_action( 'admin_menu','empty_names' );
+add_action( 'widgets_init','empty_names' );
 add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
 add_action('admin_enqueue_scripts',array(__CLASS__,'add_scripts') );
 }
@@ -86,7 +86,7 @@ static function Widget_manager_settings_page() { ?>
 
         $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
         $wid=($GLOBALS['wp_widget_factory']->widgets);
-      echo'<label><h1>Notifications:</h1></label>';
+      echo'<h1>Notifications:</h1>';
     echo '<p id="msg"></p>';
   foreach($widgets as $keys){
 if(array_key_exists($keys,$w)==FALSE){
@@ -207,7 +207,7 @@ function remove_disable_widget() {
                  if(empty($cust)==TRUE && getWidgetClass($wid)!=''){
                       $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true);
                  }else{
-                     if(array_key_exists(getWidgetClass($wid),$cust)==FALSE && getWidgetClass($wid)!=''){
+                     if(array_key_exists(getWidgetClass($wid),$cust)==FALSE){
                 array_push($cust, $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true));
                  array_pop($cust);
                      }
