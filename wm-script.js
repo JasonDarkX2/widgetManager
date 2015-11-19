@@ -83,8 +83,6 @@ jQuery('#addWidget').click(function(e){
     position: { my: 'center', at: 'center' }, 
     buttons: {
         "Upload ": function() {
-           //jQuery.post(url.addWidgetUrl,jQuery('#addwidget').serialize(),function(response){
-                //alert(response);
                 var file_data = jQuery('#widgetToUpload').prop('files')[0];   
     var form_data = new FormData();                  
     form_data.append('widgetToUpload', file_data);
@@ -98,8 +96,6 @@ jQuery('#addWidget').click(function(e){
                    type:'POST',
                    success: function(php_script_response){
                        window.location.reload();
-                    //alert(php_script_response); // display response from the PHP script, if any
-                    jQuery('#debug').html(php_script_response);
                 }
                    });       
           jQuery( this ).dialog( "close" );
