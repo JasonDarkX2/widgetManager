@@ -4,7 +4,7 @@ Plugin Name: Wordpress Widget Manager
 Plugin URI: https://github.com/JasonDarkX2/Wordpress-WidgetManager
 Description:Simply a Wordpress Plugin dedicated to help easily manage custom and default Wordpress widgets
 Author:Jason Dark X2
-version: 0.70
+version: 0.95
 Author URI:http://www.jasondarkx2.com/ 
 */ 
 ?>
@@ -156,7 +156,7 @@ $type=get_type($keys);
     <?php submit_button('save custom widget');?>
     </form> 
     <?php
-$s=get_option('custom-widget');
+$s=get_option('widgetid');
 echo '<div id="debug">';
 echo "<b>DEBUG Section:</b>";
 var_dump($s);
@@ -184,7 +184,6 @@ function remove_disable_widget() {
             }
         }
         }
-
                 function import_cust_widget() {
                     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
                     $w=get_option('widgetid');
