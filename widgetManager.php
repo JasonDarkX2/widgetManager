@@ -157,11 +157,11 @@ $type=get_type($keys);
     </form> 
     <?php
 $s=get_option('widgetid');
-echo '<div id="debug">';
+echo '<div id="debug" hidden="true">';
 echo "<b>DEBUG Section:</b>";
 var_dump($s);
 echo "<h1>widgets</h1>";
-//var_dump( $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets ));
+
 echo '</div>';
 //update_option('widgetid', "");
 //update_option('custom-widget', "");

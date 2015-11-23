@@ -7,7 +7,6 @@ version: 0.70
 Author URI:http://www.jasondarkx2.com/ 
 */ 
 jQuery('document').ready(function(e){
-    //localStorage['notification']='';
    var wmform=e('#widmanager');
    wmform.submit(function(ex){
       var formdata=wmform.serialize(); 
