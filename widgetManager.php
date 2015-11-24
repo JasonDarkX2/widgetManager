@@ -38,7 +38,8 @@ self::$add_script = true;
 	add_menu_page('Widget Manager Settings', 'Widget Manager', 'administrator',__FILE__, 
                 array(__CLASS__,'Widget_manager_settings_page')
                 , plugins_url('/img/WMIconHolder.png', __FILE__) );
-
+/*add_submenu_page(__FILE__, 'Custom Widgets Options', 'Custom Widgets Options', 'manage_options', 'my-menu' );
+    add_submenu_page(__FILE__, 'Setting', 'Settings', 'manage_options', 'my-menu2' );*/
 	//call register settings function
 	add_action( 'admin_init',array(__CLASS__,'register_widget_manager_settings'));
 }
