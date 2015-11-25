@@ -20,9 +20,9 @@ add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
 add_action('admin_enqueue_scripts',array(__CLASS__,'add_scripts') );
 }
 static function add_scripts($hook){
- if ( basename($_GET['page']) != "widgetManager.php" ) {
+ /*if ( basename($_GET['page']) != "widgetManager.php" ) {
         return;
-    }
+    }*/
     wp_enqueue_style( 'wm-style', plugins_url('style.css',__FILE__));
     wp_enqueue_style( 'ui-style','http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
      wp_enqueue_script( 'ui-script','//code.jquery.com/ui/1.11.4/jquery-ui.js', array('jquery') );
@@ -35,11 +35,12 @@ wp_localize_script( 'wm-script', 'pd', $translation_array );
 static function widget_manager_create_menu() {
 self::$add_script = true;
 	//create new top-level menu
-	add_menu_page('Widget Manager Settings', 'Widget Manager', 'administrator',__FILE__, 
+	add_menu_page('Widget Manager Settings', 'Widget Manager', 'administrator','widgetM', 
                 array(__CLASS__,'Widget_manager_settings_page')
                 , plugins_url('/img/WMIconHolder.png', __FILE__) );
-/*add_submenu_page(__FILE__, 'Custom Widgets Options', 'Custom Widgets Options', 'manage_options', 'my-menu' );
-    add_submenu_page(__FILE__, 'Setting', 'Settings', 'manage_options', 'my-menu2' );*/
+add_submenu_page('widgetM', 'Custom Widgets Options', 'Custom Widgets Options', 'administrator','cwop',array(__CLASS__,'customWidget_option_page'));
+    add_submenu_page('widgetM', 'Setting', 'Settings', 'administrator','settings',array(__CLASS__,'widgetManager_setting_page')
+                );
 	//call register settings function
 	add_action( 'admin_init',array(__CLASS__,'register_widget_manager_settings'));
 }
@@ -47,6 +48,12 @@ self::$add_script = true;
 	//register our settings
 	register_setting( 'WM-setting', 'widgetid' );
         register_setting( 'WM-setting', 'custom-widget' );
+}
+static function widgetManager_setting_page() {
+include('/pages/settings.php');
+}
+static function customWidget_option_page() {
+include('/pages/customWidgets.php');
 }
 static function Widget_manager_settings_page() { ?>
 <form>
@@ -170,6 +177,8 @@ echo '</div>';
 
     
 <?php }
+
+
 function remove_disable_widget() {
 	$d=get_option('widgetid');
         if($d!=NULL){
