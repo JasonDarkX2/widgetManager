@@ -11,14 +11,14 @@ Author URI:http://www.jasondarkx2.com/
 
 <?php
 
-class Test_widget4 extends WP_Widget {
+class Test_widget5 extends WP_Widget {
 
 function __construct() {
 parent::__construct(
 // Base ID of your widget
-  'tdm-testwidget4',
+  'tdm-testwidget5',
         // Widget name will appear in UI
-__('Test Widget #4', 'WM_widget_domain'),
+__('Test Widget #5', 'WM_widget_domain'),
         // Widget description
 array( 'description' => __( 'Test Widget for Widget manager', 'WM_widget_domain' ), ) 
 );
@@ -40,8 +40,8 @@ public function update( $new_instance, $old_instance ) {
     
 }
 }
-function Test_widget4() {
-	register_widget( 'Test_widget4' );
+function Test_widget5() {
+	register_widget( 'Test_widget5' );
 }
-add_action( 'widgets_init', 'Test_widget4' );
+add_action( 'widgets_init', 'Test_widget5' );
 ?>
