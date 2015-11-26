@@ -1,7 +1,17 @@
+  
 <?php 
     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
     empty_names();
     $custwid= get_option('custom-widget')?>
+<form>
+<div id="dialog" hidden="true">
+  <p>Add or Import your Custom widgets below.... </p>
+  <form id="addWidget" method="POST" action="addwidget.php"enctype= "multipart/form-data">
+  <input type="file" name="widgetToUpload" id="widgetToUpload" accept=".php,.zip">
+
+</form>
+</div>
+</form>
     <h2><strong>Custom Widgets Option</strong></h2>
     <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th><th>Extra options</th></tr>
         <form id="customswid" method="POST" action="<?php echo plugins_url('customWidgetOptions.php', __FILE__); ?>">
@@ -21,6 +31,3 @@
     <?php endforeach;?>
     <tr><td colspan="5"><a href="#"> Get more Custom Widgets</a>|<a href="#" id="addWidget"> Add/import new Custom Widgets</a></td></tr>
     </table>
-    <?php submit_button('save custom widget');?>
-    </form> 
-        
