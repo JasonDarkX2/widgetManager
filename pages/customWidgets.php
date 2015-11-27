@@ -25,7 +25,7 @@
             <input type='hidden' name='customWidget[]' value='<?php echo  $c['key'] ?>' id='customWidget'> 
             <input type="radio" name="<?php echo$c['key'];?>" <?php checked(1,$c['status'] ); ?> value="true"></td>
         <td><input type="radio" name="<?php echo $c['key'];?>" <?php checked('',$c['status'] ); ?> value="false"></td>
-        <td><a class="deleteWid" href="<?php echo plugins_url('cwdelete.php',__FILE__); ?>?w=<?php echo$c['key']; ?>" title="delete <?php echo$c['name']; ?>">Delete Widget</a></td>
+        <td><a class="deleteWid" href="<?php echo plugins_url('cwdelete.php', dirname(__FILE__)) ; ?>?w=<?php echo$c['key']; ?>" title="delete <?php echo$c['name']; ?>">Delete Widget</a></td>
       <?php endif;?>
     </tr>
     <?php endforeach;?>
