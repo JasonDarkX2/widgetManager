@@ -267,6 +267,7 @@ function getCustomWidgets($dir){
 function getWidgetClass($file){
      $dir=plugin_dir_path( __FILE__ ).'custom-widgets';
      if($file !=""){
+        if(file_exists ($dir. '/'.$file))
      $file=file_get_contents($dir. '/'.$file );
      $t=token_get_all($file);
      $class_token = false;
