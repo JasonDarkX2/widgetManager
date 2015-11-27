@@ -14,7 +14,7 @@
 </form>
     <h2><strong>Custom Widgets Option</strong></h2>
     <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th><th>Extra options</th></tr>
-        <form id="customswid" method="POST" action="<?php echo plugins_url('customWidgetOptions.php', __FILE__); ?>">
+        <form id="customswid" method="POST" action="<?php echo plugins_url('/customWidgetOptions.php', dirname(__FILE__)) ; ?>">
     <?php 
     if(empty($custwid)==FALSE)
     foreach($custwid as $c):?>
@@ -31,3 +31,5 @@
     <?php endforeach;?>
     <tr><td colspan="5"><a href="#"> Get more Custom Widgets</a>|<a href="#" id="addWidget"> Add/import new Custom Widgets</a></td></tr>
     </table>
+    <?php submit_button('save custom widget');?>
+    </form> 
