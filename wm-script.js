@@ -7,6 +7,14 @@ version: 0.70
 Author URI:http://www.jasondarkx2.com/ 
 */ 
 jQuery('document').ready(function(e){
+    if(localStorage['notification']!=localStorage['lastnote']){
+        jQuery('#msg').html(localStorage['notification']);
+        localStorage['lastnote']=localStorage['notification'];
+    }else{
+        jQuery('#msg').empty();
+        localStorage['lastnote']='';
+        localStorage['notification']='';
+    }
    var wmform=e('#widmanager');
    wmform.submit(function(ex){
       var formdata=wmform.serialize(); 
@@ -53,7 +61,7 @@ error: function(XMLHttpRequest, textStatus, errorThrown)
 ex.preventDefault();
 
 });
-jQuery('#msg').html(localStorage['notification']);
+//jQuery('#msg').html(localStorage['notification']);
 jQuery('.deleteWid').click(function(e){
     e.preventDefault();
  if (confirm("Are you Sure you want to delete?") == true) {
