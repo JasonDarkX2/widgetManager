@@ -6,15 +6,16 @@
 <form>
 <div id="dialog" hidden="true">
   <p>Add or Import your Custom widgets below.... </p>
-  <form id="addWidget" method="POST" action="addwidget.php"enctype= "multipart/form-data">
+  <form id="addWidget" method="POST" action="<?php echo plugins_url('actionScripts/addwidget.php',__FILE__); ?>" enctype= "multipart/form-data">
   <input type="file" name="widgetToUpload" id="widgetToUpload" accept=".php,.zip">
-
-</form>
-</div>
+  </form>
+  </div>
 </form>
     <h2><strong>Custom Widgets Option</strong></h2>
+    <h1>Notifications:</h1>
+   <p id="msg"></p>
     <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th><th>Extra options</th></tr>
-        <form id="customswid" method="POST" action="<?php echo plugins_url('/customWidgetOptions.php', dirname(__FILE__)) ; ?>">
+        <form id="customswid" method="POST" action="<?php echo plugins_url('actionScripts/customWidgetOptions.php', dirname(__FILE__)) ; ?>">
     <?php 
     if(empty($custwid)==FALSE)
     foreach($custwid as $c):?>
