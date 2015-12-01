@@ -102,8 +102,10 @@ jQuery('#addWidget').click(function(e){
                 processData: false,
                 data: form_data,     
                    type:'POST',
-                   success: function(php_script_response){
+                   success: function(XMLHttpRequest,data, textStatus){
+                       notification=XMLHttpRequest;
                        window.location.reload();
+                       localStorage['notification']='<strong>'+ response + '</strong>';
                 }
                    });       
           jQuery( this ).dialog( "close" );
