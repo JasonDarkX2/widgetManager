@@ -10,9 +10,8 @@ Author URI:http://www.jasondarkx2.com/
 $parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
  require_once( $parse_uri[0] . 'wp-load.php' );
 //$target_dir =plugin_dir_path( __FILE__ ).'custom-widgets/';
- $target_dir=plugin_dir_url(dirname(__FILE__)) .'custom-widgets/';
- chmod($target_dir, 777);
- echo "$target_dir";
+ $target_dir=plugin_dir_path(dirname(__FILE__)) . 'custom-widgets/';
+ $target_file = $target_dir . basename($_FILES["widgetToUpload"]['name']);
 if(!empty($_FILES)){
     $info = new SplFileInfo($_FILES["widgetToUpload"]["name"]);
 $upload = 1;
@@ -32,10 +31,9 @@ if ($res === TRUE) {
     if($zip->numFiles>=1){
     for( $i = 0; $i < $zip->numFiles; $i++ ){ 
     $stat = $zip->statIndex( $i ); 
-    print_r($stat['name']);
     $target_file= $target_dir.  $stat['name']; 
 }
-//print_r($target_file);
+
     }
      $zip->extractTo($target_dir);
       $zip->close();
