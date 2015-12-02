@@ -105,7 +105,8 @@ jQuery('#addWidget').click(function(e){
                    success: function(XMLHttpRequest,data, textStatus){
                        notification=XMLHttpRequest;
                        window.location.reload();
-                       localStorage['notification']='<strong>'+ response + '</strong>';
+                       localStorage['notification']='';
+                       localStorage['notification']='<strong>'+ notification + '</strong>';
                 }
                    });       
           jQuery( this ).dialog( "close" );
