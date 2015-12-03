@@ -15,14 +15,7 @@ $parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
 if(!empty($_FILES)){
     $info = new SplFileInfo($_FILES["widgetToUpload"]["name"]);
 $upload = 1;
-if (file_exists($target_file)) {
-    echo "Sorry, file already exists.";
-    $upload = 0;
-}
-if ($upload == 0) {
-    echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
-} else {
+$errorMsg="Sorry, there was an error uploading your file.";
     if($info->getExtension()==='zip'){
     $upload=0;
     $zip = new ZipArchive;
@@ -33,27 +26,36 @@ if ($res === TRUE) {
     $stat = $zip->statIndex( $i ); 
     $target_file= $target_dir.  $stat['name']; 
 }
-
+if (file_exists($target_file)==TRUE) {
+    $errorMsg="Sorry, file already exists.";
+    $upload = 0;
+}
     }
+}
+if($upload==1){
      $zip->extractTo($target_dir);
       $zip->close();
       $wid=getWidgetClass($stat['name']);
       add_new($target_file,$wid,$stat['name']);
 } else {
-        echo "Sorry, there was an error uploading your file.";
+        echo $errorMsg;
     }
 }
 else{
-    $target_file = $target_dir . basename($_FILES["widgetToUpload"]['name']);
+    if (file_exists($target_file)==TRUE) {
+    $errorMsg="Sorry, file already exists.";
+    $upload = 0;
+}
+    if($upload==1){
     if (move_uploaded_file($_FILES["widgetToUpload"]["tmp_name"], $target_file)) {
         $wid=getWidgetClass($_FILES["widgetToUpload"]["name"]);
         echo "The file ". basename( $_FILES["widgetToUpload"]["name"]). " has been uploaded.";
         $wid=getWidgetClass($_FILES["widgetToUpload"]["name"]);
         add_new($target_file,$wid,  basename( $_FILES["widgetToUpload"]["name"]));
-    } else {
-        echo "Sorry, there was an error uploading your file.";
+    } 
+    }else {
+         echo $errorMsg;
     }
-}
 }
 }
 function add_new($target_file,$wid,$file){
