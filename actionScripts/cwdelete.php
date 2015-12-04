@@ -12,11 +12,11 @@ $parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
   $custwid= get_option('custom-widget');
   $widgets= get_option('widgetid');
 $widgetid=$_GET['w'];
-$dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
-chmod($dir,777);
-if(file_exists(plugin_dir_path(__FILE__) .'custom-widgets/'.$custwid[$widgetid]['file'])===TRUE){
+$dir=plugin_dir_path(dirname(__FILE__)) . 'custom-widgets/';
+chmod($dir,755);
+if(file_exists($dir .$custwid[$widgetid]['file'])===TRUE){
      $toDel=explode("/",$custwid[$widgetid]['file']);
-     $dir=plugin_dir_path(__FILE__) . 'custom-widgets/'. $toDel[0];
+     $dir= $dir. $toDel[0];
 if(is_dir($dir)===TRUE){
  $objects = scandir($dir);
      foreach ($objects as $object) {
@@ -26,7 +26,7 @@ if(is_dir($dir)===TRUE){
      }
      rmdir($dir);
 }else{
-unlink(plugin_dir_path(__FILE__) .'custom-widgets/'.$custwid[$widgetid]['file']);
+unlink(plugin_dir_path(dirname(__FILE__)) . 'custom-widgets/' .$custwid[$widgetid]['file']);
 }
 }
 unset($custwid[$widgetid]);
