@@ -29,7 +29,7 @@ static function add_scripts($hook){
     wp_enqueue_script( 'wm-script', plugins_url('wm-script.js',__FILE__), array('jquery') );
      $translation_array = array( 'addWidgetUrl' => plugins_url('/actionScripts/addwidget.php',__FILE__));
 wp_localize_script( 'wm-script', 'url', $translation_array ); 
-          $translation_array = array( 'pluginUrl' => plugins_url('option.php',__FILE__ ) );
+          $translation_array = array( 'pluginUrl' => plugins_url('/actionScripts/options.php',__FILE__ ) );
 wp_localize_script( 'wm-script', 'pd', $translation_array ); 
 }
 static function widget_manager_create_menu() {
@@ -55,115 +55,9 @@ include('/pages/settings.php');
 static function customWidget_option_page() {
 include('/pages/customWidgets.php');
 }
-static function Widget_manager_settings_page() { ?>
-<form>
-<div id="dialog" hidden="true">
-  <p>Add or Import your Custom widgets below.... </p>
-  <form id="addWidget" method="POST" action="addwidget.php"enctype= "multipart/form-data">
-  <input type="file" name="widgetToUpload" id="widgetToUpload" accept=".php,.zip">
-
-</form>
-</div>
-</form>
-    <h1> Widget Manager</h1>
- <form id="widmanager" method="post" action="<?php echo plugins_url('actionScripts/options.php', __FILE__); ?>">
-    <?php settings_fields( 'WM-setting' ); ?>
-    <?php do_settings_sections( 'WM-setting' ); ?>
-    <table border='1px' >
-        <tr><th> Widgets</th><th>Type</th><th> Enabled</th><th>Disabled</th></tr>
-    <?php  
-    
-    $w=get_option('widgetid');
-    if(empty($w)){
-        $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
-        $w=($GLOBALS['wp_widget_factory']->widgets);
-  foreach($widgets as $keys){
-          if(empty($widgetsId)){
-              $type=get_type($keys);
-  $widgetsId=array($keys => array('key'=>$keys,'name'=>get_name($keys),'Description'=>get_description($keys),'type'=> $type, 'status'=>TRUE));
-  }  else {
-      $type=get_type($keys);
-      array_push($widgetsId, $widgetsId[$keys]=array('key'=>$keys,'name'=>get_name($keys),'Description'=>get_description($keys), 'type'=>$type,'status'=>TRUE));
-      array_pop($widgetsId);
- }
-  }
-        update_option('widgetid', $widgetsId);
-        $widgets=$widgetsId;
-        
-    }else{
-
-        $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
-        $wid=($GLOBALS['wp_widget_factory']->widgets);
-      echo'<h1>Notifications:</h1>';
-    echo '<p id="msg"></p>';
-  foreach($widgets as $keys){
-if(array_key_exists($keys,$w)==FALSE){
-    if(get_type($keys)!='Default' ){
-    echo '<br/><strong>*recently added widgets*-></strong>'. get_name($keys);
-    }
-$type=get_type($keys);
-        array_push($w,$w[$keys]=array('key'=>$keys,'name'=> get_name($keys),'Description'=>get_description($keys), 'type'=>$type,'status'=>TRUE));
-        array_pop($w);
-        
-        update_option('widgetid', $w);
+static function Widget_manager_settings_page() {
+ include('/pages/Manager.php');
 }
-
-      }
-    
-  $widgets=$w; 
-    }
-    foreach($widgets as $widget):?>
-        <input type='hidden' name='count' value='$num' id='count'>
- <?php
-?>
-        <tr>
-            <td><input type='hidden' name='widgetid[]' value='<?php echo  $widget['key'] ?>' id='widgetId'> 
-                <?php echo $widget['name']; ?></td>
-            <td><?php echo $widget['type']; ?></td>
-            <td><input type="radio" name="<?php echo $widget['key']; ?>" value="enable" <?php  checked(1,$widget['status']); ?> ><?php //echo get_option($widget['key']);?></td>
-            <td><input type="radio" name="<?php echo $widget['key'];?>" <?php checked('',$widget['status'] ); ?> value="disable"></td>
-        </tr>
-    <?php endforeach;?>
-        <tr>
-        <tr>
-            <td><strong>Quick Options</strong></td>
-            <td colspan="3">
-                <b>|Enable Defaults Widgets Only:</b><input type="radio" name="quickOp" value="enbDefault">
-                <b>|Disable Defaults Widgets Only:</b><input type="radio" name="quickOp" value="disDefault">
-                <b>|Disable all custom widgets:</b><input type="radio" name="quickOp" value="disCust">
-                <b>|Enable all Widgets:</b> <input type="radio" name="quickOp" value="enbwid">
-                 <b>|Disable all Widgets:</b> <input type="radio" name="quickOp" value="diswid">
-            </td>
-        </tr>
-    </table>
-     <?php submit_button(); ?>
-    </form>
-    <?php 
-    $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
-    empty_names();
-    $custwid= get_option('custom-widget')?>
-    <h2><strong>Custom Widgets Option</strong></h2>
-    <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th><th>Extra options</th></tr>
-        <form id="customswid" method="POST" action="<?php echo plugins_url('customWidgetOptions.php', __FILE__); ?>">
-    <?php 
-    if(empty($custwid)==FALSE)
-    foreach($custwid as $c):?>
-    <tr>
-        <?php if(getWidgetClass($c['file'])!=''):?>
-        <td><?php echo $c['name'];?></td><td><?php echo $c['file']; ?></td>
-        <td>
-            <input type='hidden' name='customWidget[]' value='<?php echo  $c['key'] ?>' id='customWidget'> 
-            <input type="radio" name="<?php echo$c['key'];?>" <?php checked(1,$c['status'] ); ?> value="true"></td>
-        <td><input type="radio" name="<?php echo $c['key'];?>" <?php checked('',$c['status'] ); ?> value="false"></td>
-        <td><a class="deleteWid" href="<?php echo plugins_url('cwdelete.php',__FILE__); ?>?w=<?php echo$c['key']; ?>" title="delete <?php echo$c['name']; ?>">Delete Widget</a></td>
-      <?php endif;?>
-    </tr>
-    <?php endforeach;?>
-    <tr><td colspan="5"><a href="#"> Get more Custom Widgets</a>|<a href="#" id="addWidget"> Add/import new Custom Widgets</a></td></tr>
-    </table>
-    <?php submit_button('save custom widget');?>
-    </form> 
-<?php }
 
 
 function remove_disable_widget() {
