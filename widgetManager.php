@@ -20,9 +20,7 @@ add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
 add_action('admin_enqueue_scripts',array(__CLASS__,'add_scripts') );
 }
 static function add_scripts($hook){
- /*if ( basename($_GET['page']) != "widgetManager.php" ) {
-        return;
-    }*/
+
     wp_enqueue_style( 'wm-style', plugins_url('style.css',__FILE__));
     wp_enqueue_style( 'ui-style','http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
      wp_enqueue_script( 'ui-script','//code.jquery.com/ui/1.11.4/jquery-ui.js', array('jquery') );
