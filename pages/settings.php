@@ -9,7 +9,7 @@
 echo '<h1>Settings</h1>';
 echo '<a href="#"  id="debug" title=" enable debug mode">Enable debug mode</a>';
 $s=get_option('custom-widget');
-echo '<div id="debug">';
+echo '<div id="debugSection" hidden="true">';
 echo "<b>DEBUG Section:</b>";
 var_dump($s);
 echo "<h1>widgets</h1>";

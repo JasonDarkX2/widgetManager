@@ -61,7 +61,16 @@ error: function(XMLHttpRequest, textStatus, errorThrown)
 ex.preventDefault();
 
 });
-//jQuery('#msg').html(localStorage['notification']);
+jQuery('#debug').click(function(e){
+    e.preventDefault();
+    if(jQuery('#debugSection').is(':visible')==false){
+    jQuery('#debugSection').show();
+    jQuery('#debug').html('Disable Debug section');
+    }else{
+      jQuery('#debugSection').hide();
+    jQuery('#debug').html('Enable Debug section');  
+    }
+});
 jQuery('.deleteWid').click(function(e){
     e.preventDefault();
  if (confirm("Are you Sure you want to delete?") == true) {
