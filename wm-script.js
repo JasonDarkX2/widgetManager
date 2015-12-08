@@ -61,16 +61,6 @@ error: function(XMLHttpRequest, textStatus, errorThrown)
 ex.preventDefault();
 
 });
-jQuery('#debug').click(function(e){
-    e.preventDefault();
-    if(jQuery('#debugSection').is(':visible')==false){
-    jQuery('#debugSection').show();
-    jQuery('#debug').html('Disable Debug section');
-    }else{
-      jQuery('#debugSection').hide();
-    jQuery('#debug').html('Enable Debug section');  
-    }
-});
 jQuery('.deleteWid').click(function(e){
     e.preventDefault();
  if (confirm("Are you Sure you want to delete?") == true) {
@@ -126,4 +116,38 @@ jQuery('#addWidget').click(function(e){
     }
 });
 });
+//debug JS scripts
+jQuery('#debug').click(function(e){
+    e.preventDefault();
+    if(jQuery('#debugSection').is(':visible')==false){
+    jQuery('#debugSection').show();
+    jQuery('#debug').html('Disable Debug section');
+    }else{
+      jQuery('#debugSection').hide();
+    jQuery('#debug').html('Enable Debug section');  
+    }
+});
+jQuery('#wlist').click(function(e){
+    e.preventDefault();
+    if(jQuery('#widgetList').is(':visible')==false){
+    jQuery('#widgetList').show();
+    jQuery('#customw').hide();
+    jQuery('#wlist').html('Hide Widget List');
+    }else{
+      jQuery('#widgetList').hide();
+    jQuery('#wlist').html('Show Widget List');  
+    }
+});
+jQuery('#custlist').click(function(e){
+    e.preventDefault();
+    if(jQuery('#customw').is(':visible')==false){
+    jQuery('#customw').show();
+    jQuery('#widgetList').hide();
+    jQuery('#custlist').html('Hide Custom Widget List');
+    }else{
+      jQuery('#customw').hide();
+    jQuery('#custlist').html('Show Custom Widget List');  
+    }
+});
+//end of bebug section
 });
