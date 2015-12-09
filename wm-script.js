@@ -149,5 +149,12 @@ jQuery('#custlist').click(function(e){
     jQuery('#custlist').html('Show Custom Widget List');  
     }
 });
+jQuery('#clearAll').click(function(e){
+    alert('All');
+});
+
+jQuery('#clearCust').click(function(e){
+    alert('custom');
+});
 //end of bebug section
 });
