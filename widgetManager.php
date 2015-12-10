@@ -74,7 +74,7 @@ function remove_disable_widget() {
         }
         }
                 function import_cust_widget() {
-                    $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
+                    $dir=plugin_dir_path( __FILE__ ).'custom-widgets/';
                     $w=get_option('widgetid');
                     $cust=get_option('custom-widget');
                    $custwid=getCustomWidgets($dir);
@@ -199,6 +199,7 @@ function get_description($key){
 }
         function empty_names(){
               $cust=get_option('custom-widget');
+              if($cust!=NULL)
               foreach($cust as $wid){
                   if(get_name($wid['class'])!=NULL)
                  $cust[$wid['key']]['name']=get_name($wid['class']);

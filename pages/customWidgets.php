@@ -17,7 +17,7 @@
     <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th><th>Extra options</th></tr>
         <form id="customswid" method="POST" action="<?php echo plugins_url('actionScripts/customWidgetOptions.php', dirname(__FILE__)) ; ?>">
     <?php 
-    if(empty($custwid)==FALSE)
+    if(empty($custwid)==NULL)
     foreach($custwid as $c):?>
     <tr>
         <?php if(getWidgetClass($c['file'])!=''):?>

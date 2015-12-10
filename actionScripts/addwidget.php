@@ -17,7 +17,6 @@ if(!empty($_FILES)){
 $upload = 1;
 $errorMsg="Sorry, there was an error uploading your file.";
     if($info->getExtension()==='zip'){
-    $upload=0;
     $zip = new ZipArchive;
 $res = $zip->open($_FILES["widgetToUpload"]["tmp_name"]);
 if ($res === TRUE) {
