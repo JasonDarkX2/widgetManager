@@ -154,7 +154,16 @@ jQuery('#clearAll').click(function(e){
 });
 
 jQuery('#clearCust').click(function(e){
-    alert('custom');
+ jQuery.ajax({ type: "GET",   
+         url: jQuery(this).attr("href"),   
+         async: false,
+         success : function(text)
+         {
+             response = text;
+             alert(response);
+         }
+         
+});
 });
 //end of bebug section
 });
