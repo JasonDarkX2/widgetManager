@@ -151,9 +151,12 @@ jQuery('#custlist').click(function(e){
 });
 jQuery('#clearAll').click(function(e){
     alert('All');
+    e.preventDefault();
+    //location.reload();
 });
 
 jQuery('#clearCust').click(function(e){
+     e.preventDefault();
  jQuery.ajax({ type: "GET",   
          url: jQuery(this).attr("href"),   
          async: false,

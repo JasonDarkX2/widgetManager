@@ -9,13 +9,14 @@ Author URI:http://www.jasondarkx2.com/
 */ 
 
 $option=$_GET['op'];
-
+$parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
+ require_once( $parse_uri[0] . 'wp-load.php' );
 if($option=='cw'){
     echo "custom";
- //update_option('custom-widget', "");
+ update_option('custom-widget', "");
 }
 else{
     echo "All";
-  //update_option('widgetid', "");  
+  update_option('widgetid', "");  
 }
 
