@@ -14,6 +14,7 @@ class widget_manager{
 static function init(){
 add_action( 'widgets_init',array(__CLASS__, 'import_cust_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
+add_action( 'init',array(__CLASS__, 'disable_plugin_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'clean_sweep') );
 add_action( 'widgets_init','empty_names' );
 add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
@@ -64,6 +65,25 @@ function remove_disable_widget() {
         foreach($d as $widget){
             if($d[$widget['key']]['status']==FALSE){
                 if(class_exists($widget['key'])){
+            unregister_widget($widget['key']);
+                }else{
+                    unset($d[$widget['key']]);
+                    update_option('widgetid', $d);
+                }
+            }
+            }
+        }
+        }
+        
+        function disable_plugin_widget() {
+	$d=get_option('widgetid');
+        if($d!=NULL){
+        foreach($d as $widget){
+            if($d[$widget['key']]['status']==FALSE && $widget['type']=='Plugin'){
+                if(class_exists($widget['key'])){
+                    //echo $widget['key'];
+                    $wid=($GLOBALS['wp_widget_factory']->widgets);
+                    //var_dump($wid);
             unregister_widget($widget['key']);
                 }else{
                     unset($d[$widget['key']]);
