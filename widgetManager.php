@@ -15,6 +15,7 @@ static function init(){
 add_action( 'widgets_init',array(__CLASS__, 'import_cust_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
 add_action( 'init',array(__CLASS__, 'disable_plugin_widget') );
+add_action( 'widgets_init',array(__CLASS__, 'load_widgets') );
 add_action( 'widgets_init',array(__CLASS__, 'clean_sweep') );
 add_action( 'widgets_init','empty_names' );
 add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
@@ -57,7 +58,34 @@ include('/pages/customWidgets.php');
 static function Widget_manager_settings_page() {
  include('/pages/Manager.php');
 }
-
+function load_widgets(){
+    $w=get_option('widgetid');
+    if(empty($w)){
+        $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
+        $w=($GLOBALS['wp_widget_factory']->widgets);
+  foreach($widgets as $keys){
+          if(empty($widgetsId)){
+              $type=get_type($keys);
+  $widgetsId=array($keys => array('key'=>$keys,'name'=>get_name($keys),'Description'=>get_description($keys),'type'=> $type, 'status'=>TRUE));
+  }  else {
+      $type=get_type($keys);
+      array_push($widgetsId, $widgetsId[$keys]=array('key'=>$keys,'name'=>get_name($keys),'Description'=>get_description($keys), 'type'=>$type,'status'=>TRUE));
+      array_pop($widgetsId);
+ }
+  }
+        update_option('widgetid', $widgetsId);
+        $widgets=$widgetsId;
+        
+    }else{  
+        $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
+        $wid=($GLOBALS['wp_widget_factory']->widgets);
+$type=get_type($keys);
+        array_push($w,$w[$keys]=array('key'=>$keys,'name'=> get_name($keys),'Description'=>get_description($keys), 'type'=>$type,'status'=>TRUE));
+        array_pop($w);
+        
+        update_option('widgetid', $w);
+}
+    }
 
 function remove_disable_widget() {
 	$d=get_option('widgetid');
