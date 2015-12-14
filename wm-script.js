@@ -134,6 +134,8 @@ jQuery('#wlist').click(function(e){
     jQuery('#customw').hide();
      jQuery('#rWidgetList').hide();
     jQuery('#wlist').html('Hide Widget List');
+    jQuery('#rwList').html('Show Registered Widget');
+    jQuery('#custlist').html('Show Custom Widget List');  
     }else{
       jQuery('#widgetList').hide();
     jQuery('#wlist').html('Show Widget List');  
@@ -146,6 +148,8 @@ jQuery('#rwList').click(function(e){
     jQuery('#widgetList').hide();
     jQuery('#customw').hide();
     jQuery('#rwList').html('Hide Registered Widget');
+    jQuery('#wlist').html('Show Widget List');  
+    jQuery('#custlist').html('Show Custom Widget List');  
     }else{
       jQuery('#rWidgetList').hide();
     jQuery('#rwList').html('Show Registered Widget');  
@@ -158,6 +162,8 @@ jQuery('#custlist').click(function(e){
     jQuery('#widgetList').hide();
      jQuery('#rWidgetList').hide();
     jQuery('#custlist').html('Hide Custom Widget List');
+    jQuery('#rwList').html('Show Registered Widget');
+    jQuery('#wlist').html('Show Widget List');  
     }else{
       jQuery('#customw').hide();
     jQuery('#custlist').html('Show Custom Widget List');  
