@@ -132,10 +132,23 @@ jQuery('#wlist').click(function(e){
     if(jQuery('#widgetList').is(':visible')==false){
     jQuery('#widgetList').show();
     jQuery('#customw').hide();
+     jQuery('#rWidgetList').hide();
     jQuery('#wlist').html('Hide Widget List');
     }else{
       jQuery('#widgetList').hide();
     jQuery('#wlist').html('Show Widget List');  
+    }
+});
+jQuery('#rwList').click(function(e){
+    e.preventDefault();
+    if(jQuery('#rWidgetList').is(':visible')==false){
+    jQuery('#rWidgetList').show();
+    jQuery('#widgetList').hide();
+    jQuery('#customw').hide();
+    jQuery('#rwList').html('Hide Registered Widget');
+    }else{
+      jQuery('#rWidgetList').hide();
+    jQuery('#rwList').html('Show Registered Widget');  
     }
 });
 jQuery('#custlist').click(function(e){
@@ -143,6 +156,7 @@ jQuery('#custlist').click(function(e){
     if(jQuery('#customw').is(':visible')==false){
     jQuery('#customw').show();
     jQuery('#widgetList').hide();
+     jQuery('#rWidgetList').hide();
     jQuery('#custlist').html('Hide Custom Widget List');
     }else{
       jQuery('#customw').hide();
@@ -150,9 +164,16 @@ jQuery('#custlist').click(function(e){
     }
 });
 jQuery('#clearAll').click(function(e){
-    alert('All');
     e.preventDefault();
-    //location.reload();
+    jQuery.ajax({ type: "GET",   
+         url: jQuery(this).attr("href"),   
+         async: false,
+         success : function(text)
+         {
+             location.reload();
+         }
+         
+});
 });
 
 jQuery('#clearCust').click(function(e){
@@ -162,8 +183,7 @@ jQuery('#clearCust').click(function(e){
          async: false,
          success : function(text)
          {
-             response = text;
-             alert(response);
+             location.reload();
          }
          
 });
