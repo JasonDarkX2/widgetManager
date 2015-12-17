@@ -19,6 +19,12 @@ $parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
         $option = $data[$widgetId];
         if($option=='true'){
             $custwid[$widgetId]['status']=TRUE;
+             $wList=get_option('widgetid');
+            if(array_key_exists( $custwid[$widgetId]['class'],$wList)==FALSE){
+                      array_push($wList, $wList[$widgetId]=array('key'=>$wid,'class'=>$custwid[$widgetId]['name'],'name'=> get_name($custwid[$widgetId]['class']),'Description'=>get_description($custwid[$widgetId]['class']), 'type'=>'Custom','status' => true));
+                      array_pop($wList);
+                      update_option('widgetid', $wList);
+                 }
             echo  $custwid[$widgetId]['name'] . ' registered and enabled<br/>';
         }else{
              $custwid[$widgetId]['status']=FALSE;
