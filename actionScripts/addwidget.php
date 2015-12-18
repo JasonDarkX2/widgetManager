@@ -63,7 +63,7 @@ function add_new($target_file,$wid,$file){
             include($target_file); 
         register_widget($wid);
 if(empty($cust)==TRUE){
-                      $cust[$wid]=array('key'=>$wid,'class'=>$wid,'name'=> get_name($wid),'file'=>$file,'status' => true);
+                      $cust[$wid]=array('key'=>$wid,'class'=>$wid,'name'=> get_name($wid), 'Description'=>get_description($wid),'file'=>$file,'status' => true);
                  }else{
                      if(array_key_exists($wid,$cust)==FALSE){
                 array_push($cust, $cust[$wid]=array('key'=>$wid,'class'=>$wid,'name'=> get_name($wid),'file'=>$file,'status' => true));
