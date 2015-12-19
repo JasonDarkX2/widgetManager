@@ -255,5 +255,16 @@ function get_description($key){
               
               update_option('custom-widget', $cust);
         }
+ function newnotfi(){
+        $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
+       $w=get_option('widgetid');
+     foreach($w as $keys){
+      if(array_key_exists($keys['key'],$widgets)==FALSE){
+    if(get_type($keys['key'])!='Default' ){
+    echo '<div class="notfi"><strong>*recently added widgets*-></strong>'. $keys['name'] .'</div>';
+    }
+      }
+     }
+ }
 widget_manager::init();
 ?>

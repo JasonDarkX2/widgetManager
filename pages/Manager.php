@@ -10,7 +10,11 @@ Author URI:http://www.jasondarkx2.com/
 ?>
  <h1> Widget Manager</h1>
 <h1>Notifications:</h1>
-<p id="msg"></p>
+<p id="msg">
+    <?php
+    newnotfi();
+    ?>
+</p>
  <form id="widmanager" method="post" action="<?php echo  plugins_url('actionScripts/options.php', dirname(__FILE__)); ?>">
     <?php settings_fields( 'WM-setting' ); ?>
     <?php do_settings_sections( 'WM-setting' ); ?>
