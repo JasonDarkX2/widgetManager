@@ -12,7 +12,7 @@ Author URI:http://www.jasondarkx2.com/
 <h1>Notifications:</h1>
 <p id="msg">
     <?php
-    newnotfi();
+    autoDetect();
     ?>
 </p>
  <form id="widmanager" method="post" action="<?php echo  plugins_url('actionScripts/options.php', dirname(__FILE__)); ?>">

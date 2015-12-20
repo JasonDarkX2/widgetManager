@@ -177,6 +177,7 @@ function clean_sweep(){
      }
 }
 }
+
 function getCustomWidgets($dir){
     $customwidgets=array();
  $cdir=scandir($dir);
@@ -262,6 +263,21 @@ function get_description($key){
       if(array_key_exists($keys['key'],$widgets)==FALSE){
     if(get_type($keys['key'])!='Default' ){
     echo '<div class="notfi"><strong>*recently added widgets*-></strong>'. $keys['name'] .'</div>';
+    }
+      }
+     }
+ }
+ function autoDetect(){
+      $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
+       $w=get_option('widgetid');
+     foreach($widgets as $keys){
+      if(array_key_exists($keys,$w)==FALSE){
+    if(get_type($keys)!='Default' ){
+        $type=get_type($keys);
+        array_push($w,$w[$keys]=array('key'=>$keys,'name'=> get_name($keys),'Description'=>get_description($keys), 'type'=>$type,'status'=>TRUE));
+        array_pop($w);
+        
+        update_option('widgetid', $w);
     }
       }
      }
