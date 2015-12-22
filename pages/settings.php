@@ -9,6 +9,12 @@ Author URI:http://www.jasondarkx2.com/
 */ 
  ?>
 <h1>Settings</h1>
+<form method="POST" action="#">
+    <strong>Plugin Upload Directory:</strong><input type="text" name="directory" size="100" value="<?php echo get_option('widgetdir');?>">
+<?php
+submit_button()?>
+</form>
+<br/>
 <a href="#"  id="debug" title=" enable debug mode">Enable debug mode</a>
 <?php $s=get_option('widgetid');?>
 <div id="debugSection" hidden="true">
