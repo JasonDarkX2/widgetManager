@@ -9,8 +9,7 @@ Author URI:http://www.jasondarkx2.com/
 */ 
 $parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
  require_once( $parse_uri[0] . 'wp-load.php' );
-//$target_dir =plugin_dir_path( __FILE__ ).'custom-widgets/';
- $target_dir=plugin_dir_path(dirname(__FILE__)) . 'custom-widgets/';
+ $target_dir=  get_option('widgetdir');
  $target_file = $target_dir . basename($_FILES["widgetToUpload"]['name']);
 if(!empty($_FILES)){
     $info = new SplFileInfo($_FILES["widgetToUpload"]["name"]);
