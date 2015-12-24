@@ -38,6 +38,7 @@ error: function(XMLHttpRequest, textStatus, errorThrown)
 ex.preventDefault();
 
 });
+
 var cmform=e('#customswid');
    cmform.submit(function(ex){
       var formdata=cmform.serialize(); 
@@ -115,6 +116,30 @@ jQuery('#addWidget').click(function(e){
         },
     }
 });
+});
+var wmform=e('#settingsop');
+   wmform.submit(function(ex){
+       alert('nope');
+      var formdata=wmform.serialize(); 
+      var formurl=wmform.attr('action');
+//Post Form with data
+e.ajax({
+type: 'post',
+url: formurl,
+data: formdata,
+success: function(XMLHttpRequest,data, textStatus){
+   notification=XMLHttpRequest;
+   location.reload();
+   //localStorage['notification']='';
+    //localStorage['notification']='<strong>'+ notification + '</strong>';
+},
+error: function(XMLHttpRequest, textStatus, errorThrown)
+{
+  alert(errorThrown);  
+}
+   });
+ex.preventDefault();
+
 });
 //debug JS scripts
 jQuery('#debug').click(function(e){
