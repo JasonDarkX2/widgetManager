@@ -9,8 +9,8 @@ Author URI:http://www.jasondarkx2.com/
 */ 
  ?>
 <h1>Settings</h1>
-<form method="POST" action="#">
-    <strong>Plugin Upload Directory:</strong><input type="text" name="directory" size="100" value="<?php echo get_option('widgetdir');?>">
+<form id="settingsop" method="POST" action="<?php echo plugins_url('actionScripts/settings.php', dirname(__FILE__));?>">
+    <strong>Plugin Upload Directory:</strong><input type="text" name="dir" size="100" value="<?php echo get_option('widgetdir');?>">
 <?php
 submit_button()?>
 </form>
