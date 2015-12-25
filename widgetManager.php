@@ -21,7 +21,7 @@ add_action( 'widgets_init','empty_names' );
 add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
 add_action('admin_enqueue_scripts',array(__CLASS__,'add_scripts') );
 if(get_option('widgetdir')==NULL){
-    $defaultDir=plugin_dir_path(__FILE__) . 'custom-widgets/';
+    $defaultDir=dirname(plugin_dir_path(__FILE__)). '/custom-widgets/';
     update_option('widgetdir',$defaultDir);
 }
  }
