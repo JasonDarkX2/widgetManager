@@ -119,7 +119,6 @@ jQuery('#addWidget').click(function(e){
 });
 var wmform=e('#settingsop');
    wmform.submit(function(ex){
-       alert('nope');
       var formdata=wmform.serialize(); 
       var formurl=wmform.attr('action');
 //Post Form with data
@@ -130,12 +129,12 @@ data: formdata,
 success: function(XMLHttpRequest,data, textStatus){
    notification=XMLHttpRequest;
    location.reload();
-   //localStorage['notification']='';
-    //localStorage['notification']='<strong>'+ notification + '</strong>';
+   localStorage['notification']='';
+    localStorage['notification']='<strong>'+ notification + '</strong>';
 },
 error: function(XMLHttpRequest, textStatus, errorThrown)
 {
-  alert(errorThrown);  
+localStorage['notification']='<strong>'+ notification + '</strong>';
 }
    });
 ex.preventDefault();
