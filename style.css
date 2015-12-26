@@ -78,3 +78,7 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui
 .ui-widget .ui-widget-content{
     overflow:hidden;
 }
+.notfi{
+    display:inline-block;
+    border-style: dotted;
+}

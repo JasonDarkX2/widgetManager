@@ -24,7 +24,7 @@ if(empty($dir)){
             }
         }
         recursiveRemove($sdir);
-        echo '<h1>Widget Directory Successfully updated</h1>';
+        echo '<div class="notfi"><strong>Widget Directory Successfully updated</strong></div>';
     }
 update_option('widgetdir',$dir);
 
