@@ -127,7 +127,7 @@ function remove_disable_widget() {
         }
         }
                 function import_cust_widget() {
-                    $dir=plugin_dir_path( __FILE__ ).'custom-widgets/';
+                    $dir=get_option('widgetdir');
                     $w=get_option('widgetid');
                     $cust=get_option('custom-widget');
                    $custwid=getCustomWidgets($dir);
