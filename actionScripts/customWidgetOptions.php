@@ -25,12 +25,12 @@ $parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
                       array_pop($wList);
                       update_option('widgetid', $wList);
                  }
-            echo  $custwid[$widgetId]['name'] . ' registered and enabled<br/>';
+            echo '<div class="notfi">'. $custwid[$widgetId]['name'] . ' registered and enabled</div>';
         }else{
              $custwid[$widgetId]['status']=FALSE;
              unset($wList[$widgetid]);
              update_option('widgetid', $wList);
-              echo  $custwid[$widgetId]['name'] . ' unregistered<br/>';
+              echo '<div class="notfi">'.   $custwid[$widgetId]['name'] . ' unregistered</div>';
         }
   }
  }

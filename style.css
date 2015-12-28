@@ -81,4 +81,11 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui
 .notfi{
     display:inline-block;
     border-style: dotted;
+    background-color: greenyellow;
+}
+
+.errorNotfi{
+    display:inline-block;
+    border-style: dotted;
+    background-color:red;
 }

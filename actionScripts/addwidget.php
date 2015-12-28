@@ -14,7 +14,7 @@ $parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
 if(!empty($_FILES)){
     $info = new SplFileInfo($_FILES["widgetToUpload"]["name"]);
 $upload = 1;
-$errorMsg="Sorry, there was an error uploading your file.";
+$errorMsg='<div class="errorNotfi">Sorry, there was an error uploading your file.</div>';
     if($info->getExtension()==='zip'){
     $zip = new ZipArchive;
 $res = $zip->open($_FILES["widgetToUpload"]["tmp_name"]);
@@ -25,7 +25,7 @@ if ($res === TRUE) {
     $target_file= $target_dir.  $stat['name']; 
 }
 if (file_exists($target_file)==TRUE) {
-    $errorMsg="Sorry, file already exists.";
+    $errorMsg='<div class="errorNotfi">Sorry, file already exists.</div>';
     $upload = 0;
 }
     }
