@@ -185,7 +185,11 @@ function clean_sweep(){
 
 function getCustomWidgets($dir){
     $customwidgets=array();
+    if(file_exists($dir)){
  $cdir=scandir($dir);
+    }else{
+        return;
+    }
 
  foreach($cdir as $d){
      if($d == "." || $d == ".."  || $d == ".svn"){
