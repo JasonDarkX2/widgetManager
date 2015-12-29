@@ -36,6 +36,7 @@ $enablecon=0;
             break;
    }
    }else{
+       echo "here";
        $wid=get_option('widgetid');
    foreach($que_array as $widgetId){
     $option = 0;
@@ -57,7 +58,7 @@ $enablecon=0;
   }
    update_option('widgetid', $wid);
    }
-   echo "$enablecon enabled widgets and $disabledcon disabled widgets";
+   echo '<div class="notfi">' . $enablecon . ' enabled widgets and ' . $disabledcon . ' disabled widgets'. '</div>' ;
     function enable_all($que_array, &$enablecon){
                  foreach($que_array as $widgetId){
                 $que_array[$widgetId['key']]['status']=TRUE;
