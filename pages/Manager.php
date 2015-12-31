@@ -15,7 +15,7 @@ Author URI:http://www.jasondarkx2.com/
     autoDetect();
     ?>
 </p>
- <form id="widmanager" method="post" action="<?php echo  plugins_url('actionScripts/options.php', dirname(__FILE__)); ?>">
+ <form id="settingsop" method="POST" action="<?php echo  plugins_url('actionScripts/options.php', dirname(__FILE__)); ?>">
     <?php settings_fields( 'WM-setting' ); ?>
     <?php do_settings_sections( 'WM-setting' ); ?>
     <table border='1px' >
