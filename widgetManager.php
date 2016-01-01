@@ -61,7 +61,7 @@ static function customWidget_option_page() {
 include('/pages/customWidgets.php');
 }
 static function Widget_manager_settings_page() {
- include('/pages/Manager.php');
+ require_once('/pages/Manager.php');
 }
 function load_widgets(){
     $w=get_option('widgetid');
@@ -268,17 +268,23 @@ function get_description($key){
  function autoDetect(){
       $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
        $w=get_option('widgetid');
+       $shown=false;
      foreach($widgets as $keys){
       if(array_key_exists($keys,$w)==FALSE){
     if(get_type($keys)!='Default' ){
         $type=get_type($keys);
         array_push($w,$w[$keys]=array('key'=>$keys,'name'=> get_name($keys),'Description'=>get_description($keys), 'type'=>$type,'status'=>TRUE));
         array_pop($w);
-        echo '<div class="notfi"><strong>*recently added widgets*-></strong>'. get_name($keys) .'</div>';
+                 if($shown!=TRUE){
+             echo '<div class="notfi"><strong>Recently added widgets</strong> <ul style="list-style:disc; padding: 1px; list-style-position: inside;">';
+             $shown=true;
+         }
+        echo '<li>'. get_name($keys) .'</li>';
         update_option('widgetid', $w);
     }
       }
      }
+     echo'</ul></div>';
  }
 widget_manager::init();
 ?>

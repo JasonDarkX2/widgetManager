@@ -82,10 +82,13 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui
     display:inline-block;
     border-style: dotted;
     background-color: greenyellow;
+    width:67%;
 }
-
 .errorNotfi{
     display:inline-block;
     border-style: dotted;
     background-color:red;
+    width:67%;
 }
+#wpbody-content {
+padding-bottom:0px; 
