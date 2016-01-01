@@ -8,7 +8,7 @@ $parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
  require_once( $parse_uri[0] . 'wp-load.php' );
 $enablecon=0;
  $disabledcon=0;
-   $que_array = $_POST['widgetid'];
+  $que_array = $_POST['widgetid'];
    If(isset($_POST['quickOp'])){
        switch($_POST['quickOp']){
         case 'enbwid':
@@ -36,8 +36,11 @@ $enablecon=0;
             break;
    }
    }else{
-       echo "here";
+
        $wid=get_option('widgetid');
+       if($que_array==NULL){
+           return;
+       }
    foreach($que_array as $widgetId){
     $option = 0;
     $data=$_POST;
