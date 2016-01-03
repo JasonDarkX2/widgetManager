@@ -47,7 +47,7 @@ else{
     if($upload==1){
     if (move_uploaded_file($_FILES["widgetToUpload"]["tmp_name"], $target_file)) {
         $wid=getWidgetClass($_FILES["widgetToUpload"]["name"]);
-        echo "The file ". basename( $_FILES["widgetToUpload"]["name"]). " has been uploaded.";
+        echo '<div class="notfi">The file '. basename( $_FILES["widgetToUpload"]["name"]). " has been uploaded.</div>";
         $wid=getWidgetClass($_FILES["widgetToUpload"]["name"]);
         add_new($target_file,$wid,  basename( $_FILES["widgetToUpload"]["name"]));
     } 
