@@ -33,7 +33,7 @@ unset($custwid[$widgetid]);
 unset($widgets[$widgetid]);
 update_option('custom-widget', $custwid);
 update_option('widgetid', $widgets);
-echo "deleted $widgetid";
+echo '<div class="notfi">deleted '. $widgetid .'</div>';
 
 function recursiveRemove($dir)
 {
