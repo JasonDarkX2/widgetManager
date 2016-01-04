@@ -9,7 +9,6 @@ Author URI:http://www.jasondarkx2.com/
 */ 
 ?>
  <h1> Widget Manager</h1>
-<h1>Notifications:</h1>
 <p id="msg">
     <?php
     autoDetect();
