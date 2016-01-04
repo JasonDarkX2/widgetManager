@@ -144,6 +144,7 @@ function remove_disable_widget() {
                    }
                 }
                     if(empty($cust)==TRUE){
+                        if($custwid!=null){
                    foreach($custwid as $wid){
                  if(empty($cust)==TRUE && getWidgetClass($wid)!=''){
                       $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true);
@@ -154,6 +155,7 @@ function remove_disable_widget() {
                      }
                  }
                    }
+                        }
                     }
                     if($cust!=''){
                    foreach($cust as $c){
@@ -237,6 +239,9 @@ foreach ($t as $token) {
 }
 function get_type($keys){
     $c=get_option('custom-widget');
+    if($c==null){
+        $c=get_option('widgetid');
+    }
     if(preg_match("/WP_(Widget|Nav)/", $keys)){
     $type="Default";
 }else if(array_key_exists($keys,$c)==FALSE){
