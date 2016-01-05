@@ -55,13 +55,13 @@ add_submenu_page('widgetM', 'Custom Widgets Options', 'Custom Widgets Options', 
         register_setting( 'WM-setting', 'widgetdir' );
 }
 static function widgetManager_setting_page() {
-include('/pages/settings.php');
+include(plugin_dir_path( __FILE__ ) . '/pages/settings.php');
 }
 static function customWidget_option_page() {
-include('/pages/customWidgets.php');
+include(plugin_dir_path( __FILE__ ) . '/pages/customWidgets.php');
 }
 static function Widget_manager_settings_page() {
- require_once('/pages/Manager.php');
+ include(plugin_dir_path( __FILE__ ) . '/pages/Manager.php');
 }
 function load_widgets(){
     $w=get_option('widgetid');
