@@ -4,7 +4,8 @@ admin options file for Widget Manager
 Author:Jason Dark X2
 Author URI:http://www.jasondarkx2.com/ 
 */  
-$parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
+$w=$_POST['wpdir'];
+$parse_uri = explode($w, $_SERVER['SCRIPT_FILENAME'] );
  require_once( $parse_uri[0] . 'wp-load.php' );
 $enablecon=0;
  $disabledcon=0;
