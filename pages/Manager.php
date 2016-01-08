@@ -47,5 +47,5 @@ Author URI:http://www.jasondarkx2.com/
             </td>
         </tr>
     </table>
-     <?php submit_button(); ?>
+      <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
     </form>
