@@ -8,7 +8,7 @@
   <p>Add or Import your Custom widgets below.... </p>
   <form id="addWidget" method="POST" action="<?php echo plugins_url('actionScripts/addwidget.php',__FILE__); ?>" enctype= "multipart/form-data">
   <input type="file" name="widgetToUpload" id="widgetToUpload" accept=".php,.zip">
-  <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
+  <input type="hidden" id="wpdir" name="wpdir" value="<?php echo basename(content_url());?>" />
   </form>
   </div>
 </form>
