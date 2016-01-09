@@ -7,7 +7,8 @@ Author:Jason Dark X2
 version: 0.95
 Author URI:http://www.jasondarkx2.com/ 
 */ 
-$parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
+$w=$_POST['wpdir'];
+$parse_uri = explode($w, $_SERVER['SCRIPT_FILENAME'] );
  require_once( $parse_uri[0] . 'wp-load.php' );
  $target_dir=  get_option('widgetdir');
  $target_file = $target_dir . basename($_FILES["widgetToUpload"]['name']);
