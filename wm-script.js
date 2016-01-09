@@ -44,9 +44,11 @@ jQuery('#addWidget').click(function(e){
     position: { my: 'center', at: 'center' }, 
     buttons: {
         "Upload ": function() {
-                var file_data = jQuery('#widgetToUpload').prop('files')[0];   
+                var file_data = jQuery('#widgetToUpload').prop('files')[0];
+                var dir=jQuery('#wpdir').val();
     var form_data = new FormData();                  
     form_data.append('widgetToUpload', file_data);
+    form_data.append('wpdir', dir);
                 jQuery.ajax({
                    url: url.addWidgetUrl,
                    dataType: 'text',  // what to expect back from the PHP script, if anything
