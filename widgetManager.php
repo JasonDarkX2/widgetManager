@@ -135,8 +135,10 @@ function remove_disable_widget() {
                    foreach($custwid as $wid){
                        if($cust[getWidgetClass($wid)]['status']==true){
                        if(empty($cust)|| array_key_exists($wid, $cust)==FALSE){
+                           if(file_exists($dir. '/'.$wid)){
                        include($dir. '/'.$wid);
                        register_widget(getWidgetClass($wid));
+                           }
                        }
                        }else{
                            unregister_widget(getWidgetClass($wid));
