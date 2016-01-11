@@ -219,7 +219,7 @@ function getCustomWidgets($dir){
                    return $customwidgets;
 }
 function getWidgetClass($file){
-     $dir=plugin_dir_path( __FILE__ ).'custom-widgets';
+     $dir=get_option('widgetdir');
      if($file !=""){
         if(file_exists ($dir. '/'.$file))
      $file=file_get_contents($dir. '/'.$file );
