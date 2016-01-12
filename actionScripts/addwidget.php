@@ -11,7 +11,8 @@ $w=$_POST['wpdir'];
 $parse_uri = explode($w, $_SERVER['SCRIPT_FILENAME'] );
  require_once( $parse_uri[0] . 'wp-load.php' );
  $target_dir=  get_option('widgetdir');
- $target_file = $target_dir . basename($_FILES["widgetToUpload"]['name']);
+ $target_file = $target_dir . '/' . basename($_FILES["widgetToUpload"]['name']);
+ echo $target_file;
 if(!empty($_FILES)){
     $info = new SplFileInfo($_FILES["widgetToUpload"]["name"]);
 $upload = 1;
@@ -42,7 +43,7 @@ if($upload==1){
 }
 else{
     if (file_exists($target_file)==TRUE) {
-    $errorMsg="Sorry, file already exists.";
+    $errorMsg='<div class="errorNotfi">Sorry, file already exists.</div>';
     $upload = 0;
 }
     if($upload==1){
