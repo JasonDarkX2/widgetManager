@@ -12,7 +12,6 @@ $parse_uri = explode($w, $_SERVER['SCRIPT_FILENAME'] );
  require_once( $parse_uri[0] . 'wp-load.php' );
  $target_dir=  get_option('widgetdir');
  $target_file = $target_dir . '/' . basename($_FILES["widgetToUpload"]['name']);
- echo $target_file;
 if(!empty($_FILES)){
     $info = new SplFileInfo($_FILES["widgetToUpload"]["name"]);
 $upload = 1;
@@ -24,7 +23,7 @@ if ($res === TRUE) {
     if($zip->numFiles>=1){
     for( $i = 0; $i < $zip->numFiles; $i++ ){ 
     $stat = $zip->statIndex( $i ); 
-    $target_file= $target_dir.  $stat['name']; 
+    $target_file= $target_dir . '/' .   $stat['name']; 
 }
 if (file_exists($target_file)==TRUE) {
     $errorMsg='<div class="errorNotfi">Sorry, file already exists.</div>';
@@ -37,6 +36,7 @@ if($upload==1){
       $zip->close();
       $wid=getWidgetClass($stat['name']);
       add_new($target_file,$wid,$stat['name']);
+       echo '<div class="notfi"> Extracted the file '. basename( $_FILES["widgetToUpload"]["name"]). " and successfully has been uploaded " . $stat["name"].".</div>";
 } else {
         echo $errorMsg;
     }
