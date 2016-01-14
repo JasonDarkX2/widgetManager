@@ -13,11 +13,11 @@ $parse_uri = explode($w, $_SERVER['SCRIPT_FILENAME'] );
   $custwid= get_option('custom-widget');
   $widgets= get_option('widgetid');
 $widgetid=$_GET['w'];
-$dir=get_option('widgetdir');
-chmod($dir,755);
-if(file_exists($dir .$custwid[$widgetid]['file'])===TRUE){
+$wdir=get_option('widgetdir');
+chmod($wdir,777);
+if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
      $toDel=explode("/",$custwid[$widgetid]['file']);
-     $del= $dir. $toDel[0];
+     $del= $wdir . '/' . $toDel[0];
 if(is_dir($del)===TRUE){
  $objects = scandir($del);
      foreach ($objects as $object) {
@@ -27,7 +27,7 @@ if(is_dir($del)===TRUE){
      }
      rmdir($del);
 }else{
-unlink($dir .$custwid[$widgetid]['file']);
+unlink($wdir . '/' . $custwid[$widgetid]['file']);
 }
 }
 unset($custwid[$widgetid]);
