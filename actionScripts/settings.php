@@ -16,6 +16,8 @@ if(empty($dir)){
 }
     if(file_exists($dir)==FALSE){
         mkdir($dir,0755);
+        $user=exec(whoami);
+        chown($dir, $user);
     }
         $sdir=get_option('widgetdir');
         If(file_exists($sdir)){
