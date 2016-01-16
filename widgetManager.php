@@ -114,9 +114,7 @@ function remove_disable_widget() {
         foreach($d as $widget){
             if($d[$widget['key']]['status']==FALSE && $widget['type']=='Plugin'){
                 if(class_exists($widget['key'])){
-                    //echo $widget['key'];
                     $wid=($GLOBALS['wp_widget_factory']->widgets);
-                    //var_dump($wid);
             unregister_widget($widget['key']);
                 }else{
                     unset($d[$widget['key']]);
@@ -133,6 +131,7 @@ function remove_disable_widget() {
                    $custwid=getCustomWidgets($dir);
                    if($custwid!=null){
                    foreach($custwid as $wid){
+                       
                        if($cust[getWidgetClass($wid)]['status']==true){
                        if(empty($cust)|| array_key_exists($wid, $cust)==FALSE){
                            if(file_exists($dir. '/'.$wid)){
@@ -189,6 +188,7 @@ function clean_sweep(){
 
 function getCustomWidgets($dir){
     $customwidgets=array();
+    $widgetdir=get_option('widgetdir');
     if(file_exists($dir)){
  $cdir=scandir($dir);
     }else{
@@ -199,8 +199,8 @@ function getCustomWidgets($dir){
      if($d == "." || $d == ".."  || $d == ".svn"){
 			continue;
      }
-     if(is_dir(plugin_dir_path( __FILE__ ) . 'custom-widgets'. '/'.$d)==TRUE){
-         $dirFile=scandir(plugin_dir_path( __FILE__ ) . 'custom-widgets'. '/'.$d);
+     if(is_dir($widgetdir . '/'.$d)==TRUE){
+         $dirFile=scandir( $widgetdir . '/'.$d);
          foreach($dirFile as $dir){
              $info = new SplFileInfo($dir);
              if(is_dir($dir)==FALSE && $info->getExtension()=='php'){
@@ -219,13 +219,13 @@ function getCustomWidgets($dir){
                    return $customwidgets;
 }
 function getWidgetClass($file){
+    
     $c=get_option('custom-widget');
      $dir=get_option('widgetdir');
      if($file !=""){
-         echo $dir . $file . '/' . var_dump($c) .'<br/>';
        $perms=fileperms( $dir .  $c[$file]['file']);
         if(file_exists ($dir .$file))
-     $file=file_get_contents($dir . $file . '/' . $c[$file]['file']);
+     $file=file_get_contents($dir . $file );
      $t=token_get_all($file);
      $class_token = false;
 foreach ($t as $token) {
