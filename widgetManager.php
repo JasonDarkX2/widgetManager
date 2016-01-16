@@ -136,7 +136,7 @@ function remove_disable_widget() {
                        if($cust[getWidgetClass($wid)]['status']==true){
                        if(empty($cust)|| array_key_exists($wid, $cust)==FALSE){
                            if(file_exists($dir. '/'.$wid)){
-                       include($dir. '/'.$wid);
+                       include($dir . $cust[getWidgetClass($wid)]['file']);
                        register_widget(getWidgetClass($wid));
                            }
                        }
@@ -219,10 +219,13 @@ function getCustomWidgets($dir){
                    return $customwidgets;
 }
 function getWidgetClass($file){
+    $c=get_option('custom-widget');
      $dir=get_option('widgetdir');
      if($file !=""){
-        if(file_exists ($dir. '/'.$file))
-     $file=file_get_contents($dir. '/'.$file );
+         echo $dir . $file . '/' . var_dump($c) .'<br/>';
+       $perms=fileperms( $dir .  $c[$file]['file']);
+        if(file_exists ($dir .$file))
+     $file=file_get_contents($dir . $file . '/' . $c[$file]['file']);
      $t=token_get_all($file);
      $class_token = false;
 foreach ($t as $token) {
