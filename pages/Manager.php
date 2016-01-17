@@ -9,11 +9,7 @@ Author URI:http://www.jasondarkx2.com/
 */ 
 ?>
  <h1> Widget Manager</h1>
-<p id="msg">
-    <?php
-    autoDetect();
-    ?>
-</p>
+
  <form id="settingsop" method="POST" action="<?php echo  plugins_url('actionScripts/options.php', dirname(__FILE__)); ?>">
      <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
     <?php settings_fields( 'WM-setting' ); ?>
@@ -47,5 +43,10 @@ Author URI:http://www.jasondarkx2.com/
             </td>
         </tr>
     </table>
+     <p id="msg">
+    <?php
+    autoDetect();
+    ?>
+</p>
       <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
     </form>

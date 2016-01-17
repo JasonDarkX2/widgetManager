@@ -9,11 +9,12 @@ Author URI:http://www.jasondarkx2.com/
 */ 
  ?>
 <h1>Settings</h1>
-   <p id="msg"></p>
+   
 <form id="settingsop" method="POST" action="<?php echo plugins_url('actionScripts/settings.php', dirname(__FILE__));?>">
     <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
     <strong>Plugin Upload Directory:</strong><input type="text" name="dir" size="100" value="<?php echo str_replace('\\', '/',get_option('widgetdir'));?>">
-<?php
+<p id="msg"></p>
+        <?php
 submit_button()?>
 </form>
 <br/>

@@ -13,7 +13,7 @@
   </div>
 </form>
     <h2><strong>Custom Widgets Option</strong></h2>
-   <p id="msg"></p>
+   
     <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th><th>Extra options</th></tr>
         <form id="settingsop" method="POST" action="<?php echo plugins_url('actionScripts/customWidgetOptions.php', dirname(__FILE__)) ; ?>">
             <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
@@ -33,5 +33,6 @@
     <?php endforeach;?>
     <tr><td colspan="5"><a href="#"> Get more Custom Widgets</a>|<a href="#" id="addWidget"> Add/import new Custom Widgets</a></td></tr>
     </table>
+    <p id="msg"></p>
     <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
     </form> 
