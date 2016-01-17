@@ -223,7 +223,6 @@ function getWidgetClass($file){
     $c=get_option('custom-widget');
      $dir=get_option('widgetdir');
      if($file !=""){
-       $perms=fileperms( $dir .  $c[$file]['file']);
         if(file_exists ($dir .$file))
      $file=file_get_contents($dir . $file );
      $t=token_get_all($file);

@@ -35,7 +35,7 @@ if($upload==1){
      $zip->extractTo($target_dir);
       $zip->close();
       $wid=getWidgetClass($stat['name']);
-      add_new($target_file,$wid,$stat['name']);
+      add_new($target_file,$wid,$stat['name']);   
        echo '<div class="notfi"> Extracted the file '. basename( $_FILES["widgetToUpload"]["name"]). " and successfully has been uploaded " . $stat["name"].".</div>";
 } else {
         echo $errorMsg;
