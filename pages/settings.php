@@ -16,10 +16,15 @@ Author URI:http://www.jasondarkx2.com/
     <p>
         <strong>Preset options</strong>
     <ul>
-        <li><input type="checkbox" name="preset1"  value="preset1"/></li>
-         <li><input type="checkbox" name="preset2" value="preset2" /></li>
-         <li><input type="checkbox" name="preset3" value="preset3" /></li>
-         <li><input type="checkbox" name="preset4" value="preset4" /></li>
+        <li><input type='hidden' name='preset[]' value='ndw' id='preset'> 
+            <input type="checkbox" name="ndw"  value="true"/>Disable and hide all Default Widgets from Manager.</li>
+        
+         <li><input type='hidden' name='preset[]' value='cwoff' id='preset'> 
+             <input type="checkbox" name="cwoff" value="true" />Auto Disable all newly added custom widgets.</li>
+         <li><input type='hidden' name='preset[]' value='cdwd' id='preset'> 
+             <input type="checkbox" name="cdwd" value="true" />Use default Custom Widget Directory. </li>
+         <li><input type='hidden' name='preset[]' value='pwm' id='preset'> 
+             <input type="checkbox" name="pwm" value="true" /> Enable Plugin Widgets Manager</li>
     </ul>
     </p>
 <p id="msg"></p>
