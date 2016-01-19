@@ -53,6 +53,11 @@ add_submenu_page('widgetM', 'Custom Widgets Options', 'Custom Widgets Options', 
 	register_setting( 'WM-setting', 'widgetid' );
         register_setting( 'WM-setting', 'custom-widget' );
         register_setting( 'WM-setting', 'widgetdir' );
+        register_setting( 'WM-setting', 'preset-ndw' );
+         register_setting( 'WM-setting', 'preset-cwoff' );
+         register_setting( 'WM-setting', 'preset-dwd' );
+         register_setting( 'WM-setting', 'preset-pwm' );
+        
 }
 static function widgetManager_setting_page() {
 include(plugin_dir_path( __FILE__ ) . '/pages/settings.php');
