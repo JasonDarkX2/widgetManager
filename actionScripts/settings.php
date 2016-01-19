@@ -11,6 +11,22 @@ $w=$_POST['wpdir'];
 $parse_uri = explode($w, $_SERVER['SCRIPT_FILENAME'] );
  require_once( $parse_uri[0] . 'wp-load.php' );
 $dir=$_POST['dir'];
+$presets=$_POST['preset'];
+var_dump($presets);
+if(count($presets)>0){
+    foreach($presets as $p){
+        echo "<h1>" . $p . '->' . $_POST[$p] ."</h1>";
+        switch($_POST[$p]){
+            case true:
+                $option='preset-' . $p;
+                update_option($option, TRUE);
+                break;
+            case false:
+                update_option($option, FALSE);
+                
+        }
+    }
+}
 if(empty($dir)){
     $dir=dirname(plugin_dir_path(__FILE__)). '/custom-widgets/';
 }
