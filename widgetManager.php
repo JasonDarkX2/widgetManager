@@ -12,6 +12,7 @@ Author URI:http://www.jasondarkx2.com/
 class widget_manager{
     static $add_script;
 static function init(){
+    add_action( 'widgets_init',array(__CLASS__, 'do_preset') );
 add_action( 'widgets_init',array(__CLASS__, 'import_cust_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
 add_action( 'init',array(__CLASS__, 'disable_plugin_widget') );
@@ -188,6 +189,17 @@ function clean_sweep(){
                     update_option('widgetid', $d);
           }
      }
+}
+function do_preset(){
+    $w=get_option('widgetid');
+    if(get_option('preset-ndw')==TRUE){
+         foreach($w as $widgetId){
+             if($widgetId['type']=="Default"){
+                $w[$widgetId['key']]['status']=false;
+             }
+         }
+         update_option('widgetid', $w);
+    }
 }
 }
 
