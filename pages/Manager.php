@@ -39,8 +39,10 @@ Author URI:http://www.jasondarkx2.com/
         <tr>
             <td><strong>Quick Options</strong></td>
             <td colspan="3">
+                <?php if(get_option('preset-ndw')==FALSE):?>
                 <b>|Enable Defaults Widgets Only:</b><input type="radio" name="quickOp" value="enbDefault">
                 <b>|Disable Defaults Widgets Only:</b><input type="radio" name="quickOp" value="disDefault">
+                <?php endif;?>
                 <b>|Disable all custom widgets:</b><input type="radio" name="quickOp" value="disCust">
                 <b>|Enable all Widgets:</b> <input type="radio" name="quickOp" value="enbwid">
                  <b>|Disable all Widgets:</b> <input type="radio" name="quickOp" value="diswid">
