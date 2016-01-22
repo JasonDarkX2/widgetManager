@@ -62,6 +62,14 @@ $enablecon=0;
   }
    update_option('widgetid', $wid);
    }
+   if(get_option('preset-ndw')){
+       if($enablecon>0){
+         $enablecon=$enablecon-get_count("Default"); 
+       }
+       if($disabledcon>0){
+         $disablecon=$disablecon-get_count("Default"); 
+       }
+   }
    echo '<div class="notfi">' . $enablecon . ' enabled widgets and ' . $disabledcon . ' disabled widgets'. '</div>' ;
     function enable_all($que_array, &$enablecon){
                  foreach($que_array as $widgetId){
@@ -89,15 +97,15 @@ $enablecon=0;
      }
      update_option('widgetid',$w);
      }
-     function get_defaults($w){
-        $d=array();
-         array_pop($d);
+     function get_count($type){
+         $w=get_option('widgetid');
+         $count=0;
         foreach($w as $wid){
-         if($wid['type']==="default"){
-          array_push($d, $wid);
+         if(strtolower($wid['type'])==strtolower($type)){
+          $count++;
          }
         }
-         return $d;
+         return $count;
      }
     
 ?>
