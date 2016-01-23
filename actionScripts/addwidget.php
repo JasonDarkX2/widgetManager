@@ -61,10 +61,14 @@ else{
 function add_new($target_file,$wid,$file){
      $cust=get_option('custom-widget');
      $wList=get_option('widgetid');
+     $status=true;
+     if(get_option('preset-cwoff')){
+         $status=false;
+     }
             include($target_file); 
         register_widget($wid);
 if(empty($cust)==TRUE){
-                      $cust[$wid]=array('key'=>$wid,'class'=>$wid,'name'=> get_name($wid), 'Description'=>get_description($wid),'file'=>$file,'status' => true);
+                      $cust[$wid]=array('key'=>$wid,'class'=>$wid,'name'=> get_name($wid), 'Description'=>get_description($wid),'file'=>$file,'status' => $status);
                  }else{
                      if(array_key_exists($wid,$cust)==FALSE){
                 array_push($cust, $cust[$wid]=array('key'=>$wid,'class'=>$wid,'name'=> get_name($wid),'file'=>$file,'status' => true));
@@ -72,7 +76,7 @@ if(empty($cust)==TRUE){
                      }
                  }
                  if(array_key_exists($wid,$wList)==FALSE){
-                      array_push($wList, $wList[$wid]=array('key'=>$wid,'class'=>$wid,'name'=> get_name($wid),'Description'=>get_description($wid), 'type'=>'Custom','status' => true));
+                      array_push($wList, $wList[$wid]=array('key'=>$wid,'class'=>$wid,'name'=> get_name($wid),'Description'=>get_description($wid), 'type'=>'Custom','status' => $status));
                       array_pop($wList);
                  }
                   update_option('widgetid', $wList);
