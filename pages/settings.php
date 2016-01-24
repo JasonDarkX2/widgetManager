@@ -12,7 +12,12 @@ Author URI:http://www.jasondarkx2.com/
    
 <form id="settingsop" method="POST" action="<?php echo plugins_url('actionScripts/settings.php', dirname(__FILE__));?>">
     <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
-    <strong>Plugin Upload Directory:</strong><input type="text" name="dir" size="100" value="<?php echo str_replace('\\', '/',get_option('widgetdir'));?>">
+    <strong>Plugin Upload Directory:</strong>
+    <?php if(get_option('preset-cdwd')==FALSE) : ?>
+    <input type="text" name="dir" size="100" value="<?php echo str_replace('\\', '/',get_option('widgetdir'));?>">
+    <?php else:?>
+    <input type="text" name="dir" size="100" disabled value="<?php echo str_replace('\\', '/',get_option('widgetdir'));?>">
+    <?php endif;?>
     <p>
         <strong>Preset options</strong>
     <ul>
