@@ -25,7 +25,7 @@ if(count($presets)>0){
         }
     }
 }
-if(empty($dir)){
+if(empty($dir)|| get_option('preset-cdwd')){
     $dir=dirname(plugin_dir_path(__FILE__)). '/custom-widgets/';
 }
     if(file_exists($dir)==FALSE){
