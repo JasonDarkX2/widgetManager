@@ -20,8 +20,9 @@ Author URI:http://www.jasondarkx2.com/
     
     $widgets=get_option('widgetid');
     foreach($widgets as $widget):
-        
-        if($widget['type']=="Default"&& get_option('preset-ndw')==TRUE){
+        if($widget['type']=="Plugin"&& get_option('preset-pwm')==FALSE){
+        }
+        elseif($widget['type']=="Default"&& get_option('preset-ndw')==TRUE){
         }else{
         ?>
         <input type='hidden' name='count' value='$num' id='count'>
