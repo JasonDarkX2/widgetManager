@@ -24,6 +24,7 @@ if(count($presets)>0){
             update_option($option, $v);
         }
     }
+    echo '<div class="notfi"><strong>Settings Successfully Saved</strong></div>';
 }
 if(empty($dir)|| get_option('preset-cdwd')){
     $dir=dirname(plugin_dir_path(__FILE__)). '/custom-widgets/';
@@ -43,8 +44,14 @@ if(empty($dir)|| get_option('preset-cdwd')){
                 recurse_copy($sdir . $widgets, $dir . $widgets);
             }
         }
-        recursiveRemove($sdir);
-        echo '<div class="notfi"><strong>Widget Directory Successfully updated</strong></div>';
+        $check=recursiveRemove($sdir);
+        if($dir!=get_option('widgetdir')){
+        echo '<br/> <div class="notfi"><strong>Widget upload directory Successfully changed</strong></div>';
+        }
+        if($check==FALSE){
+            echo '<div class="errorNotfi"><strong> An error occured while changing Widget upload directory please check directory file permissions</strong></div>';
+            echo get_option('widgetdir');
+        }
     }
 update_option('widgetdir',$dir);
 
@@ -75,5 +82,6 @@ function recursiveRemove($dir)
             unlink($file);
         }
     }
-    rmdir($dir);
+     $check=rmdir($dir);
+     return $check;
 }
