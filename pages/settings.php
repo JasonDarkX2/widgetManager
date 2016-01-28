@@ -58,7 +58,17 @@ var_dump($s);?>
     <h1>Registered Widget List:</h1>
     <?php
     $wid=($GLOBALS['wp_widget_factory']->widgets);
-                    var_dump($wid);
+                    //var_dump($wid);
+    echo "<ul>";
+        foreach($wid as $w){
+       echo "<li>$w->name</li>";
+      
+    }
+     echo "</ul>";
+                    
+                    
+                                        $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );
+    print '<pre>$widgets = ' . esc_html( var_export( $widgets, TRUE ) ) . '</pre>';
     ?>
 </div>
 <?php
