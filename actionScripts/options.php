@@ -67,9 +67,17 @@ $enablecon=0;
          $enablecon=$enablecon-get_count("Default"); 
        }
        if($disabledcon>0){
-         $disablecon=$disablecon-get_count("Default"); 
+         $disabledcon=$disabledcon-get_count("Default"); 
        }
    }
+    if(get_option('preset-pwm')==FALSE){
+if($enablecon>0){
+         $enablecon=$enablecon-get_count("Plugin"); 
+       }
+       if($disabledcon>0){
+         $disabledcon=$disabledcon-get_count("Plugin"); 
+   }
+    }
    echo '<div class="notfi">' . $enablecon . ' enabled widgets and ' . $disabledcon . ' disabled widgets'. '</div>' ;
     function enable_all($que_array, &$enablecon){
                  foreach($que_array as $widgetId){
