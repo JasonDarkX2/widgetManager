@@ -64,7 +64,7 @@ var_dump($s);?>
        echo "<li>$w->name</li>";
       
     }
-     echo "</ul>";
+     echo " </ul> ";
                     
                     
                                         $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );
