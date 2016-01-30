@@ -21,9 +21,12 @@ Author URI:http://www.jasondarkx2.com/
     $widgets=get_option('widgetid');
     foreach($widgets as $widget):
         if($widget['type']=="Plugin"&& get_option('preset-pwm')==FALSE){
+        
+            continue;
         }
-        elseif($widget['type']=="Default"&& get_option('preset-ndw')==TRUE){
-        }else{
+        if($widget['type']=="Default"&& get_option('preset-ndw')==TRUE){
+            continue;
+        }
         ?>
         <input type='hidden' name='count' value='$num' id='count'>
  <?php
@@ -35,7 +38,7 @@ Author URI:http://www.jasondarkx2.com/
             <td><input type="radio" name="<?php echo $widget['key']; ?>" value="enable" <?php  checked(1,$widget['status']); ?> ><?php //echo get_option($widget['key']);?></td>
             <td><input type="radio" name="<?php echo $widget['key'];?>" <?php checked('',$widget['status'] ); ?> value="disable"></td>
         </tr>
-        <?php } endforeach;?>
+        <?php endforeach;?>
         <tr>
         <tr>
             <td><strong>Quick Options</strong></td>
