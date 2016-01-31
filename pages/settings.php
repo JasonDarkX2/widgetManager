@@ -25,11 +25,11 @@ Author URI:http://www.jasondarkx2.com/
             <input type="checkbox" name="ndw"  value="true" <?php checked(get_option('preset-ndw'),1);?>/>Disable and hide all Default Widgets from Manager.</li>
         
          <li><input type='hidden' name='preset[]' value='cwoff' id='preset' > 
-             <input type="checkbox" name="cwoff" value="true" <?php checked(get_option('preset-cwoff'),1);?> />Auto Disable all newly added custom widgets.</li>
+             <input type="checkbox" name="cwoff" id="cwoff"  value="true" <?php checked(get_option('preset-cwoff'),1);?> />Auto Disable all newly added custom widgets.</li>
          <li><input type='hidden' name='preset[]' value='cdwd' id='preset'> 
-             <input type="checkbox" name="cdwd" value="true"  <?php checked(get_option('preset-cdwd'),1);?>/>Use default Custom Widget Directory. </li>
+             <input type="checkbox" name="cdwd" id="cdwd"  value="true"  <?php checked(get_option('preset-cdwd'),1);?>/>Use default Custom Widget Directory. </li>
          <li><input type='hidden' name='preset[]' value='pwm' id='preset'> 
-             <input type="checkbox" name="pwm" value="true" <?php checked(get_option('preset-pwm'),1);?>/> Enable Plugin Widgets Manager</li>
+             <input type="checkbox" name="pwm" id="pwm"  value="true" <?php checked(get_option('preset-pwm'),1);?>/> Enable Plugin Widgets Manager</li>
     </ul>
     </p>
 <p id="msg"></p>
