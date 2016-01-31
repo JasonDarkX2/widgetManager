@@ -47,11 +47,14 @@ if(empty($dir)|| get_option('preset-cdwd')){
                 recurse_copy($sdir . $widgets, $dir . $widgets);
             }
         }
+        
+        if($sdir!= get_option('widgetdir')){
         $check=recursiveRemove($sdir);
+        }
         if($dir!=get_option('widgetdir')){
         echo '<br/> <div class="notfi"><strong>Widget upload directory Successfully changed</strong></div>';
         }
-        if($check==FALSE){
+        if($check==FALSE && $dir!=get_option('widgetdir')){
             echo '<div class="errorNotfi"><strong> An error occured while changing Widget upload directory please check directory file permissions</strong></div>';
             echo get_option('widgetdir');
         }
