@@ -95,6 +95,15 @@ localStorage['notification']='<strong>'+ notification + '</strong>';
 ex.preventDefault();
 
 });
+
+jQuery("#cdwd").change(function() {
+    if(jQuery('#widgetdir').is(':disabled')){
+        jQuery('#widgetdir').prop('disabled',false);
+    }else{
+        jQuery('#widgetdir').prop('disabled',true);
+       jQuery('#widgetdir').val(defaults.defaultDir);
+    }
+});
 //debug JS scripts
 jQuery('#debug').click(function(e){
     e.preventDefault();
