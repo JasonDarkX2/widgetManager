@@ -31,7 +31,10 @@ static function add_scripts($hook){
     wp_enqueue_style( 'wm-style', plugins_url('style.css',__FILE__));
     wp_enqueue_style( 'ui-style','http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
      wp_enqueue_script( 'ui-script','//code.jquery.com/ui/1.11.4/jquery-ui.js', array('jquery') );
+         $dir=plugin_dir_path(__FILE__). 'custom-widgets/';
+  $defaultDir= array( 'defaultDir' =>$dir);
     wp_enqueue_script( 'wm-script', plugins_url('wm-script.js',__FILE__), array('jquery') );
+    wp_localize_script('wm-script', 'defaults',$defaultDir);
      $translation_array = array( 'addWidgetUrl' => plugins_url('/actionScripts/addwidget.php',__FILE__));
 wp_localize_script( 'wm-script', 'url', $translation_array ); 
           $translation_array = array( 'pluginUrl' => plugins_url('/actionScripts/options.php',__FILE__ ) );
