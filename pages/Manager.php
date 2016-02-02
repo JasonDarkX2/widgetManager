@@ -33,7 +33,7 @@ Author URI:http://www.jasondarkx2.com/
 ?>
         <tr>
             <td><input type='hidden' name='widgetid[]' value='<?php echo  $widget['key'] ?>' id='widgetId'> 
-                <?php echo $widget['name']; ?></td>
+                <?php echo '<strong>'. $widget['name'] .'</strong><br/>' . $widget['Description']; ?></td>
             <td><?php echo $widget['type']; ?></td>
             <td><input type="radio" name="<?php echo $widget['key']; ?>" value="enable" <?php  checked(1,$widget['status']); ?> ><?php //echo get_option($widget['key']);?></td>
             <td><input type="radio" name="<?php echo $widget['key'];?>" <?php checked('',$widget['status'] ); ?> value="disable"></td>
