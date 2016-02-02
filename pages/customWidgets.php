@@ -13,12 +13,13 @@
   </div>
 </form>
     <h2><strong>Custom Widgets Option</strong></h2>
-   
     <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th><th>Extra options</th></tr>
         <form id="settingsop" method="POST" action="<?php echo plugins_url('actionScripts/customWidgetOptions.php', dirname(__FILE__)) ; ?>">
             <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
     <?php 
-    if(empty($custwid)==NULL)
+    if($custwid==''|| empty($custwid)){
+        echo '<div class="errorNotfi"> No custom widgets Found!</div>';
+    }else{
     foreach($custwid as $c):?>
     <tr>
         <?php if(getWidgetClass($c['file'])!=''):?>
@@ -30,7 +31,7 @@
         <td><a class="deleteWid" href="<?php echo plugins_url('actionScripts/cwdelete.php', dirname(__FILE__)) ; ?>?w=<?php echo$c['key']; ?>&wpdir=<?php echo basename(content_url());?>" title="delete <?php echo$c['name']; ?>">Delete Widget</a></td>
       <?php endif;?>
     </tr>
-    <?php endforeach;?>
+    <?php endforeach; }?>
     <tr><td colspan="5"><a href="#"> Get more Custom Widgets</a>|<a href="#" id="addWidget"> Add/import new Custom Widgets</a></td></tr>
     </table>
     <p id="msg"></p>
