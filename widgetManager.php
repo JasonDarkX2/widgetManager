@@ -186,11 +186,18 @@ function remove_disable_widget() {
         }
 function clean_sweep(){
    $d=get_option('widgetid');
+   $cw=get_option('custom-widget');
      foreach($d as $widget){
           if(class_exists($widget['key'])==FALSE){
                unset($d[$widget['key']]);
                     update_option('widgetid', $d);
           }
+     }
+     foreach($cw as $c){
+         if(array_key_exists($c['key'],$d)==FALSE){
+                        unset($cw[$c['key']]);
+                        update_option('custom-widget', $cw);
+         }
      }
 }
 function do_preset(){
