@@ -193,6 +193,7 @@ function clean_sweep(){
                     update_option('widgetid', $d);
           }
      }
+     if(empty($cw)==FALSE)
      foreach($cw as $c){
          if(array_key_exists($c['key'],$d)==FALSE){
                         unset($cw[$c['key']]);
@@ -203,6 +204,7 @@ function clean_sweep(){
 function do_preset(){
     $w=get_option('widgetid');
     if(get_option('preset-ndw')==TRUE){
+        if(empty($w)==FALSE)
          foreach($w as $widgetId){
              if($widgetId['type']=="Default"){
                 $w[$widgetId['key']]['status']=false;
