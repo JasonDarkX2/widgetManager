@@ -1,9 +1,9 @@
 <?php
 /*
-admin options file for Widget Manager
-Author:Jason Dark X2
-Author URI:http://www.jasondarkx2.com/ 
-*/  
+ * options action script for Wordpress Widget Manager plugin
+ * Handles the adminstrative options for widgets, the enabling and disabling widdgets. Pretty much butter of the plugin :P  
+ * For more information check out: http://JasonDarkX2.com/ 
+*/
 $w=$_POST['wpdir'];
 $parse_uri = explode($w, $_SERVER['SCRIPT_FILENAME'] );
  require_once( $parse_uri[0] . 'wp-load.php' );
