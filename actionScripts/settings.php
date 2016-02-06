@@ -1,12 +1,9 @@
 <?php
 /*
-Plugin Name: Wordpress Widget Manager
-Plugin URI: https://github.com/JasonDarkX2/Wordpress-WidgetManager
-Description:Simply a Wordpress Plugin dedicated to help easily manage custom and default Wordpress widgets
-Author:Jason Dark X2
-version: 0.95
-Author URI:http://www.jasondarkx2.com/ 
-*/ 
+ *setting action script for Wordpress Widget Manager plugin
+ * Handles the settings option of plugin. The preset options, changing widget upload directory
+ * For more information check out: http://JasonDarkX2.com/ 
+*/
 $w=$_POST['wpdir'];
 $parse_uri = explode($w, $_SERVER['SCRIPT_FILENAME'] );
  require_once( $parse_uri[0] . 'wp-load.php' );
