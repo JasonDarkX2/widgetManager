@@ -1,12 +1,9 @@
 <?php
 /*
-Plugin Name: Wordpress Widget Manager
-Plugin URI: https://github.com/JasonDarkX2/Wordpress-WidgetManager
-Description:Simply a Wordpress Plugin dedicated to help easily manage custom and default Wordpress widgets
-Author:Jason Dark X2
-version: 0.95
-Author URI:http://www.jasondarkx2.com/ 
-*/ 
+ * Settings page for Wordpress Widget Manager plugin
+ * Handles the displaying of widget Manager plugin setting options
+ * For more information check out: http://JasonDarkX2.com/ 
+*/
  ?>
 <h1>Settings</h1>
    
