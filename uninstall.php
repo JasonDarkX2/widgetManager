@@ -1,10 +1,9 @@
 <?php
 /*
-Uninstall script for Widget Manager
-Author:Jason Dark X2
-version: 0.95
-Author URI:http://www.jasondarkx2.com/ 
-*/ 
+ * Uninstall  script for Wordpress Widget Manager plugin
+ * Simply handles uninstalling of plugin
+ * For more information check out: http://JasonDarkX2.com/ 
+*/
 if (
 	!defined( 'WP_UNINSTALL_PLUGIN' )
 ||
