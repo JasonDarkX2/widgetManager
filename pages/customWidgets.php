@@ -1,5 +1,9 @@
-  
-<?php 
+<?php
+/*
+ *customWidgets page for Wordpress Widget Manager plugin
+ * Handles the displaying of custom widgets and their options
+ * For more information check out: http://JasonDarkX2.com/ 
+*/
     $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
     empty_names();
     $custwid= get_option('custom-widget')?>
