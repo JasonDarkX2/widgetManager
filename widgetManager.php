@@ -83,7 +83,7 @@ function load_widgets(){
   $widgetsId=array($keys => array('key'=>$keys,'name'=>get_name($keys),'Description'=>get_description($keys),'type'=> $type, 'status'=>TRUE));
   }  else {
       $type=get_type($keys);
-      array_push($widgetsId, $widgetsId[$keys]=array('key'=>$keys,'name'=>get_name($keys),'Description'=>get_description($keys), 'type'=>$type,'status'=>TRUE));
+      array_push($widgetsId, $widgetsId[$keys]=array('key'=>$keys,'name'=>get_name($keys),'Description'=>get_description($keys),'id'=>get_id($keys), 'type'=>$type,'status'=>TRUE));
       array_pop($widgetsId);
  }
   }
@@ -94,7 +94,7 @@ function load_widgets(){
         $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );  
         $wid=($GLOBALS['wp_widget_factory']->widgets);
 $type=get_type($keys);
-        array_push($w,$w[$keys]=array('key'=>$keys,'name'=> get_name($keys),'Description'=>get_description($keys), 'type'=>$type,'status'=>TRUE));
+        array_push($w,$w[$keys]=array('key'=>$keys,'name'=> get_name($keys),'Description'=>get_description($keys),'id'=>get_id($keys), 'type'=>$type,'status'=>TRUE));
         array_pop($w);
         
         update_option('widgetid', $w);
@@ -289,6 +289,11 @@ function get_name($key){
      $name=$wid[$key]->name;
      return  $name;
 }
+function get_id($key){
+     $wid=($GLOBALS['wp_widget_factory']->widgets);
+     $id=$wid[$key]->id;
+     return  $id;
+}
 function get_description($key){
     $wid=($GLOBALS['wp_widget_factory']->widgets);
  return $wid[$key]->widget_options['description'];
@@ -311,7 +316,7 @@ function get_description($key){
       if(array_key_exists($keys,$w)==FALSE){
     if(get_type($keys)!='Default' ){
         $type=get_type($keys);
-        array_push($w,$w[$keys]=array('key'=>$keys,'name'=> get_name($keys),'Description'=>get_description($keys), 'type'=>$type,'status'=>TRUE));
+        array_push($w,$w[$keys]=array('key'=>$keys,'name'=> get_name($keys),'Description'=>get_description($keys),'id'=>get_id($keys), 'type'=>$type,'status'=>TRUE));
         array_pop($w);
                  if($shown!=TRUE){
              echo '<div class="notfi"><strong>Recently added widgets</strong> <ul style="list-style:disc; padding: 1px; list-style-position: inside;">';
