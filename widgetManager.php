@@ -117,7 +117,7 @@ function remove_disable_widget() {
         }
         }
         
-        function disable_plugin_widget() {
+                function disable_plugin_widget() {
 	$d=get_option('widgetid');
         if($d!=NULL){
         foreach($d as $widget){
@@ -125,14 +125,17 @@ function remove_disable_widget() {
                 if(class_exists($widget['key'])){
                     $wid=($GLOBALS['wp_widget_factory']->widgets);
             unregister_widget($widget['key']);
+            unset($GLOBALS['wp_registered_widgets'][$widget['id']]);
                 }else{
                     unset($d[$widget['key']]);
+                    unset($GLOBALS['wp_registered_widgets'][$widget['id']]);
                     update_option('widgetid', $d);
                 }
             }
             }
         }
         }
+
                 function import_cust_widget() {
                     $dir=get_option('widgetdir');
                     $w=get_option('widgetid');
