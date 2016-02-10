@@ -91,4 +91,10 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui
     width:67%;
 }
 #wpbody-content {
-padding-bottom:0px; 
+padding-bottom:0px;
+
+}
+
+#wpfooter{
+    bottom: inherit;
+}
