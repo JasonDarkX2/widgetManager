@@ -56,17 +56,23 @@ var_dump($s);?>
     <?php
     $wid=($GLOBALS['wp_widget_factory']->widgets);
                     //var_dump($wid);
-    echo "<ul>";
+    echo  $wid['wpb_widget']->id ."<ul>";
         foreach($wid as $w){
-       echo "<li>$w->name</li>";
+       echo "<li>$w->name, $w->id</li>";
       
     }
      echo " </ul> ";
                     
                     
-                                        $widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );
+                                        $widgets = array_keys( $GLOBALS['wp_registered_widgets'] );
     print '<pre>$widgets = ' . esc_html( var_export( $widgets, TRUE ) ) . '</pre>';
+    
+    var_dump($GLOBALS['wp_registered_widgets']);
+            echo "<div>";
+        foreach ( $GLOBALS['wp_registered_widgets'] as $sidebar ) { echo "<h1>" .$sidebar['name'] ."</h1>";}
+        echo "</div>";
     ?>
+    
 </div>
 <?php
 
