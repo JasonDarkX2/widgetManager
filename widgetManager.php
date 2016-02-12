@@ -143,18 +143,6 @@ function remove_disable_widget() {
                    $custwid=getCustomWidgets($dir);
                    if($custwid!=null){
                    foreach($custwid as $wid){
-                       
-                       /*if($cust[getWidgetClass($wid)]['status']==true){
-                       if(empty($cust)|| array_key_exists($wid, $cust)==FALSE){
-                           if(file_exists($dir. '/'.$wid)){
-                       include($dir . $cust[getWidgetClass($wid)]['file']);
-                       register_widget(getWidgetClass($wid));
-                           }
-                       }
-                       }else{
-                           unregister_widget(getWidgetClass($wid));
-                       }*/
-                   }
                    include($dir . $wid);
                    register_widget(getWidgetClass($wid));
                    if(empty($cust)==TRUE && getWidgetClass($wid)!=''){
@@ -166,40 +154,8 @@ function remove_disable_widget() {
                      }
                  }
                   update_option('custom-widget',$cust);  
-                }//nope
-                 
-                 ///include($dir . getWidgetClass($wid) .'/'. $wid);
-                /* register_widget(getWidgetClass($wid));
-                    if(empty($cust)==TRUE){
-                        if($custwid!=null){
-                   foreach($custwid as $wid){
-                 if(empty($cust)==TRUE && getWidgetClass($wid)!=''){
-                      $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true);
-                 }else{
-                     if(array_key_exists(getWidgetClass($wid),$cust)==FALSE){
-                array_push($cust, $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true));
-                 array_pop($cust);
-                     }
-                 }
-                   }
-                        }
-                    }
-                    if($cust!=''){
-                   foreach($cust as $c){
-                        if($cust['status']==true){
-                           if(array_key_exists($c['class'],$w)==FALSE){
-              $newcust[$c['class']]=array('key'=>$c['class'],'class'=>$c['class'],'name'=> $c['name'],'type'=> 'Custom','status' => true);
-               array_push($w, $newcust);
-                           }
-                       }else{
-                           if(empty($w)==FALSE&& class_exists($c['key'])){
-                           unset($c['key']);
-                           }
-                       }
-                   }
-                update_option('custom-widget',$cust);
-                update_option('widgetid', $w);
-                    }*/
+                }
+                }
         }
 function clean_sweep(){
    $d=get_option('widgetid');
