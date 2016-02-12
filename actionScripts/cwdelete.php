@@ -11,7 +11,6 @@ $parse_uri = explode($w, $_SERVER['SCRIPT_FILENAME'] );
   $widgets= get_option('widgetid');
 $widgetid=$_GET['w'];
 $wdir=get_option('widgetdir');
-chmod($wdir,777);
 if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
      $toDel=explode("/",$custwid[$widgetid]['file']);
      $del= $wdir . '/' . $toDel[0];
