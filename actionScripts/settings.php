@@ -57,7 +57,7 @@ if(empty($dir)|| get_option('preset-cdwd')){
         }
     }
 update_option('widgetdir',$dir);
-
+ echo '<div class="notfi"><strong>Settings Successfully Saved</strong></div>';
 
 function recurse_copy($src,$dst) { 
     $dir = opendir($src); 
