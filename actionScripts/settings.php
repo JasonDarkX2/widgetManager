@@ -40,8 +40,8 @@ if(empty($dir)|| get_option('preset-cdwd')){
         $contents=scandir($sdir);
         if(SUBSTR($dir, -1) != '/'){$dir.= '/';}
         foreach($contents as $widgets){
-            if ($widgets != "." && $widgets != "..") {
-                recurse_copy($sdir . $widgets, $dir . $widgets);
+            if ($widgets != "." && $widgets != "..") {            
+                recurse_copy($sdir , $dir);
             }
         }
         
@@ -77,6 +77,8 @@ function recurse_copy($src,$dst) {
 
 function recursiveRemove($dir)
 {
+    var_dump(debug_backtrace());
+    echo $dir;
     foreach(glob("{$dir}/*") as $file)
     {
         if(is_dir($file)) { 
