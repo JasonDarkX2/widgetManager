@@ -19,10 +19,13 @@ add_action( 'init',array(__CLASS__, 'disable_plugin_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'load_widgets') );
 add_action( 'widgets_init',array(__CLASS__, 'clean_sweep') );
 add_action( 'widgets_init','empty_names' );
+add_action( 'init','setDirOwner' );
 add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
 add_action('admin_enqueue_scripts',array(__CLASS__,'add_scripts') );
 if(get_option('widgetdir')==NULL){
     $defaultDir=dirname(plugin_dir_path(__FILE__)). '/custom-widgets/';
+    $user=exec(whoami);
+     chown($defaultDir, $user);
     update_option('widgetdir',$defaultDir);
 }
  }
@@ -301,6 +304,11 @@ function get_description($key){
       }
      }
      echo'</ul></div>';
+ }
+ function setDirOwner(){
+     $dir=get_option('widgetdir');
+ $user=exec(whoami);
+     chown($dir, $user);
  }
 widget_manager::init();
 ?>
