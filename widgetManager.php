@@ -19,7 +19,6 @@ add_action( 'init',array(__CLASS__, 'disable_plugin_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'load_widgets') );
 add_action( 'widgets_init',array(__CLASS__, 'clean_sweep') );
 add_action( 'widgets_init','empty_names' );
-add_action( 'init','setDirOwner' );
 add_action('admin_menu',array(__CLASS__, 'widget_manager_create_menu'));
 add_action('admin_enqueue_scripts',array(__CLASS__,'add_scripts') );
 if(get_option('widgetdir')==NULL){
@@ -305,10 +304,14 @@ function get_description($key){
      }
      echo'</ul></div>';
  }
- function setDirOwner(){
-     $dir=get_option('widgetdir');
+function permissionChecker(){
+ $dir=get_option('widgetdir');
  $user=exec(whoami);
-     chown($dir, $user);
- }
+ if($user!=fileowner($dir)){
+     echo '<div class="errorNotfi">Problem with widget directory permissions:<br/> '
+     .  'please change file owner to <strong>'. $user . '</strong> for ' . $dir 
+             . '</div>';
+ } 
+}
 widget_manager::init();
 ?>
