@@ -306,12 +306,20 @@ function get_description($key){
  }
 function permissionChecker(){
  $dir=get_option('widgetdir');
+$pdir= plugin_dir_path( __FILE__);
  $user=exec(whoami);
+ echo '<div class="errorNotfi"><ul>';
  if($user!=fileowner($dir)){
-     echo '<div class="errorNotfi">Problem with widget directory permissions:<br/> '
+     echo '<li>Problem with widget directory permissions:<br/> '
      .  'please change file owner to <strong>'. $user . '</strong> for ' . $dir 
-             . '</div>';
- } 
+             . '</li>';
+ }
+  if($user!=fileowner($pdir)){
+     echo '<li>Problem with  plugin directory permissions:<br/> '
+     .  'please change file owner to <strong>'. $user . '</strong> for ' . $dir 
+             . '</li>';
+ }
+ echo '</ul></div>';
 }
 widget_manager::init();
 ?>
