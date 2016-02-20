@@ -53,6 +53,7 @@
      <p id="msg">
     <?php
     autoDetect();
+     PermissionChecker();
     ?>
 </p>
       <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
