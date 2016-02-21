@@ -308,18 +308,25 @@ function permissionChecker(){
  $dir=get_option('widgetdir');
 $pdir= plugin_dir_path( __FILE__);
  $user=exec(whoami);
- echo '<div class="errorNotfi"><ul>';
- if($user!=fileowner($dir)){
-     echo '<li>Problem with widget directory permissions:<br/> '
+ $errors =array();
+ 
+ if($user==fileowner($dir)){
+     array_push($errors,'<li>Problem with widget directory permissions:<br/> '
      .  'please change file owner to <strong>'. $user . '</strong> for ' . $dir 
-             . '</li>';
+             . '</li>');
  }
-  if($user!=fileowner($pdir)){
-     echo '<li>Problem with  plugin directory permissions:<br/> '
+  if($user==fileowner($pdir)){
+     array_push($errors,'<li>Problem with  plugin directory permissions:<br/> '
      .  'please change file owner to <strong>'. $user . '</strong> for ' . $dir 
-             . '</li>';
+             . '</li>');
+ }
+ if(count($errors)>0){
+ echo '<div class="errorNotfi"><ul>';
+ foreach ($errors as $msg){
+     echo $msg;
  }
  echo '</ul></div>';
+ }
 }
 widget_manager::init();
 ?>
