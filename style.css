@@ -81,13 +81,13 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui
 .notfi{
     display:inline-block;
     border-style: dotted;
-    background-color: rgba(0, 255, 1, 0.7);
+    border-color: rgba(0, 255, 1, 0.7);
     width:67%;
 }
 .errorNotfi{
     display:inline-block;
     border-style: dotted;
-    background-color: rgba(255, 0, 1, 0.7);
+    border-color: rgba(255, 0, 1, 0.7);
     width:67%;
 }
 #wpbody-content {
