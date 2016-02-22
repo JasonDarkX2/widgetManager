@@ -312,13 +312,13 @@ $pdir= plugin_dir_path( __FILE__);
  
  if($user==fileowner($dir)){
      array_push($errors,'<li>Problem with widget directory permissions:<br/> '
-     .  'please change file owner to <strong>'. $user . '</strong> for ' . $dir 
-             . '</li>');
+     .  'please change file owner to <strong>'. $user . '</strong> for <strong>' . $dir 
+             . '</strong></br>You can use the following command:<br/><strong>sudo chown '. $user . ' '. $dir .'</strong></li>');
  }
   if($user==fileowner($pdir)){
      array_push($errors,'<li>Problem with  plugin directory permissions:<br/> '
-     .  'please change file owner to <strong>'. $user . '</strong> for ' . $dir 
-             . '</li>');
+     .  'please change  directory owner to <strong>'. $user . '</strong> for <strong>' . $dir 
+             . '</strong></br>You can use the following command:<br/><strong>sudo chown '. $user . ' '. $dir .'</strong></li>');
  }
  if(count($errors)>0){
  echo '<div class="errorNotfi"><ul>';
