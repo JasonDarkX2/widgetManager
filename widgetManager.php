@@ -304,19 +304,19 @@ function get_description($key){
      }
      echo'</ul></div>';
  }
-function permissionChecker(){
+function permissionChecker($status=FALSE){
  $dir=get_option('widgetdir');
 $pdir= plugin_dir_path( __FILE__);
  $user=exec(whoami);
  $errors =array();
  
  
- if($user==fileowner($dir)){
+ if($user!=fileowner($dir)){
      array_push($errors,'<li>Problem with widget directory ownership:<br/> '
      .  'please change file owner to <strong>'. $user . '</strong> for <strong>' . $dir 
              . '</strong></br>You can use the following command:<br/><strong>sudo chown '. $user . ' '. $dir .'</strong></li>');
  }
-  if($user==fileowner($pdir)){
+  if($user!=fileowner($pdir)){
      array_push($errors,'<li>Problem with the  plugin directory ownership:<br/> '
      .  'please change  directory owner to <strong>'. $user . '</strong> for <strong>' . $dir 
              . '</strong></br>You can use the following command:<br/><strong>sudo chown '. $user . ' '. $pdir .'</strong></li>');
@@ -331,12 +331,17 @@ $pdir= plugin_dir_path( __FILE__);
      .  'please change  directory permission to <strong>'.'755' . '</strong> for <strong>' . $dir 
              . '</strong></br>You can use the following command:<br/><strong>sudo chmod '. '755' . ' '. $pdir .'</strong></li>');
  }
- if(count($errors)>0){
+ if(count($errors)>0&& $status!=TRUE){
  echo '<div class="errorNotfi"><ul>';
  foreach ($errors as $msg){
      echo $msg;
  }
  echo '</ul></div>';
+ }else{
+     if(count($errors)>0)
+     return false;
+     else
+         return true;
  }
 }
 widget_manager::init();
