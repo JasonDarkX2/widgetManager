@@ -6,7 +6,7 @@
 */
 ?>
  <h1> Widget Manager</h1>
-
+<?php PermissionChecker(); ?>
  <form id="settingsop" method="POST" action="<?php echo  plugins_url('actionScripts/options.php', dirname(__FILE__)); ?>">
      <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
     <?php settings_fields( 'WM-setting' ); ?>
@@ -53,7 +53,6 @@
      <p id="msg">
     <?php
     autoDetect();
-     PermissionChecker();
     ?>
 </p>
       <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
