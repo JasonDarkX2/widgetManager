@@ -17,7 +17,7 @@
   </div>
 </form>
     <h2><strong>Custom Widgets Option</strong></h2>
-    <?php PermissionChecker(); ?>
+    <?php permissionChecker(); ?>
     <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th><th>Extra options</th></tr>
         <form id="settingsop" method="POST" action="<?php echo plugins_url('actionScripts/customWidgetOptions.php', dirname(__FILE__)) ; ?>">
             <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
@@ -45,7 +45,7 @@
     }?>
     </p>
     <?php if(count($custwid)>0):?>
-    <?php if(PermissionChecker(true)) :?>
+    <?php if(permissionChecker(true)) :?>
     <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
     <?php else:?>
     <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes" disabled="true">

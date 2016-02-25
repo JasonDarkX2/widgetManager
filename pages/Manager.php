@@ -6,7 +6,7 @@
 */
 ?>
  <h1> Widget Manager</h1>
-<?php PermissionChecker(); ?>
+<?php permissionChecker(); ?>
  <form id="settingsop" method="POST" action="<?php echo  plugins_url('actionScripts/options.php', dirname(__FILE__)); ?>">
      <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
     <?php settings_fields( 'WM-setting' ); ?>

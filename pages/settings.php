@@ -6,7 +6,7 @@
 */
  ?>
 <h1>Settings</h1>
-   <?php PermissionChecker(); ?>
+   <?php permissionChecker(); ?>
 <form id="settingsop" method="POST" action="<?php echo plugins_url('actionScripts/settings.php', dirname(__FILE__));?>">
     <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
     <strong>Plugin Upload Directory:</strong>
