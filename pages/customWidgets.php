@@ -44,5 +44,11 @@
         echo '<div class="errorNotfi"> No custom widgets Found!</div>';
     }?>
     </p>
+    <?php if(count($custwid)>0):?>
+    <?php if(PermissionChecker(true)) :?>
     <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
+    <?php else:?>
+    <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes" disabled="true">
+    <?php endif;?>
+    <?php endif;?>
     </form> 
