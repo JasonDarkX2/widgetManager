@@ -310,19 +310,21 @@ $pdir= plugin_dir_path( __FILE__);
  $user=exec(whoami);
  $errors =array();
  
- 
- if($user!=fileowner($dir)){
+ error_reporting(0);
+ $dirOwner=posix_getpwuid(fileowner($dir));
+ if($user!=$dirOwner['name']){
      array_push($errors,'<li>Problem with widget directory ownership:<br/> '
      .  'please change file owner to <strong>'. $user . '</strong> for <strong>' . $dir 
              . '</strong></br>You can use the following command:<br/><strong>sudo chown '. $user . ' '. $dir .'</strong></li>');
  }
-  if($user!=fileowner($pdir)){
-     array_push($errors,'<li>Problem with the  plugin directory ownership:<br/> '
-     .  'please change  directory owner to <strong>'. $user . '</strong> for <strong>' . $dir 
+ $pdirOwner=posix_getpwuid(fileowner($pdir));
+  if($user!=$pdirOwner['name']){
+     array_push($errors,'<li>Problem with the  plugin directory ownership:<br/>'
+     .  'please change  directory owner to <strong>'. $user . '</strong> for <strong>' . $pdir 
              . '</strong></br>You can use the following command:<br/><strong>sudo chown '. $user . ' '. $pdir .'</strong></li>');
  }
  if(substr(sprintf('%o', fileperms($dir)), -4) !='0755'){
-     array_push($errors,'<li>Problem with widget upload directory permissions:<br/> '
+     array_push($errors,'<li>Problem with widget upload directory permissions:<br/>'  
      .  'please change  directory permission to <strong>'.'755' . '</strong> for <strong>' . $dir 
              . '</strong></br>You can use the following command:<br/><strong>sudo chmod '. '755' . ' '. $dir .'</strong></li>');
  }
