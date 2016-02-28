@@ -311,6 +311,7 @@ $pdir= plugin_dir_path( __FILE__);
  $errors =array();
  
  error_reporting(0);
+ if(function_exists('posix_getpwuid')){
  $dirOwner=posix_getpwuid(fileowner($dir));
  if($user!=$dirOwner['name']){
      array_push($errors,'<li>Problem with widget directory ownership:<br/> '
@@ -345,6 +346,7 @@ $pdir= plugin_dir_path( __FILE__);
      else
          return true;
  }
+}
 }
 widget_manager::init();
 ?>
