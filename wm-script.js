@@ -106,10 +106,10 @@ jQuery('#debug').click(function(e){
     e.preventDefault();
     if(jQuery('#debugSection').is(':visible')==false){
     jQuery('#debugSection').show();
-    jQuery('#debug').html('Disable Debug section');
+    jQuery('#debug').html('Hide Debug Options');
     }else{
       jQuery('#debugSection').hide();
-    jQuery('#debug').html('Enable Debug section');  
+    jQuery('#debug').html('Show Debug Options');  
     }
 });
 jQuery('#wlist').click(function(e){
