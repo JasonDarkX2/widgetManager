@@ -34,7 +34,8 @@
 submit_button()?>
 </form>
 <br/>
-<a href="#"  id="debug" title=" enable debug mode">Enable debug mode</a>
+<?php if(WPWM_DEBUG==true):?>
+<a href="#"  id="debug" title="Show debug options">Enable debug mode</a>
 <?php $s=get_option('widgetid');?>
 <div id="debugSection" hidden="true">
 <strong>Options:|</strong><a href="#"  id="rwList" title="Show Widget List">Show Registered Widget</a>|
@@ -74,6 +75,7 @@ var_dump($s);?>
     ?>
     
 </div>
+<?php endif;?>
 <?php
 
 
