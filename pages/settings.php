@@ -34,7 +34,8 @@
 submit_button()?>
 </form>
 <br/>
-<?php if(WPWM_DEBUG==true):?>
+<?php if(WPWM_DEBUG==1):?>
+
 <a href="#"  id="debug" title="Show debug options">Enable debug mode</a>
 <?php $s=get_option('widgetid');?>
 <div id="debugSection" hidden="true">
