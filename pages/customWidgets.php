@@ -9,11 +9,15 @@
     $custwid= get_option('custom-widget')?>
 <form>
 <div id="dialog" hidden="true">
+<?php read_file_test();
+if(!is_wp_error($output))
+            {?>
   <p>Add or Import your Custom widgets below.... </p>
   <form id="addWidget" method="POST" action="<?php echo plugins_url('actionScripts/addwidget.php',__FILE__); ?>" enctype= "multipart/form-data">
   <input type="file" name="widgetToUpload" id="widgetToUpload" accept=".php,.zip">
   <input type="hidden" id="wpdir" name="wpdir" value="<?php echo basename(content_url());?>" />
   </form>
+     <?php }?>
   </div>
 </form>
     <h2><strong>Custom Widgets Option</strong></h2>
@@ -52,3 +56,55 @@
     <?php endif;?>
     <?php endif;?>
     </form> 
+        <?php 
+function connect_fs($url, $method, $context, $fields = null)
+{
+  global $wp_filesystem;
+  if(false === ($credentials = request_filesystem_credentials($url, $method, false, $context, $fields))) 
+  {
+    return false;
+  }
+
+  //check if credentials are correct or not.
+  if(!WP_Filesystem($credentials)) 
+  {
+    request_filesystem_credentials($url, $method, true, $context);
+    return false;
+  }
+
+  return true;
+}
+        function read_file_test()
+{
+  global $wp_filesystem;
+
+  $url = wp_nonce_url("options-general.php?page=demo", "filesystem-nonce");
+
+  if(connect_fs($url, "", get_option('widgetdir')))
+  {
+    $dir = $wp_filesystem->find_folder(get_option('widgetdir'));
+    $file = trailingslashit($dir) . "testwidget.php";
+
+    if($wp_filesystem->exists($file))
+    {
+      $text = $wp_filesystem->get_contents($file);
+      if(!$text)
+      {
+        return "";
+      }
+      else
+      {
+        return $text;
+      }
+    } 
+    else
+    {
+      return new WP_Error("filesystem_error", "File doesn't exist");      
+    } 
+  }
+  else
+  {
+    return new WP_Error("filesystem_error", "Cannot initialize filesystem");
+  }
+}
+?>
