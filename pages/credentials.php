@@ -87,10 +87,10 @@ function read_file_demo()
 
   $url = wp_nonce_url("options-general.php?page=demo", "filesystem-nonce");
 
-  if(connect_fs($url, "", WP_PLUGIN_DIR . "/filesystem/filesystem-demo"))
+  if(connect_fs($url, "",get_option(widgetdir)))
   {
-    $dir = $wp_filesystem->find_folder(WP_PLUGIN_DIR . "/filesystem/filesystem-demo");
-    $file = trailingslashit($dir) . "demo.txt";
+    $dir = $wp_filesystem->find_folder(get_option(widgetdir));
+    $file = trailingslashit($dir) . "testwidget.php";
 
     if($wp_filesystem->exists($file))
     {
