@@ -49,8 +49,8 @@ self::$add_script = true;
                 array(__CLASS__,'Widget_manager_settings_page')
                 , plugins_url('/img/WMIconHolder.png', __FILE__) );
 add_submenu_page('widgetM', 'Custom Widgets Options', 'Custom Widgets Options', 'administrator','cwop',array(__CLASS__,'customWidget_option_page'));
-    add_submenu_page('widgetM', 'Setting', 'Settings', 'administrator','settings',array(__CLASS__,'widgetManager_setting_page')
-                );
+    add_submenu_page('widgetM', 'Setting', 'Settings', 'administrator','settings',array(__CLASS__,'widgetManager_setting_page'));
+    add_submenu_page('widgetM', 'Credentials', 'credentials', 'administrator','credentials',array(__CLASS__,'widgetManager_creds_page'));
 	//call register settings function
 	add_action( 'admin_init',array(__CLASS__,'register_widget_manager_settings'));
 }
@@ -73,6 +73,9 @@ include(plugin_dir_path( __FILE__ ) . '/pages/customWidgets.php');
 }
 static function Widget_manager_settings_page() {
  include(plugin_dir_path( __FILE__ ) . '/pages/Manager.php');
+}
+static function WidgetManager_creds_page() {
+ include(plugin_dir_path( __FILE__ ) . '/pages/credentials.php');
 }
 function load_widgets(){
     $w=get_option('widgetid');
