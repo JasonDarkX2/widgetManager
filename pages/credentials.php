@@ -1,47 +1,16 @@
 <?php
 
 /*
-Plugin Name: Filesystem API
+Plugin Name: credentials
 Plugin URI: http://www.JasonDarkX2.com
-Description: A sample plugin to demonstrate Filesystem API
+Description: A credential handeler for widget manager
 Version: 1.0
 Author: JasondarkX2
  * 
 */
 ?>
-      <div class="wrap">
-         <h1>Demo</h1>
-         <form method="post">
-          <?php
-            $output = "";
-
-            if(isset($_POST["file-data"]))
-            {
-              $output = write_file_demo($_POST["file-data"]);
-            }
-            else
-            {
-              $output = read_file_demo();
-            }
-
-            if(!is_wp_error($output))
-            {
-            	?>
-            		<textarea name="file-data"><?php echo $output; ?></textarea>
-		          	<?php wp_nonce_field("filesystem-nonce"); ?>
-		          	<br>
-		          	<input type="submit">
-            	<?php
-            }
-            else
-            {
-              echo $output->get_error_message();
-            }
-          ?>
-         </form>
-      </div>
-
 <?php
+delete_file();
 function connect_fs($url, $method, $context, $fields = null)
 {
   global $wp_filesystem;
@@ -59,58 +28,14 @@ function connect_fs($url, $method, $context, $fields = null)
 
   return true;
 }
-
-function write_file_demo($text)
+  function delete_file()
 {
   global $wp_filesystem;
 
-  $url = wp_nonce_url("options-general.php?page=demo", "filesystem-nonce");
-  $form_fields = array("file-data");
-
-  if(connect_fs($url, "", get_option('widgetdir'), $form_fields))
+  $url = wp_nonce_url(plugins_url('actionScripts/customWidgetOptions.php', dirname(__FILE__)), "filesystem-nonce");
+  $form_fields = array("wpdir");
+  if(connect_fs($url, "GET", get_option('widgetdir'), $form_fields))
   {
-    $dir = $wp_filesystem->find_folder(get_option('widgetdir'));
-    $file = trailingslashit($dir) . "testwidget.php";
-    $wp_filesystem->put_contents($file, $text, FS_CHMOD_FILE);
-
-    return $text;
-  }
-  else
-  {
-    return new WP_Error("filesystem_error", "Cannot initialize filesystem");
-  }
-}
-
-function read_file_demo()
-{
-  global $wp_filesystem;
-
-  $url = wp_nonce_url("options-general.php?page=demo", "filesystem-nonce");
-
-  if(connect_fs($url, "",get_option(widgetdir)))
-  {
-    $dir = $wp_filesystem->find_folder(get_option(widgetdir));
-    $file = trailingslashit($dir) . "testwidget.php";
-
-    if($wp_filesystem->exists($file))
-    {
-      $text = $wp_filesystem->get_contents($file);
-      if(!$text)
-      {
-        return "";
-      }
-      else
-      {
-        return $text;
-      }
-    } 
-    else
-    {
-      return new WP_Error("filesystem_error", "File doesn't exist");      
-    } 
-  }
-  else
-  {
-    return new WP_Error("filesystem_error", "Cannot initialize filesystem");
+      echo"Hello There!";
   }
 }
