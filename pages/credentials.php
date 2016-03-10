@@ -32,9 +32,11 @@ function connect_fs($url, $method, $context, $fields = null)
 {
   global $wp_filesystem;
 
-  $url = wp_nonce_url(plugins_url('actionScripts/customWidgetOptions.php', dirname(__FILE__)), "filesystem-nonce");
-  $form_fields = array("wpdir");
-  if(connect_fs($url, "GET", get_option('widgetdir'), $form_fields))
+  $url = wp_nonce_url(plugins_url('actionScripts/cwdelete.php', dirname(__FILE__)), "filesystem-nonce");
+  $_POST['wpdir']=$_GET['wpdir'];
+  $_POST['w']=$_GET['w'];
+  $form_fields = array('wpdir','w');
+  if(connect_fs($url, "POST", get_option('widgetdir'), $form_fields))
   {
       echo"Hello There!";
   }
