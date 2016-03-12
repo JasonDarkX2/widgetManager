@@ -9,8 +9,18 @@ Author: JasondarkX2
  * 
 */
 ?>
+<div class="wrap">
+         <form method="post">
+          <?php
+            $output = true;
+              $output = delete_widget();
+if(is_wp_error($output)!=TRUE && $output!=NULL)
+            {?>
+             <h1><?php var_dump($output);?></h1>
+<?php }?>
+         </form>
+</div>
 <?php
-delete_file();
 function connect_fs($url, $method, $context, $fields = null)
 {
   global $wp_filesystem;
@@ -28,10 +38,8 @@ function connect_fs($url, $method, $context, $fields = null)
 
   return true;
 }
-  function delete_file()
+  function delete_widget()
 {
-  global $wp_filesystem;
-
   $url = wp_nonce_url(plugins_url('actionScripts/cwdelete.php', dirname(__FILE__)), "filesystem-nonce");
   $_POST['wpdir']=$_GET['wpdir'];
   $_POST['w']=$_GET['w'];
