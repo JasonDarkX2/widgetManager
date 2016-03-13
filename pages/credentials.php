@@ -46,6 +46,19 @@ function connect_fs($url, $method, $context, $fields = null)
   $form_fields = array('wpdir','w');
   if(connect_fs($url, "POST", get_option('widgetdir'), $form_fields))
   {
-      echo"Hello There!";
+    //include(plugin_dir_path( dirname(__FILE__) ) . '/actionScripts/cwdelete.php');
+      //deletion  process
+    global $wp_filesystem;
+      $custwid= get_option('custom-widget');
+  $widgets= get_option('widgetid');
+$widgetid=$_GET['w'];
+$wdir=get_option('widgetdir');
+if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
+     $toDel=explode("/",$custwid[$widgetid]['file']);
+     $del= $wdir . $toDel[0];
+     $wp_filesystem->rmdir($del,true);
+     echo $del;
+     var_dump($wp_filesystem);
+}
   }
 }
