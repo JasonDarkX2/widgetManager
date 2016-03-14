@@ -62,3 +62,34 @@ if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
 }
   }
 }
+ function add_widget()
+{
+  $url = wp_nonce_url(plugins_url('actionScripts/addwidget.php', dirname(__FILE__)), "filesystem-nonce");
+  $_POST['wpdir']=$_GET['wpdir'];
+  $_POST['w']=$_GET['w'];
+  $form_fields = array('wpdir','w');
+  if(connect_fs($url, "POST", get_option('widgetdir'), $form_fields))
+  {
+    //include(plugin_dir_path( dirname(__FILE__) ) . '/actionScripts/cwdelete.php');
+      //deletion  process
+    global $wp_filesystem;
+    $target_dir=  get_option('widgetdir');
+$res = $zip->open($_FILES["widgetToUpload"]["tmp_name"]);
+if ($res === TRUE) {
+    if($zip->numFiles>=1){
+    for( $i = 0; $i < $zip->numFiles; $i++ ){ 
+    $stat = $zip->statIndex( $i ); 
+    $target_file= $target_dir . '/' .   $stat['name']; 
+  }
+    }
+}
+$result = unzip_file($_FILES["widgetToUpload"], $target_file); 
+
+if($result !== true)
+{
+    echo "error";
+	/* unzip failed. Handle Error */
+}
+
+  }
+}
