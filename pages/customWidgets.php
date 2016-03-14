@@ -4,20 +4,7 @@
  * Handles the displaying of custom widgets and their options
  * For more information check out: http://JasonDarkX2.com/ 
 */
-    $dir=plugin_dir_path( __FILE__ ).'/custom-widgets';
-    empty_names();
-    $custwid= get_option('custom-widget')?>
-<?php if(false === ($credentials = request_filesystem_credentials($url, $method, false, $context, $fields))) 
-  {
-    return false;
-  }
-
-  //check if credentials are correct or not.
-  if(!WP_Filesystem($credentials)) 
-  {
-    request_filesystem_credentials($url, $method, true, $context);
-    return false;
-  } ?>
+?>
 <form>
 <div id="dialog" hidden="true">
   <p>Add or Import your Custom widgets below.... </p>
