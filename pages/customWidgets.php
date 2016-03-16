@@ -20,6 +20,7 @@
         <form id="settingsop" method="POST" action="<?php echo plugins_url('actionScripts/customWidgetOptions.php', dirname(__FILE__)) ; ?>">
             <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
     <?php 
+    $custwid=get_option('custom-widget');
     if($custwid==''|| empty($custwid)){
         
     }else{
