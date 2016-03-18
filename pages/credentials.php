@@ -10,15 +10,28 @@ Author: JasondarkX2
 */
 ?>
 <div class="wrap">
-         <form method="post">
+         
           <?php
             $output = true;
-              $output = delete_widget();
+            if(isset($_POST['file'])==FALSE){?>
+                <form method="post">
+              <?php $output = add_widget();?>
+              </form>
+            <?php}
 if(is_wp_error($output)!=TRUE && $output!=NULL)
             {?>
-             <h1><?php var_dump($output);?></h1>
-<?php }?>
-         </form>
+<?php }
+if($output==true){?>
+             <div class="notfi">successfully extracted...</div>
+             <div><a href="<?php menu_page_url('cwop')?>">Return to Custom Widgets Options</a>|<a href="<?php menu_page_url('widgetM')?>">Return to Widgets Manager</a></div>
+    
+<?php }
+if($output==FALSE && $output!=NULL){ ?>
+    <div class="notfi">unsuccessfully extracted...</div>
+             <div><a href="<?php menu_page_url('cwop')?>">Return to Custom Widgets Options</a>|<a href="<?php menu_page_url('widgetM')?>">Return to Widgets Manager</a></div>
+<?php }
+?>
+         
 </div>
 <?php
 function connect_fs($url, $method, $context, $fields = null)
