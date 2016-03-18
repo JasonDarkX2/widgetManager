@@ -62,20 +62,30 @@ if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
 }
   }
 }
-function add_widget()
+ function add_widget()
 {
   $url = wp_nonce_url(plugins_url('actionScripts/addwidget.php', dirname(__FILE__)), "filesystem-nonce");
-  //var_dump($_FILES);
   $_POST['wpdir']=$_GET['wpdir'];
   $_POST['w']=$_GET['w'];
   $name=$_FILES["widgetToUpload"]['name'];
   $tmp=$_FILES['widgetToUpload']["tmp_name"];
   $upload=wp_upload_bits($name,NULL,$tmp);
-  $_POST['file']=$upload['file'];
-  $_POST['url']=$upload['url'];
-  $form_fields = array('file','url');
+  $file=$upload['file'];
+  $_POST['file']=$file;
+$form_fields=array('file');
   if(connect_fs($url, "POST", get_option('widgetdir'), $form_fields))
-  {
-}
+  {   
+      global $wp_filesystem;
+      $destination=str_replace(ABSPATH,$wp_filesystem->abspath(),get_option('widgetdir'));
+      echo $file. '<br/>' . $destination;
+      $unzip=unzip_file($file,$destination);
+      if($unzip){
+          unlink($file);
+          echo "successfully extracted...";
+      }
+      else{
+          echo "Extraction failed...";
+      }
 
+}
   }
