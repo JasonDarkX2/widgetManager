@@ -15,7 +15,9 @@ Author: JasondarkX2
             $output = true;
             if(isset($_POST['file'])==FALSE){?>
                 <form method="post">
-              <?php $output = add_widget();?>
+              <?php if($_GET['op']=='add') $output = add_widget();
+               if($_GET['op']=='del') $output = delete_widget();
+              ?>
               </form>
             <?php}
 if(is_wp_error($output)!=TRUE && $output!=NULL)
@@ -59,7 +61,6 @@ function connect_fs($url, $method, $context, $fields = null)
   $form_fields = array('wpdir','w');
   if(connect_fs($url, "POST", get_option('widgetdir'), $form_fields))
   {
-    //include(plugin_dir_path( dirname(__FILE__) ) . '/actionScripts/cwdelete.php');
       //deletion  process
     global $wp_filesystem;
       $custwid= get_option('custom-widget');
@@ -69,13 +70,17 @@ $wdir=get_option('widgetdir');
 if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
      $toDel=explode("/",$custwid[$widgetid]['file']);
      $del= $wdir . $toDel[0];
-     $wp_filesystem->rmdir($del,true);
-     echo $del;
-     var_dump($wp_filesystem);
+     if($wp_filesystem->rmdir($del,true)){
+         return true;
+     }  else {
+     return false;    
+     }
+
 }
   }
 }
-function add_widget()
+
+ function add_widget()
 {
   $url = wp_nonce_url(plugins_url('actionScripts/addwidget.php', dirname(__FILE__)), "filesystem-nonce");
   $_POST['wpdir']=$_GET['wpdir'];
@@ -90,10 +95,9 @@ $form_fields=array('file');
   {   
       global $wp_filesystem;
       $destination=str_replace(ABSPATH,$wp_filesystem->abspath(),get_option('widgetdir'));
-      $unzip=unzip_file($file,$destination);
+      $unzip=_unzip_file($file,$destination);
       if($unzip==TRUE){
           unlink($file);
-          
           return true;
       }
       else{
