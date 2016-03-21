@@ -15,6 +15,9 @@ Author: JasondarkX2
             $output = true;
             if(isset($_POST['file'])==FALSE){?>
                 <form method="post">
+              <?php if($_GET['op']=='add') $output = add_widget();
+               if($_GET['op']=='del') $output = delete_widget();
+              ?>
               </form>
             <?php}
 if(is_wp_error($output)!=TRUE && $output!=NULL)
