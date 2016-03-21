@@ -15,7 +15,6 @@ Author: JasondarkX2
             $output = true;
             if(isset($_POST['file'])==FALSE){?>
                 <form method="post">
-              <?php $output = add_widget();?>
               </form>
             <?php}
 if(is_wp_error($output)!=TRUE && $output!=NULL)
