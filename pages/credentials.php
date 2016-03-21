@@ -12,11 +12,17 @@ Author: JasondarkX2
 <div class="wrap">
          
           <?php
-            $output = true;
+            ///$output = true;
             if(isset($_POST['file'])==FALSE){?>
                 <form method="post">
-              <?php if($_GET['op']=='add') $output = add_widget();
-               if($_GET['op']=='del') $output = delete_widget();
+              <?php switch($_GET['op']){
+                  case 'add':
+                  $output = add_widget();
+                      break;
+              case'del':
+              $output = delete_widget();
+                  break;
+              }
               ?>
               </form>
             <?php}
