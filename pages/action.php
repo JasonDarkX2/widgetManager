@@ -6,7 +6,7 @@ Plugin URI: http://www.JasonDarkX2.com
 Description: An action handeler page for widget manager
 Version: 1.0
 Author: JasondarkX2
- * 
+ */ 
 add_widget();
 
 function add_widget()
