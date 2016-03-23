@@ -7,7 +7,16 @@ Description: An action handeler page for widget manager
 Version: 1.0
 Author: JasondarkX2
  */ 
-add_widget();
+$op=$_GET['op'];
+switch($op){
+    case 'add':
+        add_widget();
+        break;
+    case 'del':
+        delete_widget();
+        break;
+    
+}
 
 function add_widget()
 {
@@ -23,7 +32,19 @@ $destination=get_option('widgetdir');
       }
       display_msg($unzip);
   }
-  
+  function delete_widget(){
+            //deletion  process
+    global $wp_filesystem;
+      $custwid= get_option('custom-widget');
+  $widgets= get_option('widgetid');
+$widgetid=$_POST['w'];
+$wdir=get_option('widgetdir');
+if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
+     $toDel=explode("/",$custwid[$widgetid]['file']);
+     echo $del= $wdir . $toDel[0];
+     $wp_filesystem->rmdir($del,true);
+}
+  }
   function display_msg($output){
       if($output==true){?>
              <div class="notfi">successfully extracted...</div>
