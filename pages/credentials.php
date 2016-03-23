@@ -9,31 +9,19 @@ Author: JasondarkX2
  * 
 */
 ?>
-<div class="wrap">
-         
-          <?php
-            $output = true;
-            if(isset($_POST['file'])==FALSE){?>
-                <form method="post">
-              <?php if($_GET['op']=='add') $output = add_widget();
-               if($_GET['op']=='del') $output = delete_widget();
+<div class="wrap">      
+                <?php
+                $op=$_GET['op'];
+ 
+                switch($op){
+                  case 'add':
+                  add_widget();
+                      break;
+                  case 'del':
+              delete_widget();
+                  break;
+              }
               ?>
-              </form>
-            <?php}
-if(is_wp_error($output)!=TRUE && $output!=NULL)
-            {?>
-<?php }
-if($output==true){?>
-             <div class="notfi">successfully extracted...</div>
-             <div><a href="<?php menu_page_url('cwop')?>">Return to Custom Widgets Options</a>|<a href="<?php menu_page_url('widgetM')?>">Return to Widgets Manager</a></div>
-    
-<?php }
-if($output==FALSE && $output!=NULL){ ?>
-    <div class="notfi">unsuccessfully extracted...</div>
-             <div><a href="<?php menu_page_url('cwop')?>">Return to Custom Widgets Options</a>|<a href="<?php menu_page_url('widgetM')?>">Return to Widgets Manager</a></div>
-<?php }
-?>
-         
 </div>
 <?php
 function connect_fs($url, $method, $context, $fields = null)
@@ -55,15 +43,15 @@ function connect_fs($url, $method, $context, $fields = null)
 }
   function delete_widget()
 {
-  $url = wp_nonce_url(plugins_url('actionScripts/cwdelete.php', dirname(__FILE__)), "filesystem-nonce");
+ $action=menu_page_url( 'action',FALSE ) .'&op=del';
+  $url = wp_nonce_url($action, "filesystem-nonce");
   $_POST['wpdir']=$_GET['wpdir'];
   $_POST['w']=$_GET['w'];
   $form_fields = array('wpdir','w');
   if(connect_fs($url, "POST", get_option('widgetdir'), $form_fields))
   {
-    //include(plugin_dir_path( dirname(__FILE__) ) . '/actionScripts/cwdelete.php');
       //deletion  process
-    global $wp_filesystem;
+    /*global $wp_filesystem;
       $custwid= get_option('custom-widget');
   $widgets= get_option('widgetid');
 $widgetid=$_GET['w'];
@@ -72,35 +60,25 @@ if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
      $toDel=explode("/",$custwid[$widgetid]['file']);
      $del= $wdir . $toDel[0];
      $wp_filesystem->rmdir($del,true);
-     echo $del;
-     var_dump($wp_filesystem);
-}
+}*/
+  }else{ 
   }
 }
 function add_widget()
 {
-  $url = wp_nonce_url(plugins_url('actionScripts/addwidget.php', dirname(__FILE__)), "filesystem-nonce");
+  $action=menu_page_url( 'action',FALSE ) .'&op=add';
+  $url = wp_nonce_url($action, "filesystem-nonce");
   $_POST['wpdir']=$_GET['wpdir'];
   $_POST['w']=$_GET['w'];
   $name=$_FILES["widgetToUpload"]['name'];
   $tmp=$_FILES['widgetToUpload']["tmp_name"];
+  if($file==NULL){
   $upload=wp_upload_bits($name,NULL,$tmp);
   $file=$upload['file'];
   $_POST['file']=$file;
 $form_fields=array('file');
+  }
   if(connect_fs($url, "POST", get_option('widgetdir'), $form_fields))
   {   
-      global $wp_filesystem;
-      $destination=str_replace(ABSPATH,$wp_filesystem->abspath(),get_option('widgetdir'));
-      $unzip=unzip_file($file,$destination);
-      if($unzip==TRUE){
-          unlink($file);
-          
-          return true;
-      }
-      else{
-          return false;
-      }
-
-}
   }
+}
