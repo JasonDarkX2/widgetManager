@@ -18,7 +18,9 @@ Author: JasondarkX2
                   add_widget();
                       break;
                   case 'del':
+              echo '<form method="post">';
               delete_widget();
+              echo '</form>';
                   break;
               }
               ?>
@@ -51,7 +53,7 @@ function connect_fs($url, $method, $context, $fields = null)
   if(connect_fs($url, "POST", get_option('widgetdir'), $form_fields))
   {
       //deletion  process
-    /*global $wp_filesystem;
+    global $wp_filesystem;
       $custwid= get_option('custom-widget');
   $widgets= get_option('widgetid');
 $widgetid=$_GET['w'];
@@ -60,7 +62,7 @@ if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
      $toDel=explode("/",$custwid[$widgetid]['file']);
      $del= $wdir . $toDel[0];
      $wp_filesystem->rmdir($del,true);
-}*/
+}
   }else{ 
   }
 }
