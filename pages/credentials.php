@@ -15,12 +15,10 @@ Author: JasondarkX2
  
                 switch($op){
                   case 'add':
-                      echo '<form method="post">';
+                     //echo '<form method="post">';
                       if(isset($_POST['ufile'])==FALSE)
                   $output=add_widget();
-                      
-                
-                  echo'</form>';
+                  //echo'</form>';
                       break;
                   case 'del':
                       echo '<form method="post">';
@@ -28,7 +26,7 @@ Author: JasondarkX2
               echo '</form>';
                   break;
               }
-              display_msg($output);
+              ///display_msg($output);
               ?>
 </div>
 <?php
@@ -74,15 +72,13 @@ if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
 }
 function add_widget()
 {
+    
   $action=menu_page_url( 'action',FALSE ) .'&op=add';
   $url = wp_nonce_url($action, "filesystem-nonce");
   $name=$_FILES["widgetToUpload"]['name'];
   $tmp=$_FILES['widgetToUpload']["tmp_name"];
   $upload=wp_upload_bits($name,NULL,$tmp);
   $file=$upload['file'];
-  session_start();
-  $_SESSION["ufile"] =$file;
-  echo $file;
   $_POST['ufile']=$file;
 $form_fields=array('ufile');
 
@@ -92,17 +88,16 @@ $form_fields=array('ufile');
       global $wp_filesystem;
       $destination=get_option('widgetdir');
       $unzip=unzip_file($file,$destination);
-      $here='here';
       if($unzip==TRUE){
           unlink($file);
-          return $unzip;
+          return  $unzip;
       }
       else{
           return $unzip;
       }
   }
 }
-  function display_msg($output){
+ function display_msg($output){
       if($output==true){?>
              <div class="notfi">successfully extracted...</div>
              <div><a href="<?php menu_page_url('cwop')?>">Return to Custom Widgets Options</a>|<a href="<?php menu_page_url('widgetM')?>">Return to Widgets Manager</a></div>
