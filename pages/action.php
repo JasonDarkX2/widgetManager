@@ -20,13 +20,11 @@ switch($op){
 
 function add_widget()
 {
-    $here='yup';
-$file=$_POST['file'];
+$file=$_POST['ufile'];
 $destination=get_option('widgetdir');
       global $wp_filesystem;
       $destination=get_option('widgetdir');
       $unzip=unzip_file($file,$destination);
-      $here='here';
       if($unzip==TRUE){
           unlink($file);
       }
@@ -35,6 +33,7 @@ $destination=get_option('widgetdir');
   function delete_widget(){
             //deletion  process
     global $wp_filesystem;
+    $args=array($_POST['hostname'],$_POST['username'], $_POST['password'],$_POST['conntection_type']);
       $custwid= get_option('custom-widget');
   $widgets= get_option('widgetid');
 $widgetid=$_POST['w'];
@@ -42,7 +41,8 @@ $wdir=get_option('widgetdir');
 if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
      $toDel=explode("/",$custwid[$widgetid]['file']);
      echo $del= $wdir . $toDel[0];
-     $wp_filesystem->rmdir($del,true);
+     $result=$wp_filesystem->rmdir($del,true);
+     display_msg($result);
 }
   }
   function display_msg($output){
