@@ -12,6 +12,7 @@ Author URI:http://www.jasondarkx2.com/
 class widget_manager{
     static $add_script;
 static function init(){
+    define ('WPWM_DEBUG', true);
     add_action( 'widgets_init',array(__CLASS__, 'do_preset') );
 add_action( 'widgets_init',array(__CLASS__, 'import_cust_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
@@ -152,8 +153,12 @@ function remove_disable_widget() {
                    $custwid=getCustomWidgets($dir);
                    if($custwid!=null){
                    foreach($custwid as $wid){
+                        $info = new SplFileInfo($dir . $wid);
+             if($info->getExtension()=='php'){
+                 if(class_exists(getWidgetClass($wid))==FALSE)
                    include($dir . $wid);
                    register_widget(getWidgetClass($wid));
+             }
                    if(empty($cust)==TRUE && getWidgetClass($wid)!=''){
                       $cust[getWidgetClass($wid)]=array('key'=>getWidgetClass($wid),'class'=> getWidgetClass($wid),'name'=> get_name(getWidgetClass($wid)),'file'=> $wid,'status' => true);
                  }else{
