@@ -29,6 +29,7 @@ if(count($presets)>0){
 if(empty($dir)|| get_option('preset-cdwd')){
     $dir=dirname(plugin_dir_path(__FILE__)). '/custom-widgets/';
 }
+$dir= str_replace('//', '/', str_replace('\\', '/', $dir));
     if(file_exists($dir)==FALSE){
         mkdir($dir,0755);
         $user=exec(whoami);
@@ -37,17 +38,21 @@ if(empty($dir)|| get_option('preset-cdwd')){
     }
         $sdir=get_option('widgetdir');
         If(file_exists($sdir)){
+            $wpdir= str_replace('//', '/', str_replace('\\', '/',wp_upload_dir()));
+            $sdir= str_replace('//', '/', str_replace('\\', '/', $sdir));
+            if(strcmp($sdir,$wpdir['basedir'])!=0){
         $contents=scandir($sdir);
         if(SUBSTR($dir, -1) != '/'){$dir.= '/';}
         foreach($contents as $widgets){
             if ($widgets != "." && $widgets != "..") {            
-                recurse_copy($sdir , $dir);
+               recurse_copy($sdir , $dir);
             }
         }
         
         if($sdir!=$dir){
         $check=recursiveRemove($sdir);
         }
+            }
         if($dir!=get_option('widgetdir')){
         echo '<br/> <div class="notfi"><strong>Widget upload directory Successfully changed</strong></div>';
         }
