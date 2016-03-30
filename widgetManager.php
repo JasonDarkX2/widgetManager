@@ -35,7 +35,7 @@ static function add_scripts($hook){
     wp_enqueue_style( 'ui-style','http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
      wp_enqueue_script( 'ui-script','//code.jquery.com/ui/1.11.4/jquery-ui.js', array('jquery') );
          $dir=plugin_dir_path(__FILE__). 'custom-widgets/';
-  $defaultDir= array( 'defaultDir' =>$dir);
+  $defaultDir= array( 'defaultDir' =>str_replace('//', '/', str_replace('\\', '/',$dir)));
     wp_enqueue_script( 'wm-script', plugins_url('wm-script.js',__FILE__), array('jquery') );
     wp_localize_script('wm-script', 'defaults',$defaultDir);
      $translation_array = array( 'addWidgetUrl' => plugins_url('/actionScripts/addwidget.php',__FILE__));
