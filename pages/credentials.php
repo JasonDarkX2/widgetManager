@@ -78,7 +78,7 @@ function add_widget()
   $name=$_FILES["widgetToUpload"]['name'];
   $tmp=$_FILES['widgetToUpload']["tmp_name"];
   $upload=wp_upload_bits($name,NULL,$tmp);
-  $file=$upload['file'];
+  $file=str_replace('//', '/', str_replace('\\', '/',$upload['file']));
   $_POST['ufile']=$file;
 $form_fields=array('ufile');
 
