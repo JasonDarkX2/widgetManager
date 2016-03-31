@@ -21,15 +21,20 @@ switch($op){
 function add_widget()
 {
 $file=$_POST['ufile'];
+echo $file;
 $destination=get_option('widgetdir');
       global $wp_filesystem;
       $destination=get_option('widgetdir');
-      $unzip=unzip_file($file,$destination);
+       $zip = new ZipArchive;
+       $unzip=$zip->open($file);
       if($unzip==TRUE){
-          unlink($file);
+         $zip->extractTo($destination);
+        unlink($file);
       }
       display_msg($unzip);
-  }
+   $zip->close();
+      
+      }
   function delete_widget(){
             //deletion  process
     global $wp_filesystem;
