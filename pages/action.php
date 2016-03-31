@@ -29,10 +29,10 @@ $destination=get_option('widgetdir');
        $unzip=$zip->open($file);
       if($unzip==TRUE){
          $zip->extractTo($destination);
+         $zip->close();
         unlink($file);
       }
       display_msg($unzip);
-   $zip->close();
       
       }
   function delete_widget(){
