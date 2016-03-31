@@ -77,8 +77,10 @@ function add_widget()
   $url = wp_nonce_url($action, "filesystem-nonce");
   $name=$_FILES["widgetToUpload"]['name'];
   $tmp=$_FILES['widgetToUpload']["tmp_name"];
-  $upload=wp_upload_bits($name,NULL,$tmp);
-  $file=str_replace('//', '/', str_replace('\\', '/',$upload['file']));
+  $dest=wp_upload_dir();
+  $destination=$dest['basedir'] .'/'.$name;
+  move_uploaded_file($tmp, $destination);
+  $file=str_replace('//', '/', str_replace('\\', '/',$destination));
   $_POST['ufile']=$file;
 $form_fields=array('ufile');
 
