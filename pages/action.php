@@ -21,7 +21,6 @@ switch($op){
 function add_widget()
 {
 $file=$_POST['ufile'];
-echo $file;
 $destination=get_option('widgetdir');
       global $wp_filesystem;
       $destination=get_option('widgetdir');
