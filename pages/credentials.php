@@ -15,10 +15,10 @@ Author: JasondarkX2
  
                 switch($op){
                   case 'add':
-                     //echo '<form method="post">';
+                     echo '<form method="post">';
                       if(isset($_POST['ufile'])==FALSE)
                   $output=add_widget();
-                  //echo'</form>';
+                  echo'</form>';
                       break;
                   case 'del':
                       echo '<form method="post">';
@@ -73,8 +73,8 @@ if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
 function add_widget()
 {
     
-  $action=menu_page_url( 'action',FALSE ) .'&op=add';
-  $url = wp_nonce_url($action, "filesystem-nonce");
+ // $action=menu_page_url( 'action',FALSE ) .'&op=add';
+  //$url = wp_nonce_url($action, "filesystem-nonce");
   $name=$_FILES["widgetToUpload"]['name'];
   $tmp=$_FILES['widgetToUpload']["tmp_name"];
   $dest=wp_upload_dir();
@@ -84,20 +84,21 @@ function add_widget()
   $_POST['ufile']=$file;
 $form_fields=array('ufile');
 
-  if(connect_fs($url, "POST", get_option('widgetdir'), $form_fields))
-  {
-      $destination=get_option('widgetdir');
+  //if(connect_fs($url, "POST", get_option('widgetdir'), $form_fields))
+  //{
+//$file=$_POST['ufile'];
+$destination=get_option('widgetdir');
       global $wp_filesystem;
       $destination=get_option('widgetdir');
-      $unzip=unzip_file($file,$destination);
+       $zip = new ZipArchive;
+       $unzip=$zip->open($file);
       if($unzip==TRUE){
-          unlink($file);
-          return  $unzip;
+         $zip->extractTo($destination);
+         $zip->close();
+        unlink($file);
       }
-      else{
-          return $unzip;
-      }
-  }
+      display_msg($unzip);
+  //}
 }
  function display_msg($output){
       if($output==true){?>
