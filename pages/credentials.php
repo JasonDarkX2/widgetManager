@@ -49,8 +49,8 @@ function connect_fs($url, $method, $context, $fields = null)
 }
   function delete_widget()
 {
- $action=menu_page_url( 'action',FALSE ) .'&op=del';
-  $url = wp_nonce_url($action, "filesystem-nonce");
+ //$action=menu_page_url( 'action',FALSE ) .'&op=del';
+  //$url = wp_nonce_url($action, "filesystem-nonce");
   $_POST['wpdir']=$_GET['wpdir'];
   $_POST['w']=$_GET['w'];
   $form_fields = array('wpdir','w');
@@ -65,7 +65,7 @@ $wdir=get_option('widgetdir');
 if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
      $toDel=explode("/",$custwid[$widgetid]['file']);
      $del= $wdir . $toDel[0];
-     $wp_filesystem->rmdir($del,true);
+      display_msg($wp_filesystem->rmdir($del,true),TRUE);
 }
   }else{ 
   }
@@ -100,9 +100,12 @@ $destination=get_option('widgetdir');
       display_msg($unzip);
   //}
 }
- function display_msg($output){
+ function display_msg($output,$del){
+     if($del){
+         $msgType="Deleted";
+     }
       if($output==true){?>
-             <div class="notfi">successfully extracted...</div>
+             <div class="notfi">Successfully <?php echo $msgType;?></div>
              <div><a href="<?php menu_page_url('cwop')?>">Return to Custom Widgets Options</a>|<a href="<?php menu_page_url('widgetM')?>">Return to Widgets Manager</a></div>
     
 <?php }
