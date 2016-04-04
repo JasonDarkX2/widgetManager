@@ -13,16 +13,16 @@ jQuery('document').ready(function(e){
         localStorage['notification']='';
     }
 jQuery('.deleteWid').click(function(e){
-    e.preventDefault();
+    //e.preventDefault();
  if (confirm("Are you Sure you want to delete?") == true) {
-jQuery.ajax({ type: "GET",   
+/*jQuery.ajax({ type: "GET",   
          url: jQuery(this).attr("href"),   
          async: false,
          success : function(text)
          {
              response = text;
          }
-});
+});*/
    location.reload();
    localStorage['notification']='<strong>'+ response + '</strong>';
  }
@@ -46,6 +46,7 @@ jQuery('#addWidget').click(function(e){
     var form_data = new FormData();                  
     form_data.append('widgetToUpload', file_data);
     form_data.append('wpdir', dir);
+    form_data.append('op','add');
                 jQuery.ajax({
                    url: url.addWidgetUrl,
                    dataType: 'text',  // what to expect back from the PHP script, if anything
