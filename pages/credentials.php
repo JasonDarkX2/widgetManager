@@ -11,7 +11,11 @@ Author: JasondarkX2
 ?>
 <div class="wrap">      
                 <?php
-                $op=$_GET['op'];
+                if(isset($_POST['op'])){
+                $op=$_POST['op'];
+                }else{
+                    $op=$_GET['op'];
+                }
  
                 switch($op){
                   case 'add':
