@@ -5,7 +5,7 @@
  * For more information check out: http://JasonDarkX2.com/ 
 */
 ?>
-<div id="dialog">
+<div id="dialog" hidden="true">
     <form>
     <form id="addWidget" method="POST" action="<?php menu_page_url( 'credentials'); ?>&op=add" enctype= "multipart/form-data">
   <p>Add or Import your Custom widgets below.... </p>
