@@ -101,7 +101,7 @@ $destination=get_option('widgetdir');
          $zip->close();
         unlink($file);
       }
-      display_msg($unzip);
+      display_msg($unzip,FALSE);
   //}
 }
  function display_msg($output,$del){
