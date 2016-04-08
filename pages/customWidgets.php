@@ -15,7 +15,6 @@
     </form>
   </div>
     <h2><strong>Custom Widgets Option</strong></h2>
-    <?php permissionChecker();?>
     <table border="1px;"><tr><th>Custom Widgets</th><th>filename</th><th>Register Custom Widget</th><th>UnRegister Custom Widget</th><th>Extra options</th></tr>
         <form id="settingsop" method="POST" action="<?php echo plugins_url('actionScripts/customWidgetOptions.php', dirname(__FILE__)) ; ?>">
             <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
