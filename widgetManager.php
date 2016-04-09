@@ -316,6 +316,7 @@ function get_description($key){
       }
      }
      echo'</ul></div>';
+     return $shown;
  }
 function permissionChecker($status=FALSE){
  $dir=get_option('widgetdir');
