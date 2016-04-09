@@ -38,9 +38,14 @@
     <tr><td colspan="5"><a href="#"> Get more Custom Widgets</a>|<a href="#" id="addWidget"> Add/import new Custom Widgets</a></td></tr>
     </table>
     <p id="msg">
-       <?php if($custwid==''|| empty($custwid)){
+       <?php 
+       if(autoDetect()){
+           
+       }else if($custwid==''|| empty($custwid)){
         echo '<div class="errorNotfi"> No custom widgets Found!</div>';
-    }?>
+        
+    }
+    ?>
     </p>
     <?php if(count($custwid)>0):?>
     <?php if(permissionChecker(true)) :?>
