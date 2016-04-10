@@ -71,6 +71,8 @@ if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
      $del= $wdir . $toDel[0];
       display_msg($wp_filesystem->rmdir($del,true),TRUE);
       header('Location: '. menu_page_url( 'cwop' ) .'&del=true');
+      session_start();
+      $_SESSION['deletion']=display_msg($wp_filesystem->rmdir($del,true),TRUE);
 }
   }else{ 
   }
@@ -109,11 +111,9 @@ $destination=get_option('widgetdir');
      if($del){
          $msgType="Deleted";
      }
-      if($output==true){?>
-             <div class="notfi">Successfully <?php echo $msgType;?></div>
-             <div><a href="<?php menu_page_url('cwop')?>">Return to Custom Widgets Options</a>|<a href="<?php menu_page_url('widgetM')?>">Return to Widgets Manager</a></div>
-    
-<?php }
+      if($output==true){
+              return '<div class="notfi">Successfully '. $msgType .' </div>';
+}
  else if(is_wp_error($output) && $output!=NULL){ ?>
     <div class="errorNotfi"><?php $output->get_error_message(); ?></div>
              <div><a href="<?php menu_page_url('cwop')?>">Return to Custom Widgets Options</a>|<a href="<?php menu_page_url('widgetM')?>">Return to Widgets Manager</a></div>
