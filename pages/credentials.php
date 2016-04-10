@@ -70,6 +70,7 @@ if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
      $toDel=explode("/",$custwid[$widgetid]['file']);
      $del= $wdir . $toDel[0];
       display_msg($wp_filesystem->rmdir($del,true),TRUE);
+      header('Location: '. menu_page_url( 'cwop' ) .'&del=true');
 }
   }else{ 
   }
@@ -101,7 +102,7 @@ $destination=get_option('widgetdir');
          $zip->close();
         unlink($file);
       }
-      display_msg($unzip,FALSE);
+              display_msg($unzip,FALSE);
   //}
 }
  function display_msg($output,$del){
