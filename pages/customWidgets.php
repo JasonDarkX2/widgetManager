@@ -39,8 +39,10 @@
     </table>
     <p id="msg">
        <?php 
-       if($_GET['del']==TRUE){
-           echo '<div class="notfi">Successfully deleted</div>';
+    session_start();
+       if(isset($_SESSION['deletion'])){
+           print_r($_SESSION['deletion']);
+           $_SESSION['deletion']=NULL;
        }else{
        if(autoDetect()){
        }else if($custwid==''|| empty($custwid)){
@@ -48,6 +50,7 @@
         
     }
        }
+    
     ?>
     </p>
     <?php if(count($custwid)>0):?>
