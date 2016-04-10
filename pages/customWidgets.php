@@ -39,12 +39,15 @@
     </table>
     <p id="msg">
        <?php 
+       if($_GET['del']==TRUE){
+           echo '<div class="notfi">Successfully deleted</div>';
+       }else{
        if(autoDetect()){
-           
        }else if($custwid==''|| empty($custwid)){
         echo '<div class="errorNotfi"> No custom widgets Found!</div>';
         
     }
+       }
     ?>
     </p>
     <?php if(count($custwid)>0):?>
