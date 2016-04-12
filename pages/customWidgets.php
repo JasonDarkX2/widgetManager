@@ -19,6 +19,8 @@
         <form id="settingsop" method="POST" action="<?php echo plugins_url('actionScripts/customWidgetOptions.php', dirname(__FILE__)) ; ?>">
             <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
     <?php 
+     $wm= new widget_manager();
+           $wm->import_cust_widget();
     $custwid=get_option('custom-widget');
     if($custwid==''|| empty($custwid)){
         
