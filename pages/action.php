@@ -1,12 +1,10 @@
 <?php
 
 /*
-Plugin Name: Wordpress widget manager
-Plugin URI: http://www.JasonDarkX2.com
-Description: An action handeler page for widget manager
-Version: 1.0
-Author: JasondarkX2
- */ 
+ * action script for Wordpress Widget Manager plugin
+ * Currently obsolete, pending deletion
+ * For more information check out: http://JasonDarkX2.com/ 
+*/
 $op=$_GET['op'];
 switch($op){
     case 'add':
