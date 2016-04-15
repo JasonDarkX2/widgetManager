@@ -42,7 +42,7 @@ submit_button()?>
 <a href="#"  id="wlist" title="Show Widget List">Show Widget List</a>|<a href="#"  id="custlist" title="Show Custom Widget List">Show Custom Widget List</a>|
 <a href="<?php echo plugins_url('actionScripts/debugTool.php', dirname(__FILE__)) ; ?>?op=caw"  id="clearAll" title="Clear All Widget Data">Clear all Widgets Data</a>|
 <a href="<?php echo plugins_url('actionScripts/debugTool.php', dirname(__FILE__)) ; ?>?op=cw"  id="clearCust" title="Clear custom Widgets Data">Clear custom Widgets Data</a>|
-<a href="#"  id="reload" title="Reload Widgets"> Reload Widgets</a>|
+<a href="#"  id="reload" title="Reload Widgets"> Reload Widgets</a>|<a href="#"  id="cdp" title="Check Directory Permissions">Check Directory Permissions</a>|
 <div id="widgetList" hidden="true">
     <h1>Widget List:</h1>
 <?php var_dump($s);?>
