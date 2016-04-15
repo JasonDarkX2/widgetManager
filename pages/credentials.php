@@ -1,12 +1,10 @@
 <?php
 
 /*
-Plugin Name: credentials
-Plugin URI: http://www.JasonDarkX2.com
-Description: A credential handeler for widget manager
-Version: 1.0
-Author: JasondarkX2
- * 
+ * Credentials page for Wordpress Widget Manager plugin
+ * Handles the WP_filesystem functionality of the plugin
+ * Also handles the  Adding and deletion of widgets
+ * For more information check out: http://JasonDarkX2.com/ 
 */
 ?>
 <div class="wrap">      
