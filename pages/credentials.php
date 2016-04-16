@@ -28,7 +28,6 @@
               echo '</form>';
                   break;
               }
-              ///display_msg($output);
               ?>
 </div>
 <?php
@@ -51,8 +50,7 @@ function connect_fs($url, $method, $context, $fields = null)
 }
   function delete_widget()
 {
- //$action=menu_page_url( 'action',FALSE ) .'&op=del';
-  //$url = wp_nonce_url($action, "filesystem-nonce");
+
   $_POST['wpdir']=$_GET['wpdir'];
   $_POST['w']=$_GET['w'];
   $form_fields = array('wpdir','w');
@@ -86,12 +84,6 @@ function add_widget()
   $destination=$dest['basedir'] .'/'.$name;
   move_uploaded_file($tmp, $destination);
   $file=str_replace('//', '/', str_replace('\\', '/',$destination));
-  $_POST['ufile']=$file;
-$form_fields=array('ufile');
-
-  //if(connect_fs($url, "POST", get_option('widgetdir'), $form_fields))
-  //{
-//$file=$_POST['ufile'];
 $destination=get_option('widgetdir');
       global $wp_filesystem;
       $destination=get_option('widgetdir');
@@ -103,7 +95,6 @@ $destination=get_option('widgetdir');
         unlink($file);
       }
               display_msg($unzip,FALSE);
-  //}
 }
  function display_msg($output,$del){
      if($del){
