@@ -85,7 +85,12 @@ function add_widget()
   move_uploaded_file($tmp, $destination);
   $file=str_replace('//', '/', str_replace('\\', '/',$destination));
 $destination=get_option('widgetdir');
-      global $wp_filesystem;
+if(connect_fs($url, "POST", get_option('widgetdir'), $form_fields))
+  {
+    global $wp_filesystem;
+      $unzip=unzip_file($file,$destination);
+  }
+
       $destination=get_option('widgetdir');
        $zip = new ZipArchive;
        $unzip=$zip->open($file);
