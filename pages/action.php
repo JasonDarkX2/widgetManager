@@ -18,18 +18,18 @@ switch($op){
 
 function add_widget()
 {
-$file=$_POST['ufile'];
-$destination=get_option('widgetdir');
-      global $wp_filesystem;
-      $destination=get_option('widgetdir');
-       $zip = new ZipArchive;
-       $unzip=$zip->open($file);
-      if($unzip==TRUE){
-         $zip->extractTo($destination);
-         $zip->close();
-        unlink($file);
+     echo "here";
+    $file=$_POST['ufile'];
+    chmod($file,0777);
+    var_dump($file);
+    global $wp_filesystem;
+    $destination=get_option('widgetdir');
+      $unzip=unzip_file($file,$destination);
+      var_dump($unzip);
+      if(is_wp_error( $unzip )){
+          echo' <div class="errorNotfi>' . $unzip->get_error_message() .'</div>';
       }
-      display_msg($unzip);
+      unlink($file);
       
       }
   function delete_widget(){
