@@ -18,16 +18,13 @@ switch($op){
 
 function add_widget()
 {
-     echo "here";
     $file=$_POST['ufile'];
     chmod($file,0777);
-    var_dump($file);
-    global $wp_filesystem;
+    WP_Filesystem();
     $destination=get_option('widgetdir');
       $unzip=unzip_file($file,$destination);
-      var_dump($unzip);
-      if(is_wp_error( $unzip )){
-          echo' <div class="errorNotfi>' . $unzip->get_error_message() .'</div>';
+      if(is_wp_error($unzip)){
+          echo ' <div class="errorNotfi">'. $unzip->get_error_message() .'</div>';
       }
       unlink($file);
       
