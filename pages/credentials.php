@@ -81,11 +81,18 @@ function add_widget()
   $dest=wp_upload_dir();
   var_dump($name);
 
+ if($name==null){
+      session_start();
+  var_dump($_SESSION['name']);
+  $name=$_SESSION['name'];
+  }
   if($name!=null){
         $destination=$dest['basedir'] . '/' . $name;
   move_uploaded_file($tmp, $destination);
   $file=str_replace('//', '/', str_replace('\\', '/',$destination));
   $_POST['file']=$file;
+  session_start();
+  $_SESSION['name']=$name;
   $form_fields=array('file');
   }
 if(connect_fs('', "POST", get_option('widgetdir'), $form_fields)){
