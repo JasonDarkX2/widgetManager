@@ -17,10 +17,8 @@
  
                 switch($op){
                   case 'add':
-                     echo '<form method="post" action="' . menu_page_url( 'action',FALSE ) . '&op=add">';
                       if(isset($_POST['ufile'])==FALSE)
                   $output=add_widget();
-                  echo'</form>';
                       break;
                   case 'del':
                       echo '<form method="post">';
@@ -75,25 +73,34 @@ if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
 }
 function add_widget()
 {
-    
  $action=menu_page_url( 'action',FALSE ) .'&op=add';
   $url = wp_nonce_url($action, "filesystem-nonce");
   $name=$_FILES["widgetToUpload"]['name'];
   $tmp=$_FILES['widgetToUpload']["tmp_name"];
+  
   $dest=wp_upload_dir();
-  $destination=$dest['basedir'] . '/' . $name;
+  var_dump($name);
+  if($name!=null){
+        $destination=$dest['basedir'] . '/' . $name;
   move_uploaded_file($tmp, $destination);
   $file=str_replace('//', '/', str_replace('\\', '/',$destination));
-   $_POST['ufile']=$file;
-$form_fields=array('ufile');
-$destination=get_option('widgetdir');
-if(connect_fs($url, "POST", get_option('widgetdir'), $form_fields))
-  {
-    
-  }else{
-      echo "<div><p>could not connect to file system</p></div>";
+  $_POST['file']=$file;
+  $form_fields=array('file');
   }
-
+if(connect_fs('', "POST", get_option('widgetdir'), $form_fields)){
+//$creds=$credentials = request_filesystem_credentials('', 'POST', false, $context, $fields);
+//if($creds!=NULL){
+//if(WP_Filesystem($creds)==true){
+    var_dump($_POST);
+$destination=get_option('widgetdir');
+$file=$_POST['file'];
+      $unzip=unzip_file($file,$destination);
+      if(is_wp_error($unzip)){
+          echo ' <div class="errorNotfi">'. $unzip->get_error_message() .'</div>';
+      }
+      unlink($file);
+//}
+}
       /*$destination=get_option('widgetdir');
        //$zip = new ZipArchive;
        //$unzip=$zip->open($file);
