@@ -40,7 +40,7 @@ function connect_fs($url, $method, $context, $fields = null)
   //check if credentials are correct or not.
   if(!WP_Filesystem($credentials)||$_POST['password']==NULL) 
   {
-    request_filesystem_credentials($url, $method, true, $context);
+    request_filesystem_credentials($url, $method, true, $context,$fields);
     return false;
   }
 
@@ -80,6 +80,7 @@ function add_widget()
   
   $dest=wp_upload_dir();
   var_dump($name);
+
   if($name!=null){
         $destination=$dest['basedir'] . '/' . $name;
   move_uploaded_file($tmp, $destination);
@@ -88,9 +89,6 @@ function add_widget()
   $form_fields=array('file');
   }
 if(connect_fs('', "POST", get_option('widgetdir'), $form_fields)){
-//$creds=$credentials = request_filesystem_credentials('', 'POST', false, $context, $fields);
-//if($creds!=NULL){
-//if(WP_Filesystem($creds)==true){
     var_dump($_POST);
 $destination=get_option('widgetdir');
 $file=$_POST['file'];
@@ -99,18 +97,7 @@ $file=$_POST['file'];
           echo ' <div class="errorNotfi">'. $unzip->get_error_message() .'</div>';
       }
       unlink($file);
-//}
 }
-      /*$destination=get_option('widgetdir');
-       //$zip = new ZipArchive;
-       //$unzip=$zip->open($file);
-      if($unzip==TRUE){
-         //$zip->extractTo($destination);
-         //$zip->close();
-         //var_dump($file);
-        //unlink($file);
-      }
-              display_msg($unzip,FALSE);*/
 }
  function display_msg($output,$del){
      if($del){
