@@ -18,9 +18,14 @@ switch($op){
 
 function add_widget()
 {
+    if($_POST['password']==''){
+       request_filesystem_credentials($url, $method, true, $context);
+    }
     $file=$_POST['ufile'];
     chmod($file,0777);
     WP_Filesystem();
+    global $wp_filesystem;
+    var_dump($wp_filesystem);
     $destination=get_option('widgetdir');
       $unzip=unzip_file($file,$destination);
       if(is_wp_error($unzip)){
