@@ -6,12 +6,10 @@
 */
 ?>
 <div id="dialog" hidden="true">
-    <form>
-    <form id="addWidget" method="POST" action="<?php menu_page_url( 'credentials'); ?>&op=add" enctype= "multipart/form-data">
+    <form id="addWidgetForm" method="POST" action="<?php menu_page_url( 'credentials'); ?>&op=add" enctype= "multipart/form-data">
   <p>Add or Import your Custom widgets below.... </p>
   <input type="file" name="widgetToUpload" id="widgetToUpload" accept=".php,.zip">
   <input type="hidden" id="wpdir" name="wpdir" value="<?php echo basename(content_url());?>" />
-  </form>
     </form>
   </div>
     <h2><strong>Custom Widgets Option</strong></h2>
