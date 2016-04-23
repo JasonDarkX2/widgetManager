@@ -41,29 +41,7 @@ jQuery('#addWidget').click(function(e){
     position: { my: 'center', at: 'center' }, 
     buttons: {
         "Upload ": function(ex) {
-                var file_data = jQuery('#widgetToUpload').prop('files')[0];
-                var dir=jQuery('#wpdir').val();
-    var form_data = new FormData();                  
-    form_data.append('widgetToUpload', file_data);
-    form_data.append('wpdir', dir);
-    form_data.append('op','add');
-    ex.preventDefault();
-                jQuery.ajax({
-                   url: url.addWidgetUrl,
-                   dataType: 'text',  // what to expect back from the PHP script, if anything
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: form_data,     
-                   type:'POST',
-                   success: function(XMLHttpRequest,data, textStatus){
-                       notification=XMLHttpRequest;
-                       window.location.reload();
-                       //localStorage['notification']='';
-                       //localStorage['notification']='<strong>'+ notification + '</strong>';
-                }
-                   });       
-          jQuery( this ).dialog( "close" );
+               jQuery('#addWidgetForm').submit();
         },
         Cancel: function() {
           jQuery( this ).dialog( "close" );
