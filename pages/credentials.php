@@ -83,7 +83,6 @@ function add_widget()
 
  if($name==null){
       session_start();
-  var_dump($_SESSION['name']);
   $name=$_SESSION['name'];
   }
   if($name!=null){
@@ -96,7 +95,6 @@ function add_widget()
   $form_fields=array('file');
   }
 if(connect_fs('', "POST", get_option('widgetdir'), $form_fields)){
-    var_dump($_POST);
 $destination=get_option('widgetdir');
 $file=$_POST['file'];
       $unzip=unzip_file($file,$destination);
