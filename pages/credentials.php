@@ -79,8 +79,6 @@ function add_widget()
   $tmp=$_FILES['widgetToUpload']["tmp_name"];
   
   $dest=wp_upload_dir();
-  var_dump($name);
-
  if($name==null){
       session_start();
   $name=$_SESSION['name'];
@@ -99,8 +97,12 @@ $destination=get_option('widgetdir');
 $file=$_POST['file'];
       $unzip=unzip_file($file,$destination);
       if(is_wp_error($unzip)){
-          echo ' <div class="errorNotfi">'. $unzip->get_error_message() .'</div>';
+          session_start();
+      $_SESSION['errors']= ' <div class="errorNotfi">'. $unzip->get_error_message() .'</div>';
+      }else{
+          $_SESSION['errors']=NULL;
       }
+      header('Location: '. menu_page_url( 'cwop' ));
       unlink($file);
 }
 }
