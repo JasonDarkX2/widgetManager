@@ -40,6 +40,9 @@
     <p id="msg">
        <?php 
     session_start();
+    if(isset($_SESSION['errors'])){
+        print_r($_SESSION['errors']);
+    }else{
        if(isset($_SESSION['deletion'])){
            print_r($_SESSION['deletion']);
            $_SESSION['deletion']=NULL;
@@ -50,7 +53,7 @@
         
     }
        }
-    
+    }
     ?>
     </p>
     <?php if(count($custwid)>0):?>
