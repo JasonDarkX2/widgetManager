@@ -13,6 +13,7 @@ class widget_manager{
     static $add_script;
 static function init(){
     define ('WPWM_DEBUG', true);
+    if(is_admin()){
     add_action( 'widgets_init',array(__CLASS__, 'do_preset') );
 add_action( 'widgets_init',array(__CLASS__, 'import_cust_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
@@ -28,6 +29,7 @@ if(get_option('widgetdir')==NULL){
      chown($defaultDir, $user);
     update_option('widgetdir',$defaultDir);
 }
+    }
  }
 static function add_scripts($hook){
 
