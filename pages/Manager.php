@@ -29,19 +29,20 @@
 ?>
         <tr>
             <td><input type='hidden' name='widgetid[]' value='<?php echo  $widget['key'] ?>' id='widgetId'> 
-                <?php echo '<strong>'. $widget['name'] .'</strong><br/>' . $widget['Description']; ?></td>
-            <td><?php echo $widget['type']; ?></td>
-            <!--<td><input type="radio" name="<?php echo $widget['key']; ?>" value="enable" <?php  checked(1,$widget['status']); ?> ><?php //echo get_option($widget['key']);?></td>
-            <td><input type="radio" name="<?php echo $widget['key'];?>" <?php checked('',$widget['status'] ); ?> value="disable"></td>!-->
-            <td>
-                <div class="switch-field">
+                <strong><?php echo $widget['name'];?></strong>
+                <br/>
+                 <strong>Description:</strong>&nbsp; <?php echo $widget['Description']; ?>
+                <br/>
+                <strong> Widget Type:</strong>&nbsp;<?php echo $widget['type']; ?>
+            <br/>
+             <div class="switch-field">
       <div class="switch-title">Set the status of widget:</div>
       <input type="radio" id="switch_left_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="enabled" <?php checked(1,$widget['status']); ?>/>
       <label for="switch_left_<?php echo $widget['key']; ?>">Enable</label>
       <input type="radio" id="switch_right_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="disable" <?php checked('',$widget['status'] ); ?>/>
       <label for="switch_right_<?php echo $widget['key']; ?>">Disable</label>
     </div>
-                
+            </td>
             </td>
         </tr>
         <?php endforeach;?>
