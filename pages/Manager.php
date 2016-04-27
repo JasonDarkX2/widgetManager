@@ -14,7 +14,7 @@
         <tr><th colspan="3"> Default Widgets</th></tr>
     <?php  
     
-    $widgets= get_Defaults(get_option('widgetid'));
+    $widgets= get_widgets_type(get_option('widgetid'),"Default");
     foreach($widgets as $widget):
         if($widget['type']=="Plugin"&& get_option('preset-pwm')==FALSE){
         
@@ -77,7 +77,7 @@
 
  <?php
 
- function get_Defaults($widgets){
+ function get_widgets_type($widgets,$types){
      $wid=array();
      foreach($widgets as $widget){
                  if($widget['type']=="Default"){
@@ -91,20 +91,4 @@
 });
      return $wid;
  }
- 
- function get_plugin($widgets){
-     $wid=array();
-     foreach($widgets as $widget){
-                 if($widget['type']=="Plugin"){
-            array_push($wid, $widget);
-        }else{
-            continue;
-        }
-     }
-     usort($wid, function($a, $b) {
-    return strcmp($a['name'], $b['name']);
-});
-     return $wid;
- }
-
  ?>
