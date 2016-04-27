@@ -14,16 +14,13 @@
         <tr><th colspan="3"> Default Widgets</th></tr>
     <?php  
     
-    $widgets=get_Defaults(get_option('widgetid'));
+    $widgets= get_Defaults(get_option('widgetid'));
     foreach($widgets as $widget):
         if($widget['type']=="Plugin"&& get_option('preset-pwm')==FALSE){
         
             continue;
         }
         if($widget['type']=="Default"&& get_option('preset-ndw')==TRUE){
-            continue;
-        }
-        if($widget['type']!="Default"){
             continue;
         }
         ?>
@@ -84,6 +81,21 @@
      $wid=array();
      foreach($widgets as $widget){
                  if($widget['type']=="Default"){
+            array_push($wid, $widget);
+        }else{
+            continue;
+        }
+     }
+     usort($wid, function($a, $b) {
+    return strcmp($a['name'], $b['name']);
+});
+     return $wid;
+ }
+ 
+ function get_plugin($widgets){
+     $wid=array();
+     foreach($widgets as $widget){
+                 if($widget['type']=="Plugin"){
             array_push($wid, $widget);
         }else{
             continue;
