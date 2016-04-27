@@ -80,7 +80,7 @@
  function get_widgets_type($widgets,$types){
      $wid=array();
      foreach($widgets as $widget){
-                 if($widget['type']=="Default"){
+                 if($widget['type']==$types){
             array_push($wid, $widget);
         }else{
             continue;
@@ -91,4 +91,5 @@
 });
      return $wid;
  }
+ 
  ?>
