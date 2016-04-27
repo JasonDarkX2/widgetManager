@@ -11,10 +11,10 @@
     <?php settings_fields( 'WM-setting' ); ?>
     <?php do_settings_sections( 'WM-setting' ); ?>
     <table border='1px' >
-        <tr><th> Widgets</th><th>Type</th><th> Enabled/Disabled</th></tr>
+        <tr><th colspan="3"> Default Widgets</th></tr>
     <?php  
     
-    $widgets=get_option('widgetid');
+    $widgets=get_Defaults(get_option('widgetid'));
     foreach($widgets as $widget):
         if($widget['type']=="Plugin"&& get_option('preset-pwm')==FALSE){
         
@@ -23,11 +23,18 @@
         if($widget['type']=="Default"&& get_option('preset-ndw')==TRUE){
             continue;
         }
+        if($widget['type']!="Default"){
+            continue;
+        }
         ?>
         <input type='hidden' name='count' value='$num' id='count'>
  <?php
 ?>
+        <?php if($count!=3){
+        $count++;
+        }else{?>
         <tr>
+        <?php }?>
             <td><input type='hidden' name='widgetid[]' value='<?php echo  $widget['key'] ?>' id='widgetId'> 
                 <strong><?php echo $widget['name'];?></strong>
                 <br/>
@@ -44,12 +51,15 @@
     </div>
             </td>
             </td>
+                    <?php if($count!=3){
+        }else{ $count=0;?>
         </tr>
+         <?php }?>
         <?php endforeach;?>
         <tr>
         <tr>
             <td><strong>Quick Options</strong></td>
-            <td colspan="3">
+            <!--<td colspan="1">
                 <?php if(get_option('preset-ndw')==FALSE):?>
                 <b>|Enable Defaults Widgets Only:</b><input type="radio" name="quickOp" value="enbDefault">
                 <b>|Disable Defaults Widgets Only:</b><input type="radio" name="quickOp" value="disDefault">
@@ -57,7 +67,7 @@
                 <b>|Disable all custom widgets:</b><input type="radio" name="quickOp" value="disCust">
                 <b>|Enable all Widgets:</b> <input type="radio" name="quickOp" value="enbwid">
                  <b>|Disable all Widgets:</b> <input type="radio" name="quickOp" value="diswid">
-            </td>
+            </td>!-->
         </tr>
     </table>
      <p id="msg">
@@ -67,3 +77,22 @@
 </p>
       <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
     </form>
+
+ <?php
+
+ function get_Defaults($widgets){
+     $wid=array();
+     foreach($widgets as $widget){
+                 if($widget['type']=="Default"){
+            array_push($wid, $widget);
+        }else{
+            continue;
+        }
+     }
+     usort($wid, function($a, $b) {
+    return strcmp($a['name'], $b['name']);
+});
+     return $wid;
+ }
+
+ ?>
