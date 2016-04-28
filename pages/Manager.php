@@ -8,6 +8,36 @@
  <h1> Widget Manager</h1>
  <form id="settingsop" method="POST" action="<?php echo  plugins_url('actionScripts/options.php', dirname(__FILE__)); ?>">
      <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
+     <div stle='display:table;'>
+<div class="widget-list">
+     <?php
+     $widgets=get_widgets_type(get_option('widgetid'),"Default");
+display($widgets, "Default");
+ ?>
+ </div>
+     <div class="widget-list">
+     <?php
+     $widgets=get_widgets_type(get_option('widgetid'),"Plugin");
+     display($widgets, "Plugin");
+ ?>
+             </div>
+<div class="widget-list">
+     <?php
+     $widgets=get_widgets_type(get_option('widgetid'),"Custom");       
+display($widgets,"Custom");
+ ?>
+             </div>     
+     
+ </div>           
+     
+     <p id="msg">
+    <?php
+    autoDetect();
+    ?>
+</p>
+      <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
+    </form>
+     
      <!--<table>
         <tr>
             <td><strong>Quick Options</strong></td>
@@ -22,11 +52,5 @@
                  </td>
         </tr>
     </table>!-->
-     <p id="msg">
-    <?php
-    autoDetect();
-    ?>
-</p>
-      <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
-    </form>
+
  
