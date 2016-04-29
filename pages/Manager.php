@@ -8,7 +8,10 @@
  <h1> Widget Manager</h1>
  <form id="settingsop" method="POST" action="<?php echo  plugins_url('actionScripts/options.php', dirname(__FILE__)); ?>">
      <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
+      <?php settings_fields( 'WM-setting' ); ?>
+    <?php do_settings_sections( 'WM-setting' ); ?>
      <div stle='display:table;'>
+         <input type='hidden' name='count' value='$num' id='count'>
 <div class="widget-list">
      <?php
      $widgets=get_widgets_type(get_option('widgetid'),"Default");
@@ -37,7 +40,41 @@ display($widgets,"Custom");
 </p>
       <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
     </form>
-     
+  <?php
+ function display($widgets,$type){
+     echo '<div class="widget-header"><div> '. $type . ' Widgets</div></div>';
+     foreach($widgets as $widget){?>
+ <div class="widgets-items"><strong><?php echo $widget['name'];?></strong>
+     <br/> <?php echo $widget['Description'];?>
+     <div class="switch-field">
+      <div class="switch-title">Set the status of widget:</div>
+      <input type='hidden' name='widgetid[]' value='<?php echo  $widget['key'] ?>' id='widgetId'> 
+      <input type="radio" id="switch_left_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="enabled" <?php checked(1,$widget['status']); ?>/>
+      <label for="switch_left_<?php echo $widget['key']; ?>">Enable</label>
+      <input type="radio" id="switch_right_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="disable" <?php checked('',$widget['status'] ); ?>/>
+      <label for="switch_right_<?php echo $widget['key']; ?>">Disable</label>
+    </div>
+     </div>  
+<?php }
+ }
+ function get_widgets_type($widgets,$types){
+     array_pop($wid=array());
+     foreach($widgets as $widget){
+                 if($widget['type']==$types){
+            array_push($wid, $widget);
+        }else{
+            continue;
+        }
+     }
+     usort($wid, function($a, $b) {
+    return strcmp($a['name'], $b['name']);
+});
+     return $wid;
+ }
+ 
+ ?>
+    
+ 
      <!--<table>
         <tr>
             <td><strong>Quick Options</strong></td>
