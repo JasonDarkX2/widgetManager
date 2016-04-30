@@ -47,11 +47,9 @@ display($widgets,"Custom");
  <div class="widgets-items"><strong><?php echo $widget['name'];?></strong>
      <br/> <?php echo $widget['Description'];?>
      <div class="switch-field">
-      <div class="switch-title">Set the status of widget:</div>
       <input type='hidden' name='widgetid[]' value='<?php echo  $widget['key'] ?>' id='widgetId'> 
-      <input type="radio" id="switch_left_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="enabled" <?php checked(1,$widget['status']); ?>/>
       <label for="switch_left_<?php echo $widget['key']; ?>">Enable</label>
-      <input type="radio" id="switch_right_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="disable" <?php checked('',$widget['status'] ); ?>/>
+      <input type="radio" id="switch_right_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="disable" <?php checked($widget['status'],false ); ?>/>
       <label for="switch_right_<?php echo $widget['key']; ?>">Disable</label>
     </div>
      </div>  
