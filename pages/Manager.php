@@ -6,7 +6,20 @@
 */
 ?>
  <h1> Widget Manager</h1>
+      <p id="msg">
+    <?php
+    autoDetect();
+    ?>
+</p>
  <form id="settingsop" method="POST" action="<?php echo  plugins_url('actionScripts/options.php', dirname(__FILE__)); ?>">
+     <div class="wm-controls">
+         <a href="#"> Enable all widgets</a>
+         <a href="#"> Disable all widgets</a>
+         <a href="#"> Enable default widgets Only</a>
+         <a href="#"> Disable default widgets Only</a>
+         <a href="#"> Enable Plugin widgets Only</a>
+         <a href="#"> Disable Plugin widgets Only</a>
+         <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"></div>
      <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
       <?php settings_fields( 'WM-setting' ); ?>
     <?php do_settings_sections( 'WM-setting' ); ?>
@@ -32,13 +45,6 @@ display($widgets,"Custom");
              </div>     
      
  </div>           
-     
-     <p id="msg">
-    <?php
-    autoDetect();
-    ?>
-</p>
-      <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
     </form>
   <?php
  function display($widgets,$type){
@@ -48,6 +54,7 @@ display($widgets,"Custom");
      <br/> <?php echo $widget['Description'];?>
      <div class="switch-field">
       <input type='hidden' name='widgetid[]' value='<?php echo  $widget['key'] ?>' id='widgetId'> 
+      <input type="radio" id="switch_left_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="enable" <?php checked($widget['status'],true); ?>/>
       <label for="switch_left_<?php echo $widget['key']; ?>">Enable</label>
       <input type="radio" id="switch_right_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="disable" <?php checked($widget['status'],false ); ?>/>
       <label for="switch_right_<?php echo $widget['key']; ?>">Disable</label>
