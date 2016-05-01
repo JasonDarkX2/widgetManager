@@ -13,12 +13,18 @@
 </p>
  <form id="settingsop" method="POST" action="<?php echo  plugins_url('actionScripts/options.php', dirname(__FILE__)); ?>">
      <div class="wm-controls">
-         <a href="#"> Enable all widgets</a>
-         <a href="#"> Disable all widgets</a>
-         <a href="#"> Enable default widgets Only</a>
-         <a href="#"> Disable default widgets Only</a>
-         <a href="#"> Enable Plugin widgets Only</a>
-         <a href="#"> Disable Plugin widgets Only</a>
+         <label for="quickOp">Bulk Action:</label>
+         <select name="quickOp">
+             <option value=" ">Select an Action</option>
+             <option value="enbwid"> Enable all widgets</option>
+         <option value="diswid"> Disable all widgets</option>
+         <option value="enbDefault"> Enable default widgets Only</option>
+         <option value="disDefault"> Disable default widgets Only</option>
+         <option value=""> Enable Plugin widgets Only</option>
+         <option value=""> Disable Plugin widgets Only</option>
+         <option value="disCust">Disable Custom widgets Only</option>
+         </select>
+         <input type="submit" value="Apply"/>
          <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"></div>
      <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
       <?php settings_fields( 'WM-setting' ); ?>
