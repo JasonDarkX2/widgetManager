@@ -36,6 +36,18 @@ $enablecon=0;
             enable_all($que_array,$enablecon);
             disable_types($que_array,"Custom",$enablecon,$disabledcon);
             break;
+                   case 'enbPlugin':
+            $que_array=  get_option('widgetid');
+            enable_all($que_array,$enablecon);
+            disable_types($que_array,"default",$enablecon,$disabledcon);
+            disable_types($que_array,"Custom",$enablecon,$disabledcon);
+            
+            break;
+                   case 'disPlugin':
+            $que_array=  get_option('widgetid');
+            enable_all($que_array,$enablecon);
+            disable_types($que_array,"plugin",$enablecon,$disabledcon);
+            break;
    }
    }else{
 
