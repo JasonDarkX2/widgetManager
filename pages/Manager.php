@@ -20,8 +20,8 @@
          <option value="diswid"> Disable all widgets</option>
          <option value="enbDefault"> Enable default widgets Only</option>
          <option value="disDefault"> Disable default widgets Only</option>
-         <option value=""> Enable Plugin widgets Only</option>
-         <option value=""> Disable Plugin widgets Only</option>
+         <option value="enbPlugin"> Enable Plugin widgets Only</option>
+         <option value="disPlugin"> Disable Plugin widgets Only</option>
          <option value="disCust">Disable Custom widgets Only</option>
          </select>
          <input type="submit" value="Apply"/>
