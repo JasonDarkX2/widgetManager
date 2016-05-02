@@ -29,6 +29,7 @@ $enablecon=0;
             $que_array=get_option('widgetid');
             enable_all($que_array,$enablecon);
             disable_types($que_array,"custom",$enablecon,$disabledcon);
+             disable_types($que_array,"plugin",$enablecon,$disabledcon);
             break;
         case 'disCust':
             $que_array=  get_option('widgetid');
