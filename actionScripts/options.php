@@ -23,13 +23,13 @@ $enablecon=0;
         case 'disDefault':
             $que_array=get_option('widgetid');
             enable_all($que_array,$enablecon);
-            disable_types($que_array,"default",$enablecon,$disabledcon);
+            disable_types($que_array,"Default",$enablecon,$disabledcon);
             break;
         case 'enbDefault':
             $que_array=get_option('widgetid');
             enable_all($que_array,$enablecon);
-            disable_types($que_array,"custom",$enablecon,$disabledcon);
-             disable_types($que_array,"plugin",$enablecon,$disabledcon);
+            disable_types($que_array,"Custom",$enablecon,$disabledcon);
+             disable_types($que_array,"Plugin",$enablecon,$disabledcon);
             break;
         case 'disCust':
             $que_array=  get_option('widgetid');
@@ -39,14 +39,16 @@ $enablecon=0;
                    case 'enbPlugin':
             $que_array=  get_option('widgetid');
             enable_all($que_array,$enablecon);
-            disable_types($que_array,"default",$enablecon,$disabledcon);
+            disable_types($que_array,"Default",$enablecon,$disabledcon);
             disable_types($que_array,"Custom",$enablecon,$disabledcon);
             
             break;
                    case 'disPlugin':
             $que_array=  get_option('widgetid');
             enable_all($que_array,$enablecon);
-            disable_types($que_array,"plugin",$enablecon,$disabledcon);
+            disable_types($que_array,"Plugin",$enablecon,$disabledcon);
+        default:
+            continue;
             break;
    }
    }else{
