@@ -48,7 +48,7 @@ $enablecon=0;
             enable_all($que_array,$enablecon);
             disable_types($que_array,"Plugin",$enablecon,$disabledcon);
         default:
-            continue;
+            status_count($enablecon,$disabledcon);
             break;
    }
    }else{
@@ -130,5 +130,14 @@ if($enablecon>0){
         }
          return $count;
      }
-    
+    function status_count(&$enablecon,&$disabledcon){
+         $w=get_option('widgetid');
+         foreach($w as $wid){
+         if($wid['status']==FALSE){
+             $disabledcon++;
+         }else{
+             $enablecon++;
+         }
+    }
+    }
 ?>
