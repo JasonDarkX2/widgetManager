@@ -64,6 +64,13 @@ display($widgets,"Custom");
       <label for="switch_left_<?php echo $widget['key']; ?>">Enable</label>
       <input type="radio" id="switch_right_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="disable" <?php checked($widget['status'],false ); ?>/>
       <label for="switch_right_<?php echo $widget['key']; ?>">Disable</label>
+      <br/>
+      <?php 
+      if($type=="Custom"){?>
+      <a class="deleteWid" href="<?php menu_page_url( 'credentials' )?><?php echo '&wp=' . $widget['key']; ?>&op=del" title="delete <?php echo$widget['name']; ?>">Delete Widget</a>
+      <?php }
+      ?>
+      
     </div>
      </div>  
 <?php }
