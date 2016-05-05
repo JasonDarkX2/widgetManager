@@ -25,6 +25,7 @@
          <option value="disCust">Disable Custom widgets Only</option>
          </select>
          <input type="submit" value="Apply"/>
+         <a href="#"> Get more Custom Widgets</a>|<a href="#" id="addWidget"> Add/import new Custom Widgets</a>
          <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"></div>
      <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
       <?php settings_fields( 'WM-setting' ); ?>
@@ -52,6 +53,13 @@ display($widgets,"Custom");
      
  </div>           
     </form>
+<div id="dialog" hidden="true">
+    <form id="addWidgetForm" method="POST" action="<?php menu_page_url( 'credentials'); ?>&op=add" enctype= "multipart/form-data">
+  <p>Add or Import your Custom widgets below.... </p>
+  <input type="file" name="widgetToUpload" id="widgetToUpload" accept=".php,.zip">
+  <input type="hidden" id="wpdir" name="wpdir" value="<?php echo basename(content_url());?>" />
+    </form>
+  </div>
   <?php
  function display($widgets,$type){
      echo '<div class="widget-header"><div> '. $type . ' Widgets</div></div>';
