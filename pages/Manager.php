@@ -75,7 +75,7 @@ display($widgets,"Custom");
       <br/>
       <?php 
       if($type=="Custom"){?>
-      <a class="deleteWid" href="<?php menu_page_url( 'credentials' )?><?php echo '&wp=' . $widget['key']; ?>&op=del" title="delete <?php echo$widget['name']; ?>">Delete Widget</a>
+      <a class="deleteWid" href="<?php menu_page_url( 'credentials' )?><?php echo '&w=' . $widget['key']; ?>&op=del" title="delete <?php echo$widget['name']; ?>">Delete Widget</a>
       <?php }
       ?>
       
