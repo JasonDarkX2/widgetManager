@@ -170,6 +170,8 @@ function remove_disable_widget() {
                  array_pop($cust);
                      }
                  }
+                 $w[getWidgetClass($wid)]['type']="Custom";
+                 //update_option('widgetid',$w); 
                   update_option('custom-widget',$cust);  
                 }
                 }
@@ -261,6 +263,8 @@ foreach ($t as $token) {
                    return $widget_class ;
 }
 function get_type($keys){
+        $wm= new widget_manager();
+           $wm->import_cust_widget();
     $c=get_option('custom-widget');
     if($c==null){
         $c=get_option('widgetid');
