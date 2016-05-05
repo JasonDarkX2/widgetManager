@@ -64,7 +64,7 @@ if(file_exists($wdir .'/' .$custwid[$widgetid]['file'])===TRUE){
      $toDel=explode("/",$custwid[$widgetid]['file']);
      $del= $wdir . $toDel[0];
       display_msg($wp_filesystem->rmdir($del,true),TRUE);
-      header('Location: '. menu_page_url( 'cwop' ) .'&del=true');
+      header('Location: '. menu_page_url( 'widgetM' ) .'&del=true');
       session_start();
       $_SESSION['deletion']=display_msg($wp_filesystem->rmdir($del,true),TRUE);
 }
@@ -102,7 +102,7 @@ $file=$_POST['file'];
       }else{
           $_SESSION['errors']=NULL;
       }
-      header('Location: '. menu_page_url( 'cwop' ));
+      header('Location: '. menu_page_url( 'widgetM' ));
       unlink($file);
 }
 }
