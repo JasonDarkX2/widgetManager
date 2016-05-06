@@ -63,6 +63,14 @@ display($widgets,"Custom");
   <?php
  function display($widgets,$type){
      echo '<div class="widget-header"><div> '. $type . ' Widgets</div></div>';
+     if(count($widgets)==0){?>
+<div class="widgets-items">
+         <div class="switch-field">
+             No&nbsp;<?php echo $type; ?>&nbsp;widgets found
+         </div>
+</div>
+     <?php }
+     else{
      foreach($widgets as $widget){?>
  <div class="widgets-items"><strong><?php echo $widget['name'];?></strong>
      <br/> <?php echo $widget['Description'];?>
@@ -82,6 +90,7 @@ display($widgets,"Custom");
     </div>
      </div>  
 <?php }
+     }
  }
  function get_widgets_type($widgets,$types){
      array_pop($wid=array());
