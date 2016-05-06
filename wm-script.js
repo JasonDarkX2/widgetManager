@@ -81,6 +81,12 @@ jQuery("#cdwd").change(function() {
        jQuery('#widgetdir').val(defaults.defaultDir);
     }
 });
+jQuery('.switch-field input:radio').click(function(){
+    var name=jQuery(this).attr('name');
+    var status= jQuery(this).val();
+    var msg=name + ' is ' + status;
+    alert(msg);
+});
 //debug JS scripts
 jQuery('#debug').click(function(e){
     e.preventDefault();
