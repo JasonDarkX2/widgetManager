@@ -10,7 +10,7 @@ $parse_uri = explode($w, $_SERVER['SCRIPT_FILENAME'] );
 $enablecon=0;
  $disabledcon=0;
   $que_array = $_POST['widgetid'];
-   If(isset($_POST['quickOp'])){
+   If(isset($_POST['quickOp'])&& $_POST['quickOp']!=""){
        switch($_POST['quickOp']){
         case 'enbwid':
             $que_array=get_option('widgetid');
@@ -57,25 +57,28 @@ $enablecon=0;
        if($que_array==NULL){
            return;
        }
-   foreach($que_array as $widgetId){
+       var_dump($que_array);
+      
+   //foreach($que_array as $widgetId){
     $option = 0;
     $data=$_POST;
-  if(isset($data[ $widgetId])){
-        $option = $data[$widgetId];
+  if(isset($data[$que_array])){
+        $option = $data[$que_array];
         if($option=='enable'){
-            $enablecon++;
-            $wid[$widgetId]['status']=TRUE;
+            //$enablecon++;
+            $wid[$que_array]['status']=TRUE;
         }
         else{
-            $disabledcon++;
-             $wid[$widgetId]['status']=FALSE;
+            //$disabledcon++;
+             $wid[$que_array]['status']=FALSE;
             
     }
    } 
 
     
-  }
+  //}
    update_option('widgetid', $wid);
+   status_count($enablecon,$disabledcon);
    }
    if(get_option('preset-ndw')){
        if($enablecon>0){
