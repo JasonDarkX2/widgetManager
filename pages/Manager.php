@@ -15,7 +15,7 @@
      <div class="wm-controls">
          <label for="quickOp">Bulk Action:</label>
          <select name="quickOp">
-             <option value=" ">Select an Action</option>
+             <option value="">Select an Action</option>
              <option value="enbwid"> Enable all widgets</option>
          <option value="diswid"> Disable all widgets</option>
          <option value="enbDefault"> Enable default widgets Only</option>
