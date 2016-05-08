@@ -13,16 +13,7 @@ jQuery('#msg').empty();
         localStorage['notification'] = '';
 }
 jQuery('.deleteWid').click(function(e){
-//e.preventDefault();
 if (confirm("Are you Sure you want to delete?") == true) {
-/*jQuery.ajax({ type: "GET",   
- url: jQuery(this).attr("href"),   
- async: false,
- success : function(text)
- {
- response = text;
- }
- });*/
 location.reload();
         localStorage['notification'] = '<strong>' + response + '</strong>';
 }
@@ -80,7 +71,6 @@ title: "Add/Import new Custom Widgets",
         }
         });
                 jQuery('.switch-field input:radio').click(function(e){
-                    //e.preventDefault();
         var name = jQuery(this).attr('name');
                 var status = jQuery(this).val();
                 var wpdir = jQuery('[name="wpdir"]').val();
@@ -93,7 +83,6 @@ title: "Add/Import new Custom Widgets",
                         data: formData,
                         success : function(text)
                         {
-                        alert(text);
                         jQuery("#msg").html(text);
                         }
 
