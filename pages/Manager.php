@@ -26,7 +26,7 @@
          </select>
          <input type="submit" value="Apply"/>
          <a href="#"> Get more Custom Widgets</a>|<a href="#" id="addWidget"> Add/import new Custom Widgets</a>
-         <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"></div>
+</div>
      <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
       <?php settings_fields( 'WM-setting' ); ?>
     <?php do_settings_sections( 'WM-setting' ); ?>
@@ -108,21 +108,5 @@ display($widgets,"Custom");
  }
  
  ?>
-    
- 
-     <!--<table>
-        <tr>
-            <td><strong>Quick Options</strong></td>
-            <td colspan="1">
-                <?php if(get_option('preset-ndw')==FALSE):?>
-                <b>|Enable Defaults Widgets Only:</b><input type="radio" name="quickOp" value="enbDefault">
-                <b>|Disable Defaults Widgets Only:</b><input type="radio" name="quickOp" value="disDefault">
-                <?php endif;?>
-                <b>|Disable all custom widgets:</b><input type="radio" name="quickOp" value="disCust">
-                <b>|Enable all Widgets:</b> <input type="radio" name="quickOp" value="enbwid">
-                 <b>|Disable all Widgets:</b> <input type="radio" name="quickOp" value="diswid">
-                 </td>
-        </tr>
-    </table>!-->
 
  
