@@ -94,6 +94,9 @@ function display($widgets, $type) {
                     <label for="switch_right_<?php echo $widget['key']; ?>">Disable</label>
                     <br/>
                     <?php if ($type == "Custom") { ?>
+                        <a class="deleteWid" href="<?php 
+                        $name='delete-'. $widget['key'];
+                        $url=menu_page_url('credentials',FALSE) .'&w=' . $widget['key'] . '&op=del'; echo wp_nonce_url($url, $name); ?>" title="delete <?php echo $widget['name']; ?>">Delete Widget</a>       
  <?php }
             ?>
 
