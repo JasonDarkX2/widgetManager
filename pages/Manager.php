@@ -8,7 +8,17 @@
 <h1> Widget Manager</h1>
 <p id="msg">
     <?php
-    autoDetect();
+session_start();
+    if(isset($_SESSION['errors'])){
+        print_r($_SESSION['errors']);
+    }else{
+       if(isset($_SESSION['deletion'])){
+           print_r($_SESSION['deletion']);
+           $_SESSION['deletion']=NULL;
+       }else{
+       autoDetect();
+       }
+    }
     ?>
 </p>
 <form id="settingsop" method="POST" action="<?php echo plugins_url('actionScripts/options.php', dirname(__FILE__)); ?>">
@@ -84,8 +94,7 @@ function display($widgets, $type) {
                     <label for="switch_right_<?php echo $widget['key']; ?>">Disable</label>
                     <br/>
                     <?php if ($type == "Custom") { ?>
-                        <a class="deleteWid" href="<?php menu_page_url('credentials') ?><?php echo '&w=' . $widget['key']; ?>&op=del" title="delete <?php echo$widget['name']; ?>">Delete Widget</a>
-            <?php }
+ <?php }
             ?>
 
                 </div>
