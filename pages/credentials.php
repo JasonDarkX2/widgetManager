@@ -52,6 +52,12 @@ function connect_fs($url, $method, $context, $fields = null)
   $_POST['wpdir']=$_GET['wpdir'];
   $_POST['w']=$_GET['w'];
   $form_fields = array('wpdir','w');
+  $nonce = $_REQUEST['_wpnonce'];
+  $name= 'delete-'. $_GET['w'];
+  if ( wp_verify_nonce( $nonce, $name )== 2 ) {
+      die();
+      header('Location: '. menu_page_url( 'widgetM' ) .'&del=true');
+  }
   if(connect_fs($url, "POST", get_option('widgetdir'), $form_fields))
   {
       //deletion  process
