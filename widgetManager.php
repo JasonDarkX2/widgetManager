@@ -14,7 +14,6 @@ class widget_manager{
 static function init(){
     define ('WPWM_DEBUG', true);
     if(is_admin()){
-    add_action( 'widgets_init',array(__CLASS__, 'do_preset') );
 add_action( 'widgets_init',array(__CLASS__, 'import_cust_widget') );
 add_action( 'widgets_init',array(__CLASS__, 'remove_disable_widget') );
 add_action( 'init',array(__CLASS__, 'disable_plugin_widget') );
@@ -64,11 +63,6 @@ self::$add_script = true;
 	register_setting( 'WM-setting', 'widgetid' );
         register_setting( 'WM-setting', 'custom-widget' );
         register_setting( 'WM-setting', 'widgetdir' );
-        register_setting( 'WM-setting', 'preset-ndw' );
-         register_setting( 'WM-setting', 'preset-cwoff' );
-         register_setting( 'WM-setting', 'preset-dwd' );
-         register_setting( 'WM-setting', 'preset-pwm' );
-        
 }
 static function widgetManager_setting_page() {
 include(plugin_dir_path( __FILE__ ) . '/pages/settings.php');
@@ -192,18 +186,6 @@ function clean_sweep(){
                         update_option('custom-widget', $cw);
          }
      }
-}
-function do_preset(){
-    $w=get_option('widgetid');
-    if(get_option('preset-ndw')==TRUE){
-        if(empty($w)==FALSE)
-         foreach($w as $widgetId){
-             if($widgetId['type']=="Default"){
-                $w[$widgetId['key']]['status']=false;
-             }
-         }
-         update_option('widgetid', $w);
-    }
 }
 }
 
