@@ -59,8 +59,9 @@ session_start();
             $widgets = get_widgets_type(get_option('widgetid'), "Custom");
             display($widgets, "Custom");
             ?>
-        </div>     
-    </div>           
+        </div>
+        <div style="clear:both; text-align:right;"><a href="#">Go to top</a></div>
+    </div>
 </form>
 <div id="dialog" hidden="true">
     <form id="addWidgetForm" method="POST" action="<?php menu_page_url('credentials'); ?>&op=add" enctype= "multipart/form-data">
