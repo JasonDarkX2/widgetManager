@@ -60,7 +60,12 @@ session_start();
             display($widgets, "Custom");
             ?>
         </div>
-        <div style="clear:both; text-align:right;"><a href="#">Go to top</a></div>
+        <div style=" display:block; clear:both; text-align:left; vertical-align:bottom;">
+               <?php if(WPWM_DEBUG==1){
+            include(plugin_dir_path( __FILE__ ) . 'debug.php');
+        }
+        ?></div>
+        <div style="float:right;clear:both; text-align:right; vertical-align:top;"><a href="#">Go to top</a></div>
     </div>
 </form>
 <div id="dialog" hidden="true">
