@@ -35,7 +35,7 @@ session_start();
             <option value="disCust">Disable Custom widgets Only</option>
         </select>
         <input type="submit" value="Apply"/>
-        <a href="#"> Get more Custom Widgets</a>|<a href="#" id="addWidget"> Add/import new Custom Widgets</a>
+        <a href="#"> Get more Custom Widgets</a>|<a href="#" id="addWidget"> Add/import new Custom Widgets</a>|<a href="#" id="customWidgetDir"> Change Custom Widgets Directory</a>
     </div>
     <input type="hidden" name="wpdir" value="<?php echo basename(content_url()); ?>" />
     <?php settings_fields('WM-setting'); ?>
@@ -73,6 +73,16 @@ session_start();
         <p>Add or Import your Custom widgets below.... </p>
         <input type="file" name="widgetToUpload" id="widgetToUpload" accept=".php,.zip">
         <input type="hidden" id="wpdir" name="wpdir" value="<?php echo basename(content_url()); ?>" />
+    </form>
+    <form id="customDirForm" method="POST" action="<?php echo plugins_url('actionScripts/settings.php', dirname(__FILE__));?>">
+    <input type="hidden" name="wpdir" value="<?php echo basename(content_url());?>" />
+    <strong>Plugin Upload Directory:</strong>
+    <?php if(get_option('preset-cdwd')==FALSE) : ?>
+    <input type="text" name="dir" id="widgetdir" size="100" value="<?php echo str_replace('\\', '/',get_option('widgetdir'));?>">
+    <?php else:?>
+    <input type="text" name="dir" size="100" id="widgetdir"  disabled value="<?php echo str_replace('\\', '/',get_option('widgetdir'));?>">
+    <?php endif;?>
+    <p>
     </form>
 </div>
 <?php
