@@ -19,7 +19,7 @@ location.reload();
 }
 });
         jQuery('#addWidget').click(function(e){
-jQuery("#dialog").dialog({
+jQuery("#dialog #addWidgetForm").dialog({
 title: "Add/Import new Custom Widgets",
         modal: true,
         draggable: true,
@@ -88,6 +88,30 @@ title: "Add/Import new Custom Widgets",
 
                 });
              });
+              jQuery('#customWidgetDir').click(function(e){
+jQuery("#dialog #customDirForm").dialog({
+title: "Custom Widget Directory Settings",
+        modal: true,
+        draggable: true,
+        resizable: false,
+        width: 800,
+        height: 240,
+        show: 'blind',
+        hide: 'blind',
+        dialogClass: 'ui-dialog',
+        position: { my: 'center', at: 'center' },
+        buttons: {
+        "Change": function(ex) {
+        jQuery('#addWidgetForm').submit();
+        },
+                Cancel: function() {
+                jQuery(this).dialog("close");
+                },
+        }
+});
+        });
+             
+             
 //debug JS scripts
                 jQuery('#debug').click(function(e){
         e.preventDefault();
