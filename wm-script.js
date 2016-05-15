@@ -102,7 +102,23 @@ title: "Custom Widget Directory Settings",
         position: { my: 'center', at: 'center' },
         buttons: {
         "Change": function(ex) {
-        jQuery('#addWidgetForm').submit();
+        //jQuery('#customDirForm').submit();
+        var formData={wpdir:'nope'};
+        jQuery.ajax({
+            type : "POST",
+            url: jQuery('#customDirForm').attr("action"),
+            data:jQuery('#customDirForm').serialize(),
+                                    success: function(XMLHttpRequest, data, textStatus){
+                        notification = XMLHttpRequest;
+                                location.reload();
+                                localStorage['notification'] = '';
+                                localStorage['notification'] = '<strong>' + notification + '</strong>';
+                                },
+                        error: function(XMLHttpRequest, textStatus, errorThrown)
+                                {
+                                localStorage['notification'] = '<strong>' + notification + '</strong>';
+                                        }
+        });
         },
                 Cancel: function() {
                 jQuery(this).dialog("close");
