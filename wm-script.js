@@ -40,6 +40,9 @@ title: "Add/Import new Custom Widgets",
         }
 });
         });
+                jQuery('#addWidget').click(function(e){
+     jQuery("#addWidgetForm").dialog('open');
+                });
         var wmform = e('#settingsop');
         wmform.submit(function(ex){
         var formdata = wmform.serialize();
@@ -90,7 +93,7 @@ title: "Add/Import new Custom Widgets",
              });
               jQuery('#customWidgetDir').click(function(e){
 jQuery("#dialog #customDirForm").dialog({
-title: "Custom Widget Directory Settings",
+title: "Change Custom Widgets Directory",
         modal: true,
         draggable: true,
         resizable: false,
@@ -126,8 +129,9 @@ title: "Custom Widget Directory Settings",
         }
 });
         });
-             
-             
+        jQuery('#customWidgetDir').click(function(e){
+     jQuery("#customDirForm").dialog('open');
+ });
 //debug JS scripts
                 jQuery('#debug').click(function(e){
         e.preventDefault();
@@ -206,4 +210,7 @@ title: "Custom Widget Directory Settings",
                 });
                 });
 //end of bebug section
+
                 });
+
+ 
