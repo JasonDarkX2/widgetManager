@@ -51,8 +51,6 @@ self::$add_script = true;
 	add_menu_page('Widget Manager Settings', 'Widget Manager', 'administrator','widgetM', 
                 array(__CLASS__,'Widget_manager_settings_page')
                 , plugins_url('/img/WMIconHolder.png', __FILE__) );
-//add_submenu_page('widgetM', 'Custom Widgets Options', 'Custom Widgets Options', 'administrator','cwop',array(__CLASS__,'customWidget_option_page'));
-    add_submenu_page('widgetM', 'Setting', 'Settings', 'administrator','settings',array(__CLASS__,'widgetManager_setting_page'));
     add_submenu_page(NULL, 'credentials','credentials',  'administrator','credentials',array(__CLASS__,'widgetManager_creds_page'));
       add_submenu_page(NULL, 'Action', 'Action', 'administrator','action',array(__CLASS__,'widgetManager_action_page'));
 	//call register settings function
