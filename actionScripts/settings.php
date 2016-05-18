@@ -74,7 +74,7 @@ $dir= str_replace('//', '/', str_replace('\\', '/', $dir));
     }
     msgDisplay( $error, $errmsg, $dirchange, $dirDiff);
 update_option('widgetdir',$dir);
- //echo '<div class="notfi"><strong>Settings Successfully Saved</strong></div>';
+ 
 
 function recurse_copy($src,$dst) { 
     $dir = opendir($src); 
