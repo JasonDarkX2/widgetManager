@@ -11,6 +11,7 @@
 session_start();
     if(isset($_SESSION['errors'])){
         print_r($_SESSION['errors']);
+        $_SESSION['errors']=NULL;
     }else{
        if(isset($_SESSION['deletion'])){
            print_r($_SESSION['deletion']);
