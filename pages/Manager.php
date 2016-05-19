@@ -8,17 +8,17 @@
 <h1> Widget Manager</h1>
 <p id="msg">
     <?php
-session_start();
-    if(isset($_SESSION['errors'])){
+    session_start();
+    if (isset($_SESSION['errors'])) {
         print_r($_SESSION['errors']);
-        $_SESSION['errors']=NULL;
-    }else{
-       if(isset($_SESSION['deletion'])){
-           print_r($_SESSION['deletion']);
-           $_SESSION['deletion']=NULL;
-       }else{
-       autoDetect();
-       }
+        $_SESSION['errors'] = NULL;
+    } else {
+        if (isset($_SESSION['deletion'])) {
+            print_r($_SESSION['deletion']);
+            $_SESSION['deletion'] = NULL;
+        } else {
+            autoDetect();
+        }
     }
     ?>
 </p>
@@ -62,10 +62,11 @@ session_start();
             ?>
         </div>
         <div style=" display:block; clear:both; text-align:left; vertical-align:bottom;">
-               <?php if(WPWM_DEBUG==1){
-            include(plugin_dir_path( __FILE__ ) . 'debug.php');
-        }
-        ?></div>
+            <?php
+            if (WPWM_DEBUG == 1) {
+                include(plugin_dir_path(__FILE__) . 'debug.php');
+            }
+            ?></div>
         <div style="float:right;clear:both; text-align:right; vertical-align:top;"><a href="#">Go to top</a></div>
     </div>
 </form>
@@ -75,18 +76,18 @@ session_start();
         <input type="file" name="widgetToUpload" id="widgetToUpload" accept=".php,.zip">
         <input type="hidden" id="wpdir" name="wpdir" value="<?php echo basename(content_url()); ?>" />
     </form>
-    <form id="customDirForm" method="POST" action="<?php echo plugins_url('actionScripts/settings.php', dirname(__FILE__));?>">
-    <strong>Custom Widget Upload Directory:</strong>
-    <?php if(get_option('preset-cdwd')==FALSE) : ?>
-    <input type="text" name="dir" id="widgetdir" size="80" value="<?php echo str_replace('\\', '/',get_option('widgetdir'));?>">
-    <?php else:?>
-    <input type="text" name="dir" size="80" id="widgetdir"  disabled value="<?php echo str_replace('\\', '/',get_option('widgetdir'));?>">
-    <?php endif;?>
-   <br/>
-   <input type='hidden' name='preset[]' value='cdwd' id='preset'> 
-   <input type="checkbox" name="cdwd" id="cdwd"  value="true"  <?php checked(get_option('preset-cdwd'),1);?>/>Use default Custom Widget Directory.
-    <input type="hidden" id="wpdir" name="wpdir" value="<?php echo basename(content_url()); ?>" />
-    <p>
+    <form id="customDirForm" method="POST" action="<?php echo plugins_url('actionScripts/settings.php', dirname(__FILE__)); ?>">
+        <strong>Custom Widget Upload Directory:</strong>
+        <?php if (get_option('preset-cdwd') == FALSE) : ?>
+            <input type="text" name="dir" id="widgetdir" size="80" value="<?php echo str_replace('\\', '/', get_option('widgetdir')); ?>">
+        <?php else: ?>
+            <input type="text" name="dir" size="80" id="widgetdir"  disabled value="<?php echo str_replace('\\', '/', get_option('widgetdir')); ?>">
+<?php endif; ?>
+        <br/>
+        <input type='hidden' name='preset[]' value='cdwd' id='preset'> 
+        <input type="checkbox" name="cdwd" id="cdwd"  value="true"  <?php checked(get_option('preset-cdwd'), 1); ?>/>Use default Custom Widget Directory.
+        <input type="hidden" id="wpdir" name="wpdir" value="<?php echo basename(content_url()); ?>" />
+        <p>
     </form>
 </div>
 <?php
@@ -100,7 +101,7 @@ function display($widgets, $type) {
                 No&nbsp;<?php echo $type; ?>&nbsp;widgets found
             </div>
         </div>
-    <?php
+        <?php
     } else {
         foreach ($widgets as $widget) {
             ?>
@@ -113,16 +114,18 @@ function display($widgets, $type) {
                     <input type="radio" id="switch_right_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="disable" <?php checked($widget['status'], false); ?>/>
                     <label for="switch_right_<?php echo $widget['key']; ?>">Disable</label>
                     <br/>
-                    <?php if ($type == "Custom") { ?>
-                        <a class="deleteWid" href="<?php 
-                        $name='delete-'. $widget['key'];
-                        $url=menu_page_url('credentials',FALSE) .'&w=' . $widget['key'] . '&op=del'; echo wp_nonce_url($url, $name); ?>" title="delete <?php echo $widget['name']; ?>">Delete Widget</a>       
- <?php }
+                       <?php if ($type == "Custom") { ?>
+                        <a class="deleteWid" href="<?php
+                           $name = 'delete-' . $widget['key'];
+                           $url = menu_page_url('credentials', FALSE) . '&w=' . $widget['key'] . '&op=del';
+                           echo wp_nonce_url($url, $name);
+                           ?>" title="delete <?php echo $widget['name']; ?>">Delete Widget</a>       
+            <?php }
             ?>
 
                 </div>
             </div>  
-        <?php
+            <?php
         }
     }
 }
