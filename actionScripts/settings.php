@@ -33,7 +33,11 @@ if (empty($dir) || get_option('preset-cdwd')) {
 $dir = str_replace('//', '/', str_replace('\\', '/', $dir));
 $wpdir = str_replace('//', '/', str_replace('\\', '/', wp_upload_dir()));
 $plugindir = str_replace('//', '/', str_replace('\\', '/', dirname(plugin_dir_path(__FILE__))));
-if (strstr($dir, $plugindir) == FALSE) {
+if (WPWM_DEBUG == 1) {
+$error = TRUE;
+    $errmsg= " Debug mode enabled, Unrestricted  directory changes permitted"; 
+}
+else if (strstr($dir, $plugindir) == FALSE) {
     $error = TRUE;
     $errmsg = " ERROR-Custom Widget Directory must be within Wordpress manager plugin directory. The default had been set instead of " .
             $dir .
