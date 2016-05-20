@@ -1,9 +1,10 @@
 <?php
+
 /*
  * options action script for Wordpress Widget Manager plugin
  * Handles the adminstrative options for widgets, the enabling and disabling widdgets. Pretty much butter of the plugin :P  
  * For more information check out: http://JasonDarkX2.com/ 
-*/
+ */
 $w = $_POST['wpdir'];
 $parse_uri = explode($w, $_SERVER['SCRIPT_FILENAME']);
 require_once( $parse_uri[0] . 'wp-load.php' );
@@ -58,88 +59,93 @@ If (isset($_POST['quickOp']) && $_POST['quickOp'] != "") {
         return;
     }
 
-            $option = 0;
+    $option = 0;
     $data = $_POST;
-            if(isset($data[$widgets])){
-                    $option = $data[$widgets];
-            if($option=='enable'){
-            $wid [ $widgets]['status'] = TRUE;
-            } else{
-    $wid[$widgets]['status'] = FALSE;
-
-            }
-            }
+    if (isset($data[$widgets])) {
+        $option = $data[$widgets];
+        if ($option == 'enable') {
+            $wid [$widgets]['status'] = TRUE;
+        } else {
+            $wid[$widgets]['status'] = FALSE;
+        }
+    }
     update_option('widgetid', $wid);
-            status_count( $enablecon, $disabledcon);
-            }
-            if( get_option('preset-ndw')){
-            if($enablecon>0){
-            $enablecon = $enablecon - get_count("Default");
-            }
-                    if($disabledcon>0){
-            $disabledcon = $disabledcon - get_count("Default");
-            }
-            }
-                    if(get_option('preset-pwm')==FALSE){
-            if($enablecon>0){
-            $enablecon = $enablecon - get_count("Plugin");
-            }
-                    if($disabledcon>0){
-            $disabledcon = $disabledcon - get_count("Plugin");
-            }
-            }
-                    echo '<div class="notfi">' . $enablecon . ' enabled widgets and ' . $disabledcon . ' disabled widgets' . '</div>';
-    function enable_all (
+    status_count($enablecon, $disabledcon);
+}
+if (get_option('preset-ndw')) {
+    if ($enablecon > 0) {
+        $enablecon = $enablecon - get_count("Default");
+    }
+    if ($disabledcon > 0) {
+        $disabledcon = $disabledcon - get_count("Default");
+    }
+}
+if (get_option('preset-pwm') == FALSE) {
+    if ($enablecon > 0) {
+        $enablecon = $enablecon - get_count("Plugin");
+    }
+    if ($disabledcon > 0) {
+        $disabledcon = $disabledcon - get_count("Plugin");
+    }
+}
+echo '<div class="notfi">' . $enablecon . ' enabled widgets and ' . $disabledcon . ' disabled widgets' . '</div>';
 
-    $widgets, &$enablecon){
-     foreach($widgets as $widgetId){
+function enable_all(
+$widgets, &$enablecon) {
+    foreach ($widgets as $widgetId) {
 
-            $widgets[$widgetId['key']]['status'] = TRUE;
-    $enablecon++;
-    update_option('widgetid', $widgets);
-            }
-            } function disable_all(
+        $widgets[$widgetId['key']]['status'] = TRUE;
+        $enablecon++;
+        update_option('widgetid', $widgets);
+    }
+}
 
-    $widgets, &$disabledcon){
-     foreach($widgets as $widgetId){
+function disable_all(
+$widgets, &$disabledcon) {
+    foreach ($widgets as $widgetId) {
 
-            $widgets[$widgetId['key']]['status'] = false;
-    $disabledcon++;
-    update_option('widgetid', $widgets);
-            } }
-    function disable_types($w,
+        $widgets[$widgetId['key']]['status'] = false;
+        $disabledcon++;
+        update_option('widgetid', $widgets);
+    }
+}
 
-    $type, &$enablecon, &$disabledcon ) { foreach($w as $wid){
-    if ( strtolower($wid['type'])==strtolower($type)){
+function disable_types($w, $type, &$enablecon, &$disabledcon) {
+    foreach ($w as $wid) {
+        if (strtolower($wid['type']) == strtolower($type)) {
             $w[$wid['key']]['status'] = FALSE;
             $disabledcon++;
             $enablecon--;
-    } else{
-    $w[$wid['key']]['status'] = TRUE;
-            }
-            }
-    update_option('widgetid', $w);
+        } else {
+            $w[$wid['key']]['status'] = TRUE;
+        }
     }
-            function get_count($type){
+    update_option('widgetid', $w);
+}
+
+function get_count($type) {
 
     $w = get_option('widgetid');
-            $count = 0;
-    foreach($w as $wid){
-    if ( strtolower($wid['type'])==strtolower($type)){
+    $count = 0;
+    foreach ($w as $wid) {
+        if (strtolower($wid['type']) == strtolower($type)) {
             $count++;
+        }
     }
-            }
     return $count;
-    }
-    function status_count(&
+}
 
-    $enablecon, &$disabledcon){ $w = get_option('widgetid');
-            foreach($w as $wid){
-    if ($wid[ 'status']==FALSE){
+function status_count(&
+
+$enablecon, &$disabledcon) {
+    $w = get_option('widgetid');
+    foreach ($w as $wid) {
+        if ($wid['status'] == FALSE) {
             $disabledcon ++;
-    } else{
-    $enablecon++;
+        } else {
+            $enablecon++;
+        }
     }
-            }
-            }
+}
+
 ?>

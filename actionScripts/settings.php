@@ -112,6 +112,7 @@ function msgDisplay($error, $errmsg, $dirChange, $dirDiff) {
     } else {
         ?>
         <div class="errorNotfi"> <?php echo $errmsg; ?><div>    
-    <?php
-    }
-}
+                <?php
+            }
+        }
+        

@@ -62,7 +62,7 @@ Author URI:http://www.jasondarkx2.com/
 .ui-widget .ui-widget-titlebar {
     padding: 0.1em .5em;
     position: relative;
-        font-size: 1em;
+    font-size: 1em;
 }
 .ui-widget-overlay.custom-overlay
 {
@@ -91,7 +91,7 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui
     width:67%;
 }
 #wpbody-content {
-padding-bottom:0px;
+    padding-bottom:0px;
 
 }
 
@@ -100,41 +100,41 @@ padding-bottom:0px;
 }
 
 .switch-field {
-  font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
-  //padding: 40px;
+    font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
+    //padding: 40px;
     overflow: hidden;
 }
 
 .switch-title {
-  margin-bottom: 6px;
+    margin-bottom: 6px;
 }
 
 .switch-field input {
-  display: none;
+    display: none;
 }
 
 .switch-field label {
-  float: left;
+    float: left;
 }
 
 .switch-field label {
-  display: inline-block;
-  width: 60px;
-  background-color: #e4e4e4;
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 14px;
-  font-weight: normal;
-  text-align: center;
-  text-shadow: none;
-  padding: 6px 14px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-  -webkit-transition: all 0.1s ease-in-out;
-  -moz-transition:    all 0.1s ease-in-out;
-  -ms-transition:     all 0.1s ease-in-out;
-  -o-transition:      all 0.1s ease-in-out;
-  transition:         all 0.1s ease-in-out;
+    display: inline-block;
+    width: 60px;
+    background-color: #e4e4e4;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+    text-shadow: none;
+    padding: 6px 14px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition:    all 0.1s ease-in-out;
+    -ms-transition:     all 0.1s ease-in-out;
+    -o-transition:      all 0.1s ease-in-out;
+    transition:         all 0.1s ease-in-out;
 }
 
 .switch-field label:hover {
@@ -142,17 +142,17 @@ padding-bottom:0px;
 }
 
 .switch-field input:checked + label {
-  background-color: #A5DC86;
-  -webkit-box-shadow: none;
-  box-shadow: none;
+    background-color: #A5DC86;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
 .switch-field label:first-of-type {
-  border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;
 }
 
 .switch-field label:last-of-type {
-  border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0;
 }
 
 .widget-list{
@@ -164,12 +164,12 @@ padding-bottom:0px;
     border-bottom: 1px solid black;
 }
 .widget-header{
-margin-bottom:9px;
-margin-top:9px;
-font-size: 18px;
- font-color:white;
- font-weight: 10px;
- text-align: center;
+    margin-bottom:9px;
+    margin-top:9px;
+    font-size: 18px;
+    font-color:white;
+    font-weight: 10px;
+    text-align: center;
 }
 
 .widget-list{

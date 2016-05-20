@@ -82,7 +82,7 @@
             <input type="text" name="dir" id="widgetdir" size="80" value="<?php echo str_replace('\\', '/', get_option('widgetdir')); ?>">
         <?php else: ?>
             <input type="text" name="dir" size="80" id="widgetdir"  disabled value="<?php echo str_replace('\\', '/', get_option('widgetdir')); ?>">
-<?php endif; ?>
+        <?php endif; ?>
         <br/>
         <input type='hidden' name='preset[]' value='cdwd' id='preset'> 
         <input type="checkbox" name="cdwd" id="cdwd"  value="true"  <?php checked(get_option('preset-cdwd'), 1); ?>/>Use default Custom Widget Directory.
@@ -114,14 +114,14 @@ function display($widgets, $type) {
                     <input type="radio" id="switch_right_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="disable" <?php checked($widget['status'], false); ?>/>
                     <label for="switch_right_<?php echo $widget['key']; ?>">Disable</label>
                     <br/>
-                       <?php if ($type == "Custom") { ?>
+                    <?php if ($type == "Custom") { ?>
                         <a class="deleteWid" href="<?php
                            $name = 'delete-' . $widget['key'];
                            $url = menu_page_url('credentials', FALSE) . '&w=' . $widget['key'] . '&op=del';
                            echo wp_nonce_url($url, $name);
                            ?>" title="delete <?php echo $widget['name']; ?>">Delete Widget</a>       
-            <?php }
-            ?>
+                       <?php }
+                       ?>
 
                 </div>
             </div>  

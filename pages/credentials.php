@@ -1,11 +1,10 @@
 <?php
-
 /*
  * Credentials page for Wordpress Widget Manager plugin
  * Handles the WP_filesystem functionality of the plugin
  * Also handles the  Adding and deletion of widgets
  * For more information check out: http://JasonDarkX2.com/ 
-*/
+ */
 ?>
 <div class="wrap">      
     <?php
