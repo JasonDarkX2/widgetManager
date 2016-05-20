@@ -35,7 +35,7 @@ $wpdir = str_replace('//', '/', str_replace('\\', '/', wp_upload_dir()));
 $plugindir = str_replace('//', '/', str_replace('\\', '/', dirname(plugin_dir_path(__FILE__))));
 if (WPWM_DEBUG == 1) {
 $error = TRUE;
-    $errmsg= " Debug mode enabled, Unrestricted  directory changes permitted"; 
+    $errmsg= "Debug Mode enabled, unrestricted  directory changes permitted"; 
 }
 else if (strstr($dir, $plugindir) == FALSE) {
     $error = TRUE;
