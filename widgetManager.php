@@ -16,7 +16,7 @@ class widget_manager {
     static $add_script;
 
     static function init() {
-        //define('WPWM_DEBUG', true);
+        define('WPWM_DEBUG', true);
         if (is_admin()) {
             add_action('widgets_init', array(__CLASS__, 'import_cust_widget'));
             add_action('widgets_init', array(__CLASS__, 'remove_disable_widget'));
@@ -219,10 +219,9 @@ function getCustomWidgets($dir) {
                 $info = new SplFileInfo($dir);
                 if (is_dir($dir) == FALSE && $info->getExtension() == 'php') {
                     $file = $d . '/' . $dir;
+                    array_push($customwidgets, $file);
                 }
-            }
-            array_pop($customwidgets);
-            array_push($customwidgets, $file);
+            } 
         } else {
             if (is_dir($d) == FALSE) {
                 array_push($customwidgets, $d);
