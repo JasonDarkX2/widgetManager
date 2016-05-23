@@ -72,22 +72,7 @@ If (isset($_POST['quickOp']) && $_POST['quickOp'] != "") {
     update_option('widgetid', $wid);
     status_count($enablecon, $disabledcon);
 }
-if (get_option('preset-ndw')) {
-    if ($enablecon > 0) {
-        $enablecon = $enablecon - get_count("Default");
-    }
-    if ($disabledcon > 0) {
-        $disabledcon = $disabledcon - get_count("Default");
-    }
-}
-if (get_option('preset-pwm') == FALSE) {
-    if ($enablecon > 0) {
-        $enablecon = $enablecon - get_count("Plugin");
-    }
-    if ($disabledcon > 0) {
-        $disabledcon = $disabledcon - get_count("Plugin");
-    }
-}
+
 echo '<div class="notfi">' . $enablecon . ' enabled widgets and ' . $disabledcon . ' disabled widgets' . '</div>';
 
 function enable_all(
