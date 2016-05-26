@@ -17,6 +17,7 @@ class widget_manager {
 
     static function init() {
         define('WPWM_DEBUG', true);
+         
         if (is_admin()) {
             add_action('widgets_init', array(__CLASS__, 'import_cust_widget'));
             add_action('widgets_init', array(__CLASS__, 'remove_disable_widget'));
@@ -33,8 +34,21 @@ class widget_manager {
                 update_option('widgetdir', $defaultDir);
             }
         }
-    }
 
+            add_action('plugins_loaded', array(__CLASS__, 'front_end_import'));
+    }
+static function front_end_import(){
+    $dir = get_option('widgetdir');
+    $custwid= get_option('custom-widget');
+    if(!empty($custwid)){
+                foreach ($custwid as $wid) {
+                if ($wid['status']) {
+                        include($dir . $wid['file']);
+                }
+            }
+    }
+}
+    
     static function add_scripts($hook) {
 
         wp_enqueue_style('wm-style', plugins_url('style.css', __FILE__));
