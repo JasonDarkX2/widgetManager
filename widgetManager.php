@@ -39,10 +39,11 @@ class widget_manager {
     }
 static function front_end_import(){
     $dir = get_option('widgetdir');
+    $widgetid=get_option('widgetid');
     $custwid= get_option('custom-widget');
     if(!empty($custwid)){
                 foreach ($custwid as $wid) {
-                if ($wid['status']) {
+                if ($widgetid[$wid['key']]['status']==TRUE) {
                         include($dir . $wid['file']);
                 }
             }
