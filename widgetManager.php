@@ -60,7 +60,6 @@ static function front_end_import(){
         wp_enqueue_script('wm-script', plugins_url('wm-script.js', __FILE__), array('jquery'));
         wp_localize_script('wm-script', 'defaults', $defaultDir);
         $translation_array = array('addWidgetUrl' => menu_page_url('credentials', FALSE));
-        /* for reference->plugins_url('/actionScripts/addwidget.php',__FILE__) */
         wp_localize_script('wm-script', 'url', $translation_array);
         $translation_array = array('pluginUrl' => plugins_url('/actionScripts/options.php', __FILE__));
         wp_localize_script('wm-script', 'pd', $translation_array);
@@ -189,7 +188,6 @@ static function front_end_import(){
                     }
                 }
                 $w[getWidgetClass($wid)]['type'] = "Custom";
-                //update_option('widgetid',$w); 
                 update_option('custom-widget', $cust);
             }
         }
