@@ -82,16 +82,8 @@ static function front_end_import(){
         register_setting('WM-setting', 'custom-widget');
         register_setting('WM-setting', 'widgetdir');
     }
-
-    static function widgetManager_setting_page() {
-        include(plugin_dir_path(__FILE__) . '/pages/settings.php');
-    }
-
-    static function customWidget_option_page() {
-        include(plugin_dir_path(__FILE__) . '/pages/customWidgets.php');
-    }
-
     static function Widget_manager_settings_page() {
+        
         include(plugin_dir_path(__FILE__) . '/pages/Manager.php');
     }
 
@@ -99,9 +91,6 @@ static function front_end_import(){
         include(plugin_dir_path(__FILE__) . '/pages/credentials.php');
     }
 
-    static function WidgetManager_action_page() {
-        include(plugin_dir_path(__FILE__) . '/pages/action.php');
-    }
 
     function load_widgets() {
         $w = get_option('widgetid');
