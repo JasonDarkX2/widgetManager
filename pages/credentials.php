@@ -79,7 +79,7 @@ function add_widget() {
 
     $dest = wp_upload_dir();
     if ($name == null) {
-        session_start();
+        //session_start();
         $name = $_SESSION['name'];
     }
     if ($name != null) {
@@ -87,7 +87,7 @@ function add_widget() {
         move_uploaded_file($tmp, $destination);
         $file = str_replace('//', '/', str_replace('\\', '/', $destination));
         $_POST['file'] = $file;
-        session_start();
+        //session_start();
         $_SESSION['name'] = $name;
         $form_fields = array('file');
     }
@@ -96,7 +96,7 @@ function add_widget() {
         $file = $_POST['file'];
         $unzip = unzip_file($file, $destination);
         if (is_wp_error($unzip)) {
-            session_start();
+            //session_start();
             $_SESSION['errors'] = ' <div class="errorNotfi">' . $unzip->get_error_message() . '</div>';
         } else {
             $_SESSION['errors'] = NULL;
