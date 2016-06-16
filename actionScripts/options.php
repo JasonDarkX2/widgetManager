@@ -19,7 +19,7 @@ If (isset($_POST['quickOp']) && $_POST['quickOp'] != "") {
             break;
         case 'diswid':
             $widgets = get_option('widgetid');
-            disable_all($widgets, $disabledcon);
+            disable_all($widgets);
             break;
         case 'disDefault':
             $widgets = get_option('widgetid');
@@ -81,9 +81,8 @@ $widgets, &$enablecon) {
 }
 
 function disable_all(
-$widgets, &$disabledcon) {
+$widgets) {
     foreach ($widgets as $widgetId) {
-
         $widgets[$widgetId['key']]['status'] = false;
         update_option('widgetid', $widgets);
     }
