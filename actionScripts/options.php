@@ -15,7 +15,7 @@ If (isset($_POST['quickOp']) && $_POST['quickOp'] != "") {
     switch ($_POST['quickOp']) {
         case 'enbwid':
             $widgets = get_option('widgetid');
-            enable_all($widgets, $enablecon, $disabledcon);
+            enable_all($widgets);
             break;
         case 'diswid':
             $widgets = get_option('widgetid');
@@ -23,30 +23,30 @@ If (isset($_POST['quickOp']) && $_POST['quickOp'] != "") {
             break;
         case 'disDefault':
             $widgets = get_option('widgetid');
-            enable_all($widgets, $enablecon);
+            enable_all($widgets);
             disable_types($widgets, "Default");
             break;
         case 'enbDefault':
             $widgets = get_option('widgetid');
-            enable_all($widgets, $enablecon);
+            enable_all($widgets);
             disable_types($widgets, "Custom");
             disable_types($widgets, "Plugin");
             break;
         case 'disCust':
             $widgets = get_option('widgetid');
-            enable_all($widgets, $enablecon);
+            enable_all($widgets);
             disable_types($widgets, "Custom");
             break;
         case 'enbPlugin':
             $widgets = get_option('widgetid');
-            enable_all($widgets, $enablecon);
+            enable_all($widgets);
             disable_types($widgets, "Default");
             disable_types($widgets, "Custom");
 
             break;
         case 'disPlugin':
             $widgets = get_option('widgetid');
-            enable_all($widgets, $enablecon);
+            enable_all($widgets);
             disable_types($widgets, "Plugin");
         default:
             status_count($enablecon, $disabledcon);
@@ -72,7 +72,7 @@ status_count($enablecon, $disabledcon);
 echo '<div class="notfi">' . $enablecon . ' enabled widgets and ' . $disabledcon . ' disabled widgets' . '</div>';
 
 function enable_all(
-$widgets, &$enablecon) {
+$widgets) {
     foreach ($widgets as $widgetId) {
 
         $widgets[$widgetId['key']]['status'] = TRUE;
