@@ -11,7 +11,7 @@ require_once( $parse_uri[0] . 'wp-load.php' );
 $enablecon = 0;
 $disabledcon = 0;
 $widgets = $_POST['widgetid'];
-If (isset($_POST['quickOp']) && $_POST['quickOp'] != "") {
+If (isset($_POST['quickOp'])) {
     switch ($_POST['quickOp']) {
         case 'enbwid':
             $widgets = get_option('widgetid');
@@ -48,6 +48,10 @@ If (isset($_POST['quickOp']) && $_POST['quickOp'] != "") {
             $widgets = get_option('widgetid');
             enable_all($widgets);
             disable_types($widgets, "Plugin");
+            break;
+        case 'pick':
+            return;
+            break;
         default:
             status_count($enablecon, $disabledcon);
             break;
@@ -55,10 +59,9 @@ If (isset($_POST['quickOp']) && $_POST['quickOp'] != "") {
 } else {
 
     $wid = get_option('widgetid');
-    if ($widgets == NULL) {
+    if (empty($widgets)) {
         return;
     }
-
     $option = 0;
     $data = $_POST;
     if (isset($data[$widgets])) {
