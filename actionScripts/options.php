@@ -32,6 +32,12 @@ If (isset($_POST['quickOp'])) {
             disable_types($widgets, "Plugin");
             disable_types($widgets, "Custom");
             break;
+                case 'enbCust':
+            $widgets = get_option('widgetid');
+            enable_all($widgets);
+            disable_types($widgets, "Default");
+            disable_types($widgets, "Plugin");
+            break;
         case 'disCust':
             $widgets = get_option('widgetid');
             enable_all($widgets);

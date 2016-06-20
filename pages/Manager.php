@@ -33,6 +33,7 @@
             <option value="disDefault"> Disable default widgets Only</option>
             <option value="enbPlugin"> Enable Plugin widgets Only</option>
             <option value="disPlugin"> Disable Plugin widgets Only</option>
+            <option value="enbCust">Enable Custom widgets Only</option>
             <option value="disCust">Disable Custom widgets Only</option>
         </select>
         <input type="submit" value="Apply"/>
