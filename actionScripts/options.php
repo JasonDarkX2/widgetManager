@@ -29,8 +29,8 @@ If (isset($_POST['quickOp'])) {
         case 'enbDefault':
             $widgets = get_option('widgetid');
             enable_all($widgets);
-            disable_types($widgets, "Custom");
             disable_types($widgets, "Plugin");
+            disable_types($widgets, "Custom");
             break;
         case 'disCust':
             $widgets = get_option('widgetid');
@@ -74,8 +74,7 @@ If (isset($_POST['quickOp'])) {
 status_count($enablecon, $disabledcon);
 echo '<div class="notfi">' . $enablecon . ' enabled widgets and ' . $disabledcon . ' disabled widgets' . '</div>';
 
-function enable_all(
-$widgets) {
+function enable_all(&$widgets) {
     foreach ($widgets as $widgetId) {
 
         $widgets[$widgetId['key']]['status'] = TRUE;
@@ -83,19 +82,19 @@ $widgets) {
     }
 }
 
-function disable_all($widgets) {
+function disable_all(&$widgets) {
     foreach ($widgets as $widgetId) {
         $widgets[$widgetId['key']]['status'] = false;
         update_option('widgetid', $widgets);
     }
 }
 
-function disable_types($w, $type) {
+function disable_types(&$w, $type) {
     foreach ($w as $wid) {
-        if (strtolower($wid['type']) == strtolower($type)) {
+        if ($wid['type']!= $type){ 
+            continue;
+        }else{
             $w[$wid['key']]['status'] = FALSE;
-        } else {
-            $w[$wid['key']]['status'] = TRUE;
         }
     }
     update_option('widgetid', $w);
