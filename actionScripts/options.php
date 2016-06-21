@@ -73,11 +73,12 @@ If (isset($_POST['quickOp'])) {
     if (isset($data[$widgets])) {
         $option = $data[$widgets];
         $wid[$widgets]['status']=($option == 'enable') ? TRUE:FALSE; 
+
     }
     update_option('widgetid', $wid);
     
 }
-status_count($enablecon, $disabledcon);
+status_count($wid,$enablecon, $disabledcon);
 echo '<div class="notfi">' . $enablecon . ' enabled widgets and ' . $disabledcon . ' disabled widgets' . '</div>';
 
 function enable_all(&$widgets) {
@@ -118,14 +119,13 @@ function get_count($type) {
     return $count;
 }
 
-function status_count(&$enablecon, &$disabledcon){ 
-    $w = get_option('widgetid');
+function status_count($wl,&$enablecon, &$disabledcon){ 
+    $w = $wl;
     foreach ($w as $wid) {
-        if (!$wid['status']){ 
-
-            $disabledcon ++;
+        if ($wid['status']){ 
+            $enablecon ++;
         } else {
-            $enablecon++;
+            $disabledcon ++;
         }
     }
 }
