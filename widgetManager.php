@@ -16,7 +16,7 @@ class widget_manager {
     static $add_script;
 
     static function init() {
-        define('WPWM_DEBUG', true);
+        //define('WPWM_DEBUG', true);
          
         if (is_admin()) {
             add_action('widgets_init', array(__CLASS__, 'import_cust_widget'));
@@ -27,7 +27,7 @@ class widget_manager {
             add_action('widgets_init', 'empty_names');
             add_action('admin_menu', array(__CLASS__, 'widget_manager_create_menu'));
             add_action('admin_enqueue_scripts', array(__CLASS__, 'add_scripts'));
-            if (get_option('widgetdir') == NULL) {
+            if (get_option('widgetdir') == NULL||get_option('widgetdir') ==''||get_option('widgetdir') =='/') {
                 $defaultDir = dirname(plugin_dir_path(__FILE__)) . '/custom-widgets/';
                 $user = exec(whoami);
                 chown($defaultDir, $user);
