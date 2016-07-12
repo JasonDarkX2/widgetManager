@@ -42,7 +42,7 @@
     <input type="hidden" name="wpdir" value="<?php echo basename(content_url()); ?>" />
     <?php settings_fields('WM-setting'); ?>
     <?php do_settings_sections('WM-setting'); ?>
-    <div stle='display:table;'>
+    <div style='display:table;'>
         <input type='hidden' name='count' value='$num' id='count'>
         <div class="widget-list">
             <?php
