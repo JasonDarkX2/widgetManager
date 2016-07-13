@@ -21,7 +21,7 @@ plugin is currently being developed by JasonDarkX2
 
 ## Change Log
 * V1.00(pending..) -Initial stable release.
-*0.99(June 31, 2016) - All major basic features completed and fully operational re-tooled past implementations to work with wp_filesystem, just need bug testing, adding minor features if any.  
+* V0.99(June 31, 2016) - All major basic features completed and fully operational re-tooled past implementations to work with wp_filesystem, just need bug testing, adding minor features if any.  
 * V0.95(Nov 27,2015) - Near completion milestone reached finishing touches, clean up, and deployment testing in progress.   
 * V0.85(Nov 12,2015) - Big milestone reached 85% essential functionality of Widget Manager implemented, now awaits in-depth testing and adjustments.       
 * V0.70(Oct 24, 2015) - 70% functionality of Widget Manager completed and tested. ready for next phase.  
