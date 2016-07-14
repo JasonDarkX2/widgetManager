@@ -8,7 +8,6 @@
 <h1> Widget Manager</h1>
 <p id="msg">
     <?php
-    //session_start();
     if (isset($_SESSION['errors'])) {
         print_r($_SESSION['errors']);
         $_SESSION['errors'] = NULL;
