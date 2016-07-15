@@ -5,6 +5,10 @@
  * For more information check out: http://JasonDarkX2.com/ 
  */
 ?>
+<?php 
+require_once plugin_dir_path(dirname(__FILE__)).'controllers/widgetRetriever.php';
+$widRetriever= new widgetRetriever();
+?>
 <h1> Widget Manager</h1>
 <p id="msg">
     <?php
@@ -16,7 +20,8 @@
             print_r($_SESSION['deletion']);
             $_SESSION['deletion'] = NULL;
         } else {
-            autoDetect();
+            
+            $widRetriever->autoDetect;
         }
     }
     ?>
