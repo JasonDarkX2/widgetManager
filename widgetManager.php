@@ -10,19 +10,21 @@
  */
 ?>
 <?php
-
+require_once plugin_dir_path(__FILE__).'controllers/widgetController.php';
 class widget_manager {
 
     static $add_script;
-
     static function init() {
         //define('WPWM_DEBUG', true);
-         
+        $dir = get_option('widgetdir');
+        $w = get_option('widgetid');
+        $cust = get_option('custom-widget');
+         $w=new widgetController($dir,$w,$cust);
         if (is_admin()) {
-            add_action('widgets_init', array(__CLASS__, 'import_cust_widget'));
+            add_action('widgets_init',$w->import_cust_widget());
             add_action('widgets_init', array(__CLASS__, 'remove_disable_widget'));
             add_action('init', array(__CLASS__, 'disable_plugin_widget'));
-            add_action('widgets_init', array(__CLASS__, 'load_widgets'));
+            add_action('widgets_init',$w->load_widgets);
             add_action('widgets_init', array(__CLASS__, 'clean_sweep'));
             add_action('widgets_init', 'empty_names');
             add_action('admin_menu', array(__CLASS__, 'widget_manager_create_menu'));
@@ -92,33 +94,7 @@ static function front_end_import(){
     }
 
 
-    function load_widgets() {
-        $w = get_option('widgetid');
-        if (empty($w)) {
-            $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
-            $w = ($GLOBALS['wp_widget_factory']->widgets);
-            foreach ($widgets as $keys) {
-                if (empty($widgetsId)) {
-                    $type = get_type($keys);
-                    $widgetsId = array($keys => array('key' => $keys, 'name' => get_name($keys), 'Description' => get_description($keys), 'type' => $type, 'status' => TRUE));
-                } else {
-                    $type = get_type($keys);
-                    array_push($widgetsId, $widgetsId[$keys] = array('key' => $keys, 'name' => get_name($keys), 'Description' => get_description($keys), 'id' => get_id($keys), 'type' => $type, 'status' => TRUE));
-                    array_pop($widgetsId);
-                }
-            }
-            update_option('widgetid', $widgetsId);
-            $widgets = $widgetsId;
-        } else {
-            $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
-            $wid = ($GLOBALS['wp_widget_factory']->widgets);
-            $type = get_type($keys);
-            array_push($w, $w[$keys] = array('key' => $keys, 'name' => get_name($keys), 'Description' => get_description($keys), 'id' => get_id($keys), 'type' => $type, 'status' => TRUE));
-            array_pop($w);
 
-            update_option('widgetid', $w);
-        }
-    }
 
     function remove_disable_widget() {
         $d = get_option('widgetid');
@@ -155,32 +131,7 @@ static function front_end_import(){
         }
     }
 
-    function import_cust_widget() {
-        $dir = get_option('widgetdir');
-        $w = get_option('widgetid');
-        $cust = get_option('custom-widget');
-        $custwid = getCustomWidgets($dir);
-        if ($custwid != null) {
-            foreach ($custwid as $wid) {
-                $info = new SplFileInfo($dir . $wid);
-                if ($info->getExtension() == 'php') {
-                    if (class_exists(getWidgetClass($wid)) == FALSE)
-                        include($dir . $wid);
-                    register_widget(getWidgetClass($wid));
-                }
-                if (empty($cust) == TRUE && getWidgetClass($wid) != '') {
-                    $cust[getWidgetClass($wid)] = array('key' => getWidgetClass($wid), 'class' => getWidgetClass($wid), 'name' => get_name(getWidgetClass($wid)), 'file' => $wid, 'status' => true);
-                } else {
-                    if (array_key_exists(getWidgetClass($wid), $cust) == FALSE) {
-                        array_push($cust, $cust[getWidgetClass($wid)] = array('key' => getWidgetClass($wid), 'class' => getWidgetClass($wid), 'name' => get_name(getWidgetClass($wid)), 'file' => $wid, 'status' => true));
-                        array_pop($cust);
-                    }
-                }
-                $w[getWidgetClass($wid)]['type'] = "Custom";
-                update_option('custom-widget', $cust);
-            }
-        }
-    }
+   
 
     function clean_sweep() {
         $d = get_option('widgetid');
@@ -256,7 +207,7 @@ function getWidgetClass($file) {
     return $widget_class;
 }
 
-function get_type($keys) {
+/*function get_type($keys) {
     $wm = new widget_manager();
     $wm->import_cust_widget();
     $c = get_option('custom-widget');
@@ -271,7 +222,7 @@ function get_type($keys) {
         $type = "Custom";
     }
     return $type;
-}
+}*/
 
 function get_name($key) {
     $wid = ($GLOBALS['wp_widget_factory']->widgets);
