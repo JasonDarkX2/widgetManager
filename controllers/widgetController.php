@@ -37,7 +37,8 @@ $this->cust=$c;
         }
     }
     function load_widgets() {
-        $w = get_option('widgetid');
+        $w = self::widget;
+        var_dump($w);
         if (empty($w)) {
             $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
             $w = ($GLOBALS['wp_widget_factory']->widgets);
@@ -63,23 +64,55 @@ $this->cust=$c;
             update_option('widgetid', $w);
         }
     }    
-    
-    
- function get_type($keys) {
-    $wm = new widget_manager();
-    import_cust_widget();
-    $c = get_option('custom-widget');
-    if ($c == null) {
-        $c = get_option('widgetid');
+       function remove_disable_widget() {
+        $d = get_option('widgetid');
+        if ($d != NULL) {
+            foreach ($d as $widget) {
+                if ($d[$widget['key']]['status'] == FALSE) {
+                    if (class_exists($widget['key'])) {
+                        unregister_widget($widget['key']);
+                    } else {
+                        unset($d[$widget['key']]);
+                        update_option('widgetid', $d);
+                    }
+                }
+            }
+        }
     }
-    if (preg_match("/WP_(Widget|Nav)/", $keys)) {
-        $type = "Default";
-    } else if (array_key_exists($keys, $c) == FALSE) {
-        $type = "Plugin";
-    } else {
-        $type = "Custom";
+    function disable_plugin_widget() {
+        $d = get_option('widgetid');
+        if ($d != NULL) {
+            foreach ($d as $widget) {
+                if ($d[$widget['key']]['status'] == FALSE && $widget['type'] == 'Plugin') {
+                    if (class_exists($widget['key'])) {
+                        $wid = ($GLOBALS['wp_widget_factory']->widgets);
+                        unregister_widget($widget['key']);
+                        unset($GLOBALS['wp_registered_widgets'][$widget['id']]);
+                    } else {
+                        unset($d[$widget['key']]);
+                        unset($GLOBALS['wp_registered_widgets'][$widget['id']]);
+                        update_option('widgetid', $d);
+                    }
+                }
+            }
+        }
     }
-    return $type;
-}
+    function clean_sweep() {
+        $d = get_option('widgetid');
+        $cw = get_option('custom-widget');
+        foreach ($d as $widget) {
+            if (class_exists($widget['key']) == FALSE) {
+                unset($d[$widget['key']]);
+                update_option('widgetid', $d);
+            }
+        }
+        if (empty($cw) == FALSE)
+            foreach ($cw as $c) {
+                if (array_key_exists($c['key'], $d) == FALSE) {
+                    unset($cw[$c['key']]);
+                    update_option('custom-widget', $cw);
+                }
+            }
+    }
     
 }

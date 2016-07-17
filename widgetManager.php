@@ -21,11 +21,11 @@ class widget_manager {
         $cust = get_option('custom-widget');
          $w=new widgetController($dir,$w,$cust);
         if (is_admin()) {
-            add_action('widgets_init',$w->import_cust_widget());
-            add_action('widgets_init', array(__CLASS__, 'remove_disable_widget'));
-            add_action('init', array(__CLASS__, 'disable_plugin_widget'));
+            add_action('widgets_init',$w->import_cust_widget);
+            add_action('widgets_init', $w->remove_disable_widget);
+            add_action('init',$w->disable_plugin_widget);
             add_action('widgets_init',$w->load_widgets);
-            add_action('widgets_init', array(__CLASS__, 'clean_sweep'));
+            add_action('widgets_init', $w->clean_sweep);
             add_action('widgets_init', 'empty_names');
             add_action('admin_menu', array(__CLASS__, 'widget_manager_create_menu'));
             add_action('admin_enqueue_scripts', array(__CLASS__, 'add_scripts'));
@@ -91,64 +91,6 @@ static function front_end_import(){
 
     static function WidgetManager_creds_page() {
         include(plugin_dir_path(__FILE__) . '/pages/credentials.php');
-    }
-
-
-
-
-    function remove_disable_widget() {
-        $d = get_option('widgetid');
-        if ($d != NULL) {
-            foreach ($d as $widget) {
-                if ($d[$widget['key']]['status'] == FALSE) {
-                    if (class_exists($widget['key'])) {
-                        unregister_widget($widget['key']);
-                    } else {
-                        unset($d[$widget['key']]);
-                        update_option('widgetid', $d);
-                    }
-                }
-            }
-        }
-    }
-
-    function disable_plugin_widget() {
-        $d = get_option('widgetid');
-        if ($d != NULL) {
-            foreach ($d as $widget) {
-                if ($d[$widget['key']]['status'] == FALSE && $widget['type'] == 'Plugin') {
-                    if (class_exists($widget['key'])) {
-                        $wid = ($GLOBALS['wp_widget_factory']->widgets);
-                        unregister_widget($widget['key']);
-                        unset($GLOBALS['wp_registered_widgets'][$widget['id']]);
-                    } else {
-                        unset($d[$widget['key']]);
-                        unset($GLOBALS['wp_registered_widgets'][$widget['id']]);
-                        update_option('widgetid', $d);
-                    }
-                }
-            }
-        }
-    }
-
-   
-
-    function clean_sweep() {
-        $d = get_option('widgetid');
-        $cw = get_option('custom-widget');
-        foreach ($d as $widget) {
-            if (class_exists($widget['key']) == FALSE) {
-                unset($d[$widget['key']]);
-                update_option('widgetid', $d);
-            }
-        }
-        if (empty($cw) == FALSE)
-            foreach ($cw as $c) {
-                if (array_key_exists($c['key'], $d) == FALSE) {
-                    unset($cw[$c['key']]);
-                    update_option('custom-widget', $cw);
-                }
-            }
     }
 
 }
@@ -252,28 +194,6 @@ function empty_names() {
     update_option('custom-widget', $cust);
 }
 
-function autoDetect() {
-    $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
-    $w = get_option('widgetid');
-    $shown = false;
-    foreach ($widgets as $keys) {
-        if (array_key_exists($keys, $w) == FALSE) {
-            if (get_type($keys) != 'Default') {
-                $type = get_type($keys);
-                array_push($w, $w[$keys] = array('key' => $keys, 'name' => get_name($keys), 'Description' => get_description($keys), 'id' => get_id($keys), 'type' => $type, 'status' => TRUE));
-                array_pop($w);
-                if ($shown != TRUE) {
-                    echo '<div class="notfi"><strong>Recently added widgets</strong> <ul style="list-style:disc; padding: 1px; list-style-position: inside;">';
-                    $shown = true;
-                }
-                echo '<li>' . get_name($keys) . '</li>';
-                update_option('widgetid', $w);
-            }
-        }
-    }
-    echo'</ul></div>';
-    return $shown;
-}
 
 widget_manager::init();
 ?>
