@@ -50,19 +50,19 @@ $widRetriever= new widgetRetriever();
         <input type='hidden' name='count' value='$num' id='count'>
         <div class="widget-list">
             <?php
-            $widgets = get_widgets_type(get_option('widgetid'), "Default");
+            $widgets = $widRetriever->get_widgets_type(get_option('widgetid'), "Default");
             display($widgets, "Default");
             ?>
         </div>
         <div class="widget-list">
             <?php
-            $widgets = get_widgets_type(get_option('widgetid'), "Plugin");
+            $widgets = $widRetriever->get_widgets_type(get_option('widgetid'), "Plugin");
             display($widgets, "Plugin");
             ?>
         </div>
         <div class="widget-list">
             <?php
-            $widgets = get_widgets_type(get_option('widgetid'), "Custom");
+            $widgets = $widRetriever->get_widgets_type(get_option('widgetid'), "Custom");
             display($widgets, "Custom");
             ?>
         </div>
@@ -135,19 +135,5 @@ function display($widgets, $type) {
     }
 }
 
-function get_widgets_type($widgets, $types) {
-    array_pop($wid = array());
-    foreach ($widgets as $widget) {
-        if ($widget['type'] == $types) {
-            array_push($wid, $widget);
-        } else {
-            continue;
-        }
-    }
-    usort($wid, function($a, $b) {
-        return strcmp($a['name'], $b['name']);
-    });
-    return $wid;
-}
 ?>
 

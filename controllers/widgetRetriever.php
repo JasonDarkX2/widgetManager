@@ -49,4 +49,20 @@ function get_type($keys) {
     }
     return $type;
 }
+
+function get_widgets_type($widgets, $types) {
+    array_pop($wid = array());
+    foreach ($widgets as $widget) {
+        if ($widget['type'] == $types) {
+            array_push($wid, $widget);
+        } else {
+            continue;
+        }
+    }
+    usort($wid, function($a, $b) {
+        return strcmp($a['name'], $b['name']);
+    });
+    return $wid;
+}
+
 }

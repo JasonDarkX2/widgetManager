@@ -114,5 +114,17 @@ $this->cust=$c;
                 }
             }
     }
+ 
+
+function empty_names() {
+    $cust = get_option('custom-widget');
+    if ($cust != NULL)
+        foreach ($cust as $wid) {
+            if (get_name($wid['class']) != NULL)
+                $cust[$wid['key']]['name'] = get_name($wid['class']);
+        }
+
+    update_option('custom-widget', $cust);
+}    
     
 }

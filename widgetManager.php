@@ -15,7 +15,7 @@ class widget_manager {
 
     static $add_script;
     static function init() {
-        //define('WPWM_DEBUG', true);
+        define('WPWM_DEBUG', true);
         $dir = get_option('widgetdir');
         $w = get_option('widgetid');
         $cust = get_option('custom-widget');
@@ -26,7 +26,7 @@ class widget_manager {
             add_action('init',$w->disable_plugin_widget);
             add_action('widgets_init',$w->load_widgets);
             add_action('widgets_init', $w->clean_sweep);
-            add_action('widgets_init', 'empty_names');
+            add_action('widgets_init', $w->empty_names);
             add_action('admin_menu', array(__CLASS__, 'widget_manager_create_menu'));
             add_action('admin_enqueue_scripts', array(__CLASS__, 'add_scripts'));
             if (get_option('widgetdir') == NULL||get_option('widgetdir') ==''||get_option('widgetdir') =='/') {
@@ -126,28 +126,6 @@ function getCustomWidgets($dir) {
     return $customwidgets;
 }
 
-function getWidgetClass($file) {
-
-    $c = get_option('custom-widget');
-    $dir = get_option('widgetdir');
-    if ($file != "") {
-        if (file_exists($dir . $file))
-            $file = file_get_contents($dir . $file);
-        $t = token_get_all($file);
-        $class_token = false;
-        foreach ($t as $token) {
-            if (is_array($token)) {
-                if ($token[0] == T_CLASS) {
-                    $class_token = true;
-                } else if ($class_token && $token[0] == T_STRING) {
-                    $widget_class = $token[1];
-                    $class_token = false;
-                }
-            }
-        }
-    }
-    return $widget_class;
-}
 
 /*function get_type($keys) {
     $wm = new widget_manager();
@@ -166,33 +144,9 @@ function getWidgetClass($file) {
     return $type;
 }*/
 
-function get_name($key) {
-    $wid = ($GLOBALS['wp_widget_factory']->widgets);
-    $name = $wid[$key]->name;
-    return $name;
-}
 
-function get_id($key) {
-    $wid = ($GLOBALS['wp_widget_factory']->widgets);
-    $id = $wid[$key]->id;
-    return $id;
-}
 
-function get_description($key) {
-    $wid = ($GLOBALS['wp_widget_factory']->widgets);
-    return $wid[$key]->widget_options['description'];
-}
 
-function empty_names() {
-    $cust = get_option('custom-widget');
-    if ($cust != NULL)
-        foreach ($cust as $wid) {
-            if (get_name($wid['class']) != NULL)
-                $cust[$wid['key']]['name'] = get_name($wid['class']);
-        }
-
-    update_option('custom-widget', $cust);
-}
 
 
 widget_manager::init();
