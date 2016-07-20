@@ -5,13 +5,10 @@
  * For more information check out: http://JasonDarkX2.com/ 
  */
 ?>
-<?php 
-require_once plugin_dir_path(dirname(__FILE__)).'controllers/widgetRetriever.php';
-$widRetriever= new widgetRetriever();
-?>
 <h1> Widget Manager</h1>
 <p id="msg">
     <?php
+    //session_start();
     if (isset($_SESSION['errors'])) {
         print_r($_SESSION['errors']);
         $_SESSION['errors'] = NULL;
@@ -20,8 +17,7 @@ $widRetriever= new widgetRetriever();
             print_r($_SESSION['deletion']);
             $_SESSION['deletion'] = NULL;
         } else {
-            
-            $widRetriever->autoDetect;
+            autoDetect();
         }
     }
     ?>
@@ -30,7 +26,7 @@ $widRetriever= new widgetRetriever();
     <div class="wm-controls">
         <label for="quickOp">Bulk Action:</label>
         <select name="quickOp">
-            <option value="pick">Select an Action</option>
+            <option value="">Select an Action</option>
             <option value="enbwid"> Enable all widgets</option>
             <option value="diswid"> Disable all widgets</option>
             <option value="enbDefault"> Enable default widgets Only</option>
@@ -46,23 +42,23 @@ $widRetriever= new widgetRetriever();
     <input type="hidden" name="wpdir" value="<?php echo basename(content_url()); ?>" />
     <?php settings_fields('WM-setting'); ?>
     <?php do_settings_sections('WM-setting'); ?>
-    <div style='display:table;'>
+    <div stle='display:table;'>
         <input type='hidden' name='count' value='$num' id='count'>
         <div class="widget-list">
             <?php
-            $widgets = $widRetriever->get_widgets_type(get_option('widgetid'), "Default");
+            $widgets = get_widgets_type(get_option('widgetid'), "Default");
             display($widgets, "Default");
             ?>
         </div>
         <div class="widget-list">
             <?php
-            $widgets = $widRetriever->get_widgets_type(get_option('widgetid'), "Plugin");
+            $widgets = get_widgets_type(get_option('widgetid'), "Plugin");
             display($widgets, "Plugin");
             ?>
         </div>
         <div class="widget-list">
             <?php
-            $widgets = $widRetriever->get_widgets_type(get_option('widgetid'), "Custom");
+            $widgets = get_widgets_type(get_option('widgetid'), "Custom");
             display($widgets, "Custom");
             ?>
         </div>
@@ -135,5 +131,18 @@ function display($widgets, $type) {
     }
 }
 
+function get_widgets_type($widgets, $types) {
+    array_pop($wid = array());
+    foreach ($widgets as $widget) {
+        if ($widget['type'] == $types) {
+            array_push($wid, $widget);
+        } else {
+            continue;
+        }
+    }
+    usort($wid, function($a, $b) {
+        return strcmp($a['name'], $b['name']);
+    });
+    return $wid;
+}
 ?>
-
