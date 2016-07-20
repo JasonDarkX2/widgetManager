@@ -17,12 +17,11 @@ class widget_manager {
 
     function init() {
         define('WPWM_DEBUG', true);
-       $wc=new widgetController();
         if (is_admin()) {
             add_action('widgets_init', array(__CLASS__, 'import_cust_widget'));
             add_action('widgets_init', array(__CLASS__, 'remove_disable_widget'));
-            add_action('init', array(__CLASS__, 'disable_plugin_widget'));
-            add_action('widgets_init',  $wc->load_widgets());
+            add_action('init', disable_plugin_widget);
+             add_action('widgets_init', load_widgets);
             add_action('widgets_init', array(__CLASS__, 'clean_sweep'));
             add_action('widgets_init', 'empty_names');
             add_action('admin_menu', array(__CLASS__, 'widget_manager_create_menu'));
@@ -92,7 +91,7 @@ static function front_end_import(){
     }
 
 
-    /*function load_widgets() {
+   /*function load_widgets() {
         $w = get_option('widgetid');
         if (empty($w)) {
             $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
@@ -136,7 +135,7 @@ static function front_end_import(){
         }
     }
 
-    function disable_plugin_widget() {
+    /*function disable_plugin_widget() {
         $d = get_option('widgetid');
         if ($d != NULL) {
             foreach ($d as $widget) {
@@ -153,7 +152,7 @@ static function front_end_import(){
                 }
             }
         }
-    }
+    }*/
 
     function import_cust_widget() {
         $dir = get_option('widgetdir');
