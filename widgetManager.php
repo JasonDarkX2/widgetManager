@@ -14,14 +14,16 @@ require_once  plugin_dir_path(__FILE__).'controllers/widgetController.php';
 class widget_manager {
 
     static $add_script;
-
+    static $wc;
     function init() {
         define('WPWM_DEBUG', true);
         if (is_admin()) {
+            self::$wc=new widgetController();
             add_action('widgets_init', array(__CLASS__, 'import_cust_widget'));
             add_action('widgets_init', array(__CLASS__, 'remove_disable_widget'));
             add_action('init', disable_plugin_widget);
-             add_action('widgets_init', load_widgets);
+             ///add_action('widgets_init', load_widgets);
+            add_action('widgets_init',array(__CLASS__,'load_procedures'));
             add_action('widgets_init', array(__CLASS__, 'clean_sweep'));
             add_action('widgets_init', 'empty_names');
             add_action('admin_menu', array(__CLASS__, 'widget_manager_create_menu'));
@@ -35,6 +37,9 @@ class widget_manager {
         }
 
             add_action('plugins_loaded', array(__CLASS__, 'front_end_import'));
+    }
+    function load_procedures(){
+        self::$wc->load_widgets();
     }
 static function front_end_import(){
     $dir = get_option('widgetdir');
