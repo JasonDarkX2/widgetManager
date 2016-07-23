@@ -21,11 +21,11 @@ class widget_manager {
             self::$wc=new widgetController();
             add_action('widgets_init', array(__CLASS__, 'import_cust_widget'));
             add_action('widgets_init', array(__CLASS__, 'remove_disable_widget'));
-            add_action('init', disable_plugin_widget);
+            add_action('init', array(__CLASS__, 'disable_plugin_widget'));
              ///add_action('widgets_init', load_widgets);
             add_action('widgets_init',array(__CLASS__,'load_procedures'));
-            add_action('widgets_init', array(__CLASS__, 'clean_sweep'));
-            add_action('widgets_init', 'empty_names');
+            //add_action('widgets_init', array(__CLASS__, 'clean_sweep'));
+            //add_action('widgets_init', 'empty_names');
             add_action('admin_menu', array(__CLASS__, 'widget_manager_create_menu'));
             add_action('admin_enqueue_scripts', array(__CLASS__, 'add_scripts'));
                 if (get_option('widgetdir') == NULL||get_option('widgetdir') ==''||get_option('widgetdir') =='/') {
@@ -39,6 +39,8 @@ class widget_manager {
             add_action('plugins_loaded', array(__CLASS__, 'front_end_import'));
     }
     function load_procedures(){
+         self::$wc->clean_sweep();
+         self::$wc->empty_names();
         self::$wc->load_widgets();
     }
 static function front_end_import(){
@@ -140,7 +142,7 @@ static function front_end_import(){
         }
     }
 
-    /*function disable_plugin_widget() {
+    function disable_plugin_widget() {
         $d = get_option('widgetid');
         if ($d != NULL) {
             foreach ($d as $widget) {
@@ -157,7 +159,7 @@ static function front_end_import(){
                 }
             }
         }
-    }*/
+    }
 
     function import_cust_widget() {
         $dir = get_option('widgetdir');
@@ -186,7 +188,7 @@ static function front_end_import(){
         }
     }
 
-    function clean_sweep() {
+    /*function clean_sweep() {
         $d = get_option('widgetid');
         $cw = get_option('custom-widget');
         foreach ($d as $widget) {
@@ -202,9 +204,19 @@ static function front_end_import(){
                     update_option('custom-widget', $cw);
                 }
             }
-    }
+    }*/
 
 }
+/*function empty_names() {
+    $cust = get_option('custom-widget');
+    if ($cust != NULL)
+        foreach ($cust as $wid) {
+            if (get_name($wid['class']) != NULL)
+                $cust[$wid['key']]['name'] = get_name($wid['class']);
+        }
+
+    update_option('custom-widget', $cust);
+}*/
 
 function getCustomWidgets($dir) {
     $customwidgets = array();
@@ -294,16 +306,7 @@ function get_description($key) {
     return $wid[$key]->widget_options['description'];
 }
 
-function empty_names() {
-    $cust = get_option('custom-widget');
-    if ($cust != NULL)
-        foreach ($cust as $wid) {
-            if (get_name($wid['class']) != NULL)
-                $cust[$wid['key']]['name'] = get_name($wid['class']);
-        }
 
-    update_option('custom-widget', $cust);
-}
 
 function autoDetect() {
     $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
