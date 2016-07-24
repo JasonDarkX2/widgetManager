@@ -20,8 +20,8 @@ class widget_manager {
         if (is_admin()) {
             self::$wc=new widgetController();
             add_action('widgets_init', array(__CLASS__, 'import_cust_widget'));
-            add_action('widgets_init', array(__CLASS__, 'remove_disable_widget'));
-            add_action('init', array(__CLASS__, 'disable_plugin_widget'));
+            //add_action('widgets_init', array(__CLASS__, 'remove_disable_widget'));
+            //add_action('init', array(__CLASS__, 'disable_plugin_widget'));
              ///add_action('widgets_init', load_widgets);
             add_action('widgets_init',array(__CLASS__,'load_procedures'));
             //add_action('widgets_init', array(__CLASS__, 'clean_sweep'));
@@ -39,9 +39,12 @@ class widget_manager {
             add_action('plugins_loaded', array(__CLASS__, 'front_end_import'));
     }
     function load_procedures(){
+         self::$wc->remove_disable_widget();
+        self::$wc->disable_plugin_widget();
+        self::$wc->load_widgets();
          self::$wc->clean_sweep();
          self::$wc->empty_names();
-        self::$wc->load_widgets();
+        
     }
 static function front_end_import(){
     $dir = get_option('widgetdir');
@@ -126,7 +129,7 @@ static function front_end_import(){
         }
     }*/
 
-    function remove_disable_widget() {
+    /*function remove_disable_widget() {
         $d = get_option('widgetid');
         if ($d != NULL) {
             foreach ($d as $widget) {
@@ -140,9 +143,9 @@ static function front_end_import(){
                 }
             }
         }
-    }
+    }*/
 
-    function disable_plugin_widget() {
+    /*function disable_plugin_widget() {
         $d = get_option('widgetid');
         if ($d != NULL) {
             foreach ($d as $widget) {
@@ -159,7 +162,7 @@ static function front_end_import(){
                 }
             }
         }
-    }
+    }*/
 
     function import_cust_widget() {
         $dir = get_option('widgetdir');

@@ -33,7 +33,7 @@ class widgetController{
             update_option('widgetid', $w);
         }
     }
-    function disable_plugin_widget() {
+        function disable_plugin_widget() {
         $d = get_option('widgetid');
         if ($d != NULL) {
             foreach ($d as $widget) {
@@ -45,6 +45,21 @@ class widgetController{
                     } else {
                         unset($d[$widget['key']]);
                         unset($GLOBALS['wp_registered_widgets'][$widget['id']]);
+                        update_option('widgetid', $d);
+                    }
+                }
+            }
+        }
+    }
+    function remove_disable_widget() {
+        $d = get_option('widgetid');
+        if ($d != NULL) {
+            foreach ($d as $widget) {
+                if ($d[$widget['key']]['status'] == FALSE) {
+                    if (class_exists($widget['key'])) {
+                        unregister_widget($widget['key']);
+                    } else {
+                        unset($d[$widget['key']]);
                         update_option('widgetid', $d);
                     }
                 }
