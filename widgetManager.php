@@ -23,6 +23,7 @@ class widget_manager {
             //add_action('widgets_init', array(__CLASS__, 'remove_disable_widget'));
             //add_action('init', array(__CLASS__, 'disable_plugin_widget'));
              ///add_action('widgets_init', load_widgets);
+            add_action('init',array(__CLASS__,'load_initProcedures'));
             add_action('widgets_init',array(__CLASS__,'load_procedures'));
             //add_action('widgets_init', array(__CLASS__, 'clean_sweep'));
             //add_action('widgets_init', 'empty_names');
@@ -38,10 +39,12 @@ class widget_manager {
 
             add_action('plugins_loaded', array(__CLASS__, 'front_end_import'));
     }
+    function load_initProcedures(){
+        self::$wc->disable_plugin_widget();
+    }
     function load_procedures(){
         self::$wc->import_cust_widget();
         self::$wc->remove_disable_widget();
-        self::$wc->disable_plugin_widget();
         self::$wc->load_widgets();
          self::$wc->clean_sweep();
          self::$wc->empty_names();
@@ -102,7 +105,7 @@ static function front_end_import(){
     }
 
 
-   function load_widgets() {
+   /*function load_widgets() {
         $w = get_option('widgetid');
         if (empty($w)) {
             $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
@@ -128,7 +131,7 @@ static function front_end_import(){
 
             update_option('widgetid', $w);
         }
-    }
+    }*/
 
     /*function remove_disable_widget() {
         $d = get_option('widgetid');
