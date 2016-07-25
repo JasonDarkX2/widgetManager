@@ -66,7 +66,32 @@ class widgetController{
             }
         }
     }
-    
+        function import_cust_widget() {
+        $dir = get_option('widgetdir');
+        $w = get_option('widgetid');
+        $cust = get_option('custom-widget');
+        $custwid = getCustomWidgets($dir);
+        if ($custwid != null) {
+            foreach ($custwid as $wid) {
+                $info = new SplFileInfo($dir . $wid);
+                if ($info->getExtension() == 'php') {
+                    if (class_exists(getWidgetClass($wid)) == FALSE)
+                        include($dir . $wid);
+                    register_widget(getWidgetClass($wid));
+                }
+                if (empty($cust) == TRUE && getWidgetClass($wid) != '') {
+                    $cust[getWidgetClass($wid)] = array('key' => getWidgetClass($wid), 'class' => getWidgetClass($wid), 'name' => get_name(getWidgetClass($wid)), 'file' => $wid, 'status' => true);
+                } else {
+                    if (array_key_exists(getWidgetClass($wid), $cust) == FALSE) {
+                        array_push($cust, $cust[getWidgetClass($wid)] = array('key' => getWidgetClass($wid), 'class' => getWidgetClass($wid), 'name' => get_name(getWidgetClass($wid)), 'file' => $wid, 'status' => true));
+                        array_pop($cust);
+                    }
+                }
+                $w[getWidgetClass($wid)]['type'] = "Custom";
+                update_option('custom-widget', $cust);
+            }
+        }
+    }
     function clean_sweep() {
         $d = get_option('widgetid');
         $cw = get_option('custom-widget');

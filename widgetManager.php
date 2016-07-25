@@ -19,7 +19,7 @@ class widget_manager {
         define('WPWM_DEBUG', true);
         if (is_admin()) {
             self::$wc=new widgetController();
-            add_action('widgets_init', array(__CLASS__, 'import_cust_widget'));
+            //add_action('widgets_init', array(__CLASS__, 'import_cust_widget'));
             //add_action('widgets_init', array(__CLASS__, 'remove_disable_widget'));
             //add_action('init', array(__CLASS__, 'disable_plugin_widget'));
              ///add_action('widgets_init', load_widgets);
@@ -39,7 +39,8 @@ class widget_manager {
             add_action('plugins_loaded', array(__CLASS__, 'front_end_import'));
     }
     function load_procedures(){
-         self::$wc->remove_disable_widget();
+        self::$wc->import_cust_widget();
+        self::$wc->remove_disable_widget();
         self::$wc->disable_plugin_widget();
         self::$wc->load_widgets();
          self::$wc->clean_sweep();
@@ -101,7 +102,7 @@ static function front_end_import(){
     }
 
 
-   /*function load_widgets() {
+   function load_widgets() {
         $w = get_option('widgetid');
         if (empty($w)) {
             $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
@@ -127,7 +128,7 @@ static function front_end_import(){
 
             update_option('widgetid', $w);
         }
-    }*/
+    }
 
     /*function remove_disable_widget() {
         $d = get_option('widgetid');
@@ -164,7 +165,7 @@ static function front_end_import(){
         }
     }*/
 
-    function import_cust_widget() {
+    /*function import_cust_widget() {
         $dir = get_option('widgetdir');
         $w = get_option('widgetid');
         $cust = get_option('custom-widget');
@@ -189,7 +190,7 @@ static function front_end_import(){
                 update_option('custom-widget', $cust);
             }
         }
-    }
+    }*/
 
     /*function clean_sweep() {
         $d = get_option('widgetid');
@@ -276,8 +277,8 @@ function getWidgetClass($file) {
 }
 
 function get_type($keys) {
-    $wm = new widget_manager();
-    $wm->import_cust_widget();
+    $wc = new widgetController();
+    $wc->import_cust_widget();
     $c = get_option('custom-widget');
     if ($c == null) {
         $c = get_option('widgetid');
