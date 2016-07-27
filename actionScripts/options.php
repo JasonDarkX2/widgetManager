@@ -8,6 +8,7 @@
 $w = $_POST['wpdir'];
 $parse_uri = explode($w, $_SERVER['SCRIPT_FILENAME']);
 require_once( $parse_uri[0] . 'wp-load.php' );
+$wid=get_option('widgetid');
 $enablecon = 0;
 $disabledcon = 0;
 $widgets = $_POST['widgetid'];
@@ -59,7 +60,7 @@ If (isset($_POST['quickOp'])) {
             return;
             break;
         default:
-            status_count($enablecon, $disabledcon);
+            status_count($wid,$enablecon, $disabledcon);
             break;
     }
 } else {
@@ -78,6 +79,7 @@ If (isset($_POST['quickOp'])) {
     update_option('widgetid', $wid);
     
 }
+$wid=get_option('widgetid');
 status_count($wid,$enablecon, $disabledcon);
 echo '<div class="notfi">' . $enablecon . ' enabled widgets and ' . $disabledcon . ' disabled widgets' . '</div>';
 
@@ -120,8 +122,7 @@ function get_count($type) {
 }
 
 function status_count($wl,&$enablecon, &$disabledcon){ 
-    $w = $wl;
-    foreach ($w as $wid) {
+    foreach ($wl as $wid) {
         if ($wid['status']){ 
             $enablecon ++;
         } else {
