@@ -37,7 +37,7 @@ class widget_manager {
         self::$wc->disable_plugin_widget();
     }
     function load_procedures(){
-        //self::$wc->import_cust_widget();
+        self::$wc->import_cust_widget();
         self::$wc->remove_disable_widget();
         self::$wc->load_widgets();
          self::$wc->clean_sweep();
@@ -193,28 +193,30 @@ function get_description($key) {
 */
 
 
-/*function autoDetect() {
+function autoDetect() {
     $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
     $w = get_option('widgetid');
     $shown = false;
+    $theWidget= new theWidget();
     foreach ($widgets as $keys) {
         if (array_key_exists($keys, $w) == FALSE) {
-            if (get_type($keys) != 'Default') {
-                $type = get_type($keys);
-                array_push($w, $w[$keys] = array('key' => $keys, 'name' => get_name($keys), 'Description' => get_description($keys), 'id' => get_id($keys), 'type' => $type, 'status' => TRUE));
+            if ($theWidget->get_type($keys) != 'Default') {
+                //$type = get_type($keys);
+                array_push($w, $w[$keys] =$theWidget->make_widget($keys)); 
+//array('key' => $keys, 'name' => get_name($keys), 'Description' => get_description($keys), 'id' => get_id($keys), 'type' => $type, 'status' => TRUE));
                 array_pop($w);
                 if ($shown != TRUE) {
                     echo '<div class="notfi"><strong>Recently added widgets</strong> <ul style="list-style:disc; padding: 1px; list-style-position: inside;">';
                     $shown = true;
                 }
-                echo '<li>' . get_name($keys) . '</li>';
+                echo '<li>' . $theWidget->get_name($keys) . '</li>';
                 update_option('widgetid', $w);
             }
         }
     }
     echo'</ul></div>';
     return $shown;
-}*/
+}
 
 widget_manager::init();
 ?>
