@@ -117,11 +117,12 @@ class widgetController{
             }
     }
     function empty_names() {
+        $theWidget= new theWidget();
     $cust = get_option('custom-widget');
     if ($cust != NULL)
         foreach ($cust as $wid) {
-            if (get_name($wid['class']) != NULL)
-                $cust[$wid['key']]['name'] = get_name($wid['class']);
+            if ($theWidget->get_name($wid['class']) != NULL)
+                $cust[$wid['key']]['name'] = $theWidget->get_name($wid['class']);
         }
 
     update_option('custom-widget', $cust);

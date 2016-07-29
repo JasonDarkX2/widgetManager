@@ -8,7 +8,7 @@
 
 class theWidget{
 
-function make_widget($key){
+function make_widget($keys){
     $widget = array($keys => array(
         'key' => $keys, 
         'name' => $this->get_name($keys), 
