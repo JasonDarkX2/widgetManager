@@ -2,35 +2,39 @@
 /*
 controller for Wordpress Widget Manager
  */
+require_once  plugin_dir_path(dirname(__FILE__)).'model/theWidget.php';
 class widgetController{
    function __construct() {
        
    }
    function load_widgets() {
+       $theWidget= new theWidget();
         $w = get_option('widgetid');
         if (empty($w)) {
             $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
             $w = ($GLOBALS['wp_widget_factory']->widgets);
             foreach ($widgets as $keys) {
                 if (empty($widgetsId)) {
-                    $type = get_type($keys);
-                    $widgetsId = array($keys => array('key' => $keys, 'name' => get_name($keys), 'Description' => get_description($keys), 'type' => $type, 'status' => TRUE));
+                    //$type = get_type($keys);
+                    $widgetsId = $theWidget->make_widget($keys);
+                            //array($keys => array('key' => $keys, 'name' => get_name($keys), 'Description' => get_description($keys), 'type' => $type, 'status' => TRUE));
                 } else {
-                    $type = get_type($keys);
-                    array_push($widgetsId, $widgetsId[$keys] = array('key' => $keys, 'name' => get_name($keys), 'Description' => get_description($keys), 'id' => get_id($keys), 'type' => $type, 'status' => TRUE));
+                    //$type = get_type($keys);
+                    array_push($widgetsId, $widgetsId[$keys] = $theWidget->make_widget($keys));
+                            //array('key' => $keys, 'name' => get_name($keys), 'Description' => get_description($keys), 'id' => get_id($keys), 'type' => $type, 'status' => TRUE));
                     array_pop($widgetsId);
                 }
             }
             update_option('widgetid', $widgetsId);
             $widgets = $widgetsId;
         } else {
-            $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
+            /*$widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
             $wid = ($GLOBALS['wp_widget_factory']->widgets);
             $type = get_type($keys);
             array_push($w, $w[$keys] = array('key' => $keys, 'name' => get_name($keys), 'Description' => get_description($keys), 'id' => get_id($keys), 'type' => $type, 'status' => TRUE));
             array_pop($w);
 
-            update_option('widgetid', $w);
+            update_option('widgetid', $w);*/
         }
     }
         function disable_plugin_widget() {
@@ -71,23 +75,26 @@ class widgetController{
         $w = get_option('widgetid');
         $cust = get_option('custom-widget');
         $custwid = getCustomWidgets($dir);
+        $theWidget = new theWidget();
         if ($custwid != null) {
             foreach ($custwid as $wid) {
                 $info = new SplFileInfo($dir . $wid);
                 if ($info->getExtension() == 'php') {
-                    if (class_exists(getWidgetClass($wid)) == FALSE)
+                    if (class_exists($theWidget->getWidgetClass($wid)) == FALSE)
                         include($dir . $wid);
-                    register_widget(getWidgetClass($wid));
+                    register_widget($theWidget->getWidgetClass($wid));
                 }
-                if (empty($cust) == TRUE && getWidgetClass($wid) != '') {
-                    $cust[getWidgetClass($wid)] = array('key' => getWidgetClass($wid), 'class' => getWidgetClass($wid), 'name' => get_name(getWidgetClass($wid)), 'file' => $wid, 'status' => true);
+                if (empty($cust) == TRUE && $theWidget->getWidgetClass($wid) != '') {
+                    $cust[$theWidget->getWidgetClass($wid)] = $theWidget->make_customWiget($wid);
+                            //array('key' => getWidgetClass($wid), 'class' => getWidgetClass($wid), 'name' => get_name(getWidgetClass($wid)), 'file' => $wid, 'status' => true);
                 } else {
-                    if (array_key_exists(getWidgetClass($wid), $cust) == FALSE) {
-                        array_push($cust, $cust[getWidgetClass($wid)] = array('key' => getWidgetClass($wid), 'class' => getWidgetClass($wid), 'name' => get_name(getWidgetClass($wid)), 'file' => $wid, 'status' => true));
+                    if (array_key_exists($theWidget->getWidgetClass($wid), $cust) == FALSE) {
+                        array_push($cust, $cust[getWidgetClass($wid)] = $theWidget->make_customWiget($wid));
+                                //array('key' => getWidgetClass($wid), 'class' => getWidgetClass($wid), 'name' => get_name(getWidgetClass($wid)), 'file' => $wid, 'status' => true));
                         array_pop($cust);
                     }
                 }
-                $w[getWidgetClass($wid)]['type'] = "Custom";
+                //$w[getWidgetClass($wid)]['type'] = "Custom";
                 update_option('custom-widget', $cust);
             }
         }
