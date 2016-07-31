@@ -39,9 +39,9 @@ function autoDetect() {
 
 function get_widgets_type($widgets, $types) {
     array_pop($wid = array());
-    foreach ($widgets as $widget) {
-        if ($widget['type'] == $types) {
-            array_push($wid, $widget);
+    foreach ($widgets  as $w => $v ){
+        if ($v[$w]['type'] == $types) {
+            array_push($wid, $v[$w]);
         } else {
             continue;
         }
@@ -49,5 +49,6 @@ function get_widgets_type($widgets, $types) {
     usort($wid, function($a, $b) {
         return strcmp($a['name'], $b['name']);
     });
+    return $wid;
 }
 }

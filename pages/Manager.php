@@ -8,6 +8,8 @@
 <h1> Widget Manager</h1>
 <p id="msg">
     <?php
+    require_once  plugin_dir_path(dirname(__FILE__)).'controllers/widgetRetriever.php';
+    $retriever= new widgetRetriever();
     //session_start();
     if (isset($_SESSION['errors'])) {
         print_r($_SESSION['errors']);
@@ -17,7 +19,7 @@
             print_r($_SESSION['deletion']);
             $_SESSION['deletion'] = NULL;
         } else {
-            autoDetect();
+            $retriever->autoDetect();
         }
     }
     ?>
@@ -46,19 +48,23 @@
         <input type='hidden' name='count' value='$num' id='count'>
         <div class="widget-list">
             <?php
-            $widgets = get_widgets_type(get_option('widgetid'), "Default");
+            $widgets =  $retriever->get_widgets_type(get_option('widgetid'), "Default");
+            //foreach (get_option('widgetid') as $w => $v ){
+    //echo $w . $v[$w]['type'] .'</br>';
+            //}
             display($widgets, "Default");
             ?>
         </div>
         <div class="widget-list">
             <?php
-            $widgets = get_widgets_type(get_option('widgetid'), "Plugin");
+            $widgets = $retriever->get_widgets_type(get_option('widgetid'), "Plugin");
+            //var_dump($widgets);
             display($widgets, "Plugin");
             ?>
         </div>
         <div class="widget-list">
             <?php
-            $widgets = get_widgets_type(get_option('widgetid'), "Custom");
+            $widgets = $retriever->get_widgets_type(get_option('widgetid'), "Custom");
             display($widgets, "Custom");
             ?>
         </div>
@@ -129,20 +135,5 @@ function display($widgets, $type) {
             <?php
         }
     }
-}
-
-function get_widgets_type($widgets, $types) {
-    array_pop($wid = array());
-    foreach ($widgets as $widget) {
-        if ($widget['type'] == $types) {
-            array_push($wid, $widget);
-        } else {
-            continue;
-        }
-    }
-    usort($wid, function($a, $b) {
-        return strcmp($a['name'], $b['name']);
-    });
-    return $wid;
 }
 ?>
