@@ -193,7 +193,7 @@ function get_description($key) {
 */
 
 
-function autoDetect() {
+/*function autoDetect() {
     $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
     $w = get_option('widgetid');
     $shown = false;
@@ -216,7 +216,6 @@ function autoDetect() {
     }
     echo'</ul></div>';
     return $shown;
-}
-
+}*/
 widget_manager::init();
 ?>
