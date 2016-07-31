@@ -49,6 +49,5 @@ function get_widgets_type($widgets, $types) {
     usort($wid, function($a, $b) {
         return strcmp($a['name'], $b['name']);
     });
-    ret
-
+}
 }
