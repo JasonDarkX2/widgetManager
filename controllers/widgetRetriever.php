@@ -20,9 +20,7 @@ function autoDetect() {
     foreach ($widgets as $keys) {
         if (array_key_exists($keys, $w) == FALSE) {
             if ($theWidget->get_type($keys) != 'Default') {
-                //$type = get_type($keys);
                 array_push($w, $w[$keys] =$theWidget->make_widget($keys)); 
-//array('key' => $keys, 'name' => get_name($keys), 'Description' => get_description($keys), 'id' => get_id($keys), 'type' => $type, 'status' => TRUE));
                 array_pop($w);
                 if ($shown != TRUE) {
                     echo '<div class="notfi"><strong>Recently added widgets</strong> <ul style="list-style:disc; padding: 1px; list-style-position: inside;">';

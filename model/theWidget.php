@@ -18,7 +18,7 @@ function make_widget($keys){
     return $widget;
 }
 function make_customWiget($key){
-    $index=  $this->getWidgetClass($key);
+    $index=$this->getWidgetClass($key);
    $widget=array('key' => $index , 
         'class' => $index, 
         'name' => $this->get_name($index), 
