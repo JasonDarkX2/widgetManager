@@ -14,23 +14,26 @@ class widgetRetriever{
     }
 function autoDetect() {
     $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
-    $w = get_option('widgetid');
+    $widgetList = get_option('widgetid');
     $shown = false;
+    array_pop($newWidgets= array());
     $theWidget= new theWidget();
     foreach ($widgets as $keys) {
-        if (array_key_exists($keys, $w) == FALSE) {
+        $uw = get_option('widgetid');
+        if (array_key_exists($keys, $uw) == FALSE) {
             if ($theWidget->get_type($keys) != 'Default') {
-                array_push($w, $w[$keys] =$theWidget->make_widget($keys)); 
-                array_pop($w);
-                if ($shown != TRUE) {
-                    echo '<div class="notfi"><strong>Recently added widgets</strong> <ul style="list-style:disc; padding: 1px; list-style-position: inside;">';
-                    $shown = true;
-                }
-                echo '<li>' . $theWidget->get_name($keys) . '</li>';
-                update_option('widgetid', $w);
+                array_push($widgetList, $widgetList[$keys] =$theWidget->make_widget($keys)); 
+                array_pop($widgetList);
+                array_push($newWidgets, '<li>' . $theWidget->get_name($keys) . '</li>');
+               update_option('widgetid', $widgetList);
             }
         }
     }
+                    if (count($newWidgets)>0) {
+                    echo '<div class="notfi"><strong>Recently added widgets</strong> <ul style="list-style:disc; padding: 1px; list-style-position: inside;">';
+                foreach($newWidgets as $nw){echo $nw;}
+                $shown=true;
+                }
     echo'</ul></div>';
     return $shown;
 }
