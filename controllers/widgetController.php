@@ -9,7 +9,7 @@ class widgetController{
    }
    function load_widgets() {
        $theWidget= new theWidget();
-        $w = get_option('widgetid');
+        $widgetsId = get_option('widgetid');
             $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
             $w = ($GLOBALS['wp_widget_factory']->widgets);
             foreach ($widgets as $keys) {
@@ -24,6 +24,20 @@ class widgetController{
             update_option('widgetid', $widgetsId);
             $widgets = $widgetsId;
     }
+   function obsolete_pluginWidgets(){
+       $theWidget= new theWidget();
+       $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
+    $widgetList = get_option('widgetid');
+           //clean sweep not existing plugin widgets
+    foreach($widgetList as $w => $v){
+        if ($theWidget->get_type($v[$w]['key']) != 'Default' && $theWidget->get_type($v[$w]['key']) != 'Custom') {
+        if(array_key_exists($v[$w]['key'], $widgets)==FALSE){
+            unset($widgetList[$v[$w]['key']]);
+                update_option('widgetid', $widgetList);
+        }
+    }
+    }
+   }
         function disable_plugin_widget() {
         $d = get_option('widgetid');
         if ($d != NULL) {
@@ -91,6 +105,7 @@ class widgetController{
                 unset($d[$widget['key']]);
                 update_option('widgetid', $d);
             }
+            
         }
         if (empty($cw) == FALSE)
             foreach ($cw as $c) {

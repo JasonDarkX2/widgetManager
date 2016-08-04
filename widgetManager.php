@@ -34,6 +34,7 @@ class widget_manager {
             //add_action('plugins_loaded', array(__CLASS__, 'front_end_import'));
     }
     function load_initProcedures(){
+        self::$wc-> obsolete_pluginWidgets();
         self::$wc->disable_plugin_widget();
     }
     function load_procedures(){
