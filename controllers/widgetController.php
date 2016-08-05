@@ -24,6 +24,21 @@ class widgetController{
             update_option('widgetid', $widgetsId);
             $widgets = $widgetsId;
     }
+    function load_pluginWidgets(){
+         $theWidget= new theWidget();
+       $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
+    $widgetList = get_option('widgetid');
+           //clean sweep not existing plugin widgets
+    foreach($widgets as $keys){
+        if ($theWidget->get_type($keys) != 'Default' && $theWidget->get_type($keys) != 'Custom') {
+        if(array_key_exists($keys, $widgetList)==FALSE){
+            array_push($widgetList, $widgetList[$keys] =$theWidget->make_widget($keys)); 
+            array_pop($widgetList);
+            update_option('widgetid', $widgetList);
+        }
+    }
+    }
+    }
    function obsolete_pluginWidgets(){
        $theWidget= new theWidget();
        $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
