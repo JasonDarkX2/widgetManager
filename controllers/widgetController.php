@@ -86,6 +86,20 @@ class widgetController{
             }
         }
     }
+    function obsolete_customWidgets(){
+        $widgets= get_option('widgetid');
+        $cust = get_option('custom-widget');
+        if(!empty($cust) && !empty($widgets))
+        foreach($cust as $w=>$v){
+            if(!file_exists($v[$w]['file'])){
+                 unset($cust[$w]);
+                 unset($widgets[$w]);
+            }
+            update_option('widgetid',$widgets);
+            update_option('custom-widget', $cust);
+        }
+        
+    }
         function import_cust_widget() {
         $dir = get_option('widgetdir');
         $w = get_option('widgetid');
@@ -104,7 +118,7 @@ class widgetController{
                     $cust[$theWidget->getWidgetClass($wid)] = $theWidget->make_customWiget($wid);
                 } else {
                     if (array_key_exists($theWidget->getWidgetClass($wid), $cust) == FALSE) {
-                        array_push($cust, $cust[getWidgetClass($wid)] = $theWidget->make_customWiget($wid));
+                        array_push($cust, $cust[$theWidget->getWidgetClass($wid)] = $theWidget->make_customWiget($wid));
                         array_pop($cust);
                     }
                 }
@@ -122,7 +136,7 @@ class widgetController{
             }
             
         }
-        if (empty($cw) == FALSE)
+        if (!empty($cw))
             foreach ($cw as $c) {
                 if (array_key_exists($c['key'], $d) == FALSE) {
                     unset($cw[$c['key']]);
