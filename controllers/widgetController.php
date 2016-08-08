@@ -110,21 +110,35 @@ class widgetController{
             foreach ($custwid as $wid) {
                 $info = new SplFileInfo($dir . $wid);
                 if ($info->getExtension() == 'php') {
-                    if (class_exists($theWidget->getWidgetClass($wid)) == FALSE)
+                    $class=$theWidget->getWidgetClass($wid);
+                    if (class_exists($class)== FALSE)
                         include($dir . $wid);
-                    register_widget($theWidget->getWidgetClass($wid));
+                    register_widget($class);
                 }
-                if (empty($cust) == TRUE && $theWidget->getWidgetClass($wid) != '') {
-                    $cust[$theWidget->getWidgetClass($wid)] = $theWidget->make_customWiget($wid);
+                if (empty($cust) == TRUE && $class != '') {
+                    $cust[$class] = $theWidget->make_customWiget($wid);
                 } else {
-                    if (array_key_exists($theWidget->getWidgetClass($wid), $cust) == FALSE) {
-                        array_push($cust, $cust[$theWidget->getWidgetClass($wid)] = $theWidget->make_customWiget($wid));
+                    if (array_key_exists($class, $cust) == FALSE) {
+                        array_push($cust, $cust[$class] = $theWidget->make_customWiget($wid));
                         array_pop($cust);
                     }
+                    
                 }
                 update_option('custom-widget', $cust);
             }
+
         }
+    }
+    function load_customWidgets(){
+        $theWidget=new theWidget();
+        $w=get_option('widgetid');
+        $cust=get_option('custom-widget');
+                    foreach($cust as $cw =>$v){
+                if(!array_key_exists($v[$cw]['key'], $w)){
+                    array_push($w, $w[$cw] = $theWidget->make_widget($cw));
+                    update_option('widgetid', $w);
+                }
+            }
     }
     function clean_sweep() {
         $d = get_option('widgetid');
@@ -137,9 +151,9 @@ class widgetController{
             
         }
         if (!empty($cw))
-            foreach ($cw as $c) {
-                if (array_key_exists($c['key'], $d) == FALSE) {
-                    unset($cw[$c['key']]);
+            foreach ($cw as $c => $v) {
+                if (array_key_exists($v[$c]['key'], $d) == FALSE) {
+                    unset($cw[$v[$c]['key']]);
                     update_option('custom-widget', $cw);
                 }
             }

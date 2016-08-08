@@ -37,6 +37,7 @@ class widget_manager {
         self::$wc-> obsolete_customWidgets();
         self::$wc-> obsolete_pluginWidgets();
         self::$wc-> load_pluginWidgets();
+        self::$wc-> load_customWidgets();
         self::$wc->disable_plugin_widget();
     }
     function load_procedures(){
