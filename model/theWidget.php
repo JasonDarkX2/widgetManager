@@ -28,6 +28,37 @@ function make_customWiget($key){
 
    return $widget;
 }
+function getCustomWidgets($dir) {
+    $customwidgets = array();
+    $widgetdir = get_option('widgetdir');
+    if (file_exists($dir)) {
+        $cdir = scandir($dir);
+    } else {
+        return;
+    }
+
+    foreach ($cdir as $d) {
+        if ($d == "." || $d == ".." || $d == ".svn") {
+            continue;
+        }
+        if (is_dir($widgetdir . '/' . $d) == TRUE) {
+            $dirFile = scandir($widgetdir . '/' . $d);
+            foreach ($dirFile as $dir) {
+                $info = new SplFileInfo($dir);
+                if (is_dir($dir) == FALSE && $info->getExtension() == 'php') {
+                    $file = $d . '/' . $dir;
+                    array_push($customwidgets, $file);
+                }
+            } 
+        } else {
+            if (is_dir($d) == FALSE) {
+                array_push($customwidgets, $d);
+            }
+        }
+    }
+    return $customwidgets;
+}
+
 function getWidgetClass($file) {
 
     $c = get_option('custom-widget');

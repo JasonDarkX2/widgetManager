@@ -107,7 +107,7 @@ static function front_end_import(){
 
 }
 
-function getCustomWidgets($dir) {
+/*function getCustomWidgets($dir) {
     $customwidgets = array();
     $widgetdir = get_option('widgetdir');
     if (file_exists($dir)) {
@@ -136,8 +136,7 @@ function getCustomWidgets($dir) {
         }
     }
     return $customwidgets;
-}
-
+}*/
 /*function getWidgetClass($file) {
 
     $c = get_option('custom-widget');
