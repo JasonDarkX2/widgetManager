@@ -104,7 +104,8 @@ class widgetController{
         $dir = get_option('widgetdir');
         $w = get_option('widgetid');
         $cust = get_option('custom-widget');
-        $custwid = getCustomWidgets($dir);
+        $theWidget= new theWidget();
+        $custwid = $theWidget->getCustomWidgets($dir);
         $theWidget = new theWidget();
         if ($custwid != null) {
             foreach ($custwid as $wid) {
