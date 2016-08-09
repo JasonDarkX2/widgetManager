@@ -15,6 +15,7 @@ class widgetRetriever{
 function autoDetect() {
     $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
     $widgetList = get_option('widgetid');
+    $cw=get_option('custom-widget');
     $shown = false;
     array_pop($newWidgets= array());
     $theWidget= new theWidget();
@@ -24,6 +25,7 @@ function autoDetect() {
             if ($theWidget->get_type($keys) != 'Default') {
                 array_push($widgetList, $widgetList[$keys] =$theWidget->make_widget($keys)); 
                 array_pop($widgetList);
+                //echo $keys. '=>'.$uw[$key]['name'] . var_dump(array_key_exists($keys, $uw));
                 array_push($newWidgets, '<li>' . $theWidget->get_name($keys) . '</li>');
                update_option('widgetid', $widgetList);
             }
@@ -40,9 +42,9 @@ function autoDetect() {
 
 function get_widgets_type($widgets, $types) {
     array_pop($wid = array());
-    foreach ($widgets  as $w => $v ){
-        if ($v[$w]['type'] == $types) {
-            array_push($wid, $v[$w]);
+    foreach ($widgets  as $w){
+        if ($w['type'] == $types) {
+            array_push($wid,$w);
         } else {
             continue;
         }

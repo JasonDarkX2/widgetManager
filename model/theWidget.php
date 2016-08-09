@@ -8,13 +8,13 @@
 
 class theWidget{
 
-function make_widget($keys){
-    $widget = array($keys => array(
+        function make_widget($keys){
+    $widget =array(
         'key' => $keys, 
         'name' => $this->get_name($keys), 
         'Description' => $this->get_description($keys), 
         'type' => $this->get_type($keys), 
-        'status' => TRUE));
+        'status' => TRUE);
     return $widget;
 }
 function make_customWiget($key){

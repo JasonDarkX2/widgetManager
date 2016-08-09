@@ -5,8 +5,10 @@ controller for Wordpress Widget Manager
 require_once  plugin_dir_path(dirname(__FILE__)).'model/theWidget.php';
 class widgetController{
    static $theWidget;
+   static $newWidgetList;
    function __construct() {
        self::$theWidget= new theWidget();
+       self::$newWidgetList= array();
    }
    function load_widgets() {
         $widgetsId = get_option('widgetid');
@@ -14,9 +16,9 @@ class widgetController{
             $w = ($GLOBALS['wp_widget_factory']->widgets);
             foreach ($widgets as $keys) {
                 if (empty($widgetsId)) {
-                    $widgetsId = self::$theWidget->make_widget($keys);
+                    $widgetsId[$keys] = self::$theWidget->make_widget($keys);
                 } else {
-                    array_push($widgetsId, $widgetsId[$keys] = self::$theWidget->make_widget($keys));
+                    array_push($widgetsId,$widgetsId[$keys]=self::$theWidget->make_widget($keys));
                            
                     array_pop($widgetsId);
                 }
@@ -32,6 +34,7 @@ class widgetController{
         if (self::$theWidget->get_type($keys) != 'Default' && self::$theWidget->get_type($keys) != 'Custom') {
         if(array_key_exists($keys, $widgetList)==FALSE){
             array_push($widgetList, $widgetList[$keys] =self::$theWidget->make_widget($keys)); 
+            $this->addto($keys);
             array_pop($widgetList);
             update_option('widgetid', $widgetList);
         }
@@ -73,7 +76,7 @@ class widgetController{
         $d = get_option('widgetid');
         if ($d != NULL) {
             foreach ($d as $widget) {
-                if ($d[$widget['key']]['status'] == FALSE) {
+                if ($widget['status'] == FALSE) {
                     if (class_exists($widget['key'])) {
                         unregister_widget($widget['key']);
                     } else {
@@ -132,10 +135,12 @@ class widgetController{
                     foreach($cust as $cw =>$v){
                 if(!array_key_exists($v[$cw]['key'], $w)){
                     array_push($w, $w[$cw] = self::$theWidget->make_widget($cw));
+                    array_pop($w);
                     update_option('widgetid', $w);
                 }
             }
     }
+   
     function clean_sweep() {
         $d = get_option('widgetid');
         $cw = get_option('custom-widget');
