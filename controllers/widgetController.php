@@ -4,19 +4,19 @@ controller for Wordpress Widget Manager
  */
 require_once  plugin_dir_path(dirname(__FILE__)).'model/theWidget.php';
 class widgetController{
+   static $theWidget;
    function __construct() {
-       
+       self::$theWidget= new theWidget();
    }
    function load_widgets() {
-       $theWidget= new theWidget();
         $widgetsId = get_option('widgetid');
             $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
             $w = ($GLOBALS['wp_widget_factory']->widgets);
             foreach ($widgets as $keys) {
                 if (empty($widgetsId)) {
-                    $widgetsId = $theWidget->make_widget($keys);
+                    $widgetsId = self::$theWidget->make_widget($keys);
                 } else {
-                    array_push($widgetsId, $widgetsId[$keys] = $theWidget->make_widget($keys));
+                    array_push($widgetsId, $widgetsId[$keys] = self::$theWidget->make_widget($keys));
                            
                     array_pop($widgetsId);
                 }
@@ -25,14 +25,13 @@ class widgetController{
             $widgets = $widgetsId;
     }
     function load_pluginWidgets(){
-         $theWidget= new theWidget();
        $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
     $widgetList = get_option('widgetid');
            //clean sweep not existing plugin widgets
     foreach($widgets as $keys){
-        if ($theWidget->get_type($keys) != 'Default' && $theWidget->get_type($keys) != 'Custom') {
+        if (self::$theWidget->get_type($keys) != 'Default' && self::$theWidget->get_type($keys) != 'Custom') {
         if(array_key_exists($keys, $widgetList)==FALSE){
-            array_push($widgetList, $widgetList[$keys] =$theWidget->make_widget($keys)); 
+            array_push($widgetList, $widgetList[$keys] =self::$theWidget->make_widget($keys)); 
             array_pop($widgetList);
             update_option('widgetid', $widgetList);
         }
@@ -40,12 +39,11 @@ class widgetController{
     }
     }
    function obsolete_pluginWidgets(){
-       $theWidget= new theWidget();
        $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
     $widgetList = get_option('widgetid');
            //clean sweep not existing plugin widgets
     foreach($widgetList as $w => $v){
-        if ($theWidget->get_type($v[$w]['key']) != 'Default' && $theWidget->get_type($v[$w]['key']) != 'Custom') {
+        if (self::$theWidget->get_type($v[$w]['key']) != 'Default' && self::$theWidget->get_type($v[$w]['key']) != 'Custom') {
         if(array_key_exists($v[$w]['key'], $widgets)==FALSE){
             unset($widgetList[$v[$w]['key']]);
                 update_option('widgetid', $widgetList);
@@ -104,23 +102,21 @@ class widgetController{
         $dir = get_option('widgetdir');
         $w = get_option('widgetid');
         $cust = get_option('custom-widget');
-        $theWidget= new theWidget();
-        $custwid = $theWidget->getCustomWidgets($dir);
-        $theWidget = new theWidget();
+        $custwid = self::$theWidget->getCustomWidgets($dir);
         if ($custwid != null) {
             foreach ($custwid as $wid) {
                 $info = new SplFileInfo($dir . $wid);
                 if ($info->getExtension() == 'php') {
-                    $class=$theWidget->getWidgetClass($wid);
+                    $class=self::$theWidget->getWidgetClass($wid);
                     if (class_exists($class)== FALSE)
                         include($dir . $wid);
                     register_widget($class);
                 }
                 if (empty($cust) == TRUE && $class != '') {
-                    $cust[$class] = $theWidget->make_customWiget($wid);
+                    $cust[$class] = self::$theWidget->make_customWiget($wid);
                 } else {
                     if (array_key_exists($class, $cust) == FALSE) {
-                        array_push($cust, $cust[$class] = $theWidget->make_customWiget($wid));
+                        array_push($cust, $cust[$class] = self::$theWidget->make_customWiget($wid));
                         array_pop($cust);
                     }
                     
@@ -131,12 +127,11 @@ class widgetController{
         }
     }
     function load_customWidgets(){
-        $theWidget=new theWidget();
         $w=get_option('widgetid');
         $cust=get_option('custom-widget');
                     foreach($cust as $cw =>$v){
                 if(!array_key_exists($v[$cw]['key'], $w)){
-                    array_push($w, $w[$cw] = $theWidget->make_widget($cw));
+                    array_push($w, $w[$cw] = self::$theWidget->make_widget($cw));
                     update_option('widgetid', $w);
                 }
             }
@@ -160,12 +155,11 @@ class widgetController{
             }
     }
     function empty_names() {
-        $theWidget= new theWidget();
     $cust = get_option('custom-widget');
     if ($cust != NULL)
         foreach ($cust as $wid) {
-            if ($theWidget->get_name($wid['class']) != NULL)
-                $cust[$wid['key']]['name'] = $theWidget->get_name($wid['class']);
+            if (self::$theWidget->get_name($wid['class']) != NULL)
+                $cust[$wid['key']]['name'] = self::$theWidget->get_name($wid['class']);
         }
 
     update_option('custom-widget', $cust);
