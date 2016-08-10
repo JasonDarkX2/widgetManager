@@ -91,15 +91,14 @@ class widgetController{
         $widgets= get_option('widgetid');
         $cust = get_option('custom-widget');
         if(!empty($cust) && !empty($widgets))
-        foreach($cust as $w=>$v){
-            if(!file_exists($v[$w]['file'])){
-                 unset($cust[$w]);
-                 unset($widgets[$w]);
+        foreach($cust as $w){
+            if(file_exists(get_option('widgetdir') . $w['file'])==FALSE){
+                 unset($cust[$w['key']]);
+                 unset($widgets[$w['key']]);
+                 update_option('widgetid',$widgets);
+                 update_option('custom-widget', $cust);
             }
-            update_option('widgetid',$widgets);
-            update_option('custom-widget', $cust);
         }
-        
     }
         function import_cust_widget() {
         $dir = get_option('widgetdir');
@@ -132,15 +131,15 @@ class widgetController{
     function load_customWidgets(){
         $w=get_option('widgetid');
         $cust=get_option('custom-widget');
-                    foreach($cust as $cw =>$v){
-                if(!array_key_exists($v[$cw]['key'], $w)){
-                    array_push($w, $w[$cw] = self::$theWidget->make_widget($cw));
+                    foreach($cust as $cw){
+                if(!array_key_exists($cw['key'], $w)){
+                    array_push($w, $w[$cw['key']] = self::$theWidget->make_widget($cw['key']));
                     array_pop($w);
                     update_option('widgetid', $w);
                 }
             }
     }
-   
+  
     function clean_sweep() {
         $d = get_option('widgetid');
         $cw = get_option('custom-widget');
