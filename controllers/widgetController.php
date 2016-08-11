@@ -29,7 +29,6 @@ class widgetController{
     function load_pluginWidgets(){
        $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
     $widgetList = get_option('widgetid');
-           //clean sweep not existing plugin widgets
     foreach($widgets as $keys){
         if (self::$theWidget->get_type($keys) != 'Default' && self::$theWidget->get_type($keys) != 'Custom') {
         if(array_key_exists($keys, $widgetList)==FALSE){
@@ -44,7 +43,6 @@ class widgetController{
    function obsolete_pluginWidgets(){
        $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
     $widgetList = get_option('widgetid');
-           //clean sweep not existing plugin widgets
     foreach($widgetList as $w => $v){
         if (self::$theWidget->get_type($v[$w]['key']) != 'Default' && self::$theWidget->get_type($v[$w]['key']) != 'Custom') {
         if(array_key_exists($v[$w]['key'], $widgets)==FALSE){
@@ -135,11 +133,30 @@ class widgetController{
                 if(!array_key_exists($cw['key'], $w)){
                     array_push($w, $w[$cw['key']] = self::$theWidget->make_widget($cw['key']));
                     array_pop($w);
+                     $this->addto($cw['key']);
                     update_option('widgetid', $w);
                 }
             }
     }
-  
+    function addto($key){
+        $w=get_option('widgetid');
+        if(!array_key_exists($key,$w)){
+           array_push(self::$newWidgetList, self::$newWidgetList[$key]= '<li>' . self::$theWidget->get_name($key) . '</li>');
+           array_pop(self::$newWidgetList);
+ 
+        }else{
+            unset($list[$key]);
+        }
+    }
+    function show(){
+          if (count(self::$newWidgetList)>0) {
+                    echo '<div class="notfi"><strong>Recently added widgets</strong> <ul style="list-style:disc; padding: 1px; list-style-position: inside;">';
+                foreach(self::$newWidgetList as $nw){echo $nw;}
+                $shown=true;
+                }
+                  echo'</ul></div>';
+                  self::$newWidgetList=null;
+    }
     function clean_sweep() {
         $d = get_option('widgetid');
         $cw = get_option('custom-widget');

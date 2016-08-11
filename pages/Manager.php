@@ -19,7 +19,7 @@
             print_r($_SESSION['deletion']);
             $_SESSION['deletion'] = NULL;
         } else {
-            $retriever->autoDetect();
+              self::$wc->show();
         }
     }
     ?>
