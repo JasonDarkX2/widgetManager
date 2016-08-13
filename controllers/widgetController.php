@@ -8,7 +8,7 @@ class widgetController{
    static $newWidgetList;
    function __construct() {
        self::$theWidget= new theWidget();
-       self::$newWidgetList= array();
+       //self::$newWidgetList= array();
    }
    function load_widgets() {
         $widgetsId = get_option('widgetid');
@@ -141,8 +141,15 @@ class widgetController{
     function addto($key){
         $w=get_option('widgetid');
         if(!array_key_exists($key,$w)){
-           array_push(self::$newWidgetList, self::$newWidgetList[$key]= '<li>' . self::$theWidget->get_name($key) . '</li>');
-           array_pop(self::$newWidgetList);
+        if(count(empty(self::$newWidgetList))){
+            
+            self::$newWidgetList[$key]='<li>' . self::$theWidget->get_name($key) . '</li>';
+        }else{
+            //array_push(self::$newWidgetList,$key);
+            //array_push(self::$newWidgetList,self::$newWidgetList[$key]= '<li>' . self::$theWidget->get_name($key) . '</li>');
+           //array_pop(self::$newWidgetList);
+        }
+        
  
         }else{
             unset($list[$key]);
@@ -150,6 +157,7 @@ class widgetController{
     }
     function show(){
           if (count(self::$newWidgetList)>0) {
+              var_dump(self::$newWidgetList);
                     echo '<div class="notfi"><strong>Recently added widgets</strong> <ul style="list-style:disc; padding: 1px; list-style-position: inside;">';
                 foreach(self::$newWidgetList as $nw){echo $nw;}
                 $shown=true;
