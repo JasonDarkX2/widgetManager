@@ -141,16 +141,7 @@ class widgetController{
     function addto($key){
         $w=get_option('widgetid');
         if(!array_key_exists($key,$w)){
-        if(count(empty(self::$newWidgetList))){
-            
             self::$newWidgetList[$key]='<li>' . self::$theWidget->get_name($key) . '</li>';
-        }else{
-            //array_push(self::$newWidgetList,$key);
-            //array_push(self::$newWidgetList,self::$newWidgetList[$key]= '<li>' . self::$theWidget->get_name($key) . '</li>');
-           //array_pop(self::$newWidgetList);
-        }
-        
- 
         }else{
             unset($list[$key]);
         }
