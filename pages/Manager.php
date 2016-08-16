@@ -10,7 +10,6 @@
     <?php
     require_once  plugin_dir_path(dirname(__FILE__)).'controllers/widgetRetriever.php';
     $retriever= new widgetRetriever();
-    //session_start();
     if (isset($_SESSION['errors'])) {
         print_r($_SESSION['errors']);
         $_SESSION['errors'] = NULL;
@@ -48,24 +47,17 @@
         <input type='hidden' name='count' value='$num' id='count'>
         <div class="widget-list">
             <?php
-            $widgets =  $retriever->get_widgets_type(get_option('widgetid'), "Default");
-            //foreach (get_option('widgetid') as $w => $v ){
-    //echo $w . $v[$w]['type'] .'</br>';
-            //}
-            display($widgets, "Default");
+            $retriever->get_widgets_type(get_option('widgetid'), "Default",TRUE);
             ?>
         </div>
         <div class="widget-list">
             <?php
-            $widgets = $retriever->get_widgets_type(get_option('widgetid'), "Plugin");
-            //var_dump($widgets);
-            display($widgets, "Plugin");
+            $retriever->get_widgets_type(get_option('widgetid'), "Plugin",TRUE);
             ?>
         </div>
         <div class="widget-list">
             <?php
-            $widgets = $retriever->get_widgets_type(get_option('widgetid'), "Custom");
-            display($widgets, "Custom");
+           $retriever->get_widgets_type(get_option('widgetid'), "Custom",TRUE);
             ?>
         </div>
         <div style=" display:block; clear:both; text-align:left; vertical-align:bottom;">
@@ -97,43 +89,3 @@
         <p>
     </form>
 </div>
-<?php
-
-function display($widgets, $type) {
-    echo '<div class="widget-header"><div> ' . $type . ' Widgets</div></div>';
-    if (count($widgets) == 0) {
-        ?>
-        <div class="widgets-items">
-            <div class="switch-field">
-                No&nbsp;<?php echo $type; ?>&nbsp;widgets found
-            </div>
-        </div>
-        <?php
-    } else {
-        foreach ($widgets as $widget) {
-            ?>
-            <div class="widgets-items"><strong><?php echo $widget['name']; ?></strong>
-                <br/> <?php echo $widget['Description']; ?>
-                <div class="switch-field">
-                    <input type='hidden' name='widgetid[]' value='<?php echo $widget['key'] ?>' id='widgetId'> 
-                    <input type="radio" id="switch_left_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="enable" <?php checked($widget['status'], true); ?>/>
-                    <label for="switch_left_<?php echo $widget['key']; ?>">Enable</label>
-                    <input type="radio" id="switch_right_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="disable" <?php checked($widget['status'], false); ?>/>
-                    <label for="switch_right_<?php echo $widget['key']; ?>">Disable</label>
-                    <br/>
-                    <?php if ($type == "Custom") { ?>
-                        <br/><a class="deleteWid" href="<?php
-                           $name = 'delete-' . $widget['key'];
-                           $url = menu_page_url('credentials', FALSE) . '&w=' . $widget['key'] . '&op=del';
-                           echo wp_nonce_url($url, $name);
-                           ?>" title="delete <?php echo $widget['name']; ?>">Delete Widget</a>       
-                       <?php }
-                       ?>
-
-                </div>
-            </div>  
-            <?php
-        }
-    }
-}
-?>
