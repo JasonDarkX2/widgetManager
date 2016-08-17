@@ -67,8 +67,8 @@ class widgetController {
         $d = get_option('widgetid');
         if ($d != NULL) {
             foreach ($d as $widget) {
-                if ($d[$widget['key']]['status'] == FALSE && $widget['type'] == 'Plugin') {
-                    if (class_exists($widget['key'])) {
+                if ($widget['status'] == FALSE && $widget['type'] == 'Plugin') {
+                    if (class_exists($widget['key'])) {                       
                         $wid = ($GLOBALS['wp_widget_factory']->widgets);
                         unregister_widget($widget['key']);
                         unset($GLOBALS['wp_registered_widgets'][$widget['id']]);
