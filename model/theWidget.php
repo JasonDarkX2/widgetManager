@@ -13,6 +13,7 @@ class theWidget{
         'key' => $keys, 
         'name' => $this->get_name($keys), 
         'Description' => $this->get_description($keys), 
+        'id' => $this->get_id($keys),
         'type' => $this->get_type($keys), 
         'status' => TRUE);
     return $widget;
@@ -108,6 +109,9 @@ function get_name($key) {
 function get_id($key) {
     $wid = ($GLOBALS['wp_widget_factory']->widgets);
     $id = $wid[$key]->id;
+    if($id==FALSE){
+        $id=NULL;
+    }
     return $id;
 }
 
