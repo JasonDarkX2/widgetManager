@@ -101,7 +101,15 @@ class widgetController {
     function obsolete_customWidgets() {
         $widgets = get_option('widgetid');
         $cust = get_option('custom-widget');
-        if (!empty($cust) && !empty($widgets))
+        if(empty($cust) && !empty($widgets)){
+            foreach($widgets as $wid){
+                if($wid['type']=='Custom'){
+                    unset($widgets[$wid['key']]);
+                    update_option('widgetid', $widgets);
+                }
+            }
+        }
+        else if (!empty($cust) && !empty($widgets))
             foreach ($cust as $w) {
                 if (file_exists(get_option('widgetdir') . $w['file']) == FALSE) {
                     unset($cust[$w['key']]);
@@ -126,6 +134,30 @@ class widgetController {
                         include($dir . $wid);
                     register_widget($class);
                 }
+                /*if (empty($cust) == TRUE && $class != '') {
+                    $cust[$class] = self::$theWidget->make_customWiget($wid);
+                } else {
+                    if (array_key_exists($class, $cust) == FALSE) {
+                        array_push($cust, $cust[$class] = self::$theWidget->make_customWiget($wid));
+                        array_pop($cust);
+                    }
+                }
+                update_option('custom-widget', $cust);*/
+            }
+        }
+    }
+    function addCustomWidgets(){
+        $dir = get_option('widgetdir');
+         $custwid = self::$theWidget->getCustomWidgets($dir);
+        if ($custwid != null) {
+            foreach ($custwid as $wid) {
+                $info = new SplFileInfo($dir . $wid);
+                if ($info->getExtension() == 'php') {
+                    $class = self::$theWidget->getWidgetClass($wid);
+                    if (class_exists($class) == FALSE)
+                        include($dir . $wid);
+                    register_widget($class);
+                }
                 if (empty($cust) == TRUE && $class != '') {
                     $cust[$class] = self::$theWidget->make_customWiget($wid);
                 } else {
@@ -136,11 +168,12 @@ class widgetController {
                 }
                 update_option('custom-widget', $cust);
             }
-        }
+    }
     }
 
     function load_customWidgets() {
         $w = get_option('widgetid');
+        $this->addCustomWidgets();
         $cust = get_option('custom-widget');
         foreach ($cust as $cw) {
             if (!array_key_exists($cw['key'], $w)) {
