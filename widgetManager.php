@@ -31,7 +31,7 @@ class widget_manager {
             }
         }
 
-            //add_action('plugins_loaded', array(__CLASS__, 'front_end_import'));
+            add_action('plugins_loaded', array(__CLASS__,'loaded_procedures') );
     }
     function load_initProcedures(){
         self::$wc-> obsolete_customWidgets();
@@ -41,12 +41,17 @@ class widget_manager {
         self::$wc->disable_plugin_widget();
     }
     function load_procedures(){
-        //self::$wc->import_cust_widget();
+        self::$wc->import_cust_widget();
+         //self::$wc->import_cust_widget(True);
         self::$wc->remove_disable_widget();
         self::$wc->load_widgets();
-         self::$wc->clean_sweep();
-         self::$wc->empty_names();
+         //self::$wc->clean_sweep();
+         //self::$wc->empty_names();
         
+    }
+    function loaded_procedures(){
+        $widgetController=new widgetController();
+        $widgetController->import_cust_widget(True);
     }
 static function front_end_import(){
     $dir = get_option('widgetdir');
