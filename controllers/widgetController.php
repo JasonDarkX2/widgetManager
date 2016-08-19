@@ -120,11 +120,24 @@ class widgetController {
             }
     }
 
-    function import_cust_widget() {
+    function import_cust_widget($frontEndOnly=FALSE) {
         $dir = get_option('widgetdir');
         $w = get_option('widgetid');
         $cust = get_option('custom-widget');
         $custwid = self::$theWidget->getCustomWidgets($dir);
+        //frontend import
+        if($frontEndOnly){
+         if(!empty($cust)){
+                foreach ($cust as $wid) {
+                   if(array_key_exists($wid['key'], $w)){
+                if ($wid['status']==TRUE) {
+                        include($dir . $wid['file']);
+                }
+                   }
+            }
+    }
+        }else{
+        //backend import
         if ($custwid != null) {
             foreach ($custwid as $wid) {
                 $info = new SplFileInfo($dir . $wid);
@@ -144,6 +157,7 @@ class widgetController {
                 }
                 update_option('custom-widget', $cust);*/
             }
+        }
         }
     }
     function addCustomWidgets(){
