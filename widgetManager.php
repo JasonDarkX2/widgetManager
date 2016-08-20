@@ -21,6 +21,7 @@ class widget_manager {
             self::$wc=new widgetController();
             add_action('init',array(__CLASS__,'load_initProcedures'));
             add_action('widgets_init',array(__CLASS__,'load_procedures'));
+            add_action('plugins_loaded', array(__CLASS__,'loaded_procedures') );
             add_action('admin_menu', array(__CLASS__, 'widget_manager_create_menu'));
             add_action('admin_enqueue_scripts', array(__CLASS__, 'add_scripts'));
                 if (get_option('widgetdir') == NULL||get_option('widgetdir') ==''||get_option('widgetdir') =='/') {
@@ -30,8 +31,6 @@ class widget_manager {
                 update_option('widgetdir', $defaultDir);
             }
         }
-
-            add_action('plugins_loaded', array(__CLASS__,'loaded_procedures') );
     }
     function load_initProcedures(){
         self::$wc-> obsolete_customWidgets();
@@ -42,7 +41,6 @@ class widget_manager {
     }
     function load_procedures(){
         self::$wc->import_cust_widget();
-         //self::$wc->import_cust_widget(True);
         self::$wc->remove_disable_widget();
         self::$wc->load_widgets();
          //self::$wc->clean_sweep();
@@ -51,23 +49,8 @@ class widget_manager {
     }
     function loaded_procedures(){
         $widgetController=new widgetController();
-        $widgetController->import_cust_widget(True);
-    }
-static function front_end_import(){
-    $dir = get_option('widgetdir');
-    $widgetid=get_option('widgetid');
-    $custwid= get_option('custom-widget');
-    if(!empty($custwid)){
-                foreach ($custwid as $wid => $v) {
-                   if(array_key_exists($wid, $widgetid)){
-                if ($widgetid[$wid]['status']==TRUE) {
-                        include($dir . $v['file']);
-                }
-                   }
-            }
-    }
-}
-    
+        $widgetController->import_cust_widget(TRUE);
+    }    
     static function add_scripts($hook) {
 
         wp_enqueue_style('wm-style', plugins_url('style.css', __FILE__));
