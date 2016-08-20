@@ -127,7 +127,7 @@ class widgetController {
         $custwid = self::$theWidget->getCustomWidgets($dir);
         //frontend import
         if($frontEndOnly){
-         if(!empty($cust)){
+         if(!empty($cust)&& !empty($w)){
                 foreach ($cust as $wid) {
                    if(array_key_exists($wid['key'], $w)){
                 if ($wid['status']==TRUE) {
