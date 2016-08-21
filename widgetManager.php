@@ -43,9 +43,6 @@ class widget_manager {
         self::$wc->import_cust_widget();
         self::$wc->remove_disable_widget();
         self::$wc->load_widgets();
-         //self::$wc->clean_sweep();
-         //self::$wc->empty_names();
-        
     }
     function loaded_procedures(){
         $widgetController=new widgetController();

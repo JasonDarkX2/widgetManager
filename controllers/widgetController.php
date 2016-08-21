@@ -12,7 +12,6 @@ class widgetController {
 
     function __construct() {
         self::$theWidget = new theWidget();
-        //self::$newWidgetList= array();
     }
 
     function load_widgets() {
@@ -147,15 +146,6 @@ class widgetController {
                         include($dir . $wid);
                     register_widget($class);
                 }
-                /*if (empty($cust) == TRUE && $class != '') {
-                    $cust[$class] = self::$theWidget->make_customWiget($wid);
-                } else {
-                    if (array_key_exists($class, $cust) == FALSE) {
-                        array_push($cust, $cust[$class] = self::$theWidget->make_customWiget($wid));
-                        array_pop($cust);
-                    }
-                }
-                update_option('custom-widget', $cust);*/
             }
         }
         }
@@ -223,34 +213,4 @@ class widgetController {
         echo'</ul></div>';
         self::$newWidgetList = null;
     }
-
-    function clean_sweep() {
-        $d = get_option('widgetid');
-        $cw = get_option('custom-widget');
-        foreach ($d as $widget) {
-            if (class_exists($widget['key']) == FALSE) {
-                unset($d[$widget['key']]);
-                update_option('widgetid', $d);
-            }
-        }
-        if (!empty($cw))
-            foreach ($cw as $c => $v) {
-                if (array_key_exists($v[$c]['key'], $d) == FALSE) {
-                    unset($cw[$v[$c]['key']]);
-                    update_option('custom-widget', $cw);
-                }
-            }
-    }
-
-    function empty_names() {
-        $cust = get_option('custom-widget');
-        if ($cust != NULL)
-            foreach ($cust as $wid) {
-                if (self::$theWidget->get_name($wid['class']) != NULL)
-                    $cust[$wid['key']]['name'] = self::$theWidget->get_name($wid['class']);
-            }
-
-        update_option('custom-widget', $cust);
-    }
-
 }
