@@ -35,15 +35,16 @@ class widgetController {
         $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
         $widgetList = get_option('widgetid');
         foreach ($widgets as $keys) {
-            if (self::$theWidget->get_type($keys) != 'Default' && self::$theWidget->get_type($keys) != 'Custom') {
+            if (preg_match_all("/Default|Custom/",self::$theWidget->get_type($keys))==FALSE) {
                 if (array_key_exists($keys, $widgetList) == FALSE) {
                     array_push($widgetList, $widgetList[$keys] = self::$theWidget->make_widget($keys));
                     $this->addto($keys);
                     array_pop($widgetList);
-                    update_option('widgetid', $widgetList);
+                    
                 }
             }
         }
+        update_option('widgetid', $widgetList);
         session_start();
         if(empty($_SESSION['plugin']))
        $_SESSION['plugin']=self::$newWidgetList;
@@ -52,14 +53,14 @@ class widgetController {
     function obsolete_pluginWidgets() {
         $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
         $widgetList = get_option('widgetid');
-        foreach ($widgetList as $w => $v) {
-            if (self::$theWidget->get_type($v[$w]['key']) != 'Default' && self::$theWidget->get_type($v[$w]['key']) != 'Custom') {
-                if (array_key_exists($v[$w]['key'], $widgets) == FALSE) {
-                    unset($widgetList[$v[$w]['key']]);
-                    update_option('widgetid', $widgetList);
+        foreach ($widgetList as $w) {
+            if (self::$theWidget->get_type($w['key']) != 'Default' && self::$theWidget->get_type($w['key']) != 'Custom') {
+                if (array_key_exists($w['key'], $widgets) == FALSE) {
+                    unset($widgetList[$w['key']]);
                 }
             }
         }
+        update_option('widgetid', $widgetList);
     }
 
     function disable_plugin_widget() {
