@@ -81,11 +81,11 @@ class widget_manager {
         register_setting('WM-setting', 'widgetdir');
     }
     static function Widget_manager_settings_page() {
-        include(plugin_dir_path(__FILE__) . '/pages/Manager.php');
+        include(plugin_dir_path(__FILE__) . '/views/Manager.php');
     }
 
     static function WidgetManager_creds_page() {
-        include(plugin_dir_path(__FILE__) . '/pages/credentials.php');
+        include(plugin_dir_path(__FILE__) . '/views/credentials.php');
     }
 
 
