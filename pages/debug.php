@@ -44,5 +44,8 @@
             echo "<h1>" . $sidebar['name'] . "</h1>";
         }
         echo "</div>";
-        ?> 
+        echo"<h1>NOPzE</h1>";
+        var_dump($GLOBALS['wp_widget_factory']->widgets);
+        ?>
+        
     </div>

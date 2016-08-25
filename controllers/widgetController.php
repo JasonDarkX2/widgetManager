@@ -35,7 +35,7 @@ class widgetController {
         $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
         $widgetList = get_option('widgetid');
         foreach ($widgets as $keys) {
-            if (preg_match_all("/Default|Custom/",self::$theWidget->get_type($keys))==FALSE) {
+            if (!preg_match_all("/Default|Custom/",self::$theWidget->get_type($keys))) {
                 if (array_key_exists($keys, $widgetList) == FALSE) {
                     array_push($widgetList, $widgetList[$keys] = self::$theWidget->make_widget($keys));
                     $this->addto($keys);
@@ -51,11 +51,11 @@ class widgetController {
     }
 
     function obsolete_pluginWidgets() {
-        $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
+        $widgets = $GLOBALS['wp_widget_factory']->widgets;
         $widgetList = get_option('widgetid');
         foreach ($widgetList as $w) {
-            if (self::$theWidget->get_type($w['key']) != 'Default' && self::$theWidget->get_type($w['key']) != 'Custom') {
-                if (array_key_exists($w['key'], $widgets) == FALSE) {
+            if (!preg_match_all("/Default|Custom/",self::$theWidget->get_type($w['key']))) {
+                if (!array_key_exists($w['key'], $widgets)) {
                     unset($widgetList[$w['key']]);
                 }
             }
