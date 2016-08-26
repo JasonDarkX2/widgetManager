@@ -46,6 +46,7 @@ class widget_manager {
     }
     function loaded_procedures(){
         $widgetController=new widgetController();
+        $widgetController-> obsolete_customWidgets();
         $widgetController->import_cust_widget(TRUE);
     }    
     static function add_scripts($hook) {
