@@ -130,8 +130,10 @@ class widgetController {
          if(!empty($cust)&& !empty($w)){
                 foreach ($cust as $wid) {
                    if(array_key_exists($wid['key'], $w)){
-                if ($wid['status']==TRUE) {
+                if ($w[$wid['key']]['status']==TRUE) {
                         include($dir . $wid['file']);
+                          $class = self::$theWidget->getWidgetClass($wid['file']);
+                         //register_widget($class);
                 }
                    }
             }
@@ -143,9 +145,11 @@ class widgetController {
                 $info = new SplFileInfo($dir . $wid);
                 if ($info->getExtension() == 'php') {
                     $class = self::$theWidget->getWidgetClass($wid);
-                    if (class_exists($class) == FALSE)
+                    if (class_exists($class) == FALSE){
                         include($dir . $wid);
                     register_widget($class);
+                    
+                    }
                 }
             }
         }
