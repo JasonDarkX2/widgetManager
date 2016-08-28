@@ -10,7 +10,7 @@
  */
 ?>
 <?php
-require_once  plugin_dir_path(__FILE__).'controllers/widgetController.php';
+require_once  plugin_dir_path(__FILE__).'controllers/WidgetController.php';
 class widget_manager {
 
     static $add_script;
@@ -18,7 +18,7 @@ class widget_manager {
     function init() {
         define('WPWM_DEBUG', true);
         if (is_admin()) {
-            self::$wc=new widgetController();
+            self::$wc=new WidgetController();
             add_action('init',array(__CLASS__,'load_initProcedures'));
             add_action('widgets_init',array(__CLASS__,'load_procedures'));
             add_action('admin_menu', array(__CLASS__, 'widget_manager_create_menu'));
@@ -45,9 +45,9 @@ class widget_manager {
         self::$wc->load_widgets();
     }
     function loaded_procedures(){
-        $widgetController=new widgetController();
-        $widgetController-> obsolete_customWidgets();
-        $widgetController->import_cust_widget(TRUE);
+        $WidgetController=new WidgetController();
+        $WidgetController-> obsolete_customWidgets();
+        $WidgetController->import_cust_widget(TRUE);
     }    
     
     static function add_scripts($hook) {

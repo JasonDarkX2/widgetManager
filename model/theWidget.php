@@ -86,7 +86,7 @@ function getWidgetClass($file) {
 function get_type($keys) {
     $c = get_option('custom-widget');
     if(empty($c)){
-        $wc = new widgetController();
+        $wc = new WidgetController();
     $wc->addCustomWidgets();
     $c = get_option('custom-widget');
     }
