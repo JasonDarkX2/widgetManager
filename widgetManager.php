@@ -21,7 +21,6 @@ class widget_manager {
             self::$wc=new widgetController();
             add_action('init',array(__CLASS__,'load_initProcedures'));
             add_action('widgets_init',array(__CLASS__,'load_procedures'));
-            add_action('plugins_loaded', array(__CLASS__,'loaded_procedures') );
             add_action('admin_menu', array(__CLASS__, 'widget_manager_create_menu'));
             add_action('admin_enqueue_scripts', array(__CLASS__, 'add_scripts'));
                 if (get_option('widgetdir') == NULL||get_option('widgetdir') ==''||get_option('widgetdir') =='/') {
@@ -31,6 +30,7 @@ class widget_manager {
                 update_option('widgetdir', $defaultDir);
             }
         }
+        add_action('plugins_loaded', array(__CLASS__,'loaded_procedures') );
     }
     function load_initProcedures(){
         self::$wc-> obsolete_customWidgets();
@@ -49,6 +49,7 @@ class widget_manager {
         $widgetController-> obsolete_customWidgets();
         $widgetController->import_cust_widget(TRUE);
     }    
+    
     static function add_scripts($hook) {
 
         wp_enqueue_style('wm-style', plugins_url('style.css', __FILE__));

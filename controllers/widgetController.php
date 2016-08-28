@@ -133,7 +133,6 @@ class widgetController {
                 if ($w[$wid['key']]['status']==TRUE) {
                         include($dir . $wid['file']);
                           $class = self::$theWidget->getWidgetClass($wid['file']);
-                         //register_widget($class);
                 }
                    }
             }
