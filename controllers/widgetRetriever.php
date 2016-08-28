@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 require_once  plugin_dir_path(dirname(__FILE__)).'model/theWidget.php';
-class widgetRetriever{
+class WidgetRetriever{
 
     public $theWidget;
             function __construct() {

@@ -5,7 +5,7 @@
  */
 require_once plugin_dir_path(dirname(__FILE__)) . 'model/theWidget.php';
 
-class widgetController {
+class WidgetController {
 
     static $theWidget;
     static $newWidgetList;
