@@ -61,7 +61,7 @@ class widget_manager {
         wp_localize_script('wm-script', 'defaults', $defaultDir);
         $translation_array = array('addWidgetUrl' => menu_page_url('credentials', FALSE));
         wp_localize_script('wm-script', 'url', $translation_array);
-        $translation_array = array('pluginUrl' => plugins_url('/actionScripts/options.php', __FILE__));
+        $translation_array = array('pluginUrl' => plugins_url('/controllers/WidgetAction.php', __FILE__));
         wp_localize_script('wm-script', 'pd', $translation_array);
     }
 
