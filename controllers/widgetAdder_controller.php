@@ -1,35 +1,13 @@
 <?php
 /*
- * Credentials page for Wordpress Widget Manager plugin
- * Handles the WP_filesystem functionality of the plugin
- * Also handles the  Adding and deletion of widgets
- * For more information check out: http://JasonDarkX2.com/ 
+    the controller for adding/deleting Widgets for Wordpress Widget Manager
  */
-?>
-<div class="wrap">      
-    <?php
-        require_once  plugin_dir_path(dirname(__FILE__)).'controllers/widgetAdder_controller.php';
-        $widgetAdder= new WidgetAdder();
-    if (isset($_POST['op'])) {
-        $op = $_POST['op'];
-    } else {
-        $op = $_GET['op'];
+class WidgetAdder{
+    
+        function __construct() {
+        
     }
-
-    switch ($op) {
-        case 'add':
-            if (isset($_POST['ufile']) == FALSE)
-                $widgetAdder->add_widget();
-            break;
-        case 'del':
-            $widgetAdder->delete_widget();
-            break;
-    }
-    ?>
-</div>
-<?php
-/*
-function connect_fs($url, $method, $context, $fields = null) {
+    function connect_fs($url, $method, $context, $fields = null) {
     global $wp_filesystem;
     if (false === ($credentials = request_filesystem_credentials($url, $method, false, $context, $fields))) {
         return false;
@@ -55,7 +33,7 @@ function delete_widget() {
         die();
         header('Location: ' . menu_page_url('widgetM') . '&del=true');
     }
-    if (connect_fs($url, "POST", get_option('widgetdir'), $form_fields)) {
+    if (self::connect_fs($url, "POST", get_option('widgetdir'), $form_fields)) {
         //deletion  process
         global $wp_filesystem;
         $custwid = get_option('custom-widget');
@@ -65,7 +43,7 @@ function delete_widget() {
         if (file_exists($wdir . '/' . $custwid[$widgetid]['file']) === TRUE) {
             $toDel = explode("/", $custwid[$widgetid]['file']);
             $del = $wdir . $toDel[0];
-            display_msg($wp_filesystem->rmdir($del, true), TRUE);
+            self::display_msg($wp_filesystem->rmdir($del, true), TRUE);
             header('Location: ' . menu_page_url('widgetM') . '&del=true');
             session_start();
             $_SESSION['deletion'] = display_msg($wp_filesystem->rmdir($del, true), TRUE);
@@ -93,7 +71,7 @@ function add_widget() {
         $_SESSION['name'] = $name;
         $form_fields = array('file');
     }
-    if (connect_fs('', "POST", get_option('widgetdir'), $form_fields)) {
+    if (self::connect_fs('', "POST", get_option('widgetdir'), $form_fields)) {
         $destination = get_option('widgetdir');
         $file = $_POST['file'];
         $unzip = unzip_file($file, $destination);
@@ -124,4 +102,5 @@ function display_msg($output, $del) {
         <?php
     }
 }
-*/
+}
+?>
