@@ -87,7 +87,7 @@ class widget_manager {
     }
 
     static function WidgetManager_creds_page() {
-        include(plugin_dir_path(__FILE__) . '/views/credentials.php');
+        include(plugin_dir_path(__FILE__) . '/controllers/widgetAdder_controller.php');
     }
 
 
