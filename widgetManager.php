@@ -10,7 +10,7 @@
  */
 ?>
 <?php
-require_once  plugin_dir_path(__FILE__).'controllers/WidgetController.php';
+require_once  plugin_dir_path(__FILE__).'controllers/widgetLoader_controller.php';
 class widget_manager {
 
     static $add_script;

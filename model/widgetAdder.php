@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  WwidgetAdder model class handles the adding and deletion of custom widgets 
+ *  WwidgetAdder model class handles the adding and deletion of custom class widgets 
  */
 
 class WidgetAdder{
