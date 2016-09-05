@@ -8,7 +8,7 @@
 <h1> Widget Manager</h1>
 <p id="msg">
     <?php
-    require_once  plugin_dir_path(dirname(__FILE__)).'controllers/widgetRetriever_controller.php';
+    require_once  plugin_dir_path(dirname(__FILE__)).'controllers/widgetRetriever_controllers.php';
     $retriever= new WidgetRetriever();
     if (isset($_SESSION['errors'])) {
         print_r($_SESSION['errors']);
