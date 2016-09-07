@@ -4,9 +4,22 @@
  WidgetManager settings model class maintains the setting options of plugin
  */
 
-class Settings{
+class WmSettings{
     public function __construct() {
     
+    }
+    function setPresetOptions($presets){
+    foreach ($presets as $p) {
+        $option = 'preset-' . $p;
+        update_option($option, FALSE);
+        if (isset($_POST[$p])) {
+            $v = true;
+            update_option($option, $v);
+        } else {
+            $v = false;
+            update_option($option, $v);
+        }
+    }
     }
     function changeWidgetDir($dir){
         if (empty($dir) || get_option('preset-cdwd') ||get_option('widgetdir') =='/') {
@@ -49,7 +62,7 @@ if ($proceed) {
             }
             foreach ($contents as $widgets) {
                 if ($widgets != "." && $widgets != "..") {
-                    recurse_copy($sdir, $dir);
+                    self::recurse_copy($sdir, $dir);
                 }
             }
 
@@ -76,7 +89,20 @@ function recursiveRemove($dir) {
     $check = rmdir($dir);
     return $check;
 }
-
+function recurse_copy($src, $dst) {
+    $dir = opendir($src);
+    @mkdir($dst);
+    while (false !== ( $file = readdir($dir))) {
+        if (( $file != '.' ) && ( $file != '..' )) {
+            if (is_dir($src . '/' . $file)) {
+                recurse_copy($src . '/' . $file, $dst . '/' . $file);
+            } else {
+                copy($src . '/' . $file, $dst . '/' . $file);
+            }
+        }
+    }
+    closedir($dir);
+}
 function msgDisplay($error, $errmsg, $dirChange, $dirDiff) {
     if ($error == FALSE) {
         if ($dirChange && $dirDiff) {

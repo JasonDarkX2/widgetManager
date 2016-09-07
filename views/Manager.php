@@ -8,7 +8,7 @@
 <h1> Widget Manager</h1>
 <p id="msg">
     <?php
-    require_once  plugin_dir_path(dirname(__FILE__)).'controllers/widgetRetriever_controllers.php';
+    require_once  plugin_dir_path(dirname(__FILE__)).'controllers/widgetRetriever_controller.php';
     $retriever= new WidgetRetriever();
     if (isset($_SESSION['errors'])) {
         print_r($_SESSION['errors']);
@@ -75,7 +75,7 @@
         <input type="file" name="widgetToUpload" id="widgetToUpload" accept=".php,.zip">
         <input type="hidden" id="wpdir" name="wpdir" value="<?php echo basename(content_url()); ?>" />
     </form>
-    <form id="customDirForm" method="POST" action="<?php echo plugins_url('actionScripts/settings.php', dirname(__FILE__)); ?>">
+    <form id="customDirForm" method="POST" action="<?php echo plugins_url('controllers/settings_controller.php', dirname(__FILE__)); ?>">
         <strong>Custom Widget Upload Directory:</strong>
         <?php if (get_option('preset-cdwd') == FALSE) : ?>
             <input type="text" name="dir" id="widgetdir" size="80" value="<?php echo str_replace('\\', '/', get_option('widgetdir')); ?>">
