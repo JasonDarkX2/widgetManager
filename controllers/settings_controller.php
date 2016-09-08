@@ -13,8 +13,6 @@ $dir = $_POST['dir'];
 if(isset($_POST['preset'])){
     $settingObj->setPresetOptions($_POST['preset']);
 }
-if(isset($dir)){
     $settingObj->changeWidgetDir($dir);
-}
 
 

@@ -13,16 +13,15 @@ class WmSettings{
         $option = 'preset-' . $p;
         update_option($option, FALSE);
         if (isset($_POST[$p])) {
-            $v = true;
-            update_option($option, $v);
+            update_option($option, TRUE);
         } else {
             $v = false;
-            update_option($option, $v);
+            update_option($option, FALSE);
         }
     }
     }
     function changeWidgetDir($dir){
-        if (empty($dir) || get_option('preset-cdwd') ||get_option('widgetdir') =='/') {
+        if (empty($dir) || get_option('preset-cdwd')==TRUE ||get_option('widgetdir') =='/') {
     $dir = dirname(plugin_dir_path(__FILE__)) . '/custom-widgets/';
     $dirchange = TRUE;
 }
@@ -62,7 +61,7 @@ if ($proceed) {
             }
             foreach ($contents as $widgets) {
                 if ($widgets != "." && $widgets != "..") {
-                    self::recurse_copy($sdir, $dir);
+                    recurse_copy($sdir, $dir);
                 }
             }
 
@@ -72,9 +71,8 @@ if ($proceed) {
         }
     }
     }
-msgDisplay($error, $errmsg, $dirchange, $dirDiff);
 update_option('widgetdir', $dir);
-    
+    msgDisplay($error, $errmsg, $dirchange, $dirDiff);
             }
 }
 
