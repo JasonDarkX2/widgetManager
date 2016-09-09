@@ -21,8 +21,9 @@ class WmSettings{
     }
     }
     function changeWidgetDir($dir){
+        $defaultDir= str_replace('//', '/', str_replace('\\', '/',dirname(plugin_dir_path(__FILE__)))) . '/custom-widgets/';
         if (empty($dir) || get_option('preset-cdwd')==TRUE ||get_option('widgetdir') =='/') {
-    $dir = dirname(plugin_dir_path(__FILE__)) . '/custom-widgets/';
+    $dir = $defaultDir;
     $dirchange = TRUE;
 }
 $dir = str_replace('//', '/', str_replace('\\', '/', $dir));
@@ -50,7 +51,7 @@ if (file_exists($dir) == FALSE) {
     chown($dir, $user);
     $proceed = true;
 }
-if ($proceed) {
+//if ($proceed) {
     $sdir = get_option('widgetdir');
     If (file_exists($sdir)) {
         $sdir = str_replace('//', '/', str_replace('\\', '/', $sdir));
@@ -66,11 +67,13 @@ if ($proceed) {
             }
 
             if ($sdir != $dir) {
-                $check = self::recursiveRemove($sdir);
+                if($sdir!=$defaultDir){
+                $check = recursiveRemove($sdir);
+                }
             }
         }
     }
-    }
+    //}
 update_option('widgetdir', $dir);
     msgDisplay($error, $errmsg, $dirchange, $dirDiff);
             }
