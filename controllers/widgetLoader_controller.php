@@ -169,7 +169,7 @@ class WidgetController {
                 if (empty($cust) == TRUE && $class != '') {
                     $cust[$class] = self::$theWidget->make_customWiget($wid);
                 } else {
-                    if (array_key_exists($class, $cust) == FALSE) {
+                    if (!empty($cust)&& array_key_exists($class, $cust) == FALSE) {
                         array_push($cust, $cust[$class] = self::$theWidget->make_customWiget($wid));
                         array_pop($cust);
                     }
