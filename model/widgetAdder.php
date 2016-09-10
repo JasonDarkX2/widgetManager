@@ -60,17 +60,20 @@ function add_widget($fileName, $tempName) {
     if ($fileNameame == null) {
         $name = $_SESSION['name'];
     }
-    if ($name != null) {
-        $destination = $dest['basedir'] . '/' . $fileName;
+    var_dump($_POST['file']);
+    if ($_POST['file'] == null) {
+        $destination = $dest['basedir'] . $fileName;
         move_uploaded_file($tempName, $destination);
         $file = str_replace('//', '/', str_replace('\\', '/', $destination));
-        $_POST['file'] = $file;
-        $_SESSION['name'] = $fileName;
-        $form_fields = array('file');
+        $_POST['file'] =  $file;
+        $_POST['name'] = $fileName;
+        $_SESSION['name']='nope';
+        $form_fields = array('file','name');
     }
     if (self::connect_fs('', "POST", get_option('widgetdir'), $form_fields)) {
-        $destination = get_option('widgetdir');
+        $destination = get_option('widgetdir') . $fileName;
         $file = $_POST['file'];
+        //var_dump($_POST);
         $unzip = unzip_file($file, $destination);
         if (is_wp_error($unzip)) {
             $_SESSION['errors'] = ' <div class="errorNotfi">' . $unzip->get_error_message() . '</div>';
@@ -80,6 +83,7 @@ function add_widget($fileName, $tempName) {
         header('Location: ' . menu_page_url('widgetM'));
         unlink($file);
     }
+    $_SESSION['name']=NULL;
 }
 
 function display_msg($output, $del) {
