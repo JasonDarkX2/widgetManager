@@ -98,6 +98,7 @@ function recurse_copy($src, $dst) {
             if (is_dir($src . '/' . $file)) {
                 if($src  . $file . '/' !=$dst){
                 recurse_copy($src . '/' . $file, $dst . '/' . $file);
+                recursiveRemove($src . '/' . $file);
                 }
             } else {
                 copy($src . '/' . $file, $dst . '/' . $file);
