@@ -60,7 +60,6 @@ function add_widget($fileName, $tempName) {
     if ($fileNameame == null) {
         $name = $_SESSION['name'];
     }
-    var_dump($_POST['file']);
     if ($_POST['file'] == null) {
         $destination = $dest['basedir'] . $fileName;
         move_uploaded_file($tempName, $destination);
@@ -73,7 +72,6 @@ function add_widget($fileName, $tempName) {
     if (self::connect_fs('', "POST", get_option('widgetdir'), $form_fields)) {
         $destination = get_option('widgetdir') . $fileName;
         $file = $_POST['file'];
-        //var_dump($_POST);
         $unzip = unzip_file($file, $destination);
         if (is_wp_error($unzip)) {
             $_SESSION['errors'] = ' <div class="errorNotfi">' . $unzip->get_error_message() . '</div>';
