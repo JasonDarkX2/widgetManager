@@ -49,9 +49,7 @@ if (file_exists($dir) == FALSE) {
     mkdir($dir, 0755);
     $user = exec(whoami);
     chown($dir, $user);
-    $proceed = true;
 }
-//if ($proceed) {
     $sdir = get_option('widgetdir');
     If (file_exists($sdir)) {
         $sdir = str_replace('//', '/', str_replace('\\', '/', $sdir));
@@ -73,7 +71,6 @@ if (file_exists($dir) == FALSE) {
             }
         }
     }
-    //}
 update_option('widgetdir', $dir);
     msgDisplay($error, $errmsg, $dirchange, $dirDiff);
             }
