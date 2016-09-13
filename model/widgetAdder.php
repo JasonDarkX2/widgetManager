@@ -45,10 +45,9 @@ function delete_widget($widgetId,$wpDir) {
         if (file_exists($wdir . '/' . $custwid[$widgetid]['file']) === TRUE) {
             $toDel = explode("/", $custwid[$widgetid]['file']);
             $del = $wdir . $toDel[0];
-            self::display_msg($wp_filesystem->rmdir($del, true), TRUE);
-            header('Location: ' . menu_page_url('widgetM') . '&del=true');
-            session_start();
-            $_SESSION['deletion'] = display_msg($wp_filesystem->rmdir($del, true), TRUE);
+            //display_msg($wp_filesystem->rmdir($del, true), TRUE);
+            //header('Location: ' . menu_page_url('widgetM') . '&del=true');
+           return self::display_msg($wp_filesystem->rmdir($del, true), TRUE);
         }
     } else {
         

@@ -19,7 +19,13 @@
                 $widgetAdder->add_widget($_FILES["widgetToUpload"]['name'],$_FILES['widgetToUpload']["tmp_name"]);
             break;
         case 'del':
-            $widgetAdder->delete_widget($_GET['w'],$_GET['wpdir']);
+             $output=$widgetAdder->delete_widget($_GET['w'],$_GET['wpdir']);
+            session_start();
+            $_SESSION['deletion'] =$output;
+            if(!empty($output)){
+            header('Location: ' . menu_page_url('widgetM') . '&del=true');
+                
+            }
             break;
     }
     ?>
