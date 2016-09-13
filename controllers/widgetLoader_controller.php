@@ -54,7 +54,7 @@ class WidgetController {
         $widgets = $GLOBALS['wp_widget_factory']->widgets;
         $widgetList = get_option('widgetid');
         foreach ($widgetList as $w) {
-            if (!preg_match_all("/Default|Custom/",self::$theWidget->get_type($w['key']))) {
+            if (!preg_match_all("/Default|Custom/",$w['type'])) {
                 if (!array_key_exists($w['key'], $widgets)) {
                     unset($widgetList[$w['key']]);
                 }
