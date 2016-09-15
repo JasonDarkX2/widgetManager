@@ -16,7 +16,7 @@ class widget_manager {
     static $add_script;
     static $wc;
     function init() {
-        define('WPWM_DEBUG', true);
+        define('WPWM_DEBUG', TRUE);
         if (is_admin()) {
             self::$wc=new WidgetController();
             add_action('init',array(__CLASS__,'load_initProcedures'));
@@ -52,12 +52,12 @@ class widget_manager {
     
     static function add_scripts($hook) {
 
-        wp_enqueue_style('wm-style', plugins_url('style.css', __FILE__));
+        wp_enqueue_style('wm-style', plugins_url('css/style.css', __FILE__));
         wp_enqueue_style('ui-style', 'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
         wp_enqueue_script('ui-script', '//code.jquery.com/ui/1.11.4/jquery-ui.js', array('jquery'));
         $dir = plugin_dir_path(__FILE__) . 'custom-widgets/';
         $defaultDir = array('defaultDir' => str_replace('//', '/', str_replace('\\', '/', $dir)));
-        wp_enqueue_script('wm-script', plugins_url('wm-script.js', __FILE__), array('jquery'));
+        wp_enqueue_script('wm-script', plugins_url('js/wm-script.js', __FILE__), array('jquery'));
         wp_localize_script('wm-script', 'defaults', $defaultDir);
         $translation_array = array('addWidgetUrl' => menu_page_url('credentials', FALSE));
         wp_localize_script('wm-script', 'url', $translation_array);
