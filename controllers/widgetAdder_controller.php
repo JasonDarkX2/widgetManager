@@ -16,7 +16,10 @@
     switch ($op) {
         case 'add':
             if (isset($_POST['ufile']) == FALSE)
-                $widgetAdder->add_widget($_FILES["widgetToUpload"]['name'],$_FILES['widgetToUpload']["tmp_name"]);
+                $proceed=$widgetAdder->add_widget($_FILES["widgetToUpload"]['name'],$_FILES['widgetToUpload']["tmp_name"]);
+            if($proceed==TRUE && !empty($proceed)){
+            header('Location: ' . menu_page_url('widgetM'));
+            }
             break;
         case 'del':
              $output=$widgetAdder->delete_widget($_GET['w'],$_GET['wpdir']);

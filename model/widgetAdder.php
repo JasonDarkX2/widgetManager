@@ -45,8 +45,6 @@ function delete_widget($widgetId,$wpDir) {
         if (file_exists($wdir . '/' . $custwid[$widgetid]['file']) === TRUE) {
             $toDel = explode("/", $custwid[$widgetid]['file']);
             $del = $wdir . $toDel[0];
-            //display_msg($wp_filesystem->rmdir($del, true), TRUE);
-            //header('Location: ' . menu_page_url('widgetM') . '&del=true');
            return self::display_msg($wp_filesystem->rmdir($del, true), TRUE);
         }
     } else {
@@ -65,7 +63,6 @@ function add_widget($fileName, $tempName) {
         $file = str_replace('//', '/', str_replace('\\', '/', $destination));
         $_POST['file'] =  $file;
         $_POST['name'] = $fileName;
-        $_SESSION['name']='nope';
         $form_fields = array('file','name');
     }
     if (self::connect_fs('', "POST", get_option('widgetdir'), $form_fields)) {
@@ -77,8 +74,8 @@ function add_widget($fileName, $tempName) {
         } else {
             $_SESSION['errors'] = NULL;
         }
-        header('Location: ' . menu_page_url('widgetM'));
         unlink($file);
+           return TRUE;
     }
     $_SESSION['name']=NULL;
 }
