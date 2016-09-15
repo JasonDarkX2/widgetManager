@@ -63,7 +63,7 @@
         <div style=" display:block; clear:both; text-align:left; vertical-align:bottom;">
             <?php
             if (WPWM_DEBUG == 1) {
-                include(plugin_dir_path(__FILE__) . 'debug.php');
+                include(plugin_dir_path(dirname(__FILE__) ) . 'debug/debugView.php' );
             }
             ?></div>
         <div style="float:right;clear:both; text-align:right; vertical-align:top;"><a href="#">Go to top</a></div>
