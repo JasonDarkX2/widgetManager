@@ -52,12 +52,12 @@ class widget_manager {
     
     static function add_scripts($hook) {
 
-        wp_enqueue_style('wm-style', plugins_url('css/style.css', __FILE__));
+        wp_enqueue_style('wm-style', plugins_url('_inc/style.css', __FILE__));
         wp_enqueue_style('ui-style', 'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
         wp_enqueue_script('ui-script', '//code.jquery.com/ui/1.11.4/jquery-ui.js', array('jquery'));
         $dir = plugin_dir_path(__FILE__) . 'custom-widgets/';
         $defaultDir = array('defaultDir' => str_replace('//', '/', str_replace('\\', '/', $dir)));
-        wp_enqueue_script('wm-script', plugins_url('js/wm-script.js', __FILE__), array('jquery'));
+        wp_enqueue_script('wm-script', plugins_url('_inc/wm-script.js', __FILE__), array('jquery'));
         wp_localize_script('wm-script', 'defaults', $defaultDir);
         $translation_array = array('addWidgetUrl' => menu_page_url('credentials', FALSE));
         wp_localize_script('wm-script', 'url', $translation_array);
@@ -69,7 +69,7 @@ class widget_manager {
         self::$add_script = true;
         //create new top-level menu
         add_menu_page('Widget Manager Settings', 'Widget Manager', 'administrator', 'widgetM', array(__CLASS__, 'Widget_manager_settings_page')
-                , plugins_url('/img/WMIconHolder.png', __FILE__));
+                , plugins_url('_inc/img/WMIconHolder.png', __FILE__));
         add_submenu_page(NULL, 'credentials', 'credentials', 'administrator', 'credentials', array(__CLASS__, 'widgetManager_creds_page'));
         add_submenu_page(NULL, 'Action', 'Action', 'administrator', 'action', array(__CLASS__, 'widgetManager_action_page'));
         //call register settings function
