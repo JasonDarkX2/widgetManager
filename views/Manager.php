@@ -23,7 +23,7 @@
     }
     ?>
 </p>
-<form id="settingsop" method="POST" action="<?php echo plugins_url('actionScripts/options.php', dirname(__FILE__)); ?>">
+<form id="settingsop" method="POST" action="<?php echo plugins_url('controllers/widgetAction_controller.php', dirname(__FILE__)); ?>">
     <div class="wm-controls">
         <label for="quickOp">Bulk Action:</label>
         <select name="quickOp">
