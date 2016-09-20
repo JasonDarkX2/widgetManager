@@ -9,7 +9,7 @@ class WidgetSetter{
     }
     function setAllWidget(&$widgetList, $status) {
     foreach ($widgetList as $widgetId) {
-        $widgets[$widgetId['key']]['status'] = $status;
+        $widgetList[$widgetId['key']]['status'] = $status;
         update_option('widgetid', $widgetList);
     }
 }
