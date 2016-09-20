@@ -56,7 +56,7 @@ If (isset($_POST['quickOp'])) {
             break;
         case 'disPlugin':
             $widgets = get_option('widgetid');
-            enable_all($widgets);
+            $WidgetSetter->setAllWidget($widgets,TRUE);
             $WidgetSetter->setByWidgetTypes($widgets, "Plugin",FALSE);
             break;
         case 'pick':
