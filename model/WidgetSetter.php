@@ -7,23 +7,23 @@ class WidgetSetter{
     function __construct() {
         
     }
-    function setAllWidget(&$widgets, $status) {
-    foreach ($widgets as $widgetId) {
+    function setAllWidget(&$widgetList, $status) {
+    foreach ($widgetList as $widgetId) {
         $widgets[$widgetId['key']]['status'] = $status;
-        update_option('widgetid', $widgets);
+        update_option('widgetid', $widgetList);
     }
 }
 
 
-function setByWidgetTypes(&$w, $type, $status) {
-    foreach ($w as $wid) {
+function setByWidgetTypes(&$widgetList, $type, $status) {
+    foreach ($widgetList as $wid) {
         if ($wid['type']!= $type){ 
             continue;
         }else{
-            $w[$wid['key']]['status'] = $status;
+            $widgetList[$wid['key']]['status'] = $status;
         }
     }
-    update_option('widgetid', $w);
+    update_option('widgetid', $widgetList);
 }
 function get_count($type) {
 
@@ -37,12 +37,12 @@ function get_count($type) {
     return $count;
 }
 
-function status_count($wl,&$enablecon, &$disabledcon){ 
-    foreach ($wl as $wid) {
+function status_count($widgetList,&$enableCount, &$disabledCount){ 
+    foreach ($widgetList as $wid) {
         if ($wid['status']){ 
-            $enablecon ++;
+            $enableCount ++;
         } else {
-            $disabledcon ++;
+            $disabledCount ++;
         }
     }
 }
