@@ -20,58 +20,58 @@ class WmSettings{
         }
     }
     }
-    function changeWidgetDir($dir){
+    function changeWidgetDir($newDir){
         $defaultDir= str_replace('//', '/', str_replace('\\', '/',dirname(plugin_dir_path(__FILE__)))) . '/custom-widgets/';
-        if (empty($dir) || get_option('preset-cdwd')==TRUE ||get_option('widgetdir') =='/') {
-    $dir = $defaultDir;
+        if (empty($newDir) || get_option('preset-cdwd')==TRUE ||get_option('widgetdir') =='/') {
+    $newDir = $defaultDir;
     $dirchange = TRUE;
 }
-$dir = str_replace('//', '/', str_replace('\\', '/', $dir));
+$newDir = str_replace('//', '/', str_replace('\\', '/', $newDir));
 $wpdir = str_replace('//', '/', str_replace('\\', '/', wp_upload_dir()));
 $plugindir = str_replace('//', '/', str_replace('\\', '/', dirname(plugin_dir_path(__FILE__))));
 if (WPWM_DEBUG == 1) {
 $error = TRUE;
     $errmsg= "Debug Mode enabled, unrestricted  directory changes permitted"; 
 }
-else if (strstr($dir, $plugindir) == FALSE) {
+else if (strstr($newDir, $plugindir) == FALSE) {
     $error = TRUE;
     $errmsg = " ERROR-Custom Widget Directory must be within Wordpress manager plugin directory. The default had been set instead of " .
-            $dir .
+            $newDir .
             '<br/>';
-    $dir = dirname(plugin_dir_path(__FILE__)) . '/custom-widgets/';
+    $newDir = dirname(plugin_dir_path(__FILE__)) . '/custom-widgets/';
     $dirchange = TRUE;
 }
 
 $dirchange = TRUE;
-$dir = str_replace('//', '/', str_replace('\\', '/', $dir));
-if (file_exists($dir) == FALSE) {
+$newDir = str_replace('//', '/', str_replace('\\', '/', $newDir));
+if (file_exists($newDir) == FALSE) {
     $dirDiff = true;
-    mkdir($dir, 0755);
+    mkdir($newDir, 0755);
     $user = exec(whoami);
-    chown($dir, $user);
+    chown($newDir, $user);
 }
-    $sdir = get_option('widgetdir');
-    If (file_exists($sdir)) {
-        $sdir = str_replace('//', '/', str_replace('\\', '/', $sdir));
-        if (strcmp($sdir, $wpdir['basedir']) != 0) {
-            $contents = scandir($sdir);
-            if (SUBSTR($dir, -1) != '/') {
-                $dir.= '/';
+    $sourceDir = get_option('widgetdir');
+    If (file_exists(  $sourceDir)) {
+          $sourceDir = str_replace('//', '/', str_replace('\\', '/',   $sourceDir));
+        if (strcmp(  $sourceDir, $wpdir['basedir']) != 0) {
+            $contents = scandir(  $sourceDir);
+            if (SUBSTR($newDir, -1) != '/') {
+                $newDir.= '/';
             }
             foreach ($contents as $widgets) {
                 if ($widgets != "." && $widgets != "..") {
-                    recurse_copy($sdir, $dir);
+                    recurse_copy(  $sourceDir, $newDir);
                 }
             }
 
-            if ($sdir != $dir) {
-                if($sdir!=$defaultDir){
-                $check = recursiveRemove($sdir);
+            if (  $sourceDir != $newDir) {
+                if(  $sourceDir!=$defaultDir){
+                $check = recursiveRemove(  $sourceDir);
                 }
             }
         }
     }
-update_option('widgetdir', $dir);
+update_option('widgetdir', $newDir);
     msgDisplay($error, $errmsg, $dirchange, $dirDiff);
             }
 }
