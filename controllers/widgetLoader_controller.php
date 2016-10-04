@@ -183,6 +183,7 @@ class WidgetController {
         $w = get_option('widgetid');
         $this->addCustomWidgets();
         $cust = get_option('custom-widget');
+        if(empty($cust)!=TRUE){
         foreach ($cust as $cw) {
             if (!array_key_exists($cw['key'], $w)) {
                 array_push($w, $w[$cw['key']] = self::$theWidget->make_widget($cw['key']));
@@ -190,6 +191,7 @@ class WidgetController {
                 $this->addto($cw['key']);
                 update_option('widgetid', $w);
             }
+        }
         }
     }
 
