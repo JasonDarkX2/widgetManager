@@ -219,4 +219,30 @@ class WidgetController {
         echo'</ul></div>';
         self::$newWidgetList = null;
     }
-}
+    // Simply compile custom widgets css files and creates the single custom widgets main css file
+    function createWidgetCss(){
+        $customWidgets=get_option('custom-widget');
+        $mainStyleFile=plugin_dir_path(dirname(__FILE__)) .'/_inc/customStyling.css';
+        file_put_contents($mainStyleFile,'');   
+        foreach($customWidgets as $cw){
+            if(dirname($cw['file'])!='.'){
+                $styleDir=get_option('widgetdir') . dirname($cw[file]).'/css/';
+                $cdir = scandir($styleDir);
+               foreach($cdir as $index){
+                   $info = new SplFileInfo($index);
+                    if (is_dir($dir) == FALSE && $info->getExtension() == 'css') {
+                        $styleFile= $styleDir . $index;
+                        $fileContent= file_get_contents($styleFile);
+                        if($lastfile!=$styleFile){
+                            
+                        file_put_contents($mainStyleFile,$fileContent,FILE_APPEND);
+                        $lastfile=$styleFile;
+                        }else{
+                            continue;
+                        }
+                    }
+               }
+            }
+            }
+        }
+    }
