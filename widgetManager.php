@@ -33,12 +33,15 @@ class widget_manager {
         add_action('plugins_loaded', array(__CLASS__,'loaded_procedures') );
     }
     function load_initProcedures(){
-        self::$wc->createWidgetCss();
         self::$wc-> obsolete_customWidgets();
         self::$wc-> obsolete_pluginWidgets();
         self::$wc-> load_pluginWidgets();
         self::$wc-> load_customWidgets();
         self::$wc->disable_plugin_widget();
+        $cw=get_option('custom-widget');
+        if($cw!=NULL && self::$wc->newWidgets()==TRUE){
+       $WidgetController->createWidgetResource($cw);
+    }
     }
     function load_procedures(){
         self::$wc->import_cust_widget();
@@ -49,10 +52,18 @@ class widget_manager {
         $WidgetController=new WidgetController();
         $WidgetController-> obsolete_customWidgets();
         $WidgetController->import_cust_widget(TRUE);
-        add_action('wp_footer',array(__CLASS__,'frontEndScripts'));
+        add_action('wp_footer',  widget_manager::frontEndScripts());
     }    
-    static function frontEndScripts($hook){
-        wp_enqueue_style('wm-FrontStyle', plugins_url('_inc/customStyling.css', __FILE__));
+    static function frontEndScripts(){
+        $resourceFiles=[
+            'css'=>'_inc/cwidgets.css',
+            'js'=>'_inc/cwidgets.js',
+        ];
+        foreach ($resourceFiles as $file){
+        if(filesize(plugin_dir_path(__FILE__) . $file)!=0){
+        wp_enqueue_style('wm-FrontStyle', plugins_url( $file, __FILE__));
+        }
+        }
     }
     
     static function add_scripts($hook) {
