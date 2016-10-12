@@ -194,8 +194,15 @@ class WidgetController {
         }
         }
     }
-
-    function addto($key) {
+    //simply returns true if there's new widgets, ptherwise false
+    function newWidgets(){
+        if(count(self::$newWidgetList)>0){
+            return TRUE;
+        }  else {
+        return FALSE;    
+        }
+    }
+            function addto($key) {
         $w = get_option('widgetid');
         if (!array_key_exists($key, $w)) {
             self::$newWidgetList[$key] = '<li>' . self::$theWidget->get_name($key) . '</li>';
@@ -219,30 +226,55 @@ class WidgetController {
         echo'</ul></div>';
         self::$newWidgetList = null;
     }
-    // Simply compile custom widgets css files and creates the single custom widgets main css file
-    function createWidgetCss(){
-        $customWidgets=get_option('custom-widget');
-        $mainStyleFile=plugin_dir_path(dirname(__FILE__)) .'/_inc/customStyling.css';
-        file_put_contents($mainStyleFile,'');   
-        foreach($customWidgets as $cw){
-            if(dirname($cw['file'])!='.'){
-                $styleDir=get_option('widgetdir') . dirname($cw[file]).'/css/';
-                $cdir = scandir($styleDir);
-               foreach($cdir as $index){
-                   $info = new SplFileInfo($index);
-                    if (is_dir($dir) == FALSE && $info->getExtension() == 'css') {
-                        $styleFile= $styleDir . $index;
-                        $fileContent= file_get_contents($styleFile);
-                        if($lastfile!=$styleFile){
-                            
-                        file_put_contents($mainStyleFile,$fileContent,FILE_APPEND);
-                        $lastfile=$styleFile;
-                        }else{
-                            continue;
-                        }
-                    }
-               }
-            }
+ /**
+  * Creates and compiles custom widgets css/js files into their respective single main files.
+  *
+  * @param type $customWidgets
+  * @return  array  containing file sizes
+  */  
+function createWidgetResource($customWidgets){
+    $dir=get_option('widgetdir');
+    $mainStyleFile = plugin_dir_path(dirname(__FILE__)) . '/_inc/cwidgets.css';
+    $mainScriptFile = plugin_dir_path(dirname(__FILE__)) . '/_inc/cwidgets.js';
+        file_put_contents($mainStyleFile, '');
+        file_put_contents($mainScriptFile, '');
+        //get custom widgets css and js  directorties
+        $resourceDir=[];
+        foreach ($customWidgets as $cw) {
+            if (dirname($cw['file']) != '.') {
+                array_push($resourceDir, $dir . dirname($cw['file']) . '/css/');
+                array_push($resourceDir, $dir . dirname($cw['file']) . '/js/');
+            }else{
+                continue;
             }
         }
-    }
+        //get js and css files and  compile them into repective main files
+        foreach ($resourceDir as $dirIndex) {
+            if (file_exists($dirIndex)) {
+              $resourceFiles = scandir($dirIndex);
+                foreach ($resourceFiles as $fileIndex) {
+                    $info = new SplFileInfo($fileIndex);
+                    //write to css main file
+                     if (is_dir($info) == FALSE && $info->getExtension() == 'css') {
+                         $theFile = $dirIndex . $fileIndex;
+                         $fileContent = file_get_contents($theFile);
+                         file_put_contents($mainStyleFile, $fileContent, FILE_APPEND);
+                     }
+                     //write to js main file
+                      if (is_dir($info) == FALSE && $info->getExtension() == 'js') {
+                         $theFile = $dirIndex . $fileIndex;
+                         $fileContent = file_get_contents($theFile);
+                         file_put_contents($mainScriptFile, $fileContent, FILE_APPEND);
+                     }
+                     
+                }
+            }
+                        }
+       
+       $fileSizes=[
+           'css'=> filesize($mainStyleFile),
+           'js' => filesize($mainScriptFile),            
+        ];
+       return $fileSizes;
+}
+}
