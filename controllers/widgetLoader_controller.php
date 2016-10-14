@@ -1,7 +1,8 @@
 <?php
 
-/*
+/**
   controller for Wordpress Widget Manager
+ * handles loading and unregistering  of widgets  
  */
 require_once plugin_dir_path(dirname(__FILE__)) . 'model/theWidget.php';
 
@@ -13,7 +14,9 @@ class WidgetController {
     function __construct() {
         self::$theWidget = new theWidget();
     }
-
+/**
+ * Simply load default widgets into the widgetid plugin option.
+ */
     function load_widgets() {
         $widgetsId = get_option('widgetid');
         $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
@@ -30,7 +33,9 @@ class WidgetController {
         update_option('widgetid', $widgetsId);
         $widgets = $widgetsId;
     }
-
+/**
+ * Simply load plugin type widgets into the widgetid plugin option.
+ */
     function load_pluginWidgets() {
         $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
         $widgetList = get_option('widgetid');
@@ -49,7 +54,9 @@ class WidgetController {
         if(empty($_SESSION['plugin']))
        $_SESSION['plugin']=self::$newWidgetList;
     }
-
+/**
+ * Simply removes non existing  plugin widgets index from widgetid option.
+ */
     function obsolete_pluginWidgets() {
         $widgets = $GLOBALS['wp_widget_factory']->widgets;
         $widgetList = get_option('widgetid');
@@ -62,7 +69,9 @@ class WidgetController {
         }
         update_option('widgetid', $widgetList);
     }
-
+/**
+ * Simply unregister  widgets the are plugin type.
+ */
     function disable_plugin_widget() {
         $d = get_option('widgetid');
         if ($d != NULL) {
@@ -81,7 +90,9 @@ class WidgetController {
             }
         }
     }
-
+/**
+ * Simply Unregister disabled widgets.
+ */
     function remove_disable_widget() {
         $d = get_option('widgetid');
         if ($d != NULL) {
@@ -97,7 +108,9 @@ class WidgetController {
             }
         }
     }
-
+/**
+ * Simply removes non existing  custom widgets index from widgetid option.
+ */
     function obsolete_customWidgets() {
         $widgets = get_option('widgetid');
         $cust = get_option('custom-widget');
@@ -119,7 +132,10 @@ class WidgetController {
                 }
             }
     }
-
+/**
+ *  functions that loads custom widget classes for back-end and/or front-end
+ * @param  boolean $frontEndOnly -  if TRUE only the front-end load is performed
+ */
     function import_cust_widget($frontEndOnly=FALSE) {
         $dir = get_option('widgetdir');
         $w = get_option('widgetid');
@@ -154,6 +170,9 @@ class WidgetController {
         }
         }
     }
+    /**
+     * Gets custom widgets from widget directory  and adds them into custom-widget plugin option.
+     */
     function addCustomWidgets(){
         $dir = get_option('widgetdir');
          $custwid = self::$theWidget->getCustomWidgets($dir);
@@ -178,7 +197,9 @@ class WidgetController {
             }
     }
     }
-
+/**
+ * Simply gets custom widgets and adds them into widgetid plugin option
+ */
     function load_customWidgets() {
         $w = get_option('widgetid');
         $this->addCustomWidgets();
@@ -194,7 +215,10 @@ class WidgetController {
         }
         }
     }
-    //simply returns true if there's new widgets, ptherwise false
+   /**
+    *  checkes the status of the jnewWidgetList array and returns true if there are new widgets, otherwise false. 
+    * @return boolean
+    */
     function newWidgets(){
         if(count(self::$newWidgetList)>0){
             return TRUE;
@@ -202,6 +226,10 @@ class WidgetController {
         return FALSE;    
         }
     }
+    /**
+     *  Process and adds the new widgets to the newWidgetList array 
+     * @param string $key contains the index of the new widget
+     */
             function addto($key) {
         $w = get_option('widgetid');
         if (!array_key_exists($key, $w)) {
@@ -210,7 +238,9 @@ class WidgetController {
             unset($list[$key]);
         }
     }
-
+/**
+ * Display a list of new widgets added to widgetManager
+ */
     function show() {
         if(count($_SESSION['plugin'])>0){
             self::$newWidgetList=$_SESSION['plugin'];
