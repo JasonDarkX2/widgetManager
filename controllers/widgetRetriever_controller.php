@@ -1,10 +1,4 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 require_once  plugin_dir_path(dirname(__FILE__)).'model/theWidget.php';
 class WidgetRetriever{
 
@@ -12,7 +6,13 @@ class WidgetRetriever{
             function __construct() {
                 $this->theWidget=new theWidget();
     }
-
+/**
+ *  gets and return an array of widget objects based on type. 
+ * @param array $widgets - the widget list 
+ * @param string $types - the type of widgets to look for.
+ * @param vollean $display - TRUE displays the list FALSE just returns arraylist 
+ * @return array
+ */
 function get_widgets_type($widgets, $types, $display=FALSE) {
     array_pop($wid = array());
     foreach ($widgets  as $w){
@@ -31,6 +31,11 @@ function get_widgets_type($widgets, $types, $display=FALSE) {
     return $wid;
     }
 }
+/**
+ *  display  the widget list in HTML markup  
+ * @param array $widgets
+ * @param string $type
+ */
 function display_widget($widgets, $type) {
     echo '<div class="widget-header"><div> ' . $type . ' Widgets</div></div>';
     if (count($widgets) == 0) {
