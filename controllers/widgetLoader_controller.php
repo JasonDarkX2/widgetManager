@@ -288,12 +288,14 @@ function createWidgetResource($customWidgets){
                      if (is_dir($info) == FALSE && $info->getExtension() == 'css') {
                          $theFile = $dirIndex . $fileIndex;
                          $fileContent = file_get_contents($theFile);
+                        $fileContent=preg_replace('/\/.*\n/', '', $fileContent);
                          file_put_contents($mainStyleFile, $fileContent, FILE_APPEND);
                      }
                      //write to js main file
                       if (is_dir($info) == FALSE && $info->getExtension() == 'js') {
                          $theFile = $dirIndex . $fileIndex;
                          $fileContent = file_get_contents($theFile);
+                         $fileContent=preg_replace('!/\*.*?\*/!s', '', $fileContent);
                          file_put_contents($mainScriptFile, $fileContent, FILE_APPEND);
                      }
                      

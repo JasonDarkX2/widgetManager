@@ -40,7 +40,7 @@ class widget_manager {
         self::$wc->disable_plugin_widget();
         $cw=get_option('custom-widget');
         if($cw!=NULL && self::$wc->newWidgets()==TRUE){
-       $WidgetController->createWidgetResource($cw);
+       self::$wc->createWidgetResource($cw);
     }
     }
     function load_procedures(){
@@ -52,6 +52,8 @@ class widget_manager {
         $WidgetController=new WidgetController();
         $WidgetController-> obsolete_customWidgets();
         $WidgetController->import_cust_widget(TRUE);
+         $cw=get_option('custom-widget');
+       $WidgetController->createWidgetResource($cw);
         add_action('wp_footer',  widget_manager::frontEndScripts());
     }    
     static function frontEndScripts(){
