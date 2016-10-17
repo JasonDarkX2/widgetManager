@@ -58,10 +58,9 @@ function add_widget($fileName, $tempName) {
         $name = $_SESSION['name'];
     }
     if ($_POST['file'] == null) {
-        $destination = $dest['basedir'] . $fileName;
-        move_uploaded_file($tempName, $destination);
-        $file = str_replace('//', '/', str_replace('\\', '/', $destination));
-        $_POST['file'] =  $file;
+                $zipDestination = $dest['basedir'] . '/'. $fileName;
+        move_uploaded_file($tempName, $zipDestination);
+        $_POST['file'] =  $zipDestination;
         $_POST['name'] = $fileName;
         $form_fields = array('file','name');
     }
