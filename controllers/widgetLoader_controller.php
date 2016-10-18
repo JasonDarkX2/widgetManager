@@ -58,11 +58,15 @@ class WidgetController {
  * Simply removes non existing  plugin widgets index from widgetid option.
  */
     function obsolete_pluginWidgets() {
+         $customWidgets=get_option('custom-widget');
         $widgets = $GLOBALS['wp_widget_factory']->widgets;
         $widgetList = get_option('widgetid');
         foreach ($widgetList as $w) {
             if (!preg_match_all("/Default|Custom/",$w['type'])) {
                 if (!array_key_exists($w['key'], $widgets)) {
+                    unset($widgetList[$w['key']]);
+                }
+                     if (array_key_exists($w['key'], $customWidgets)) {
                     unset($widgetList[$w['key']]);
                 }
             }
