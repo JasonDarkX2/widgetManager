@@ -216,6 +216,11 @@ class WidgetController {
                 $this->addto($cw['key']);
                 update_option('widgetid', $w);
             }
+              //if something goes wrong  this is a back up 
+            if (array_key_exists($cw['key'], $w) && $w[$cw['key']]['key']==NULL) {
+                 $w[$cw['key']]= self::$theWidget->make_widget($cw['key']);
+                update_option('widgetid', $w);
+            }
         }
         }
     }
