@@ -89,3 +89,4 @@
         <p>
     </form>
 </div>
+<?php include('modal.php') ?>
