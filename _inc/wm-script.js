@@ -1,6 +1,6 @@
 /*
  * javascript/jQuery  script for Wordpress Widget Manager plugin
- * Simply handles uninstalling of plugin
+ * Simply handles javascript of plugin
  * For more information check out: http://JasonDarkX2.com/ 
  */
 jQuery('document').ready(function(e){
@@ -18,6 +18,21 @@ location.reload();
         localStorage['notification'] = '<strong>' + response + '</strong>';
 }
 });
+   /*  var modal = document.getElementById('deleteModal');
+    jQuery('.deleteWid').click(function(e){
+        modal.style.display = "block";
+       e.preventDefault();
+      jQuery('.modal-content p').load(jQuery(this).attr('href'));
+    });
+    jQuery('.close').click(function(e) {
+    modal.style.display = "none";
+});
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}*/
+
         jQuery('#addWidget').click(function(e){
 jQuery("#dialog #addWidgetForm").dialog({
 title: "Add/Import new Custom Widgets",
