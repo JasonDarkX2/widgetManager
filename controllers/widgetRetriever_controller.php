@@ -62,6 +62,8 @@ function display_widget($widgets, $type) {
                         <br/><a class="deleteWid" href="<?php
                            $name = 'delete-' . $widget['key'];
                            $url = menu_page_url('credentials', FALSE) . '&w=' . $widget['key'] . '&op=del';
+                           // modal version 
+                           //$url = plugins_url( '/controllers/widgetAdder_controller.php',  dirname(__FILE__)) . '?w=' . $widget['key'] . '&op=del';
                            echo wp_nonce_url($url, $name);
                            ?>" title="delete <?php echo $widget['name']; ?>">Delete Widget</a>       
                        <?php }
