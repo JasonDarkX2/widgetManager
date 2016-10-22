@@ -35,7 +35,8 @@ function delete_widget($widgetId,$wpDir) {
         die();
         header('Location: ' . menu_page_url('widgetM') . '&del=true');
     }
-    if (self::connect_fs($url, "POST", get_option('widgetdir'), $form_fields)) {
+    $url=plugin_dir_path(dirname(__FILE__)) . 'controllers/deli.php?widgetId='.$widgetId;
+    if (self::connect_fs($url, "POST", get_option('widgetdir'), $form_fields)) {        
         //deletion  process
         global $wp_filesystem;
         $custwid = get_option('custom-widget');
@@ -45,28 +46,30 @@ function delete_widget($widgetId,$wpDir) {
         if (file_exists($wdir . '/' . $custwid[$widgetid]['file']) === TRUE) {
             $toDel = explode("/", $custwid[$widgetid]['file']);
             $del = $wdir . $toDel[0];
-           return self::display_msg($wp_filesystem->rmdir($del, true), TRUE);
+           if($wp_filesystem->rmdir($del, true)){
+               return TRUE;
+           }
         }
     } else {
-        
     }
 }
 
 function add_widget($fileName, $tempName) {
     $dest = wp_upload_dir();
-    if ($fileNameame == null) {
+    if ($fileName == null) {
         $name = $_SESSION['name'];
     }
     if ($_POST['file'] == null) {
-                $zipDestination = $dest['basedir'] . '/'. $fileName;
+                $zipDestination = $dest['basedir'] . $fileName;
         move_uploaded_file($tempName, $zipDestination);
+         $zipDestination=str_replace('\\', '/',$zipDestination);//slash corection if nessary
         $_POST['file'] =  $zipDestination;
         $_POST['name'] = $fileName;
         $form_fields = array('file','name');
     }
     if (self::connect_fs('', "POST", get_option('widgetdir'), $form_fields)) {
         $destination = get_option('widgetdir') . $fileName;
-        $file = $_POST['file'];
+        $file = $_POST['file'];;
         $unzip = unzip_file($file, $destination);
         if (is_wp_error($unzip)) {
             $_SESSION['errors'] = ' <div class="errorNotfi">' . $unzip->get_error_message() . '</div>';
