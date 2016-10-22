@@ -35,7 +35,7 @@ function delete_widget($widgetId,$wpDir) {
         die();
         header('Location: ' . menu_page_url('widgetM') . '&del=true');
     }
-    $url=plugin_dir_path(dirname(__FILE__)) . 'controllers/deli.php?widgetId='.$widgetId;
+    //$url=plugin_dir_path(dirname(__FILE__)) . 'controllers/deli.php?widgetId='.$widgetId;
     if (self::connect_fs($url, "POST", get_option('widgetdir'), $form_fields)) {        
         //deletion  process
         global $wp_filesystem;
@@ -69,7 +69,7 @@ function add_widget($fileName, $tempName) {
     }
     if (self::connect_fs('', "POST", get_option('widgetdir'), $form_fields)) {
         $destination = get_option('widgetdir') . $fileName;
-        $file = $_POST['file'];;
+        $file = $_POST['file'];
         $unzip = unzip_file($file, $destination);
         if (is_wp_error($unzip)) {
             $_SESSION['errors'] = ' <div class="errorNotfi">' . $unzip->get_error_message() . '</div>';
