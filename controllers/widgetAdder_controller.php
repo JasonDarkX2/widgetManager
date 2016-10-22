@@ -23,7 +23,11 @@ require_once dirname($url[0])  . '/wp-admin/includes/template.php';*/
             if (isset($_POST['ufile']) == FALSE)
                 $proceed=$widgetAdder->add_widget($_FILES["widgetToUpload"]['name'],$_FILES['widgetToUpload']["tmp_name"]);
             if($proceed==TRUE && !empty($proceed)){
-            //header('Location: ' . menu_page_url('widgetM'));
+                ?>
+               <div class="notfi">Successfully unzipped: <?php  echo $fileName; ?></div>
+               <br>
+           <a href="<?php menu_page_url('widgetM');  ?>">Return to Widget Manager</a>|<a href="#">Another option</a></div>
+               <?php
             }
             break;
         case 'del':
@@ -31,10 +35,12 @@ require_once dirname($url[0])  . '/wp-admin/includes/template.php';*/
             session_start();
             $_SESSION['deletion'] =$output;
             if(!empty($output)){
-            //header('Location: ' . menu_page_url('widgetM') . '&del=true');
-                
+                ?>
+               <div class="notfi">Successfully  deleted <?php  echo $_GET['w']; ?></div>
+               <br>
+           <a href="<?php menu_page_url('widgetM');  ?>">Return to Widget Manager</a>|<a href="#">Another option</a></div>
+           <?php
             }
             break;
     }
     ?>
-</div>
