@@ -69,7 +69,9 @@ class widget_manager {
     }
     
     static function add_scripts($hook) {
-
+               if($hook != 'toplevel_page_widgetM') {
+                return;
+        }
         wp_enqueue_style('wm-style', plugins_url('_inc/style.css', __FILE__));
         wp_enqueue_style('ui-style', 'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
         wp_enqueue_script('ui-script', '//code.jquery.com/ui/1.11.4/jquery-ui.js', array('jquery'));
