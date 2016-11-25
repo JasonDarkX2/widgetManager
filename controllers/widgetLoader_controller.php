@@ -273,8 +273,8 @@ class WidgetController {
   */  
 function createWidgetResource($customWidgets){
     $dir=get_option('widgetdir');
-    $mainStyleFile = plugin_dir_path(dirname(__FILE__)) . '/_inc/cwidgets.css';
-    $mainScriptFile = plugin_dir_path(dirname(__FILE__)) . '/_inc/cwidgets.js';
+    $mainStyleFile = plugin_dir_path(dirname(__FILE__)) . '_inc/cwidgets.css';
+    $mainScriptFile = plugin_dir_path(dirname(__FILE__)) . '_inc/cwidgets.js';
         file_put_contents($mainStyleFile, '');
         file_put_contents($mainScriptFile, '');
         //get custom widgets css and js  directorties
