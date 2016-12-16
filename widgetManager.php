@@ -19,16 +19,16 @@ class widget_manager {
         define('WPWM_DEBUG', TRUE);
         if (is_admin()) {
             self::$wc=new WidgetController();
-            add_action('init',array(__CLASS__,'load_initProcedures'));
-            add_action('widgets_init',array(__CLASS__,'load_procedures'));
-            add_action('admin_menu', array(__CLASS__, 'widget_manager_create_menu'));
-            add_action('admin_enqueue_scripts', array(__CLASS__, 'add_scripts'));
-                if (get_option('widgetdir') == NULL||get_option('widgetdir') ==""||get_option('widgetdir') =='/') {
+           // add_action('init',array(__CLASS__,'load_initProcedures'));
+            //add_action('widgets_init',array(__CLASS__,'load_procedures'));
+            //add_action('admin_menu', array(__CLASS__, 'widget_manager_create_menu'));
+            //add_action('admin_enqueue_scripts', array(__CLASS__, 'add_scripts'));
+                /*if (get_option('widgetdir') == NULL||get_option('widgetdir') ==""||get_option('widgetdir') =='/') {
                 $defaultDir = plugin_dir_path(__FILE__) . 'custom-widgets/';
                 $user = exec(whoami);
                 chown($defaultDir, $user);
-                update_option('widgetdir', $defaultDir);
-            }
+                //update_option('widgetdir', $defaultDir);
+            }*/
         }
         add_action('plugins_loaded', array(__CLASS__,'loaded_procedures') );
     }
@@ -54,7 +54,7 @@ class widget_manager {
         $WidgetController->import_cust_widget(TRUE);
          $cw=get_option('custom-widget');
        $WidgetController->createWidgetResource($cw);
-        add_action('wp_footer',  widget_manager::frontEndScripts());
+        add_action('wp_footer',   array(__CLASS__,'frontEndScripts'));
     }    
     static function frontEndScripts(){
         $resourceFiles=[
@@ -63,7 +63,7 @@ class widget_manager {
         ];
         foreach ($resourceFiles as $file){
         if(filesize(plugin_dir_path(__FILE__) . $file)!=0){
-        wp_enqueue_style('wm-FrontStyle', plugins_url( $file, __FILE__));
+       wp_enqueue_style('wm-FrontStyle', plugins_url( $file, __FILE__));
         }
         }
     }
