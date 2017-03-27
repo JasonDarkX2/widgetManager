@@ -272,6 +272,7 @@ class WidgetController {
   * @return  array  containing file sizes
   */  
 function createWidgetResource($customWidgets){
+    if(!empty($customWidgets)){
     $dir=get_option('widgetdir');
     $mainStyleFile = plugin_dir_path(dirname(__FILE__)) . '_inc/cwidgets.css';
     $mainScriptFile = plugin_dir_path(dirname(__FILE__)) . '_inc/cwidgets.js';
@@ -320,4 +321,6 @@ function createWidgetResource($customWidgets){
         ];
        return $fileSizes;
 }
+       
+                      }
 }

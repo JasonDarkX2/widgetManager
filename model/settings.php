@@ -21,6 +21,9 @@ class WmSettings{
     }
     }
     function changeWidgetDir($newDir){
+         if(substr($newDir,-1)!='/'){
+            $dir= $newDir . '/';
+        }
         $defaultDir= str_replace('//', '/', str_replace('\\', '/',dirname(plugin_dir_path(__FILE__)))) . '/custom-widgets/';
         if (empty($newDir) || get_option('preset-cdwd')==TRUE ||get_option('widgetdir') =='/') {
     $newDir = $defaultDir;
