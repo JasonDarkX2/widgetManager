@@ -5,11 +5,6 @@
 ?>
 <div class="wrap">      
     <?php
-     /*$url= explode('plugin',$_SERVER['SCRIPT_FILENAME']);
-require_once dirname($url[0])  . '/wp-load.php';
-     $url=explode('plugin',$_SERVER['SCRIPT_FILENAME']);
-require_once dirname($url[0])  . '/wp-admin/includes/file.php';
-require_once dirname($url[0])  . '/wp-admin/includes/template.php';*/
         require_once  plugin_dir_path(dirname(__FILE__)).'model/widgetAdder.php';
         $widgetAdder= new WidgetAdder();
     if (isset($_POST['op'])) {
