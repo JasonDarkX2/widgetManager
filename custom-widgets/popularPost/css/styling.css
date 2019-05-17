@@ -1,0 +1,2 @@
+.sideitems .popularPosts li:before {content: "\1f525 \0020";   color: gold;}
+.sideitems .popularPosts li:not(:last-child):after {background: orange;}

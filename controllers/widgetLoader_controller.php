@@ -229,10 +229,14 @@ class WidgetController {
     * @return boolean
     */
     function newWidgets(){
-        if(count(self::$newWidgetList)>0){
-            return TRUE;
-        }  else {
-        return FALSE;    
+        if(self::$newWidgetList!=NULL) {
+            if (count(self::$newWidgetList) > 0) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        }else{
+            return FALSE;
         }
     }
     /**
