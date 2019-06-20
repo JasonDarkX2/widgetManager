@@ -50,7 +50,7 @@ class WidgetController {
             }
         }
         update_option('widgetid', $widgetList);
-        session_start();
+
         if(empty($_SESSION['plugin']))
        $_SESSION['plugin']=self::$newWidgetList;
     }
