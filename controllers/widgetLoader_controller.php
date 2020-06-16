@@ -255,11 +255,11 @@ class WidgetController {
  * Display a list of new widgets added to widgetManager
  */
     function show() {
-        if(count($_SESSION['plugin'])>0){
+        var_dump($_SESSION['plugin']);
+        if($_SESSION['plugin']!=Null){
             self::$newWidgetList=$_SESSION['plugin'];
             $_SESSION['plugin']=null;
-        }
-        if (count(self::$newWidgetList) > 0) {
+        
             echo '<div class="notfi"><strong>Recently added widgets</strong> <ul style="list-style:disc; padding: 1px; list-style-position: inside;">';
             foreach (self::$newWidgetList as $nw) {
                 echo $nw;
