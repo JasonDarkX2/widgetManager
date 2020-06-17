@@ -27,7 +27,6 @@
             break;
         case 'del':
              $output=$widgetAdder->delete_widget($_GET['w'],$_GET['wpdir']);
-            session_start();
             $_SESSION['deletion'] =$output;
             if(!empty($output)){
                 ?>
