@@ -16,8 +16,7 @@ class widget_manager {
     static $add_script;
     static $wc;
     function init() {
-        define('WPWM_DEBUG', TRUE);
-        session_start();
+        define('WPWM_DEBUG', FALSE);
         if (is_admin()) {
             self::$wc=new WidgetController();
             add_action('init',array(__CLASS__,'load_initProcedures'));

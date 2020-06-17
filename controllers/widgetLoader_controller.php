@@ -10,9 +10,11 @@ class WidgetController {
 
     static $theWidget;
     static $newWidgetList;
+    private $pluginList;
 
     function __construct() {
         self::$theWidget = new theWidget();
+        $pluginList=null;
     }
 /**
  * Simply load default widgets into the widgetid plugin option.
@@ -51,8 +53,8 @@ class WidgetController {
         }
         update_option('widgetid', $widgetList);
 
-        if(empty($_SESSION['plugin']))
-       $_SESSION['plugin']=self::$newWidgetList;
+        if(empty($pluginList))
+       $pluginList=self::$newWidgetList;
     }
 /**
  * Simply removes non existing  plugin widgets index from widgetid option.
@@ -255,9 +257,9 @@ class WidgetController {
  * Display a list of new widgets added to widgetManager
  */
     function show() {
-        if($_SESSION['plugin']!=Null){
-            self::$newWidgetList=$_SESSION['plugin'];
-            $_SESSION['plugin']=null;
+        if($pluginList!=Null){
+            self::$newWidgetList=$pluginList;
+            $pluginList=null;
 
             echo '<div class="notfi"><strong>Recently added widgets</strong> <ul style="list-style:disc; padding: 1px; list-style-position: inside;">';
             foreach (self::$newWidgetList as $nw) {
