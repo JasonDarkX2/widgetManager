@@ -36,7 +36,7 @@ function delete_widget($widgetId,$wpDir) {
         header('Location: ' . menu_page_url('widgetM') . '&del=true');
     }
     //$url=plugin_dir_path(dirname(__FILE__)) . 'controllers/deli.php?widgetId='.$widgetId;
-    if (self::connect_fs($url, "POST", get_option('widgetdir'), $form_fields)) {        
+    if (self::connect_fs('', "POST", get_option('widgetdir'), $form_fields)) {
         //deletion  process
         global $wp_filesystem;
         $custwid = get_option('custom-widget');
@@ -99,5 +99,3 @@ function display_msg($output, $del) {
     }
 }
 }
-
-?>

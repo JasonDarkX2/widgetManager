@@ -120,4 +120,3 @@ function msgDisplay($error, $errmsg, $dirChange, $dirDiff) {
                 <?php
             }
         }
-?>

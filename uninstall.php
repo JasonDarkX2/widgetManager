@@ -19,4 +19,3 @@ delete_option('widgetid');
 delete_option('custom-widget');
 
 delete_option('widgetdir');
-?>

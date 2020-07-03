@@ -113,4 +113,3 @@ class widget_manager {
 
 }
 widget_manager::init();
-?>

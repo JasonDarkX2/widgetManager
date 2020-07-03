@@ -47,5 +47,4 @@ function status_count($widgetList,&$enableCount, &$disabledCount){
     }
 }
 
-} 
-?>
+}

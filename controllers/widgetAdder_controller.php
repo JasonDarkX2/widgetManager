@@ -16,7 +16,8 @@
     switch ($op) {
         case 'add':
             if (isset($_POST['ufile']) == FALSE)
-                $proceed=$widgetAdder->add_widget($_FILES["widgetToUpload"]['name'],$_FILES['widgetToUpload']["tmp_name"]);
+                $fileName=$_FILES["widgetToUpload"]['name'];
+                $proceed=$widgetAdder->add_widget($fileName,$_FILES['widgetToUpload']["tmp_name"]);
             if($proceed==TRUE && !empty($proceed)){
                 ?>
                <div class="notfi">Successfully unzipped: <?php  echo $fileName; ?></div>
@@ -37,4 +38,3 @@
             }
             break;
     }
-    ?>
