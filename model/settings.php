@@ -50,7 +50,7 @@ $newDir = str_replace('//', '/', str_replace('\\', '/', $newDir));
 if (file_exists($newDir) == FALSE) {
     $dirDiff = true;
     mkdir($newDir, 0755);
-    $user = exec(whoami);
+    $user = get_current_user();
     chown($newDir, $user);
 }
     $sourceDir = get_option('widgetdir');

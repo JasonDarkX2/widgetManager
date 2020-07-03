@@ -19,7 +19,7 @@ if ($option == 'cw') {
 function permissionChecker($status = FALSE) {
     $dir = get_option('widgetdir');
     $pdir = plugin_dir_path(__FILE__);
-    $user = exec(whoami);
+    $user = get_current_user();
     $errors = array();
 
     error_reporting(0);
