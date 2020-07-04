@@ -11,12 +11,12 @@ class WidgetController
 
     static $theWidget;
     static $newWidgetList;
-    public $pluginList;
+    private $pluginList;
 
     function __construct()
     {
         self::$theWidget = new theWidget();
-        $pluginList = null;
+        $this->pluginList = null;
     }
 
     /**
@@ -59,8 +59,8 @@ class WidgetController
         }
         update_option('widgetid', $widgetList);
 
-        if (empty($pluginList))
-            $pluginList = self::$newWidgetList;
+        if (empty($this->pluginList))
+            $this->pluginList = self::$newWidgetList;
     }
 
     /**
@@ -282,9 +282,9 @@ class WidgetController
      */
     function show()
     {
-        if (self::$pluginList != Null) {
-            self::$newWidgetList = self::$pluginList;
-            self::$pluginList = null;
+        if ($this->pluginList != Null) {
+            self::$newWidgetList =$this->pluginList;
+            self::$this->pluginList = null;
 
             echo '<div class="notfi"><strong>Recently added widgets</strong> <ul style="list-style:disc; padding: 1px; list-style-position: inside;">';
             foreach (self::$newWidgetList as $nw) {
