@@ -198,6 +198,8 @@ class WidgetController
     function addCustomWidgets()
     {
         $dir = get_option('widgetdir');
+        $class='';
+        $cust= get_option('custom-widget');
         $custwid = self::$theWidget->getCustomWidgets($dir);
         if ($custwid != null) {
             foreach ($custwid as $wid) {
