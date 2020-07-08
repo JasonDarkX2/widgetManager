@@ -61,7 +61,7 @@ function getCustomWidgets($dir) {
 }
 
 function getWidgetClass($file) {
-
+            $widget_class='';
     $c = get_option('custom-widget');
     $dir = get_option('widgetdir');
     if ($file != "") {
