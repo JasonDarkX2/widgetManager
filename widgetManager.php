@@ -112,4 +112,4 @@ class widget_manager {
 
 
 }
-widget_manager::init();
+(new widget_manager)->init();
