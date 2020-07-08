@@ -76,7 +76,8 @@ class WidgetController
                 if (!array_key_exists($w['key'], $widgets)) {
                     unset($widgetList[$w['key']]);
                 }
-                if (array_key_exists($w['key'], $customWidgets)) {
+
+                if ($customWidgets!=null && array_key_exists($w['key'], $customWidgets)) {
                     unset($widgetList[$w['key']]);
                 }
             }
