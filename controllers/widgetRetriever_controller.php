@@ -14,7 +14,8 @@ class WidgetRetriever{
  * @return array
  */
 function get_widgets_type($widgets, $types, $display=FALSE) {
-    array_pop($wid = array());
+    $wid = array();
+    array_pop($wid);
     foreach ($widgets  as $w){
         if ($w['type'] == $types) {
             array_push($wid,$w);
