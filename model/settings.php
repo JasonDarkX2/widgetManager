@@ -21,6 +21,9 @@ class WmSettings{
     }
     }
     function changeWidgetDir($newDir){
+        $error=false;
+        $errmsg='';
+        $dirDiff=false;
          if(substr($newDir,-1)!='/'){
             $dir= $newDir . '/';
         }
