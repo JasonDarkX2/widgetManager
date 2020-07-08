@@ -19,8 +19,8 @@ class widget_manager {
         define('WPWM_DEBUG', FALSE);
         if (is_admin()) {
             self::$wc=new WidgetController();
-            add_action('init','load_initProcedures');
-            add_action('widgets_init','load_procedures');
+            add_action('init',array($this,'load_initProcedures'));
+            add_action('widgets_init',array($this,'load_procedures'));
             add_action('admin_menu', array(__CLASS__, 'widget_manager_create_menu'));
             add_action('admin_enqueue_scripts', array(__CLASS__, 'add_scripts'));
                 if (get_option('widgetdir') == NULL||get_option('widgetdir') ==""||get_option('widgetdir') =='/') {
