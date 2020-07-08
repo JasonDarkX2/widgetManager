@@ -30,7 +30,7 @@ class widget_manager {
                 update_option('widgetdir', $defaultDir);
             }
         }
-        add_action('plugins_loaded', array(__CLASS__,'loaded_procedures') );
+        add_action('plugins_loaded', array($this,'loaded_procedures') );
     }
     function load_initProcedures(){
         self::$wc-> obsolete_customWidgets();
