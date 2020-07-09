@@ -104,23 +104,35 @@ function get_type($keys) {
 }
 
 function get_name($key) {
+
+            $name="placholder";
     $wid = ($GLOBALS['wp_widget_factory']->widgets);
+    if (array_key_exists($key, $wid)){
     $name = $wid[$key]->name;
+}
+
     return $name;
 }
 
 function get_id($key) {
+            $id=NULL;
     $wid = ($GLOBALS['wp_widget_factory']->widgets);
-    $id = $wid[$key]->id;
-    if($id==FALSE){
-        $id=NULL;
+    if (array_key_exists($key, $wid)) {
+        $id = $wid[$key]->id;
     }
+
     return $id;
 }
 
 function get_description($key) {
+            $description="place holder Description";
     $wid = ($GLOBALS['wp_widget_factory']->widgets);
-    return $wid[$key]->widget_options['description'];
+
+    if (array_key_exists($key, $wid)) {
+
+        $description=$wid[$key]->widget_options['description'];
+    }
+    return $description;
 }
 
 }
