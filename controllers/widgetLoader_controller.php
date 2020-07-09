@@ -287,7 +287,7 @@ class WidgetController
     {
         if ($this->pluginList != Null) {
             self::$newWidgetList =$this->pluginList;
-            self::$this->pluginList = null;
+            $this->pluginList = null;
 
             echo '<div class="notfi"><strong>Recently added widgets</strong> <ul style="list-style:disc; padding: 1px; list-style-position: inside;">';
             foreach (self::$newWidgetList as $nw) {

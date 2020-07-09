@@ -129,7 +129,6 @@ function get_description($key) {
     $wid = ($GLOBALS['wp_widget_factory']->widgets);
 
     if (array_key_exists($key, $wid)) {
-
         $description=$wid[$key]->widget_options['description'];
     }
     return $description;
