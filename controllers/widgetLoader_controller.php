@@ -311,11 +311,14 @@ class WidgetController
             $dir = get_option('widgetdir');
             $mainStyleFile = plugin_dir_path(dirname(__FILE__)) . '_inc/cwidgets.css';
             $mainScriptFile = plugin_dir_path(dirname(__FILE__)) . '_inc/cwidgets.js';
-            $user = get_current_user();
-            chown ($mainStyleFile, $user);
-            chown ($mainScriptFile,$user);
-            file_put_contents($mainStyleFile, '');
-            file_put_contents($mainScriptFile, '');
+            $mainStyleFile = fopen($mainStyleFile,'w');
+            fwrite($mainStyleFile ,'');
+            fclose($mainStyleFile);
+            //file_put_contents($mainStyleFile, '');
+            $mainScriptFile = fopen($mainScriptFile,'w');
+            fwrite($mainScriptFile ,'');
+            fclose($mainScriptFile);
+            //file_put_contents($mainScriptFile, '');
             //get custom widgets css and js  directorties
             $resourceDir = [];
             foreach ($customWidgets as $cw) {
