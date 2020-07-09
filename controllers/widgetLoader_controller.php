@@ -311,8 +311,9 @@ class WidgetController
             $dir = get_option('widgetdir');
             $mainStyleFile = plugin_dir_path(dirname(__FILE__)) . '_inc/cwidgets.css';
             $mainScriptFile = plugin_dir_path(dirname(__FILE__)) . '_inc/cwidgets.js';
-            chown ($mainStyleFile, 'www-data:www-data');
-            chown ($mainScriptFile, 'www-data:www-data');
+            $user = get_current_user();
+            chown ($mainStyleFile, $user);
+            chown ($mainScriptFile,$user);
             file_put_contents($mainStyleFile, '');
             file_put_contents($mainScriptFile, '');
             //get custom widgets css and js  directorties
