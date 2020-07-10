@@ -113,10 +113,3 @@ class widget_manager {
     }
 }
 (new widget_manager)->init();
-
-add_action('activated_plugin','my_save_error');
-function my_save_error()
-{
-   ob_get_contents();
-   die();
-}
