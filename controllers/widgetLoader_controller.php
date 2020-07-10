@@ -171,10 +171,10 @@ class WidgetController
                         if ($w[$wid['key']]['status'] == TRUE) {
                             $extension=pathinfo($wid['file']);
                             if($extension['extension']=='php') {
-                                $filename=$dir . $wid['file'];
+                                $filename = $dir . $wid['file'];
                                 include($filename);
-                                $class = self::$theWidget->getWidgetClass($wid['file']);
                             }
+                                $class = self::$theWidget->getWidgetClass($wid['file']);
                         }
                     }
                 }
@@ -330,7 +330,7 @@ class WidgetController
                 echo'<div class="errorNotfi" style="margin-left: 179px;">
                 <strong>Permission Error:</strong> <br/>
                 Please use the following command:<br/> <strong>sudo chown -R ' .
-                    'www-data  ' ." "
+                    'www-data:www-data ' ." "
                     . plugin_dir_path(dirname(__FILE__)) . 'cwScript/</strong>'.
                     "</div>";
                 ;
