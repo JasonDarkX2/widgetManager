@@ -85,7 +85,8 @@ function getWidgetClass($file) {
 
 function get_type($keys) {
     $c = get_option('custom-widget');
-    if(empty($c) || !is_array($c)){
+
+    if(empty($c)){
         $wc = new WidgetController();
     $wc->addCustomWidgets();
     $c = get_option('custom-widget');
@@ -95,7 +96,11 @@ function get_type($keys) {
     }
     if (preg_match("/WP_(Widget|Nav)/", $keys)) {
         $type = "Default";
-    } else if (array_key_exists($keys, $c) == FALSE) {
+    }
+    else if(!is_array($c)){
+        $type = "Plugin";
+    }
+    else if ( array_key_exists($keys, $c) == FALSE) {
         $type = "Plugin";
     } else {
         $type = "Custom";
