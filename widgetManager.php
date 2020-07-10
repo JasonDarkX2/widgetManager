@@ -25,8 +25,9 @@ class widget_manager {
             add_action('admin_enqueue_scripts', array(__CLASS__, 'add_scripts'));
                 if (get_option('widgetdir') == NULL||get_option('widgetdir') ==""||get_option('widgetdir') =='/') {
                 $defaultDir = plugin_dir_path(__FILE__) . 'custom-widgets/';
-                $user = get_current_user();
-                chown($defaultDir, $user);
+                    if ( !file_exists($defaultDir) ) {
+                        mkdir ($defaultDir, 0744);
+                    }
                 update_option('widgetdir', $defaultDir);
             }
         }
