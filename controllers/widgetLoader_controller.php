@@ -326,7 +326,7 @@ class WidgetController
                 echo'<div class="errorNotfi" style="margin-left: 179px;">
                 <strong>Permission Error:</strong> <br/>
                 Please use the following command:<br/> <strong>sudo chown -R ' .
-                    'www-data:www-data ' ." "
+                    'www-data ' ." "
                     . plugin_dir_path(dirname(__FILE__)) . 'cwScript/</strong>'.
                     "</div>";
                 ;
