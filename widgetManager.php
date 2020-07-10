@@ -25,7 +25,7 @@ class widget_manager {
             add_action('admin_enqueue_scripts', array(__CLASS__, 'add_scripts'));
                 if (get_option('widgetdir') == NULL||get_option('widgetdir') ==""||get_option('widgetdir') =='/') {
                 $defaultDir = plugin_dir_path(__FILE__) . 'custom-widgets/';
-                   
+
                 update_option('widgetdir', $defaultDir);
             }
         }
@@ -111,8 +111,11 @@ class widget_manager {
 }
 (new widget_manager)->init();
 
-add_action('activated_plugin','my_save_error');
-function my_save_error()
-{
-    file_put_contents(dirname(__file__).'/error_activation.txt', ob_get_contents());
+if (WPWM_DEBUG == 1) {
+    add_action('activated_plugin','my_save_error');
+    function my_save_error()
+    {
+        file_put_contents(dirname(__file__).'/error_activation.txt', ob_get_contents());
+    }
+
 }
