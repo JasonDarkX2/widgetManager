@@ -312,8 +312,8 @@ class WidgetController
             $mainStyleFile = plugin_dir_path(dirname(__FILE__)) . 'cwScript/cwidgets.css';
             $mainScriptFile = plugin_dir_path(dirname(__FILE__)) . 'cwScript/cwidgets.js';
             try{
-                fopen($mainStyleFile,'w');
-                fopen($mainScriptFile,'w');
+                if(!is_writable($mainStyleFile)){throw new Exception();}
+                if(!is_writable($mainScriptFile)){ throw new Exception();}
             }catch(Exception $e){
                 echo" please set the file permisssions using following command: chown -R  www-data:www-data". plugin_dir_path(dirname(__FILE__)) . '/cwScript/';
             }
