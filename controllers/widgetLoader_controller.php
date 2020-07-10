@@ -316,6 +316,7 @@ class WidgetController
                 if(!is_writable($mainScriptFile)){ throw new Exception();}
             }catch(Exception $e){
                 echo" please set the file permisssions using following command: chown -R  www-data:www-data". plugin_dir_path(dirname(__FILE__)) . '/cwScript/';
+                die();
             }
                 file_put_contents($mainStyleFile, '');
                 file_put_contents($mainScriptFile, '');
