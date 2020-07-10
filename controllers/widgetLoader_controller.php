@@ -312,14 +312,22 @@ class WidgetController
             $mainStyleFile = plugin_dir_path(dirname(__FILE__)) . 'cwScript/cwidgets.css';
             $mainScriptFile = plugin_dir_path(dirname(__FILE__)) . 'cwScript/cwidgets.js';
             try{
-                if(!is_writable($mainStyleFile)){throw new Exception();}
-                if(!is_writable($mainScriptFile)){ throw new Exception();}
+                if(!is_writable($mainStyleFile)){
+                    throw new Exception();
+                }else{
+                    file_put_contents($mainStyleFile, '');
+                }
+                if(!is_writable($mainScriptFile)){
+                    throw new Exception();
+                }else{
+                    file_put_contents($mainScriptFile, '');
+                }
             }catch(Exception $e){
-                echo" please set the file permisssions using following command: chown -R  www-data:www-data". plugin_dir_path(dirname(__FILE__)) . '/cwScript/';
+                echo"<h1>Permission Error:<h1></h1> Please use the following command: chown -R  www-data:www-data ". plugin_dir_path(dirname(__FILE__)) . 'cwScript/';
                 die();
             }
-                file_put_contents($mainStyleFile, '');
-                file_put_contents($mainScriptFile, '');
+
+
 
             //get custom widgets css and js  directorties
             $resourceDir = [];
