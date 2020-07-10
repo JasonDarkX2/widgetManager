@@ -323,11 +323,11 @@ class WidgetController
                     file_put_contents($mainScriptFile, '');
                 }
             }catch(Exception $e){
-                echo"<div class=\"errorNotfi\">
-<strong>Permission Error:</strong> 
-Please use the following command: sudo chown -R " .
+                echo'<div class="errorNotfi" style="margin-left: 179px;">
+                <strong>Permission Error:</strong> <br/>
+                Please use the following command:<br/> <strong>sudo chown -R' .
                     'www-data:www-data' ." "
-                    . plugin_dir_path(dirname(__FILE__)) . 'cwScript/'.
+                    . plugin_dir_path(dirname(__FILE__)) . 'cwScript/</strong>'.
                     "</div>";
                 ;
                 return false;
