@@ -375,7 +375,7 @@ class WidgetController
                         if (is_dir($info) == FALSE && $info->getExtension() == 'js') {
                             $theFile = $dirIndex . $fileIndex;
                             $fileContent = file_get_contents($theFile);
-                            $fileContent = preg_replace('!/\*.*?\*/!s', '', $fileContent); //remove comments
+                            $fileContent = preg_replace('^\/[\/*]?.*[\/]*$', '', $fileContent); //remove comments
                             $fileContent = trim(preg_replace('/\s\s+/', ' ', $fileContent)); //minify file
                             file_put_contents($mainScriptFile, $fileContent, FILE_APPEND);
                         }
