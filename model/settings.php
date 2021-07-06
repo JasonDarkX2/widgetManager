@@ -77,6 +77,9 @@ if (file_exists($newDir) == FALSE) {
             }
         }
     }
+        if(substr($newDir, -1)!=='/') {
+            $newDir= $newDir . '/';
+        }
 update_option('widgetdir', $newDir);
     msgDisplay($error, $errmsg, $dirchange, $dirDiff);
             }

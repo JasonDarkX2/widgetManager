@@ -159,6 +159,8 @@ class WidgetController
      */
     function import_cust_widget($frontEndOnly = FALSE)
     {
+
+
         $dir = get_option('widgetdir');
         $w = get_option('widgetid');
         $cust = get_option('custom-widget');
@@ -186,11 +188,17 @@ class WidgetController
                     $info = new SplFileInfo($dir . $wid);
                     if ($info->getExtension() == 'php') {
                         $class = self::$theWidget->getWidgetClass($wid);
-                        if (class_exists($class) == FALSE) {
+
+                        if (class_exists($class) == FALSE && $class!='') {
+
+
                             include($dir . $wid);
                             register_widget($class);
-
                         }
+
+
+
+
                     }
                 }
             }
