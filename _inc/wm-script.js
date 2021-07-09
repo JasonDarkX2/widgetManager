@@ -105,46 +105,6 @@ jQuery('document').ready(function (e) {
 
         });
     });
-    jQuery('#customWidgetDir').click(function (e) {
-        jQuery("#dialog #customDirForm").dialog({
-            title: "Change Custom Widgets Directory",
-            modal: true,
-            draggable: true,
-            resizable: false,
-            width: 800,
-            height: 240,
-            show: 'blind',
-            hide: 'blind',
-            dialogClass: 'ui-dialog',
-            position: {my: 'center', at: 'center'},
-            buttons: {
-                "Change": function (ex) {
-                    //jQuery('#customDirForm').submit();
-                    var formData = {wpdir: 'nope'};
-                    jQuery.ajax({
-                        type: "POST",
-                        url: jQuery('#customDirForm').attr("action"),
-                        data: jQuery('#customDirForm').serialize(),
-                        success: function (XMLHttpRequest, data, textStatus) {
-                            notification = XMLHttpRequest;
-                            location.reload();
-                            localStorage['notification'] = '';
-                            localStorage['notification'] = '<strong>' + notification + '</strong>';
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            localStorage['notification'] = '<strong>' + notification + '</strong>';
-                        }
-                    });
-                },
-                Cancel: function () {
-                    jQuery(this).dialog("close");
-                },
-            }
-        });
-    });
-    jQuery('#customWidgetDir').click(function (e) {
-        jQuery("#customDirForm").dialog('open');
-    });
 //debug JS scripts
     jQuery('#debug').click(function (e) {
         e.preventDefault();
