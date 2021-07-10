@@ -50,7 +50,10 @@ function display_widget($widgets, $type) {
     } else {
         foreach ($widgets as $widget) {
             ?>
-            <div class="widgets-items"><strong><?php echo $widget['name']; ?></strong>
+            <div class="widgets-items">
+                <div class="widget-wrap">
+                <strong><?php echo $widget['name']; ?></strong>
+
                 <br/> <?php echo $widget['Description']; ?>
                 <div class="switch-field">
                     <input type='hidden' name='widgetid[]' value='<?php echo $widget['key'] ?>' id='widgetId'> 
@@ -71,7 +74,10 @@ function display_widget($widgets, $type) {
                        ?>
 
                 </div>
-            </div>  
+            </div>
+            <div>
+            </div>
+            </div>
             <?php
         }
     }

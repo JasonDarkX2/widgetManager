@@ -101,8 +101,11 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui
 
 .switch-field {
     font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
-    /*padding: 40px;*/
     overflow: hidden;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 15%;
 }
 
 .switch-title {
@@ -158,10 +161,18 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui
 .widget-list{
     background-color: #0073e6;
     border-radius: 25px;
+    text-align: center;
 }
 .widgets-items{
     background-color: #f5f5f0;
     border-bottom: 1px solid black;
+    width: 270px;
+    height: 120px;
+    float: left;
+    margin-right: 1px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    position: relative;
 }
 .widget-header{
     margin-bottom:9px;
@@ -216,4 +227,10 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.widget-wrap {
+    margin: 15px 0px 0px 0px;
+    vertical-align: middle;
+    display: inline-block;
 }
