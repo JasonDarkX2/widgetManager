@@ -82,4 +82,17 @@ function display_widget($widgets, $type) {
         }
     }
 }
+function widgetItem(){?>
+        <a href="#" id="addWidget" class="widgets-items">
+        <div class="widget-wrap">
+            <div class="circle"></div>
+            <p class="bold">
+                <?php echo "Add/import new Custom Widgets";?>
+            </p>
+            </div>
+        </a>
+
+
+<?php }
+
 }

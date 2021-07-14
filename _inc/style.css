@@ -234,3 +234,45 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui
     vertical-align: middle;
     display: inline-block;
 }
+
+
+.circle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(44, 108, 128);
+    margin:  0 auto;
+    position: relative;
+}
+.circle::after {
+    content: " ";
+    position: absolute;
+    display: block;
+    background-color: #fff;
+    height: 10px;
+    margin-top: -5px;
+    top: 50%;
+    left: 5px;
+    right: 5px;
+    z-index: 9;
+}
+.circle::before {
+    content: " ";
+    position: absolute;
+    display: block;
+    background-color: #fff;
+    width: 10px;
+    margin-left: -5px;
+    left: 50%;
+    top: 5px;
+    bottom: 5px;
+    z-index: 9;
+}
+.bold{
+    font-weight: bold;
+}
+ .ui-button{
+      display: inline-block;
+     width:100%;
+     height:100%;
+ }

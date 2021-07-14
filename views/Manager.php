@@ -38,7 +38,6 @@
             <option value="disCust">Disable Custom widgets Only</option>
         </select>
         <input type="submit" value="Apply"/>
-        <a href="#"> Get more Custom Widgets</a>|<a href="#" id="addWidget"> Add/import new Custom Widgets</a>
     </div>
     <input type="hidden" name="wpdir" value="<?php echo basename(content_url()); ?>" />
     <?php settings_fields('WM-setting'); ?>
@@ -58,6 +57,7 @@
         <div class="widget-list">
             <?php
            $retriever->get_widgets_type(get_option('widgetid'), "Custom",TRUE);
+            $retriever->widgetItem();
             ?>
         </div>
         <div style=" display:block; clear:both; text-align:left; vertical-align:bottom;">
