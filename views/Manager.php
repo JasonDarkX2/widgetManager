@@ -44,21 +44,30 @@
     <?php do_settings_sections('WM-setting'); ?>
     <div stle='display:table;'>
         <input type='hidden' name='count' value='$num' id='count'>
+        <div class="widget-panel">
+            <p class="widget-panelHeader">Default Widgets</p>
         <div class="widget-list">
             <?php
             $retriever->get_widgets_type(get_option('widgetid'), "Default",TRUE);
             ?>
         </div>
+        </div>
+        <div class="widget-panel">
+            <p class="widget-panelHeader">Plugin Widgets</p>
         <div class="widget-list">
             <?php
             $retriever->get_widgets_type(get_option('widgetid'), "Plugin",TRUE);
             ?>
         </div>
+        </div>
+        <div class="widget-panel">
+            <p class="widget-panelHeader">Custom Widgets</p>
         <div class="widget-list">
             <?php
            $retriever->get_widgets_type(get_option('widgetid'), "Custom",TRUE);
             $retriever->widgetItem();
             ?>
+        </div>
         </div>
         <div style=" display:block; clear:both; text-align:left; vertical-align:bottom;">
             <?php

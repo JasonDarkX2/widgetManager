@@ -38,7 +38,6 @@ function get_widgets_type($widgets, $types, $display=FALSE) {
  * @param string $type
  */
 function display_widget($widgets, $type) {
-    echo '<div class="widget-header"><div> ' . $type . ' Widgets</div></div>';
     if (count($widgets) == 0) {
         ?>
         <div class="widgets-items">

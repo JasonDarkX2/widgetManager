@@ -159,13 +159,12 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui
 }
 
 .widget-list{
-    background-color: #0073e6;
     border-radius: 25px;
     text-align: center;
 }
 .widgets-items{
-    background-color: #f5f5f0;
-    border-bottom: 1px solid black;
+    background-color: #DEDEDD;
+
     width: 270px;
     height: 120px;
     float: left;
@@ -174,13 +173,15 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui
     margin-bottom: 5px;
     position: relative;
 }
-.widget-header{
+.widget-panelHeader{
+    background-color: #888888;
     margin-bottom:9px;
-    margin-top:9px;
+    margin-top:0px;
     font-size: 18px;
     font-color:white;
-    font-weight: 10px;
+    font-weight: bolder;
     text-align: center;
+
 }
 
 .widget-list{
@@ -275,4 +276,10 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui
       display: inline-block;
      width:100%;
      height:100%;
+ }
+
+ .widget-panel{
+     display:inline-block;
+     border: solid 1px;
+     margin-bottom: 15px;
  }
