@@ -91,6 +91,7 @@ jQuery('document').ready(function (e) {
         var name = jQuery(this).attr('name');
         var status = jQuery(this).val();
         var wpdir = jQuery('[name="wpdir"]').val();
+        var activeNumId='#'+ jQuery(this).closest('.widget-panel').find('span').attr('id');
         var obj = {};
         obj[name] = status;
         var formData = {wpdir: wpdir, widgetid: name};
@@ -100,7 +101,19 @@ jQuery('document').ready(function (e) {
             url: pd.pluginUrl,
             data: formData,
             success: function (text) {
-                jQuery("#msg").html(text);
+                //location.reload();
+
+                var n=jQuery(activeNumId).html();
+                if(status=='enable'){
+                    n++;
+                }else{
+                    if(n>0) {
+                        n--;
+                    }
+                }
+                jQuery(activeNumId).html(n);
+
+                //jQuery("#msg").html(text);
             }
 
         });

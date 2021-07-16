@@ -81,6 +81,17 @@ function display_widget($widgets, $type) {
         }
     }
 }
+function getCount($widgetId, $type) {
+    $widgets=self::get_widgets_type($widgetId,$type,False);
+    $numEnabled=0;
+    foreach ($widgets as $i){
+        if($i['status']==true) {
+            $numEnabled++;
+            }
+    }
+    echo '(<span id="'.$type. 'Num">'.$numEnabled. '</span>/'. count($widgets). ')';
+
+}
 function widgetItem(){?>
         <a href="#" id="addWidget" class="widgets-items">
         <div class="widget-wrap">
@@ -93,5 +104,6 @@ function widgetItem(){?>
 
 
 <?php }
+
 
 }

@@ -45,7 +45,12 @@
     <div stle='display:table;'>
         <input type='hidden' name='count' value='$num' id='count'>
         <div class="widget-panel">
-            <p class="widget-panelHeader">Default Widgets</p>
+            <p class="widget-panelHeader">Default Widgets
+                <?php
+                $retriever->getCount(get_option('widgetid'), "Default");
+                ?>
+            </p>
+
         <div class="widget-list">
             <?php
             $retriever->get_widgets_type(get_option('widgetid'), "Default",TRUE);
@@ -53,7 +58,11 @@
         </div>
         </div>
         <div class="widget-panel">
-            <p class="widget-panelHeader">Plugin Widgets</p>
+            <p class="widget-panelHeader">Plugin Widgets
+                <?php
+                $retriever->getCount(get_option('widgetid'), "Plugin");
+                ?>
+            </p>
         <div class="widget-list">
             <?php
             $retriever->get_widgets_type(get_option('widgetid'), "Plugin",TRUE);
@@ -61,7 +70,12 @@
         </div>
         </div>
         <div class="widget-panel">
-            <p class="widget-panelHeader">Custom Widgets</p>
+            <p class="widget-panelHeader">Custom Widgets
+                <?php
+                $retriever->getCount(get_option('widgetid'), "Custom");
+                ?>
+            </p>
+
         <div class="widget-list">
             <?php
            $retriever->get_widgets_type(get_option('widgetid'), "Custom",TRUE);
