@@ -89,7 +89,7 @@ function getCount($widgetId, $type) {
             $numEnabled++;
             }
     }
-    echo '(<span id="'.$type. 'Num">'.$numEnabled. '</span>/'. count($widgets). ')';
+    echo '(<span name="activeNum" id="'.$type. 'Num">'.$numEnabled. '</span>/'. count($widgets). ')';
 
 }
 function widgetItem(){?>

@@ -27,37 +27,46 @@ If (isset($_POST['quickOp'])) {
             break;
         case 'disDefault':
             $widgets = get_option('widgetid');
-            $WidgetSetter->setAllWidget($widgets, TRUE);
+            //$WidgetSetter->setAllWidget($widgets, TRUE);
             $WidgetSetter->setByWidgetTypes($widgets, "Default", FALSE);
+            Update_option('defaultStatus',false);
             break;
         case 'enbDefault':
             $widgets = get_option('widgetid');
-            $WidgetSetter->setAllWidget($widgets, TRUE);
-            $WidgetSetter->setByWidgetTypes($widgets, "Plugin", FALSE);
-            $WidgetSetter->setByWidgetTypes($widgets, "Custom", FALSE);
+            //$WidgetSetter->setAllWidget($widgets, TRUE);
+            //$WidgetSetter->setByWidgetTypes($widgets, "Plugin", FALSE);
+            //$WidgetSetter->setByWidgetTypes($widgets, "Custom", FALSE);
+            $WidgetSetter->setByWidgetTypes($widgets, "Default", TRUE);
+            Update_option('defaultStatus',true);
             break;
         case 'enbCust':
             $widgets = get_option('widgetid');
-            $WidgetSetter->setAllWidget($widgets, TRUE);
-            $WidgetSetter->setByWidgetTypes($widgets, "Default", FALSE);
-            $WidgetSetter->setByWidgetTypes($widgets, "Plugin", FALSE);
+            //$WidgetSetter->setAllWidget($widgets, TRUE);
+            //$WidgetSetter->setByWidgetTypes($widgets, "Default", FALSE);
+            //$WidgetSetter->setByWidgetTypes($widgets, "Plugin", FALSE);
+            $WidgetSetter->setByWidgetTypes($widgets, "Custom", TRUE);
+            Update_option('custStatus',TRUE);
             break;
         case 'disCust':
             $widgets = get_option('widgetid');
-            $WidgetSetter->setAllWidget($widgets, TRUE);
+            //$WidgetSetter->setAllWidget($widgets, TRUE);
             $WidgetSetter->setByWidgetTypes($widgets, "Custom", FALSE);
+            Update_option('custStatus',FALSE);
             break;
         case 'enbPlugin':
             $widgets = get_option('widgetid');
-            $WidgetSetter->setAllWidget($widgets, TRUE);
-            $WidgetSetter->setByWidgetTypes($widgets, "Default", FALSE);
-            $WidgetSetter->setByWidgetTypes($widgets, "Custom", FALSE);
+            //$WidgetSetter->setAllWidget($widgets, TRUE);
+            //$WidgetSetter->setByWidgetTypes($widgets, "Default", FALSE);
+            //$WidgetSetter->setByWidgetTypes($widgets, "Custom", FALSE);
+            $WidgetSetter->setByWidgetTypes($widgets, "Plugin", True);
+            Update_option('pluginStatus',true);
 
             break;
         case 'disPlugin':
             $widgets = get_option('widgetid');
-            $WidgetSetter->setAllWidget($widgets, TRUE);
+            //$WidgetSetter->setAllWidget($widgets, TRUE);
             $WidgetSetter->setByWidgetTypes($widgets, "Plugin", FALSE);
+            Update_option('pluginStatus',false);
             break;
         case 'pick':
             return;

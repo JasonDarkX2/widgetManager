@@ -91,7 +91,7 @@ jQuery('document').ready(function (e) {
         var name = jQuery(this).attr('name');
         var status = jQuery(this).val();
         var wpdir = jQuery('[name="wpdir"]').val();
-        var activeNumId='#'+ jQuery(this).closest('.widget-panel').find('span').attr('id');
+        var activeNumId='#'+ jQuery(this).closest('.widget-panel').find('span[name="activeNum"]').attr('id');
         var obj = {};
         obj[name] = status;
         var formData = {wpdir: wpdir, widgetid: name};
@@ -118,6 +118,40 @@ jQuery('document').ready(function (e) {
 
         });
     });
+
+    jQuery('.header.switch input:checkbox').click(function (e){
+        var type= jQuery(this).attr('name');
+        var status= jQuery(this).is(':checked');
+        var formurl = wmform.attr('action');
+        var action;
+        if(status==true){
+            //formurl= formurl+"?quickOp=enb"+type;
+            action="enb"+type;
+        }else{
+            //formurl= formurl+"?quickOp=dis"+type;
+            action="dis"+type;
+        }
+        var wpdir = jQuery('[name="wpdir"]').val();
+        var formData = {wpdir: wpdir, quickOp: action };
+        jQuery.ajax({
+            type: 'post',
+            url: formurl,
+            data: formData,
+            success: function (XMLHttpRequest, data, textStatus) {
+                notification = XMLHttpRequest;
+                location.reload();
+                localStorage['notification'] = '';
+                localStorage['notification'] = '<strong>' + notification + '</strong>';
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('bad');
+            }
+        });
+    });
+
+
+
+
 //debug JS scripts
     jQuery('#debug').click(function (e) {
         e.preventDefault();

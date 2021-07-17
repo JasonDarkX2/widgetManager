@@ -100,6 +100,9 @@ class widget_manager {
         register_setting('WM-setting', 'widgetid');
         register_setting('WM-setting', 'custom-widget');
         register_setting('WM-setting', 'widgetdir');
+        register_setting('WM-setting', 'defaultStatus');
+        register_setting('WM-setting', 'pluginStatus');
+        register_setting('WM-setting', 'custStatus');
     }
     static function Widget_manager_settings_page() {
         include(plugin_dir_path(__FILE__) . '/views/Manager.php');

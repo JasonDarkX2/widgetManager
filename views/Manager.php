@@ -24,28 +24,19 @@
     ?>
 </p>
 <form id="settingsop" method="POST" action="<?php echo plugins_url('controllers/widgetAction_controller.php', dirname(__FILE__)); ?>">
-    <div class="wm-controls">
-        <label for="quickOp">Bulk Action:</label>
-        <select name="quickOp">
-            <option value="">Select an Action</option>
-            <option value="enbwid"> Enable all widgets</option>
-            <option value="diswid"> Disable all widgets</option>
-            <option value="enbDefault"> Enable default widgets Only</option>
-            <option value="disDefault"> Disable default widgets Only</option>
-            <option value="enbPlugin"> Enable Plugin widgets Only</option>
-            <option value="disPlugin"> Disable Plugin widgets Only</option>
-            <option value="enbCust">Enable Custom widgets Only</option>
-            <option value="disCust">Disable Custom widgets Only</option>
-        </select>
-        <input type="submit" value="Apply"/>
-    </div>
+
     <input type="hidden" name="wpdir" value="<?php echo basename(content_url()); ?>" />
     <?php settings_fields('WM-setting'); ?>
     <?php do_settings_sections('WM-setting'); ?>
     <div stle='display:table;'>
         <input type='hidden' name='count' value='$num' id='count'>
         <div class="widget-panel">
-            <p class="widget-panelHeader">Default Widgets
+            <p class="widget-panelHeader">
+                <label class=" header switch">
+                    <input type="checkbox" name="Default" <?php checked(get_option('defaultStatus'), true);?>>
+                    <span class="header slider round"></span>
+                </label>
+                Default Widgets
                 <?php
                 $retriever->getCount(get_option('widgetid'), "Default");
                 ?>
@@ -58,7 +49,12 @@
         </div>
         </div>
         <div class="widget-panel">
-            <p class="widget-panelHeader">Plugin Widgets
+            <p class="widget-panelHeader">
+                <label class=" header switch">
+                    <input type="checkbox" name="Plugin" <?php checked(get_option('pluginStatus'), true);?>>
+                    <span class="header slider round"></span>
+                </label>
+                Plugin Widgets
                 <?php
                 $retriever->getCount(get_option('widgetid'), "Plugin");
                 ?>
@@ -70,7 +66,12 @@
         </div>
         </div>
         <div class="widget-panel">
-            <p class="widget-panelHeader">Custom Widgets
+            <p class="widget-panelHeader">
+                <label class=" header switch">
+                    <input type="checkbox" name="Cust" <?php checked(get_option('custStatus'), true);?>>
+                    <span class="header slider round"></span>
+                </label>
+                Custom Widgets
                 <?php
                 $retriever->getCount(get_option('widgetid'), "Custom");
                 ?>
