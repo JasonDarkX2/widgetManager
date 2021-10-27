@@ -188,7 +188,7 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui
     text-align: center;
 border-bottom:solid 1px;
 }
-@media(min-width: 1024px) {
+@media(min-width: 1200px) {
     .m1{
         width: 32%;
     }

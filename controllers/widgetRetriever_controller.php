@@ -40,10 +40,8 @@ function get_widgets_type($widgets, $types, $display=FALSE) {
 function display_widget($widgets, $type) {
     if (count($widgets) == 0) {
         ?>
-        <div class="widgets-items">
-            <div class="switch-field">
-                No&nbsp;<?php echo $type; ?>&nbsp;widgets found
-            </div>
+        <div class="pure-u-1">
+            No&nbsp;<?php echo $type; ?>&nbsp;widgets found
         </div>
         <?php
     } else {
@@ -86,7 +84,7 @@ function getCount($widgetId, $type) {
 
 }
 function widgetItem(){?>
-        <a href="#" id="addWidget" class=" pure-u-1 widgets-items">
+        <a href="#" id="addWidget" class="pure-u-1  widgets-items">
         <div class="widget-wrap">
             <div class="circle"></div>
             <p class="bold">

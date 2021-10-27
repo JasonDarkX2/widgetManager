@@ -84,7 +84,7 @@
                 ?>
 
             </p>
-            <div class="widget-list">
+            <div class=" pure-u-1 widget-list">
                 <?php
                 $retriever->get_widgets_type(get_option('widgetid'), "Custom",TRUE);
                 $retriever->widgetItem();
