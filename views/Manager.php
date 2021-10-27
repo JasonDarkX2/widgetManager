@@ -2,15 +2,15 @@
 /*
  * Manager page for Wordpress Widget Manager plugin
  * Handles the displaying of widgets and their options
- * For more information check out: http://JasonDarkX2.com/ 
+ * For more information check out: http://JasonDarkX2.com/
  */
 ?>
 
     <div class="pure-g">
-        <div class="pure-u-1" style="text-align: center;">
+        <div class="pure-u-1 centeredText" >
         <h1> Widget Manager</h1>
         </div>
-        <div class="pure-u-1" style="text-align: center;">
+        <div class="pure-u-1 centeredText" >
             <p id="msg">
                 <?php
                 require_once  plugin_dir_path(dirname(__FILE__)).'controllers/widgetRetriever_controller.php';

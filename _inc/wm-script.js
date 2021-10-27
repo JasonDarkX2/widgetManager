@@ -4,34 +4,7 @@
  * For more information check out: http://JasonDarkX2.com/ 
  */
 jQuery('document').ready(function (e) {
-    if (localStorage['notification'] != localStorage['lastnote']) {
-        jQuery('#msg').html(localStorage['notification']);
-        localStorage['lastnote'] = localStorage['notification'];
-    } else {
-        jQuery('#msg').empty();
-        localStorage['lastnote'] = '';
-        localStorage['notification'] = '';
-    }
-    jQuery('.deleteWid').click(function (e) {
-        if (confirm("Are you Sure you want to delete?") == true) {
-            location.reload();
-            localStorage['notification'] = '<strong>' + response + '</strong>';
-        }
-    });
-    /*  var modal = document.getElementById('deleteModal');
-     jQuery('.deleteWid').click(function(e){
-         modal.style.display = "block";
-        e.preventDefault();
-       jQuery('.modal-content p').load(jQuery(this).attr('href'));
-     });
-     jQuery('.close').click(function(e) {
-     modal.style.display = "none";
- });
- window.onclick = function(event) {
-     if (event.target == modal) {
-         modal.style.display = "none";
-     }
- }*/
+
 
     jQuery('#addWidget').click(function (e) {
         jQuery("#dialog #addWidgetForm").dialog({

@@ -89,8 +89,7 @@ class widget_manager {
     static function widget_manager_create_menu() {
         self::$add_script = true;
         //create new top-level menu
-        add_menu_page('Widget Manager Settings', 'Widget Manager', 'administrator', 'widgetM', array(__CLASS__, 'Widget_manager_settings_page')
-                , plugins_url('_inc/img/WMIconHolder.png', __FILE__));
+        add_menu_page('Widget Manager Settings', 'Widget Manager', 'administrator', 'widgetM', array(__CLASS__, 'Widget_manager_settings_page'), plugins_url('_inc/img/WMIconHolder.png', __FILE__));
         add_submenu_page(NULL, 'credentials', 'credentials', 'administrator', 'credentials', array(__CLASS__, 'widgetManager_creds_page'));
         add_submenu_page(NULL, 'Action', 'Action', 'administrator', 'action', array(__CLASS__, 'widgetManager_action_page'));
         //call register settings function
@@ -107,15 +106,17 @@ class widget_manager {
         register_setting('WM-setting', 'custStatus');
     }
     static function Widget_manager_settings_page() {
+
         include(plugin_dir_path(__FILE__) . '/views/Manager.php');
     }
 
     static function WidgetManager_creds_page() {
+
         include(plugin_dir_path(__FILE__) . '/controllers/widgetAdder_controller.php');
     }
 }
 (new widget_manager)->init();
-
+/*
 if (WPWM_DEBUG == 1) {
     add_action('activated_plugin','my_save_error');
     function my_save_error()
@@ -123,4 +124,4 @@ if (WPWM_DEBUG == 1) {
         file_put_contents(dirname(__file__).'/error_activation.txt', ob_get_contents());
     }
 
-}
+}*/
