@@ -87,24 +87,25 @@ jQuery('document').ready(function (e) {
             jQuery('#widgetdir').val(defaults.defaultDir);
         }
     });
-    jQuery('.switch-field input:radio').click(function (e) {
+    jQuery('.widget-wrap input:checkbox').click(function (e) {
         var name = jQuery(this).attr('name');
-        var status = jQuery(this).val();
+        var status = jQuery(this).is(':checked');
         var wpdir = jQuery('[name="wpdir"]').val();
-        var activeNumId='#'+ jQuery(this).closest('.widget-panel').find('span[name="activeNum"]').attr('id');
+        var activeNumId='#'+ jQuery(this).closest('#widget-panel').find('span[name="activeNum"]').attr('id');
         var obj = {};
         obj[name] = status;
         var formData = {wpdir: wpdir, widgetid: name};
         formData[name] = status;
+
         jQuery.ajax({
             type: "POST",
             url: pd.pluginUrl,
             data: formData,
             success: function (text) {
                 //location.reload();
-
+                console.log(pd.pluginUrl);
                 var n=jQuery(activeNumId).html();
-                if(status=='enable'){
+                if(status=='1'){
                     n++;
                 }else{
                     if(n>0) {

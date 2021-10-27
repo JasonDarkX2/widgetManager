@@ -49,33 +49,26 @@ function display_widget($widgets, $type) {
     } else {
         foreach ($widgets as $widget) {
             ?>
-            <div class="widgets-items">
-                <div class="widget-wrap">
-                <strong><?php echo $widget['name']; ?></strong>
 
-                <br/> <?php echo $widget['Description']; ?>
-                <div class="switch-field">
-                    <input type='hidden' name='widgetid[]' value='<?php echo $widget['key'] ?>' id='widgetId'> 
-                    <input type="radio" id="switch_left_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="enable" <?php checked($widget['status'], true); ?>/>
-                    <label for="switch_left_<?php echo $widget['key']; ?>">Enable</label>
-                    <input type="radio" id="switch_right_<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>" value="disable" <?php checked($widget['status'], false); ?>/>
-                    <label for="switch_right_<?php echo $widget['key']; ?>">Disable</label>
-                    <br/>
-                    <?php if ($type == "Custom") { ?>
-                        <br/><a class="deleteWid" href="<?php
-                           $name = 'delete-' . $widget['key'];
-                           $url = menu_page_url('credentials', FALSE) . '&w=' . $widget['key'] . '&op=del';
-                           // modal version 
-                          //$url = plugins_url( '/controllers/widgetAdder_controller.php',  dirname(__FILE__)) . '?w=' . $widget['key'] . '&op=del';
-                           echo wp_nonce_url($url, $name);
-                           ?>" title="delete <?php echo $widget['name']; ?>">Delete Widget</a>       
-                       <?php }
-                       ?>
-
-                </div>
-            </div>
-            <div>
-            </div>
+            <div class=" pure-u-xl-8-24 m1  pure-u-sm-1 pure-u-1 widgets-items">
+                <strong><?php echo $widget['name'];?></strong>
+                <br/>
+                <?php echo $widget['Description']; ?>
+                <br/>
+                <label class="widget-wrap switch">
+                    <input type="checkbox" id="<?php echo $widget['key']; ?>" name="<?php echo $widget['key']; ?>"<?php checked($widget['status'], true); ?>/>
+                    <span class="slider round"></span>
+            </label>
+                <?php if ($type == "Custom") { ?>
+                    <br/><a class="deleteWid" href="<?php
+                    $name = 'delete-' . $widget['key'];
+                    $url = menu_page_url('credentials', FALSE) . '&w=' . $widget['key'] . '&op=del';
+                    // modal version
+                    //$url = plugins_url( '/controllers/widgetAdder_controller.php',  dirname(__FILE__)) . '?w=' . $widget['key'] . '&op=del';
+                    echo wp_nonce_url($url, $name);
+                    ?>" title="delete <?php echo $widget['name']; ?>">Delete</a>
+                <?php }
+                ?>
             </div>
             <?php
         }
@@ -93,7 +86,7 @@ function getCount($widgetId, $type) {
 
 }
 function widgetItem(){?>
-        <a href="#" id="addWidget" class="widgets-items">
+        <a href="#" id="addWidget" class=" pure-u-1 widgets-items">
         <div class="widget-wrap">
             <div class="circle"></div>
             <p class="bold">
