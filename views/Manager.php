@@ -97,10 +97,13 @@
                     include(plugin_dir_path(dirname(__FILE__) ) . 'debug/debugView.php' );
                 }
                 ?></div>
-            <div style="float:right;clear:both; text-align:right; vertical-align:top;"><a href="#">Go to top</a></div>
+
     </div>
         </div><!-- End Panel#3 !-->
         </form>
+
+    <div class="pure-u-1 centeredText"><a href="#" title="Go to Top"> Go to Top</a>
+</div>
     </div><!-- end of grid!-->
 
 

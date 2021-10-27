@@ -459,3 +459,7 @@ a.deleteWid {
 #addWidget{
     min-height: auto;
 }
+
+ .centeredText{
+     text-align: center;
+ }
