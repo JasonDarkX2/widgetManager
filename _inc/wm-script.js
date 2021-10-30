@@ -98,12 +98,19 @@ jQuery('document').ready(function (e) {
         var status= jQuery(this).is(':checked');
         var formurl = wmform.attr('action');
         var action;
+        var childDom=jQuery(this).closest('#widget-panel').find(':checkbox');
+        var activeNumId='#'+ jQuery(this).closest('#widget-panel').find('span[name="activeNum"]').attr('id');
         if(status==true){
             //formurl= formurl+"?quickOp=enb"+type;
             action="enb"+type;
+            childDom.prop('checked','true');
+            jQuery(activeNumId).html(childDom.length-1);
+
         }else{
             //formurl= formurl+"?quickOp=dis"+type;
             action="dis"+type;
+            childDom.removeAttr('checked');
+            jQuery(activeNumId).html(0);
         }
         var wpdir = jQuery('[name="wpdir"]').val();
         var formData = {wpdir: wpdir, quickOp: action };
@@ -113,9 +120,11 @@ jQuery('document').ready(function (e) {
             data: formData,
             success: function (XMLHttpRequest, data, textStatus) {
                 notification = XMLHttpRequest;
-                location.reload();
+                sessionStorage.reloadAfterPageLoad = true;
+                //location.reload();
                 localStorage['notification'] = '';
                 localStorage['notification'] = '<strong>' + notification + '</strong>';
+                jQuery('#msg').html('<strong>' + notification + '</strong>');
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert('bad');
