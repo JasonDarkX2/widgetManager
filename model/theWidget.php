@@ -39,8 +39,9 @@ function getCustomWidgets($dir) {
     }
 
     foreach ($cdir as $d) {
-        if ($d == "." || $d == ".." || $d == ".svn"|| ".md") {
-            continue;
+
+        if ($d == "." || $d == ".." || $d == ".svn" || $d == "README.md") {
+         continue;
         }
         if (is_dir($widgetdir . '/' . $d) == TRUE) {
             $dirFile = scandir($widgetdir . '/' . $d);
