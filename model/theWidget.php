@@ -39,7 +39,7 @@ function getCustomWidgets($dir) {
     }
 
     foreach ($cdir as $d) {
-        if ($d == "." || $d == ".." || $d == ".svn") {
+        if ($d == "." || $d == ".." || $d == ".svn"|| ".md") {
             continue;
         }
         if (is_dir($widgetdir . '/' . $d) == TRUE) {
