@@ -193,7 +193,11 @@ border-bottom:solid 1px;
         width: 32%;
     }
 }
-
+@media(max-width:1650px){
+    #widget-panel.pure-u-xl-1-3 {
+        width: 100%;
+    }
+}
 
 
 /* The Modal (background) */
