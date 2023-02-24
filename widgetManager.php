@@ -90,8 +90,6 @@ class widget_manager {
         self::$add_script = true;
         //create new top-level menu
         add_menu_page('Widget Manager Settings', 'Widget Manager', 'administrator', 'widgetM', array(__CLASS__, 'Widget_manager_settings_page'), plugins_url('_inc/img/WMIconHolder.png', __FILE__));
-        add_submenu_page(NULL, 'credentials', 'credentials', 'administrator', 'credentials', array(__CLASS__, 'widgetManager_creds_page'));
-        add_submenu_page(NULL, 'Action', 'Action', 'administrator', 'action', array(__CLASS__, 'widgetManager_action_page'));
         //call register settings function
         add_action('admin_init', array(__CLASS__, 'register_widget_manager_settings'));
     }
@@ -110,10 +108,6 @@ class widget_manager {
         include(plugin_dir_path(__FILE__) . '/views/Manager.php');
     }
 
-    static function WidgetManager_creds_page() {
-
-        include(plugin_dir_path(__FILE__) . '/controllers/widgetAdder_controller.php');
-    }
 }
 (new widget_manager)->init();
 /*
