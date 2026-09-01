@@ -335,13 +335,14 @@ class WidgetController
                     file_put_contents($mainScriptFile, '');
                 }
             }catch(Exception $e){
+                if ( current_user_can( 'manage_options' ) ) {
                 echo'<div class="errorNotfi" style="margin-left: 179px;">
                 <strong>Permission Error:</strong> <br/>
-                Please use the following command:<br/> <strong>sudo chown -R ' .
-                    'www-data:www-data ' ." "
+                Please check directory permissions for ' .
                     . plugin_dir_path(dirname(__FILE__)) . 'cwScript/</strong>'.
                     "</div>";
                 ;
+                }
                 return false;
             }
 
