@@ -24,6 +24,7 @@ class WidgetController
      */
     function load_widgets()
     {
+        $widgetsId=[];
         $widgetsId = get_option('widgetid');
         $widgets = array_keys($GLOBALS['wp_widget_factory']->widgets);
         $w = ($GLOBALS['wp_widget_factory']->widgets);
@@ -337,11 +338,9 @@ class WidgetController
             }catch(Exception $e){
                 if ( current_user_can( 'manage_options' ) ) {
                 echo'<div class="errorNotfi" style="margin-left: 179px;">
-                <strong>Permission Error:</strong> <br/>
-                Please check directory permissions for ' .
-                    . plugin_dir_path(dirname(__FILE__)) . 'cwScript/</strong>'.
-                    "</div>";
-                ;
+                <strong>Permission Error:</strong> <br/>' .
+                'Please check directory permissions for '.
+                plugin_dir_path(dirname(__FILE__)) . 'cwScript/</strong></div>';
                 }
                 return false;
             }
