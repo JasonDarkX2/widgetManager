@@ -14,7 +14,7 @@ $wid = get_option('widgetid');
 $WidgetSetter = new WidgetSetter();
 $enablecon = 0;
 $disabledcon = 0;
-$widgets = $_POST['widgetid'];
+$widgets = (isset($_POST['widgetid'])) ? $_POST['widgetid'] : [] ;
 If (isset($_POST['quickOp'])) {
     switch ($_POST['quickOp']) {
         case 'enbwid':
