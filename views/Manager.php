@@ -30,7 +30,27 @@
             </p>
         </div>
         <form id="settingsop" method="POST"  action="<?php echo plugins_url('controllers/widgetAction_controller.php', dirname(__FILE__)); ?>">
-            <input type="hidden" name="wpdir" value="<?php echo basename(content_url()); ?>" />
+       <div class="wm-controls">
+        <label for="quickOp">Bulk Action:</label>
+        <select name="quickOp">
+            <option value="">Select an Action</option>
+            <option value="enbwid"> Enable all widgets</option>
+            <option value="diswid"> Disable all widgets</option>
+            <option value="enbDefault"> Enable default widgets Only</option>
+            <option value="disDefault"> Disable default widgets Only</option>
+            <option value="enbPlugin"> Enable Plugin widgets Only</option>
+            <option value="disPlugin"> Disable Plugin widgets Only</option>
+            <option value="enbCust">Enable Custom widgets Only</option>
+            <option value="disCust">Disable Custom widgets Only</option>
+        </select>
+        <input type="submit" value="Apply"/>
+        
+        <a href="#"> Get more Custom Widgets</a>|
+        <a href="#" id="addWidget"> Add/import new Custom Widgets</a>|
+        <a href="#" id="customWidgetDir"> Change Custom Widgets Directory</a>
+
+    </div>
+        <input type="hidden" name="wpdir" value="<?php echo basename(content_url()); ?>" />
             <?php settings_fields('WM-setting'); ?>
             <?php do_settings_sections('WM-setting'); ?>
         <!-- Panel#1 !-->

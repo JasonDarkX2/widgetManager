@@ -71,7 +71,7 @@ class widget_manager {
                if($hook != 'toplevel_page_widgetM') {
                 return;
         }
-        wp_enqueue_style('purecss-core', 'https://unpkg.com/purecss@2.0.6/build/pure-min.css');
+        // CHECK THIS SCRIPT wp_enqueue_style('purecss-core', 'https://unpkg.com/purecss@2.0.6/build/pure-min.css');
         wp_enqueue_style('purecss-responsive', 'https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css');
         wp_enqueue_style('wm-style', plugins_url('_inc/style.css', __FILE__));
         wp_enqueue_style('ui-style', 'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
