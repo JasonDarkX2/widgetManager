@@ -244,39 +244,6 @@ border-bottom:solid 1px;
     display: inline-block;
 }
 
-
-.circle {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    background-color: rgb(44, 108, 128);
-    position: relative;
-    margin: 5px auto 0;
-}
-.circle::after {
-    content: " ";
-    position: absolute;
-    display: block;
-    background-color: #fff;
-    height: 10px;
-    margin-top: -5px;
-    top: 50%;
-    left: 5px;
-    right: 5px;
-    z-index: 9;
-}
-.circle::before {
-    content: " ";
-    position: absolute;
-    display: block;
-    background-color: #fff;
-    width: 10px;
-    margin-left: -5px;
-    left: 50%;
-    top: 5px;
-    bottom: 5px;
-    z-index: 9;
-}
 .bold{
     font-weight: bold;
 }

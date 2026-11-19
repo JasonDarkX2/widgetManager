@@ -2,10 +2,11 @@
 /*
     the controller for adding/deleting Widgets for Wordpress Widget Manager
  */
+
 ?>
 <div class="wrap">      
     <?php
-        require_once  plugin_dir_path(dirname(__FILE__)).'model/widgetAdder.php';
+        require_once   dirname(__DIR__) .'/model/widgetAdder.php';
         $widgetAdder= new WidgetAdder();
     if (isset($_POST['op'])) {
         $op = $_POST['op'];

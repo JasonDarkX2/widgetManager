@@ -1,6 +1,7 @@
 <!-- The Modal -->
 <div id="dialog" hidden="true">
-    <form id="addWidgetForm" method="POST" action="<?php menu_page_url('credentials'); ?>&op=add" enctype= "multipart/form-data">
+    <form id="addWidgetForm" method="POST" action="
+    <?php echo plugin_dir_url( __DIR__) . 'controllers/widgetAdder_controller.php?op=add'; ?>" enctype= "multipart/form-data">
         <p>Add or Import your Custom widgets below.... </p>
         <input type="file" name="widgetToUpload" id="widgetToUpload" accept=".php,.zip">
         <input type="hidden" id="wpdir" name="wpdir" value="<?php echo basename(content_url()); ?>" />

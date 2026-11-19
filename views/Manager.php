@@ -45,7 +45,6 @@
         </select>
         <input type="submit" value="Apply"/>
         
-        <a href="#"> Get more Custom Widgets</a>|
         <a href="#" id="addWidget"> Add/import new Custom Widgets</a>|
         <a href="#" id="customWidgetDir"> Change Custom Widgets Directory</a>
 
@@ -107,7 +106,7 @@
             <div class=" pure-u-1 widget-list">
                 <?php
                 $retriever->get_widgets_type(get_option('widgetid'), "Custom",TRUE);
-                $retriever->widgetItem();
+                //$retriever->widgetItem();
                 ?>
             </div>
         </div>

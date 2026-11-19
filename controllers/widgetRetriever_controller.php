@@ -83,18 +83,5 @@ function getCount($widgetId, $type) {
     echo '(<span name="activeNum" id="'.$type. 'Num">'.$numEnabled. '</span>/'. count($widgets). ')';
 
 }
-function widgetItem(){?>
-        <a href="#" id="addWidget" class="pure-u-1  widgets-items">
-        <div class="widget-wrap">
-            <div class="circle"></div>
-            <p class="bold">
-                <?php echo "Add/import new Custom Widgets";?>
-            </p>
-            </div>
-        </a>
-
-
-<?php }
-
 
 }
