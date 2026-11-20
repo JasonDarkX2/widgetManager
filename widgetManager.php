@@ -84,7 +84,10 @@ class widget_manager {
         wp_localize_script('wm-script', 'url', $translation_array);
         $translation_array = array('pluginUrl' => plugins_url('/controllers/widgetAction_controller.php', __FILE__));
         wp_localize_script('wm-script', 'pd', $translation_array);
-    }
+    wp_localize_script('wm-script', 'widgetManagerAjax', array(
+        'ajax_url' => admin_url('admin-ajax.php')
+    ));
+        }
 
     static function widget_manager_create_menu() {
         self::$add_script = true;
@@ -119,3 +122,18 @@ if (WPWM_DEBUG == 1) {
     }
 
 }*/
+
+// Hook for logged-in users
+add_action('wp_ajax_upload_custom_widget', 'handle_upload_custom_widget');
+
+function handle_upload_custom_widget() {
+    // Optional: check user permissions
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error('Unauthorized', 403);
+    }
+
+    require_once plugin_dir_path(__FILE__) . 'controllers/widgetAdder_controller.php';
+    
+    // Always terminate WordPress AJAX handlers properly
+    wp_die(); 
+}

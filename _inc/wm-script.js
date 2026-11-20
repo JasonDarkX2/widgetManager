@@ -6,28 +6,53 @@
 jQuery('document').ready(function (e) {
 
 
-    jQuery('#addWidget').click(function (e) {
-        jQuery("#dialog #addWidgetForm").dialog({
-            title: "Add/Import new Custom Widgets",
-            modal: true,
-            draggable: true,
-            resizable: false,
-            width: 800,
-            height: 240,
-            show: 'blind',
-            hide: 'blind',
-            dialogClass: 'ui-dialog',
-            position: {my: 'center', at: 'center'},
-            buttons: {
-                "Upload ": function (ex) {
-                    jQuery('#addWidgetForm').submit();
-                },
-                Cancel: function () {
-                    jQuery(this).dialog("close");
-                },
+  jQuery('#addWidget').click(function (e) {
+    jQuery("#dialog #addWidgetForm").dialog({
+        title: "Add/Import new Custom Widgets",
+        modal: true,
+        draggable: true,
+        resizable: false,
+        width: 800,
+        height: 240,
+        show: 'blind',
+        hide: 'blind',
+        dialogClass: 'ui-dialog',
+        position: { my: 'center', at: 'center' },
+        buttons: {
+            "Upload ": function (ex) {
+                ex.preventDefault();
+                //alert(widgetManagerAjax.ajax_url);
+                var formElement = jQuery('#addWidgetForm')[0];
+                const formData = new FormData(formElement);
+                formData.append('action', 'upload_custom_widget');
+                formData.append('op', 'add');
+                var formurl = jQuery('#addWidgetForm').attr('action');
+                jQuery.ajax({
+                    url: formurl,
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        //alert(response);
+                        notification = response;
+                //location.reload();
+                localStorage['notification'] = '';
+                localStorage['notification'] = '<strong>' + notification + '</strong>';
+             ex.preventDefault();
+                jQuery('#msg').html('<strong>' + notification + '</strong>');      
+            },
+                    error: function (xhr, status, error) {
+                        alert('upload failed: ' + error);
+                    }
+                });
+            },
+            Cancel: function () {
+                jQuery(this).dialog("close");
             }
-        });
+        }
     });
+});
     jQuery('#addWidget').click(function (e) {
         jQuery("#addWidgetForm").dialog('open');
     });

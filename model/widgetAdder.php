@@ -11,13 +11,21 @@ class WidgetAdder{
     }
     function connect_fs($url, $method, $context, $fields = null) {
     global $wp_filesystem;
-    if (false === ($credentials = request_filesystem_credentials($url, $method, false, $context, $fields))) {
+
+    // Ensure filesystem functions are loaded
+    if ( ! function_exists( 'request_filesystem_credentials' ) ) {
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+    }
+
+    $credentials = request_filesystem_credentials( $url, $method, false, $context, $fields );
+
+    if ( false === $credentials ) {
         return false;
     }
 
-    //check if credentials are correct or not.
-    if (!WP_Filesystem($credentials) || $_POST['password'] == NULL) {
-        request_filesystem_credentials($url, $method, true, $context, $fields);
+    // Only prompt again if WP_Filesystem() actually fails to initialize
+    if ( ! WP_Filesystem( $credentials ) ) {
+        request_filesystem_credentials( $url, $method, true, $context, $fields );
         return false;
     }
 
@@ -60,7 +68,7 @@ function add_widget($fileName, $tempName) {
         $name = $_SESSION['name'];
     }
     if ($_POST['file'] == null) {
-                $zipDestination = $dest['basedir'] . $fileName;
+                $zipDestination = trailingslashit( $dest['basedir'] ) . $fileName;
         move_uploaded_file($tempName, $zipDestination);
          $zipDestination=str_replace('\\', '/',$zipDestination);//slash corection if nessary
         $_POST['file'] =  $zipDestination;

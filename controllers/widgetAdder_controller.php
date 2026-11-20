@@ -2,7 +2,9 @@
 /*
     the controller for adding/deleting Widgets for Wordpress Widget Manager
  */
-
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
 ?>
 <div class="wrap">      
     <?php
