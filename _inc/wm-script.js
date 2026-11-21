@@ -5,8 +5,18 @@
  */
 jQuery('document').ready(function (e) {
 
+// Check if an upload notification was saved before the page reloaded
+    if (localStorage.getItem('notification')) {
+        jQuery('#msg').html(localStorage.getItem('notification'));
+        
+        // Remove it so it doesn't show again on future manual refreshes
+        localStorage.removeItem('notification');
+    }
+
 
   jQuery('#addWidget').click(function (e) {
+    e.preventDefault();
+
     jQuery("#dialog #addWidgetForm").dialog({
         title: "Add/Import new Custom Widgets",
         modal: true,
@@ -21,12 +31,17 @@ jQuery('document').ready(function (e) {
         buttons: {
             "Upload ": function (ex) {
                 ex.preventDefault();
-                //alert(widgetManagerAjax.ajax_url);
-                var formElement = jQuery('#addWidgetForm')[0];
+
+                // 'this' IS the #addWidgetForm inside the dialog
+                var $form = jQuery(this);
+                var formElement = $form[0];
                 const formData = new FormData(formElement);
                 formData.append('action', 'upload_custom_widget');
                 formData.append('op', 'add');
-                var formurl = jQuery('#addWidgetForm').attr('action');
+
+                // Fallback to ajaxurl if the form's action attribute is empty
+                var formurl = $form.attr('action') || ajaxurl;
+
                 jQuery.ajax({
                     url: formurl,
                     type: 'POST',
@@ -34,16 +49,16 @@ jQuery('document').ready(function (e) {
                     processData: false,
                     contentType: false,
                     success: function (response) {
-                        //alert(response);
-                        notification = response;
-                //location.reload();
-                localStorage['notification'] = '';
-                localStorage['notification'] = '<strong>' + notification + '</strong>';
-             ex.preventDefault();
-                jQuery('#msg').html('<strong>' + notification + '</strong>');      
-            },
+                        // 1. Store notification BEFORE reloading
+                        localStorage['notification'] = '<strong>' + response + '</strong>';
+
+                        // 2. Close dialog immediately (skip hide animation) & reload
+                        $form.dialog("option", "hide", null);
+                        $form.dialog("close");
+                        window.location.href = window.location.href;
+                    },
                     error: function (xhr, status, error) {
-                        alert('upload failed: ' + error);
+                        alert('Upload failed: ' + error);
                     }
                 });
             },

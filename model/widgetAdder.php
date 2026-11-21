@@ -9,6 +9,7 @@ class WidgetAdder{
         function __construct() {
         
     }
+    
     function connect_fs($url, $method, $context, $fields = null) {
     global $wp_filesystem;
 
@@ -18,14 +19,13 @@ class WidgetAdder{
     }
 
     $credentials = request_filesystem_credentials( $url, $method, false, $context, $fields );
-
     if ( false === $credentials ) {
         return false;
     }
 
     // Only prompt again if WP_Filesystem() actually fails to initialize
     if ( ! WP_Filesystem( $credentials ) ) {
-        request_filesystem_credentials( $url, $method, true, $context, $fields );
+        //request_filesystem_credentials( $url, $method, true, $context, $fields );
         return false;
     }
 
@@ -64,30 +64,92 @@ function delete_widget($widgetId,$wpDir) {
 
 function add_widget($fileName, $tempName) {
     $dest = wp_upload_dir();
-    if ($fileName == null) {
-        $name = $_SESSION['name'];
+    $form_fields = array('file', 'name');
+
+    if ($fileName == null && isset($_SESSION['name'])) {
+        $fileName = $_SESSION['name'];
     }
-    if ($_POST['file'] == null) {
-                $zipDestination = trailingslashit( $dest['basedir'] ) . $fileName;
-        move_uploaded_file($tempName, $zipDestination);
-         $zipDestination=str_replace('\\', '/',$zipDestination);//slash corection if nessary
-        $_POST['file'] =  $zipDestination;
-        $_POST['name'] = $fileName;
-        $form_fields = array('file','name');
-    }
-    if (self::connect_fs('', "POST", get_option('widgetdir'), $form_fields)) {
-        $destination = get_option('widgetdir') . $fileName;
-        $file = $_POST['file'];
-        $unzip = unzip_file($file, $destination);
-        if (is_wp_error($unzip)) {
-            $_SESSION['errors'] = ' <div class="errorNotfi">' . $unzip->get_error_message() . '</div>';
-        } else {
-            $_SESSION['errors'] = NULL;
+
+    // 1. Validate file extension on initial upload
+    if (empty($_POST['file'])) {
+        $safeFileName = sanitize_file_name($fileName);
+        $fileExt = strtolower(pathinfo($safeFileName, PATHINFO_EXTENSION));
+
+        if (!in_array($fileExt, array('zip', 'php'), true)) {
+            $_SESSION['errors'] = ' <div class="errorNotfi">Invalid file type. Only .zip and .php files are allowed.</div>';
+            return FALSE;
         }
-        unlink($file);
-           return TRUE;
+
+        $stagedDestination = trailingslashit($dest['basedir']) . $safeFileName;
+        move_uploaded_file($tempName, $stagedDestination);
+        $stagedDestination = str_replace('\\', '/', $stagedDestination); // slash correction if necessary
+
+        $_POST['file'] = $stagedDestination;
+        $_POST['name'] = $safeFileName;
     }
-    $_SESSION['name']=NULL;
+
+    // 2. Connect to WordPress Filesystem and process the file
+    if (self::connect_fs('', '', get_option('widgetdir'), $form_fields)) {
+        global $wp_filesystem;
+
+        $file        = $_POST['file'];
+        $storedName  = $_POST['name'];
+        $fileExt     = strtolower(pathinfo($storedName, PATHINFO_EXTENSION));
+        $widgetDir   = trailingslashit(get_option('widgetdir'));
+        $destination = $widgetDir . $storedName;
+
+        // 3. Check if the file or folder already exists before unzipping or moving
+        if ($wp_filesystem->exists($destination)) {
+            $_SESSION['errors'] = ' <div class="errorNotfi">A widget named "' . esc_html($storedName) . '" already exists.</div>';
+            
+            if (file_exists($file)) {
+                unlink($file);
+            }
+            
+            $_SESSION['name'] = NULL;
+            return FALSE;
+        }
+
+        if ($fileExt === 'zip') {
+            $result = unzip_file($file, $destination);
+
+            if (is_wp_error($result)) {
+                $_SESSION['errors'] = ' <div class="errorNotfi">' . $result->get_error_message() . '</div>';
+                if (file_exists($file)) {
+                    unlink($file);
+                }
+                $_SESSION['name'] = NULL;
+                return FALSE;
+            } else {
+                $_SESSION['errors'] = NULL;
+            }
+        } elseif ($fileExt === 'php') {
+            // Set 3rd param to false so it does not overwrite existing files
+            $moved = $wp_filesystem->move($file, $destination, false);
+
+            if (!$moved) {
+                $_SESSION['errors'] = ' <div class="errorNotfi">Failed to move the PHP widget file to the widget directory.</div>';
+                if (file_exists($file)) {
+                    unlink($file);
+                }
+                $_SESSION['name'] = NULL;
+                return FALSE;
+            } else {
+                $_SESSION['errors'] = NULL;
+            }
+        }
+
+        // Remove the staged temporary file if it still exists
+        if (file_exists($file)) {
+            unlink($file);
+        }
+
+        $_SESSION['name'] = NULL;
+        return TRUE;
+    }
+
+    $_SESSION['name'] = NULL;
+    return FALSE;
 }
 
 function display_msg($output, $del) {
@@ -99,10 +161,8 @@ function display_msg($output, $del) {
     } else if (is_wp_error($output) && $output != NULL) {
         ?>
         <div class="errorNotfi"><?php $output->get_error_message(); ?></div>
-        <div><a href="<?php menu_page_url('cwop') ?>">Return to Custom Widgets Options</a>|<a href="<?php menu_page_url('widgetM') ?>">Return to Widgets Manager</a></div>
     <?php } else { ?>
         <div class="errorNotfi"> Unable to perform action</div>
-        <div><a href="<?php menu_page_url('cwop') ?>">Return to Custom Widgets Options</a>|<a href="<?php menu_page_url('widgetM') ?>">Return to Widgets Manager</a></div>
         <?php
     }
 }

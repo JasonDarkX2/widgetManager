@@ -23,9 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                 $proceed=$widgetAdder->add_widget($fileName,$_FILES['widgetToUpload']["tmp_name"]);
             if($proceed==TRUE && !empty($proceed)){
                 ?>
-               <div class="notfi">Successfully unzipped: <?php  echo $fileName; ?></div>
+               <div class="notfi">Widget uploaded successfully!</div>
                <br>
-           <a href="<?php menu_page_url('widgetM');  ?>">Return to Widget Manager</a>|<a href="#">Another option</a></div>
                <?php
             }
             break;
@@ -36,7 +35,6 @@ if ( ! defined( 'ABSPATH' ) ) {
                 ?>
                <div class="notfi">Successfully  deleted <?php  echo $_GET['w']; ?></div>
                <br>
-           <a href="<?php menu_page_url('widgetM');  ?>">Return to Widget Manager</a>|<a href="#">Another option</a></div>
            <?php
             }
             break;

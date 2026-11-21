@@ -123,17 +123,29 @@ if (WPWM_DEBUG == 1) {
 
 }*/
 
-// Hook for logged-in users
 add_action('wp_ajax_upload_custom_widget', 'handle_upload_custom_widget');
 
 function handle_upload_custom_widget() {
-    // Optional: check user permissions
     if (!current_user_can('manage_options')) {
         wp_send_json_error('Unauthorized', 403);
     }
 
+    // Ensure session is active so $_SESSION['errors'] can be read
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // Clear any stale errors from previous requests
+    $_SESSION['errors'] = null;
+
     require_once plugin_dir_path(__FILE__) . 'controllers/widgetAdder_controller.php';
-    
+
+    // Output the error set inside add_widget()
+    if (!empty($_SESSION['errors'])) {
+        echo $_SESSION['errors'];
+        $_SESSION['errors'] = null;
+    } 
+
     // Always terminate WordPress AJAX handlers properly
-    wp_die(); 
+    wp_die();
 }
