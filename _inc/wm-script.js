@@ -75,26 +75,32 @@ jQuery('document').ready(function (e) {
         jQuery("#addWidgetForm").dialog('open');
     });
 
-// perform widget deletion     
+// perform deletion     
 jQuery(document).on('click', '#deleteWidget', function (e) {
     e.preventDefault();
 
-    // Ask for confirmation before proceeding
     if (!confirm('Are you sure you want to delete this widget?')) {
         return;
     }
 
-    // 1. Parse parameters directly from the clicked <a> tag
     const params = new URLSearchParams(this.search);
+    const widgetName = params.get('w');
+    const wpDir = params.get('wpdir');
 
-    // 2. Send standard POST request to WordPress admin-ajax.php
+    // Stop immediately if the widget parameter is missing
+    if (!widgetName) {
+        alert('Error: No widget specified.');
+        return;
+    }
+
     jQuery.ajax({
-        url: ajaxurl, // Built-in global in WordPress admin
+        url: ajaxurl,
         type: 'POST',
         data: {
             action: 'upload_custom_widget',
-            w: params.get('w'),
-            op: params.get('op') || 'del',
+            w: widgetName,
+            wpdir: wpDir,
+            op: 'del',
             _wpnonce: params.get('_wpnonce')
         },
         success: function (response) {

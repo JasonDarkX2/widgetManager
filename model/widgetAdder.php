@@ -54,7 +54,7 @@ function delete_widget($widgetId,$wpDir) {
             $toDel = explode("/", $custwid[$widgetid]['file']);
             $del = $wdir . $toDel[0];
            if($wp_filesystem->rmdir($del, true)){
-            $_SESSION['errors'] = ' <div class="errorNotfi"> Deletion failed.</div>';
+            $_SESSION['errors'] = ' <div class="notfi"> Deletion successful.</div>';
                return TRUE;
            }
         }
