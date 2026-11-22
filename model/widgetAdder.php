@@ -43,7 +43,6 @@ function delete_widget($widgetId,$wpDir) {
         die();
         header('Location: ' . menu_page_url('widgetM') . '&del=true');
     }
-    //$url=plugin_dir_path(dirname(__FILE__)) . 'controllers/deli.php?widgetId='.$widgetId;
     if (self::connect_fs('', "", get_option('widgetdir'), $form_fields)) {
         //deletion  process
         global $wp_filesystem;
@@ -55,10 +54,13 @@ function delete_widget($widgetId,$wpDir) {
             $toDel = explode("/", $custwid[$widgetid]['file']);
             $del = $wdir . $toDel[0];
            if($wp_filesystem->rmdir($del, true)){
+            $_SESSION['errors'] = ' <div class="errorNotfi"> Deletion failed.</div>';
                return TRUE;
            }
         }
     } else {
+        $_SESSION['errors'] = ' <div class="errorNotfi">Connection Failed.</div>';
+        return false;
     }
 }
 
