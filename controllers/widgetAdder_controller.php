@@ -31,9 +31,9 @@ if ( ! defined( 'ABSPATH' ) ) {
         case 'del':
              $output=$widgetAdder->delete_widget($_GET['w'],$_GET['wpdir']);
             $_SESSION['deletion'] =$output;
-            if(!empty($output)){
+            if(empty($output)){
                 ?>
-               <div class="notfi">Successfully  deleted <?php  echo $_GET['w']; ?></div>
+               <div class="notfi"> Widget deleted</div>
                <br>
            <?php
             }

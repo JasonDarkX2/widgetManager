@@ -58,9 +58,9 @@ function display_widget($widgets, $type) {
                     <span class="slider round"></span>
             </label>
                 <?php if ($type == "Custom") { ?>
-                    <br/><a class="deleteWid" href="<?php
+                    <br/><a id="deleteWidget" class="deleteWid" href="<?php
                     $name = 'delete-' . $widget['key'];
-                    $url = menu_page_url('credentials', FALSE) . '&w=' . $widget['key'] . '&op=del';
+                    $url = esc_url(admin_url('admin-ajax.php')) . '?w=' . $widget['key'];
                     // modal version
                     //$url = plugins_url( '/controllers/widgetAdder_controller.php',  dirname(__FILE__)) . '?w=' . $widget['key'] . '&op=del';
                     echo wp_nonce_url($url, $name);

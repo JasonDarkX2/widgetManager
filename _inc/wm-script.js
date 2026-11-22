@@ -15,6 +15,7 @@ jQuery('document').ready(function (e) {
 
 
   jQuery('#addWidget').click(function (e) {
+    
     e.preventDefault();
 
     jQuery("#dialog #addWidgetForm").dialog({
@@ -68,9 +69,45 @@ jQuery('document').ready(function (e) {
         }
     });
 });
+
+// open dialog box 
     jQuery('#addWidget').click(function (e) {
         jQuery("#addWidgetForm").dialog('open');
     });
+
+// perform widget deletion     
+jQuery(document).on('click', '#deleteWidget', function (e) {
+    e.preventDefault();
+
+    // Ask for confirmation before proceeding
+    if (!confirm('Are you sure you want to delete this widget?')) {
+        return;
+    }
+
+    // 1. Parse parameters directly from the clicked <a> tag
+    const params = new URLSearchParams(this.search);
+
+    // 2. Send standard POST request to WordPress admin-ajax.php
+    jQuery.ajax({
+        url: ajaxurl, // Built-in global in WordPress admin
+        type: 'POST',
+        data: {
+            action: 'upload_custom_widget',
+            w: params.get('w'),
+            op: params.get('op') || 'del',
+            _wpnonce: params.get('_wpnonce')
+        },
+        success: function (response) {
+            localStorage.setItem('notification', '<strong>' + response + '</strong>');
+            location.reload();
+        },
+        error: function (xhr, status, error) {
+            alert('Delete failed: ' + error);
+        }
+    });
+});
+
+
     var wmform = e('#settingsop');
     wmform.submit(function (ex) {
         var formdata = wmform.serialize();
